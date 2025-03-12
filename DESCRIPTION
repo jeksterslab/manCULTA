@@ -1,0 +1,31 @@
+Package: manCULTA
+Title: Common and Unique Latent Transition Analysis (CULTA) as a Way to
+        Examine the Trait-State Dynamics of Alcohol Intoxication
+Version: 0.9.1
+Authors@R: c(
+    person(given = "Ivan Jacob Agaloos",
+           family = "Pesigan",
+           role = c("aut", "cre", "cph"),
+           email = "r.jeksterslab@gmail.com",
+           comment = c(ORCID = "0000-0003-4818-8420"))
+    )
+Description: Research compendium for the manuscript
+    Pesigan, I. J. A., Russell, M. A., Chow, S.-M. (Under Review).
+    Common and Unique Latent Transition Analysis (CULTA) as a Way to Examine the Trait-State Dynamics of Alcohol Intoxication.
+    <doi:10.0000/0000000000>.
+URL: https://github.com/jeksterslab/manCULTA,
+        https://jeksterslab.github.io/manCULTA/,
+        https://osf.io/gtdmr/?view_only=351d499977504acdb31948388d211372,
+        https://doi.org/10.0000/0000000000
+BugReports: https://github.com/jeksterslab/manCULTA/issues
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Depends: R (>= 3.5.0)
+Suggests: knitr, rmarkdown, testthat
+RoxygenNote: 7.3.2
+NeedsCompilation: no
+Packaged: 2025-03-12 03:37:50 UTC; root
+Author: Ivan Jacob Agaloos Pesigan [aut, cre, cph]
+    (<https://orcid.org/0000-0003-4818-8420>)
+Maintainer: Ivan Jacob Agaloos Pesigan <r.jeksterslab@gmail.com>
