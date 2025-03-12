@@ -1,0 +1,423 @@
+TITLE: CULTA;
+       3 Profiles;
+
+DATA:
+    FILE = __DATA__;
+
+VARIABLE:
+    NAMES = id
+        aud          ! audit
+        p0 r0 f0 d0  ! p? = peak r? = rise f? = fall d? = duration
+        p1 r1 f1 d1  ! ? = time 0, 1, 2, 3, 4, 5
+        p2 r2 f2 d2
+        p3 r3 f3 d3
+        p4 r4 f4 d4
+        p5 r5 f5 d5;
+    MISSING = .;
+    USEVAR = aud
+        p0 r0 f0 d0
+        p1 r1 f1 d1
+        p2 r2 f2 d2
+        p3 r3 f3 d3
+        p4 r4 f4 d4
+        p5 r5 f5 d5;
+    IDVARIABLE = id;
+    CLASSES = c0(3) c1(3) c2(3) c3(3) c4(3) c5(3);
+
+DEFINE:
+    STANDARDIZE p0 r0 f0 d0
+        p1 r1 f1 d1
+        p2 r2 f2 d2
+        p3 r3 f3 d3
+        p4 r4 f4 d4
+        p5 r5 f5 d5;
+
+ANALYSIS:
+    TYPE = MIXTURE;
+    STARTS = 200 100;
+    STITERATIONS = 200;
+    STSCALE = 2;
+    PROCESS = __CORES__;
+    MODEL = NOCOV;
+
+MODEL: %OVERALL%
+
+    !! Common states
+
+    !! Invariance constraints on factor loadings
+    s0 BY p0@1;
+    s0 BY r0 (sr);
+    s0 BY f0 (sf);
+    s0 BY d0 (sd);
+
+    s1 BY p1@1;
+    s1 BY r1 (sr);
+    s1 BY f1 (sf);
+    s1 BY d1 (sd);
+
+    s2 BY p2@1;
+    s2 BY r2 (sr);
+    s2 BY f2 (sf);
+    s2 BY d2 (sd);
+
+    s3 BY p3@1;
+    s3 BY r3 (sr);
+    s3 BY f3 (sf);
+    s3 BY d3 (sd);
+
+    s4 BY p4@1;
+    s4 BY r4 (sr);
+    s4 BY f4 (sf);
+    s4 BY d4 (sd);
+
+    s5 BY p5@1;
+    s5 BY r5 (sr);
+    s5 BY f5 (sf);
+    s5 BY d5 (sd);
+
+    [s0-s5@0];
+    s0 (pst0);
+    s1-s5 (ps);
+
+    !! Constraints on intercepts
+    [p0@0];
+    [r0@0];
+    [f0@0];
+    [d0@0];
+
+    [p1@0];
+    [r1@0];
+    [f1@0];
+    [d1@0];
+
+    [p2@0];
+    [r2@0];
+    [f2@0];
+    [d2@0];
+
+    [p3@0];
+    [r3@0];
+    [f3@0];
+    [d3@0];
+
+    [p4@0];
+    [r4@0];
+    [f4@0];
+    [d4@0];
+
+    [p5@0];
+    [r5@0];
+    [f5@0];
+    [d5@0];
+
+    !! Invariance constraints on residual variances
+    p0 (thp);
+    r0 (thr);
+    f0 (thf);
+    d0 (thd);
+
+    p1 (thp);
+    r1 (thr);
+    f1 (thf);
+    d1 (thd);
+
+    p2 (thp);
+    r2 (thr);
+    f2 (thf);
+    d2 (thd);
+
+    p3 (thp);
+    r3 (thr);
+    f3 (thf);
+    d3 (thd);
+
+    p4 (thp);
+    r4 (thr);
+    f4 (thf);
+    d4 (thd);
+
+    p5 (thp);
+    r5 (thr);
+    f5 (thf);
+    d5 (thd);
+
+    !! Unique traits
+    uf BY f0@1 f1@1 f2@1 f3@1 f4@1 f5@1;
+    ud BY d0@1 d1@1 d2@1 d3@1 d4@1 d5@1;
+
+    [uf@0];
+    [ud@0];
+    uf (puf);
+    ud (pud);
+
+    !! LTA
+
+    [c0#1] (a01);
+    [c0#2] (a02);
+    c0#1 ON aud (g01);
+    c0#2 ON aud (g02);
+
+    [c1#1] (a1);
+    [c2#1] (a1);
+    [c3#1] (a1);
+    [c4#1] (a1);
+    [c5#1] (a1);
+    [c1#2] (a2);
+    [c2#2] (a2);
+    [c3#2] (a2);
+    [c4#2] (a2);
+    [c5#2] (a2);
+    c1#1 ON C0#1 (b11);
+    c2#1 ON c1#1 (b11);
+    c3#1 ON c2#1 (b11);
+    c4#1 ON c3#1 (b11);
+    c5#1 ON c4#1 (b11);
+    c1#1 ON C0#2 (b12);
+    c2#1 ON c1#2 (b12);
+    c3#1 ON c2#2 (b12);
+    c4#1 ON c3#2 (b12);
+    c5#1 ON c4#2 (b12);
+    c1#2 ON C0#1 (b21);
+    c2#2 ON c1#1 (b21);
+    c3#2 ON c2#1 (b21);
+    c4#2 ON c3#1 (b21);
+    c5#2 ON c4#1 (b21);
+    c1#2 ON C0#2 (b22);
+    c2#2 ON c1#2 (b22);
+    c3#2 ON c2#2 (b22);
+    c4#2 ON c3#2 (b22);
+    c5#2 ON c4#2 (b22);
+
+MODEL c0:
+
+    %c0#1%
+    [p0] (c1p);
+    [r0] (c1r);
+    [f0] (c1f);
+    [d0] (c1d);
+
+    c1#1 ON aud (g11);
+    c1#2 ON aud (g21);
+
+    %c0#2%
+
+    [p0] (c2p);
+    [r0] (c2r);
+    [f0] (c2f);
+    [d0] (c2d);
+
+    c1#1 ON aud (g12);
+    c1#2 ON aud (g22);
+
+    %c0#3%
+
+    [p0] (c3p);
+    [r0] (c3r);
+    [f0] (c3f);
+    [d0] (c3d);
+
+    c1#1 ON aud (g13);
+    c1#2 ON aud (g23);
+
+MODEL c1:
+
+    %c1#1%
+
+    [p1] (c1p);
+    [r1] (c1r);
+    [f1] (c1f);
+    [d1] (c1d);
+
+    s1 ON s0 (bc1);
+
+    c2#1 ON aud (g11);
+    c2#2 ON aud (g21);
+
+    %c1#2%
+
+    [p1] (c2p);
+    [r1] (c2r);
+    [f1] (c2f);
+    [d1] (c2d);
+
+    s1 ON s0 (bc2);
+
+    c2#1 ON aud (g12);
+    c2#2 ON aud (g22);
+
+    %c1#3%
+
+    [p1] (c3p);
+    [r1] (c3r);
+    [f1] (c3f);
+    [d1] (c3d);
+
+    s1 ON s0 (bc3);
+
+    c2#1 ON aud (g13);
+    c2#2 ON aud (g23);
+
+MODEL c2:
+
+    %c2#1%
+
+    [p2] (c1p);
+    [r2] (c1r);
+    [f2] (c1f);
+    [d2] (c1d);
+
+    s2 ON s1 (bc1);
+
+    c3#1 ON aud (g11);
+    c3#2 ON aud (g21);
+
+    %c2#2%
+
+    [p2] (c2p);
+    [r2] (c2r);
+    [f2] (c2f);
+    [d2] (c2d);
+
+    s2 ON s1 (bc2);
+
+    c3#1 ON aud (g12);
+    c3#2 ON aud (g22);
+
+    %c2#3%
+
+    [p2] (c3p);
+    [r2] (c3r);
+    [f2] (c3f);
+    [d2] (c3d);
+
+    s2 ON s1 (bc3);
+
+    c3#1 ON aud (g13);
+    c3#2 ON aud (g23);
+
+MODEL c3:
+
+    %c3#1%
+
+    [p3] (c1p);
+    [r3] (c1r);
+    [f3] (c1f);
+    [d3] (c1d);
+
+    s3 ON s2 (bc1);
+
+    c4#1 ON aud (g11);
+    c4#2 ON aud (g21);
+
+    %c3#2%
+
+    [p3] (c2p);
+    [r3] (c2r);
+    [f3] (c2f);
+    [d3] (c2d);
+
+    s3 ON s2 (bc2);
+
+    c4#1 ON aud (g12);
+    c4#2 ON aud (g22);
+
+    %c3#3%
+
+    [p3] (c3p);
+    [r3] (c3r);
+    [f3] (c3f);
+    [d3] (c3d);
+
+    s3 ON s2 (bc3);
+
+    c4#1 ON aud (g13);
+    c4#2 ON aud (g23);
+
+MODEL c4:
+
+    %c4#1%
+
+    [p4] (c1p);
+    [r4] (c1r);
+    [f4] (c1f);
+    [d4] (c1d);
+
+    s4 ON s3 (bc1);
+
+    c5#1 ON aud (g11);
+    c5#2 ON aud (g21);
+
+    %c4#2%
+
+    [p4] (c2p);
+    [r4] (c2r);
+    [f4] (c2f);
+    [d4] (c2d);
+
+    s4 ON s3 (bc2);
+
+    c5#1 ON aud (g12);
+    c5#2 ON aud (g22);
+
+    %c4#3%
+
+    [p4] (c3p);
+    [r4] (c3r);
+    [f4] (c3f);
+    [d4] (c3d);
+
+    s4 ON s3 (bc3);
+
+    c5#1 ON aud (g13);
+    c5#2 ON aud (g23);
+
+MODEL c5:
+
+    %c5#1%
+
+    [p5] (c1p);
+    [r5] (c1r);
+    [f5] (c1f);
+    [d5] (c1d);
+
+    s5 ON s4 (bc1);
+
+    %c5#2%
+
+    [p5] (c2p);
+    [r5] (c2r);
+    [f5] (c2f);
+    [d5] (c2d);
+
+    s5 ON s4 (bc2);
+
+    %c5#3%
+
+    [p5] (c3p);
+    [r5] (c3r);
+    [f5] (c3f);
+    [d5] (c3d);
+
+    s5 ON s4 (bc3);
+
+MODEL CONSTRAINT:
+    ! Means of the first category are larger than the second
+    c1p > c2p;
+    c1r > c2r;
+    c1f > c2f;
+    c1d > c2d;
+    ! Make sure variances are greater than zero
+    pst0 > 0;
+    ps > 0;
+    puf > 0;
+    pud > 0;
+    thp > 0;
+    thr > 0;
+    thf > 0;
+    thd > 0;
+
+SAVEDATA:
+    FILE IS __RESULTS__;
+    SAVE IS cprob;
+
+OUTPUT: TECH15;

@@ -1,0 +1,46 @@
+# --------------------------------------------
+# CITATION file created with {cffr} R package
+# See also: https://docs.ropensci.org/cffr/
+# --------------------------------------------
+ 
+cff-version: 1.2.0
+message: 'To cite package "manCULTA" in publications use:'
+type: software
+license: MIT
+title: 'manCULTA: Common and Unique Latent Transition Analysis (CULTA) as a Way to
+  Examine the Trait-State Dynamics of Alcohol Intoxication'
+version: 0.9.1
+doi: 10.0000/0000000000
+identifiers:
+- type: url
+  value: https://osf.io/gtdmr/?view_only=351d499977504acdb31948388d211372
+- type: url
+  value: https://doi.org/10.0000/0000000000
+abstract: Research compendium for the manuscript Pesigan, I. J. A., Russell, M. A.,
+  Chow, S.-M. (Under Review). Common and Unique Latent Transition Analysis (CULTA)
+  as a Way to Examine the Trait-State Dynamics of Alcohol Intoxication. <https://doi.org/10.0000/0000000000>.
+authors:
+- family-names: Pesigan
+  given-names: Ivan Jacob Agaloos
+  email: r.jeksterslab@gmail.com
+  orcid: https://orcid.org/0000-0003-4818-8420
+preferred-citation:
+  type: article
+  title: manCULTA
+  authors:
+  - family-names: Pesigan
+    given-names: Ivan Jacob Agaloos
+    email: r.jeksterslab@gmail.com
+    orcid: https://orcid.org/0000-0003-4818-8420
+  year: '2025'
+  doi: 10.0000/0000000000
+  journal: JOURNAL_TITLE_HERE
+  notes: R package version 0.9.1
+repository-code: https://github.com/jeksterslab/manCULTA
+url: https://jeksterslab.github.io/manCULTA/
+contact:
+- family-names: Pesigan
+  given-names: Ivan Jacob Agaloos
+  email: r.jeksterslab@gmail.com
+  orcid: https://orcid.org/0000-0003-4818-8420
+

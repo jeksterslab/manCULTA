@@ -1,0 +1,42 @@
+---
+title: "Mplus Input File"
+author: Ivan Jacob Agaloos Pesigan
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Mplus Input File}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+#| include = FALSE
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+#| include = FALSE
+root <- rprojroot::is_rstudio_project
+```
+
+## Final Model
+
+```{r}
+#| echo = FALSE,
+#| comment = NA,
+#| size = "small"
+cat(
+  paste(
+    readLines(
+      root$find_file(
+        ".setup",
+        "data-process",
+        "data-process-culta-2-profiles-final.inp"
+      )
+    ),
+    collapse = "\n"
+  )
+)
+```

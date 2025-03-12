@@ -1,0 +1,289 @@
+\documentclass[tikz, border = 1mm]{standalone}
+
+\usepackage{xcolor}
+
+\definecolor{myblue}{HTML}{377EB8}
+\definecolor{myred}{HTML}{E41A1C}
+\definecolor{myviolet}{HTML}{984EA3}
+\definecolor{myorange}{HTML}{E66101}
+\definecolor{mygreen}{HTML}{1B9E77}
+
+\usepackage{sansmathfonts}
+
+% \usepackage{DejaVuSansMono} % Load DejaVu Sans Mono for monospaced sans-serif font
+% \usepackage{amsmath} % For better math formatting
+% \renewcommand{\sfdefault}{DejaVuSansMono-TLF} % Set DejaVuSansMono as default sans-serif font
+% \renewcommand{\familydefault}{\sfdefault} % Set sans-serif as default
+% \usepackage{sansmath} % Sans serif math
+% \sansmath % Enable sans-serif math font globally
+
+\begin{document}
+
+\usetikzlibrary{
+	er,
+	arrows,
+	positioning
+}
+
+\begin{tikzpicture}[
+		auto,
+		node distance = .5mm and 30mm,
+		manifest/.style = {
+			rectangle,
+			draw,
+			inner sep = 0pt,
+			minimum width = 15mm,
+			minimum height = 10mm
+		},
+		epsiloncov/.style = {
+			color = myorange,
+			<->,
+			>=stealth'
+		},
+		inv/.style = {
+			rectangle,
+			draw=none,
+			fill=none,
+			inner sep = 0pt,
+			minimum width = 15mm,
+			minimum height = 10mm
+		},
+		latentwithin/.style = {
+			ellipse,
+			draw,
+			ultra thick,
+			densely dashed,
+			color = violet,
+			inner sep = 0pt,
+			minimum size = 15mm,
+			align = center
+		},
+		latentwithinpath/.style = {
+			->,
+			ultra thick,
+			densely dashed,
+			color = violet,
+			>=stealth'
+		},
+		latentwithincov/.style = {
+			<->,
+			color = violet,
+			ultra thick,
+			densely dashed,
+			>=stealth'
+		},
+		epsilon/.style = {
+			ellipse,
+			draw,
+			color = myorange,
+			inner sep = 0pt,
+			minimum size = 10mm,
+			align = center,
+			thick
+		},
+		epsilonpath/.style = {
+			->,
+			thick,
+			color = myorange,
+			>=stealth'
+		},
+		epsiloncov/.style = {
+			<->,
+			draw,
+			thick,
+			color = myorange,
+			>=stealth'
+		},
+		latentbetween/.style = {
+			ellipse,
+			draw,
+			dashdotted,
+			color = gray,
+			inner sep = 0pt,
+			minimum size = 15mm,
+			align = center
+		},
+		latentbetweenpath/.style = {
+			->,
+			dashdotted,
+			color = gray,
+			>=stealth'
+		},
+		latentbetweencov/.style = {
+			<->,
+			dashdotted,
+			color = gray,
+			>=stealth'
+		},
+		latentintercept/.style = {
+			ellipse,
+			draw,
+			dashdotted,
+			color = mygreen,
+			inner sep = 0pt,
+			minimum size = 10mm,
+			align = center
+		},
+		latentinterceptpath/.style = {
+			->,
+			dashdotted,
+			color = mygreen,
+			>=stealth'
+		},
+		latentinterceptcov/.style = {
+			<->,
+			dashdotted,
+			color = mygreen,
+			>=stealth'
+		},
+		mean/.style={
+			regular polygon,
+			regular polygon sides = 3,
+			draw,
+			thick,
+			inner sep = 0pt,
+			minimum width = 7mm,
+			minimum height = 7mm
+		},
+		cov/.style = {
+			<->,
+			thick,
+			>=stealth'
+		},
+	]
+	% indicators
+	\node[manifest] (peak0) {$Y_{\mathrm{peak}_{t_{0}}}$};
+	\node[inv] (top0) [below = of peak0] {};
+	\node[manifest] (rise0) [below = of top0] {$Y_{\mathrm{rise}_{t_{0}}}$};
+	\node[inv] (center0) [below = of rise0] {};
+	\node[manifest] (fall0) [below = of center0] {$Y_{\mathrm{fall}_{t_{0}}}$};
+	\node[inv] (bottom0) [below = of fall0] {};
+	\node[manifest] (dura0) [below = of bottom0] {$Y_{\mathrm{dura}_{t_{0}}}$};
+	\node[inv] (pad0) [below = of dura0] {};
+	\node[manifest] (peak1) [below = of pad0] {$Y_{\mathrm{peak}_{t_{\dots}}}$};
+	\node[inv] (top1) [below = of peak1] {};
+	\node[manifest] (rise1) [below = of top1] {$Y_{\mathrm{rise}_{t_{\dots}}}$};
+	\node[inv] (center1) [below = of rise1] {};
+	\node[manifest] (fall1) [below = of center1] {$Y_{\mathrm{fall}_{t_{\dots}}}$};
+	\node[inv] (bottom1) [below = of fall1] {};
+	\node[manifest] (dura1) [below = of bottom1] {$Y_{\mathrm{dura}_{t_{\dots}}}$};
+	\node[inv] (pad1) [below = of dura1] {};
+	\node[manifest] (peak2) [below = of pad1] {$Y_{\mathrm{peak}_{t_{5}}}$};
+	\node[inv] (top2) [below = of peak2] {};
+	\node[manifest] (rise2) [below = of top2] {$Y_{\mathrm{rise}_{t_{5}}}$};
+	\node[inv] (center2) [below = of rise2] {};
+	\node[manifest] (fall2) [below = of center2] {$Y_{\mathrm{fall}_{t_{5}}}$};
+	\node[inv] (bottom2) [below = of fall2] {};
+	\node[manifest] (dura2) [below = of bottom2] {$Y_{\mathrm{dura}_{t_{5}}}$};
+	% within
+	\node[latentwithin] (f0) [left = of center0] {$\mathrm{State}_{\mathrm{intoxication}_{t_{0}}}$};
+	\node[latentwithin] (f1) [left = of center1] {$\mathrm{State}_{\mathrm{intoxication}_{t_{\dots}}}$};
+	\node[latentwithin] (f2) [left = of center2] {$\mathrm{State}_{\mathrm{intoxication}_{t_{5}}}$};
+	\draw[latentwithinpath] (f0) to node[near end, above] {$1$} (peak0);
+	\draw[latentwithinpath] (f1) to node[near end, above] {$1$} (peak1);
+	\draw[latentwithinpath] (f2) to node[near end, above] {$1$} (peak2);
+	\draw[latentwithinpath] (f0) to node[near end, above] {$\lambda_{S_{\mathrm{rise}}}$} (rise0);
+	\draw[latentwithinpath] (f1) to node[near end, above] {$\lambda_{S_{\mathrm{rise}}}$} (rise1);
+	\draw[latentwithinpath] (f2) to node[near end, above] {$\lambda_{S_{\mathrm{rise}}}$} (rise2);
+	\draw[latentwithinpath] (f0) to node[near end, above] {$\lambda_{S_{\mathrm{fall}}}$} (fall0);
+	\draw[latentwithinpath] (f1) to node[near end, above] {$\lambda_{S_{\mathrm{fall}}}$} (fall1);
+	\draw[latentwithinpath] (f2) to node[near end, above] {$\lambda_{S_{\mathrm{fall}}}$} (fall2);
+	\draw[latentwithinpath] (f0) to node[near end, above] {$\lambda_{S_{\mathrm{dura}}}$} (dura0);
+	\draw[latentwithinpath] (f1) to node[near end, above] {$\lambda_{S_{\mathrm{dura}}}$} (dura1);
+	\draw[latentwithinpath] (f2) to node[near end, above] {$\lambda_{S_{\mathrm{dura}}}$} (dura2);
+	\draw[latentwithincov] (f0) to[out = 70, in = 110, looseness = 4] node[above] {$\psi_{S_{t_{0}}}$} (f0);
+	\draw[latentwithincov] (f1) to[out = 70, in = 110, looseness = 4] node[above] {$\psi_{S_{t_{\dots}}}$} (f1);
+	\draw[latentwithincov] (f2) to[out = 70, in = 110, looseness = 4] node[above] {$\psi_{S_{t_{5}}}$} (f2);
+	% between
+	\node[inv] (fbpad) [left = of pad1] {};
+	\node[latentbetween] (fb) [left = of f1] {$\mathrm{Trait}_{\mathrm{intoxication}}$};
+	\draw[latentbetweenpath] (fb) to node[near start, above] {$1$} (peak0);
+	\draw[latentbetweenpath] (fb) to node[near start, above] {$1$} (peak1);
+	\draw[latentbetweenpath] (fb) to node[near start, above] {$1$} (peak2);
+	\draw[latentbetweenpath] (fb) to node[near start, above] {$\lambda_{T_{\mathrm{rise}}}$} (rise0);
+	\draw[latentbetweenpath] (fb) to node[near start, above] {$\lambda_{T_{\mathrm{rise}}}$} (rise1);
+	\draw[latentbetweenpath] (fb) to node[near start, above] {$\lambda_{T_{\mathrm{rise}}}$} (rise2);
+	\draw[latentbetweenpath] (fb) to node[near start, above] {$\lambda_{T_{\mathrm{fall}}}$} (fall0);
+	\draw[latentbetweenpath] (fb) to node[near start, above] {$\lambda_{T_{\mathrm{fall}}}$} (fall1);
+	\draw[latentbetweenpath] (fb) to node[near start, above] {$\lambda_{T_{\mathrm{fall}}}$} (fall2);
+	\draw[latentbetweenpath] (fb) to node[near start, above] {$\lambda_{T_{\mathrm{dura}}}$} (dura0);
+	\draw[latentbetweenpath] (fb) to node[near start, above] {$\lambda_{T_{\mathrm{dura}}}$} (dura1);
+	\draw[latentbetweenpath] (fb) to node[near start, above] {$\lambda_{T_{\mathrm{dura}}}$} (dura2);
+	\draw[latentbetweencov] (fb) to[out = 70, in = 110, looseness = 4] node[above] {$\psi_{T}$} (fb);
+	% epsilon
+	\node[epsilon] (epsilon10) [right = of peak0] {$\varepsilon_{\mathrm{peak}_{t_{0}}}$};
+	\node[epsilon] (epsilon20) [right = of rise0] {$\varepsilon_{\mathrm{rise}_{t_{0}}}$};
+	\node[epsilon] (epsilon30) [right = of fall0] {$\varepsilon_{\mathrm{fall}_{t_{0}}}$};
+	\node[epsilon] (epsilon40) [right = of dura0] {$\varepsilon_{\mathrm{dura}_{t_{0}}}$};
+	\node[epsilon] (epsilon11) [right = of peak1] {$\varepsilon_{\mathrm{peak}_{t_{\dots}}}$};
+	\node[epsilon] (epsilon21) [right = of rise1] {$\varepsilon_{\mathrm{rise}_{t_{\dots}}}$};
+	\node[epsilon] (epsilon31) [right = of fall1] {$\varepsilon_{\mathrm{fall}_{t_{\dots}}}$};
+	\node[epsilon] (epsilon41) [right = of dura1] {$\varepsilon_{\mathrm{dura}_{t_{\dots}}}$};
+	\node[epsilon] (epsilon12) [right = of peak2] {$\varepsilon_{\mathrm{peak}_{t_{5}}}$};
+	\node[epsilon] (epsilon22) [right = of rise2] {$\varepsilon_{\mathrm{rise}_{t_{5}}}$};
+	\node[epsilon] (epsilon32) [right = of fall2] {$\varepsilon_{\mathrm{fall}_{t_{5}}}$};
+	\node[epsilon] (epsilon42) [right = of dura2] {$\varepsilon_{\mathrm{dura}_{t_{5}}}$};
+	\draw[epsilonpath] (epsilon10) to node[above] {$1$} (peak0);
+	\draw[epsilonpath] (epsilon20) to node[above] {$1$} (rise0);
+	\draw[epsilonpath] (epsilon30) to node[above] {$1$} (fall0);
+	\draw[epsilonpath] (epsilon40) to node[above] {$1$} (dura0);
+	\draw[epsilonpath] (epsilon11) to node[above] {$1$} (peak1);
+	\draw[epsilonpath] (epsilon21) to node[above] {$1$} (rise1);
+	\draw[epsilonpath] (epsilon31) to node[above] {$1$} (fall1);
+	\draw[epsilonpath] (epsilon41) to node[above] {$1$} (dura1);
+	\draw[epsilonpath] (epsilon12) to node[above] {$1$} (peak2);
+	\draw[epsilonpath] (epsilon22) to node[above] {$1$} (rise2);
+	\draw[epsilonpath] (epsilon32) to node[above] {$1$} (fall2);
+	\draw[epsilonpath] (epsilon42) to node[above] {$1$} (dura2);
+	\draw[epsiloncov] (epsilon10) to[out = 70, in = 110, looseness = 4] node[above] {$\theta_{\mathrm{peak}}$} (epsilon10);
+	\draw[epsiloncov] (epsilon11) to[out = 70, in = 110, looseness = 4] node[above] {$\theta_{\mathrm{peak}}$} (epsilon11);
+	\draw[epsiloncov] (epsilon12) to[out = 70, in = 110, looseness = 4] node[above] {$\theta_{\mathrm{peak}}$} (epsilon12);
+	\draw[epsiloncov] (epsilon20) to[out = 70, in = 110, looseness = 4] node[above] {$\theta_{\mathrm{rise}}$} (epsilon20);
+	\draw[epsiloncov] (epsilon21) to[out = 70, in = 110, looseness = 4] node[above] {$\theta_{\mathrm{rise}}$} (epsilon21);
+	\draw[epsiloncov] (epsilon22) to[out = 70, in = 110, looseness = 4] node[above] {$\theta_{\mathrm{rise}}$} (epsilon22);
+	\draw[epsiloncov] (epsilon30) to[out = 70, in = 110, looseness = 4] node[above] {$\theta_{\mathrm{fall}}$} (epsilon30);
+	\draw[epsiloncov] (epsilon31) to[out = 70, in = 110, looseness = 4] node[above] {$\theta_{\mathrm{fall}}$} (epsilon31);
+	\draw[epsiloncov] (epsilon32) to[out = 70, in = 110, looseness = 4] node[above] {$\theta_{\mathrm{fall}}$} (epsilon32);
+	\draw[epsiloncov] (epsilon40) to[out = 70, in = 110, looseness = 4] node[above] {$\theta_{\mathrm{dura}}$} (epsilon40);
+	\draw[epsiloncov] (epsilon41) to[out = 70, in = 110, looseness = 4] node[above] {$\theta_{\mathrm{dura}}$} (epsilon41);
+	\draw[epsiloncov] (epsilon42) to[out = 70, in = 110, looseness = 4] node[above] {$\theta_{\mathrm{dura}}$} (epsilon42);
+	% intercepts
+	\node[inv] (upad0) [right = of bottom0] {};
+	\node[inv] (upad1) [right = of top1] {};
+	\node[inv] (upad2) [right = of bottom1] {};
+	\node[inv] (upad3) [right = of top2] {};
+	\node[latentintercept] (u1) [right = of upad0] {$\mathrm{Unique}_{\mathrm{peak}}$};
+	\node[latentintercept] (u2) [right = of upad1] {$\mathrm{Unique}_{\mathrm{rise}}$};
+	\node[latentintercept] (u3) [right = of upad2] {$\mathrm{Unique}_{\mathrm{fall}}$};
+	\node[latentintercept] (u4) [right = of upad3] {$\mathrm{Unique}_{\mathrm{dura}}$};
+	\draw[latentinterceptpath] (u1) to node[near start, above] {$1$} (peak0);
+	\draw[latentinterceptpath] (u1) to node[near start, above] {$1$} (peak1);
+	\draw[latentinterceptpath] (u1) to node[near start, above] {$1$} (peak2);
+	\draw[latentinterceptpath] (u2) to node[near start, above] {$1$} (rise0);
+	\draw[latentinterceptpath] (u2) to node[near start, above] {$1$} (rise1);
+	\draw[latentinterceptpath] (u2) to node[near start, above] {$1$} (rise2);
+	\draw[latentinterceptpath] (u3) to node[near start, above] {$1$} (fall0);
+	\draw[latentinterceptpath] (u3) to node[near start, above] {$1$} (fall1);
+	\draw[latentinterceptpath] (u3) to node[near start, above] {$1$} (fall2);
+	\draw[latentinterceptpath] (u4) to node[near start, above] {$1$} (dura0);
+	\draw[latentinterceptpath] (u4) to node[near start, above] {$1$} (dura1);
+	\draw[latentinterceptpath] (u4) to node[near start, above] {$1$} (dura2);
+	\draw[latentinterceptcov] (u1) to[out = 70, in = 110, looseness = 4] node[above] {$\psi_{\mathrm{peak}}$} (u1);
+	\draw[latentinterceptcov] (u2) to[out = 70, in = 110, looseness = 4] node[above] {$\psi_{\mathrm{rise}}$} (u2);
+	\draw[latentinterceptcov] (u3) to[out = 70, in = 110, looseness = 4] node[above] {$\psi_{\mathrm{fall}}$} (u3);
+	\draw[latentinterceptcov] (u4) to[out = 70, in = 110, looseness = 4] node[above] {$\psi_{\mathrm{dura}}$} (u4);
+	% \node[mean] (oneu1) [right = of u1] {$1$};
+	% \node[mean] (oneu2) [right = of u2] {$1$};
+	% \node[mean] (oneu3) [right = of u3] {$1$};
+	% \node[mean] (oneu4) [right = of u4] {$1$};
+	% \draw[cov] (oneu1) to[out = 60, in = 0, looseness = 5] node[left] {} (oneu1);
+	% \draw[cov] (oneu2) to[out = 60, in = 0, looseness = 5] node[left] {} (oneu2);
+	% \draw[cov] (oneu3) to[out = 60, in = 0, looseness = 5] node[left] {} (oneu3);
+	% \draw[cov] (oneu4) to[out = 60, in = 0, looseness = 5] node[left] {} (oneu4);
+	% \draw[latentinterceptpath] (oneu1) to node {$\nu_{\mathrm{peak}}$} (u1);
+	% \draw[latentinterceptpath] (oneu2) to node {$\nu_{\mathrm{rise}}$} (u2);
+	% \draw[latentinterceptpath] (oneu3) to node {$\nu_{\mathrm{fall}}$} (u3);
+	% \draw[latentinterceptpath] (oneu4) to node {$\nu_{\mathrm{dura}}$} (u4);
+\end{tikzpicture}
+
+\end{document}

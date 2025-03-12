@@ -1,0 +1,85 @@
+\documentclass{standalone}
+
+\usepackage{xcolor}
+
+\definecolor{myblue}{HTML}{377EB8}
+\definecolor{myred}{HTML}{E41A1C}
+\definecolor{myviolet}{HTML}{984EA3}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+\usetikzlibrary{patterns}
+
+\usepackage{lmodern}
+\SetSymbolFont{letters}{bold}{OML}{cmbr}{bx}{it}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{sansmathfonts}
+
+\begin{document}
+\begin{tikzpicture}
+	\begin{axis}[
+			ybar,
+			ymin=0.00,
+			ymax=1.00,
+			ytick={0.00,0.10,0.20,0.30,0.40,0.50,0.60,0.70,0.80,0.90,1.00},
+			yticklabels={0.00,0.10,0.20,0.30,0.40,0.50,0.60,0.70,0.80,0.90,1.00},
+			ylabel = {Proportion},
+			symbolic x coords = {
+				$c_{0}$,
+				$c_{1}$,
+				$c_{2}$,
+				$c_{3}$,
+				$c_{4}$,
+				$c_{5}$
+			},
+			xtick = data,
+			width = 20cm,
+			height = 10cm,
+			ymajorgrids = true,
+			grid style = dashed,
+			nodes near coords={
+				\pgfmathprintnumber[fixed, precision=3]{\pgfplotspointmeta}
+			},
+			nodes near coords align={vertical},
+			nodes near coords style = {font = \footnotesize},
+			bar width = 20pt,
+			legend image code/.code = {%
+				\draw[#1, draw = none] (0cm, -0.1cm) rectangle (0.6cm, 0.1cm);
+			},
+			legend style = {
+				font = \footnotesize,
+				at = {(1.01,1)},
+				anchor = north west,
+			},
+		]
+		\addplot[pattern = horizontal lines, pattern color=myblue, draw = none, nodes near coords style={color = myblue}] coordinates {
+			($c_{0}$, 0.02083333)
+			($c_{1}$, 0.04166667)
+			($c_{2}$, 0.02083333)
+			($c_{3}$, 0.00000000)
+			($c_{4}$, 0.02083333)
+			($c_{5}$, 0.02083333)
+		};
+		\addplot[pattern = grid, pattern color = myviolet, draw = none, nodes near coords style={color = myviolet}] coordinates {
+			($c_{0}$, 0.1206897)
+			($c_{1}$, 0.112069)
+			($c_{2}$, 0.137931)
+			($c_{3}$, 0.1551724)
+			($c_{4}$, 0.137931)
+			($c_{5}$, 0.01724138)
+		};
+		\addplot[pattern = north west lines, pattern color = myred, draw = none, nodes near coords style={color = myred}] coordinates {
+			($c_{0}$, 0.1851852)
+			($c_{1}$, 0.2592593)
+			($c_{2}$, 0.2222222)
+			($c_{3}$, 0.2777778)
+			($c_{4}$, 0.1666667)
+			($c_{5}$, 0.1296296)
+		};
+		\legend{Low risk ($0 \leq \mathrm{AUDIT} \leq 7$), High risk ($8 \leq \mathrm{AUDIT} \leq 14$), Dependence ($\mathrm{AUDIT} \geq 15$)}
+	\end{axis}
+\end{tikzpicture}
+\end{document}
