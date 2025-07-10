@@ -1,11 +1,15 @@
-pandoc: 3.6.3
-pkgdown: 2.1.1
+pandoc: 3.7.0.2
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
+  containers: containers.html
+  culta-1-profile: culta-1-profile.html
+  culta-2-profiles: culta-2-profiles.html
+  empirical-mplus: empirical-mplus.html
+  input: input.html
   manCULTA: manCULTA.html
-  mplus: mplus.html
   session: session.html
-last_built: 2025-03-12T19:28Z
+last_built: 2025-07-10T23:20Z
 urls:
   reference: https://github.com/jeksterslab/manCULTA/reference
   article: https://github.com/jeksterslab/manCULTA/articles
