@@ -1,4 +1,8 @@
 *.txt
 *.out
+*.estimates
 *.results
+*.tech3
+*.tech4
+*.cprob
 *.gh5

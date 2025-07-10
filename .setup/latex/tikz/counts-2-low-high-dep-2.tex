@@ -28,12 +28,12 @@
 			yticklabels={0.00,0.10,0.20,0.30,0.40,0.50,0.60,0.70,0.80,0.90,1.00},
 			ylabel = {Proportion},
 			symbolic x coords = {
-				$c_{0}$,
-				$c_{1}$,
-				$c_{2}$,
-				$c_{3}$,
-				$c_{4}$,
-				$c_{5}$
+				$t_{0}$,
+				$t_{1}$,
+				$t_{2}$,
+				$t_{3}$,
+				$t_{4}$,
+				$t_{5}$
 			},
 			xtick = data,
 			width = 20cm,
@@ -56,28 +56,28 @@
 			},
 		]
 		\addplot[pattern = horizontal lines, pattern color=myblue, draw = none, nodes near coords style={color = myblue}] coordinates {
-			($c_{0}$, 0.9791667)
-			($c_{1}$, 0.9583333)
-			($c_{2}$, 0.9791667)
-			($c_{3}$, 1.00000000)
-			($c_{4}$, 0.9791667)
-			($c_{5}$, 0.9791667)
+			($t_{0}$, 0.9791667)
+			($t_{1}$, 0.9583333)
+			($t_{2}$, 0.9791667)
+			($t_{3}$, 1.00000000)
+			($t_{4}$, 0.9791667)
+			($t_{5}$, 0.9791667)
 		};
 		\addplot[pattern = grid, pattern color = myviolet, draw = none, nodes near coords style={color = myviolet}] coordinates {
-			($c_{0}$, 0.8793103)
-			($c_{1}$, 0.887931)
-			($c_{2}$, 0.862069)
-			($c_{3}$, 0.8448276)
-			($c_{4}$, 0.862069)
-			($c_{5}$, 0.9827586)
+			($t_{0}$, 0.8793103)
+			($t_{1}$, 0.887931)
+			($t_{2}$, 0.862069)
+			($t_{3}$, 0.8448276)
+			($t_{4}$, 0.862069)
+			($t_{5}$, 0.9827586)
 		};
 		\addplot[pattern = north west lines, pattern color = myred, draw = none, nodes near coords style={color = myred}] coordinates {
-			($c_{0}$, 0.8148148)
-			($c_{1}$, 0.7407407)
-			($c_{2}$, 0.7777778)
-			($c_{3}$, 0.7222222)
-			($c_{4}$, 0.8333333)
-			($c_{5}$, 0.8703704)
+			($t_{0}$, 0.8148148)
+			($t_{1}$, 0.7407407)
+			($t_{2}$, 0.7777778)
+			($t_{3}$, 0.7222222)
+			($t_{4}$, 0.8333333)
+			($t_{5}$, 0.8703704)
 		};
 		\legend{Low risk ($0 \leq \mathrm{AUDIT} \leq 7$), High risk ($8 \leq \mathrm{AUDIT} \leq 14$), Dependence ($\mathrm{AUDIT} \geq 15$)}
 	\end{axis}

@@ -1,332 +1,479 @@
-TITLE: CULTA;
-       2 Profiles;
+TITLE:
+  2-Profile CULTA with Covariate (No Common Trait);
 
 DATA:
-    FILE = __DATA__;
+  FILE = __DATA__;
 
 VARIABLE:
-    NAMES = id
-        aud          ! audit
-        p0 r0 f0 d0  ! p? = peak r? = rise f? = fall d? = duration
-        p1 r1 f1 d1  ! ? = time 0, 1, 2, 3, 4, 5
-        p2 r2 f2 d2
-        p3 r3 f3 d3
-        p4 r4 f4 d4
-        p5 r5 f5 d5;
-    MISSING = .;
-    USEVAR = aud
-        p0 r0 f0 d0
-        p1 r1 f1 d1
-        p2 r2 f2 d2
-        p3 r3 f3 d3
-        p4 r4 f4 d4
-        p5 r5 f5 d5;
-    IDVARIABLE = id;
-    CLASSES = c0(2) c1(2) c2(2) c3(2) c4(2) c5(2);
+  NAMES =
+    id
+    x
+    y1t0
+    y2t0
+    y3t0
+    y4t0
+    y1t1
+    y2t1
+    y3t1
+    y4t1
+    y1t2
+    y2t2
+    y3t2
+    y4t2
+    y1t3
+    y2t3
+    y3t3
+    y4t3
+    y1t4
+    y2t4
+    y3t4
+    y4t4
+    y1t5
+    y2t5
+    y3t5
+    y4t5
+  ;
+  USEVARIABLES =
+    x
+    y1t0
+    y2t0
+    y3t0
+    y4t0
+    y1t1
+    y2t1
+    y3t1
+    y4t1
+    y1t2
+    y2t2
+    y3t2
+    y4t2
+    y1t3
+    y2t3
+    y3t3
+    y4t3
+    y1t4
+    y2t4
+    y3t4
+    y4t4
+    y1t5
+    y2t5
+    y3t5
+    y4t5
+  ;
+  IDVARIABLE = id;
+  CLASSES =
+    c0(2)
+    c1(2)
+    c2(2)
+    c3(2)
+    c4(2)
+    c5(2)
+  ;
+  MISSING = .;
 
 DEFINE:
-    STANDARDIZE p0 r0 f0 d0
-        p1 r1 f1 d1
-        p2 r2 f2 d2
-        p3 r3 f3 d3
-        p4 r4 f4 d4
-        p5 r5 f5 d5;
+  STANDARDIZE
+    y1t0
+    y2t0
+    y3t0
+    y4t0
+    y1t1
+    y2t1
+    y3t1
+    y4t1
+    y1t2
+    y2t2
+    y3t2
+    y4t2
+    y1t3
+    y2t3
+    y3t3
+    y4t3
+    y1t4
+    y2t4
+    y3t4
+    y4t4
+    y1t5
+    y2t5
+    y3t5
+    y4t5
+  ;
 
 ANALYSIS:
-    TYPE = MIXTURE;
-    STARTS = 200 100;
-    STITERATIONS = 200;
-    STSCALE = 2;
-    PROCESS = __CORES__;
-    MODEL = NOCOV;
+  TYPE = MIXTURE;
+  STARTS = 200 100;
+  STSCALE = 2;
+  STITERATIONS = 200;
+  PROCESS = __CORES__;
+  MODEL = NOCOV;
 
-MODEL: %OVERALL%
+MODEL:
+  %OVERALL%
+    ! unique traits -----------------------------------------------------
 
-    !! Common states
+    !! factor loadings
+    !!! k = 1
+    u1 BY y1t0@1;
+    u1 BY y1t1@1;
+    u1 BY y1t2@1;
+    u1 BY y1t3@1;
+    u1 BY y1t4@1;
+    u1 BY y1t5@1;
+    !!! k = 2
+    u2 BY y2t0@1;
+    u2 BY y2t1@1;
+    u2 BY y2t2@1;
+    u2 BY y2t3@1;
+    u2 BY y2t4@1;
+    u2 BY y2t5@1;
+    !!! k = 3
+    u3 BY y3t0@1;
+    u3 BY y3t1@1;
+    u3 BY y3t2@1;
+    u3 BY y3t3@1;
+    u3 BY y3t4@1;
+    u3 BY y3t5@1;
+    !!! k = 4
+    u4 BY y4t0@1;
+    u4 BY y4t1@1;
+    u4 BY y4t2@1;
+    u4 BY y4t3@1;
+    u4 BY y4t4@1;
+    u4 BY y4t5@1;
 
-    !! Invariance constraints on factor loadings
-    s0 BY p0@1;
-    s0 BY r0 (sr);
-    s0 BY f0 (sf);
-    s0 BY d0 (sd);
+    !! latent means
+    [ u1@0 ];
+    [ u2@0 ];
+    [ u3@0 ];
+    [ u4@0 ];
 
-    s1 BY p1@1;
-    s1 BY r1 (sr);
-    s1 BY f1 (sf);
-    s1 BY d1 (sd);
+    !! latent variances
+    u1 (psip1);
+    u2 (psip2);
+    u3 (psip3);
+    u4 (psip4);
 
-    s2 BY p2@1;
-    s2 BY r2 (sr);
-    s2 BY f2 (sf);
-    s2 BY d2 (sd);
+    ! common states -----------------------------------------------------
 
-    s3 BY p3@1;
-    s3 BY r3 (sr);
-    s3 BY f3 (sf);
-    s3 BY d3 (sd);
+    !! factor loadings
+    !!! t = 0
+    s0 BY y1t0@1;
+    s0 BY y2t0 (lambdas2);
+    s0 BY y3t0 (lambdas3);
+    s0 BY y4t0 (lambdas4);
+    !!! t = 1
+    s1 BY y1t1@1;
+    s1 BY y2t1 (lambdas2);
+    s1 BY y3t1 (lambdas3);
+    s1 BY y4t1 (lambdas4);
+    !!! t = 2
+    s2 BY y1t2@1;
+    s2 BY y2t2 (lambdas2);
+    s2 BY y3t2 (lambdas3);
+    s2 BY y4t2 (lambdas4);
+    !!! t = 3
+    s3 BY y1t3@1;
+    s3 BY y2t3 (lambdas2);
+    s3 BY y3t3 (lambdas3);
+    s3 BY y4t3 (lambdas4);
+    !!! t = 4
+    s4 BY y1t4@1;
+    s4 BY y2t4 (lambdas2);
+    s4 BY y3t4 (lambdas3);
+    s4 BY y4t4 (lambdas4);
+    !!! t = 5
+    s5 BY y1t5@1;
+    s5 BY y2t5 (lambdas2);
+    s5 BY y3t5 (lambdas3);
+    s5 BY y4t5 (lambdas4);
 
-    s4 BY p4@1;
-    s4 BY r4 (sr);
-    s4 BY f4 (sf);
-    s4 BY d4 (sd);
+    !! latent means
+    [ s0@0 ];
+    [ s1@0 ];
+    [ s2@0 ];
+    [ s3@0 ];
+    [ s4@0 ];
+    [ s5@0 ];
 
-    s5 BY p5@1;
-    s5 BY r5 (sr);
-    s5 BY f5 (sf);
-    s5 BY d5 (sd);
+    !! latent variance of s0
+    s0 (psis0);
 
-    [s0-s5@0];
-    s0 (pst0);
-    s1-s5 (ps);
+    !! variance of the process noise
+    s1 (psis);
+    s2 (psis);
+    s3 (psis);
+    s4 (psis);
+    s5 (psis);
 
-    !! Constraints on intercepts
-    [p0@0];
-    [r0@0];
-    [f0@0];
-    [d0@0];
+    ! unique states -----------------------------------------------------
 
-    [p1@0];
-    [r1@0];
-    [f1@0];
-    [d1@0];
+    !! variances
+    !!! t = 0
+    y1t0 (theta11);
+    y2t0 (theta22);
+    y3t0 (theta33);
+    y4t0 (theta44);
+    !!! t = 1
+    y1t1 (theta11);
+    y2t1 (theta22);
+    y3t1 (theta33);
+    y4t1 (theta44);
+    !!! t = 2
+    y1t2 (theta11);
+    y2t2 (theta22);
+    y3t2 (theta33);
+    y4t2 (theta44);
+    !!! t = 3
+    y1t3 (theta11);
+    y2t3 (theta22);
+    y3t3 (theta33);
+    y4t3 (theta44);
+    !!! t = 4
+    y1t4 (theta11);
+    y2t4 (theta22);
+    y3t4 (theta33);
+    y4t4 (theta44);
+    !!! t = 5
+    y1t5 (theta11);
+    y2t5 (theta22);
+    y3t5 (theta33);
+    y4t5 (theta44);
 
-    [p2@0];
-    [r2@0];
-    [f2@0];
-    [d2@0];
+    ! constrained intercepts --------------------------------------------
 
-    [p3@0];
-    [r3@0];
-    [f3@0];
-    [d3@0];
+    !! t = 0
+    [ y1t0@0 ];
+    [ y2t0@0 ];
+    [ y3t0@0 ];
+    [ y4t0@0 ];
+    !! t = 1
+    [ y1t1@0 ];
+    [ y2t1@0 ];
+    [ y3t1@0 ];
+    [ y4t1@0 ];
+    !! t = 2
+    [ y1t2@0 ];
+    [ y2t2@0 ];
+    [ y3t2@0 ];
+    [ y4t2@0 ];
+    !! t = 3
+    [ y1t3@0 ];
+    [ y2t3@0 ];
+    [ y3t3@0 ];
+    [ y4t3@0 ];
+    !! t = 4
+    [ y1t4@0 ];
+    [ y2t4@0 ];
+    [ y3t4@0 ];
+    [ y4t4@0 ];
+    !! t = 5
+    [ y1t5@0 ];
+    [ y2t5@0 ];
+    [ y3t5@0 ];
+    [ y4t5@0 ];
 
-    [p4@0];
-    [r4@0];
-    [f4@0];
-    [d4@0];
+    ! lta ---------------------------------------------------------------
 
-    [p5@0];
-    [r5@0];
-    [f5@0];
-    [d5@0];
+    !! initial profile membership
+    [ c0#1 ] (nu0);
+    c0#1 ON x (kappa0);
 
-    !! Invariance constraints on residual variances
-    p0 (thp);
-    r0 (thr);
-    f0 (thf);
-    d0 (thd);
-
-    p1 (thp);
-    r1 (thr);
-    f1 (thf);
-    d1 (thd);
-
-    p2 (thp);
-    r2 (thr);
-    f2 (thf);
-    d2 (thd);
-
-    p3 (thp);
-    r3 (thr);
-    f3 (thf);
-    d3 (thd);
-
-    p4 (thp);
-    r4 (thr);
-    f4 (thf);
-    d4 (thd);
-
-    p5 (thp);
-    r5 (thr);
-    f5 (thf);
-    d5 (thd);
-
-    !! Unique traits
-    up BY p0@1 p1@1 p2@1 p3@1 p4@1 p5@1;
-    ur BY r0@1 r1@1 r2@1 r3@1 r4@1 r5@1;
-    uf BY f0@1 f1@1 f2@1 f3@1 f4@1 f5@1;
-    ud BY d0@1 d1@1 d2@1 d3@1 d4@1 d5@1;
-
-    [up@0];
-    [ur@0];
-    [uf@0];
-    [ud@0];
-    up (pup);
-    ur (pur);
-    uf (puf);
-    ud (pud);
-
-    !! LTA
-
-    [c0#1] (a01);
-    c0#1 ON aud (g01);
-
-    [c1#1] (a1);
-    [c2#1] (a1);
-    [c3#1] (a1);
-    [c4#1] (a1);
-    [c5#1] (a1);
-    c1#1 ON c0#1 (b11);
-    c2#1 ON c1#1 (b11);
-    c3#1 ON c2#1 (b11);
-    c4#1 ON c3#1 (b11);
-    c5#1 ON c4#1 (b11);
+    !! profile transitions
+    [ c1#1 ] (alpha0);
+    [ c2#1 ] (alpha0);
+    [ c3#1 ] (alpha0);
+    [ c4#1 ] (alpha0);
+    [ c5#1 ] (alpha0);
+    c1#1 ON c0#1 (beta00);
+    c2#1 ON c1#1 (beta00);
+    c3#1 ON c2#1 (beta00);
+    c4#1 ON c3#1 (beta00);
+    c5#1 ON c4#1 (beta00);
 
 MODEL c0:
+  %c0#1%
+    ! profile specific means
+    [ y1t0 ] (mu10);
+    [ y2t0 ] (mu20);
+    [ y3t0 ] (mu30);
+    [ y4t0 ] (mu40);
 
-    %c0#1%
-    [p0] (c1p);
-    [r0] (c1r);
-    [f0] (c1f);
-    [d0] (c1d);
+    ! covariate
+    c1 ON x (gamma00);
 
-    c1 ON aud (g11);
+  %c0#2%
+    ! profile specific means
+    [ y1t0 ] (mu11);
+    [ y2t0 ] (mu21);
+    [ y3t0 ] (mu31);
+    [ y4t0 ] (mu41);
 
-    %c0#2%
-
-    [p0] (c2p);
-    [r0] (c2r);
-    [f0] (c2f);
-    [d0] (c2d);
-
-    c1 ON aud (g12);
+    ! covariate
+    c1 ON x (gamma10);
 
 MODEL c1:
+  %c1#1%
+    ! profile specific means
+    [ y1t1 ] (mu10);
+    [ y2t1 ] (mu20);
+    [ y3t1 ] (mu30);
+    [ y4t1 ] (mu40);
 
-    %c1#1%
+    ! covariate
+    c2 ON x (gamma00);
 
-    [p1] (c1p);
-    [r1] (c1r);
-    [f1] (c1f);
-    [d1] (c1d);
+    ! inertia
+    s1 ON s0 (beta0);
 
-    s1 ON s0@0 (bc1);
+  %c1#2%
+    ! profile specific means
+    [ y1t1 ] (mu11);
+    [ y2t1 ] (mu21);
+    [ y3t1 ] (mu31);
+    [ y4t1 ] (mu41);
 
-    c2 ON aud (g11);
+    ! covariate
+    c2 ON x (gamma10);
 
-    %c1#2%
-
-    [p1] (c2p);
-    [r1] (c2r);
-    [f1] (c2f);
-    [d1] (c2d);
-
-    s1 ON s0 (bc2);
-
-    c2 ON aud (g12);
+    ! inertia
+    s1 ON s0 (beta1);
 
 MODEL c2:
+  %c2#1%
+    ! profile specific means
+    [ y1t2 ] (mu10);
+    [ y2t2 ] (mu20);
+    [ y3t2 ] (mu30);
+    [ y4t2 ] (mu40);
 
-    %c2#1%
+    ! covariate
+    c3 ON x (gamma00);
 
-    [p2] (c1p);
-    [r2] (c1r);
-    [f2] (c1f);
-    [d2] (c1d);
+    ! inertia
+    s2 ON s1 (beta0);
 
-    s2 ON s1@0 (bc1);
+  %c2#2%
+    ! profile specific means
+    [ y1t2 ] (mu11);
+    [ y2t2 ] (mu21);
+    [ y3t2 ] (mu31);
+    [ y4t2 ] (mu41);
 
-    c3 ON aud (g11);
+    ! covariate
+    c3 ON x (gamma10);
 
-    %c2#2%
-
-    [p2] (c2p);
-    [r2] (c2r);
-    [f2] (c2f);
-    [d2] (c2d);
-
-    s2 ON s1 (bc2);
-
-    c3 ON aud (g12);
+    ! inertia
+    s2 ON s1 (beta1);
 
 MODEL c3:
+  %c3#1%
+    ! profile specific means
+    [ y1t3 ] (mu10);
+    [ y2t3 ] (mu20);
+    [ y3t3 ] (mu30);
+    [ y4t3 ] (mu40);
 
-    %c3#1%
+    ! covariate
+    c4 ON x (gamma00);
 
-    [p3] (c1p);
-    [r3] (c1r);
-    [f3] (c1f);
-    [d3] (c1d);
+    ! inertia
+    s3 ON s2 (beta0);
 
-    s3 ON s2@0 (bc1);
+  %c3#2%
+    ! profile specific means
+    [ y1t3 ] (mu11);
+    [ y2t3 ] (mu21);
+    [ y3t3 ] (mu31);
+    [ y4t3 ] (mu41);
 
-    c4 ON aud (g11);
+    ! covariate
+    c4 ON x (gamma10);
 
-    %c3#2%
-
-    [p3] (c2p);
-    [r3] (c2r);
-    [f3] (c2f);
-    [d3] (c2d);
-
-    s3 ON s2 (bc2);
-
-    c4 ON aud (g12);
+    ! inertia
+    s3 ON s2 (beta1);
 
 MODEL c4:
+  %c4#1%
+    ! profile specific means
+    [ y1t4 ] (mu10);
+    [ y2t4 ] (mu20);
+    [ y3t4 ] (mu30);
+    [ y4t4 ] (mu40);
 
-    %c4#1%
+    ! covariate
+    c5 ON x (gamma00);
 
-    [p4] (c1p);
-    [r4] (c1r);
-    [f4] (c1f);
-    [d4] (c1d);
+    ! inertia
+    s4 ON s3 (beta0);
 
-    s4 ON s3@0 (bc1);
+  %c4#2%
+    ! profile specific means
+    [ y1t4 ] (mu11);
+    [ y2t4 ] (mu21);
+    [ y3t4 ] (mu31);
+    [ y4t4 ] (mu41);
 
-    c5 ON aud (g11);
+    ! covariate
+    c5 ON x (gamma10);
 
-    %c4#2%
-
-    [p4] (c2p);
-    [r4] (c2r);
-    [f4] (c2f);
-    [d4] (c2d);
-
-    s4 ON s3 (bc2);
-
-    c5 ON aud (g12);
+    ! inertia
+    s4 ON s3 (beta1);
 
 MODEL c5:
+  %c5#1%
+    ! profile specific means
+    [ y1t5 ] (mu10);
+    [ y2t5 ] (mu20);
+    [ y3t5 ] (mu30);
+    [ y4t5 ] (mu40);
 
-    %c5#1%
+    ! inertia
+    s5 ON s4 (beta0);
 
-    [p5] (c1p);
-    [r5] (c1r);
-    [f5] (c1f);
-    [d5] (c1d);
+  %c5#2%
+    ! profile specific means
+    [ y1t5 ] (mu11);
+    [ y2t5 ] (mu21);
+    [ y3t5 ] (mu31);
+    [ y4t5 ] (mu41);
 
-    s5 ON s4@0 (bc1);
-
-    %c5#2%
-
-    [p5] (c2p);
-    [r5] (c2r);
-    [f5] (c2f);
-    [d5] (c2d);
-
-    s5 ON s4 (bc2);
+    ! inertia
+    s5 ON s4 (beta1);
 
 MODEL CONSTRAINT:
-    ! Means of the first category are larger than the second
-    c1p > c2p;
-    c1r > c2r;
-    c1f > c2f;
-    c1d > c2d;
-    ! Make sure variances are greater than zero
-    pst0 > 0;
-    ps > 0;
-    pup > 0;
-    pur > 0;
-    puf > 0;
-    pud > 0;
-    thp > 0;
-    thr > 0;
-    thf > 0;
-    thd > 0;
+  ! means for the first profile are higher than the second
+  mu10 > mu11;
+  mu20 > mu21;
+  mu30 > mu31;
+  mu40 > mu41;
+
+  ! make sure variances are greater than zero
+  psip1 > 0;
+  psip2 > 0;
+  psip3 > 0;
+  psip4 > 0;
+  psis0 > 0;
+  psis > 0;
+  theta11 > 0;
+  theta22 > 0;
+  theta33 > 0;
+  theta44 > 0;
+
+OUTPUT:
+  TECH1
+  TECH3
+  TECH4
+  TECH7
+  TECH8
+  TECH12
+  ! TECH13
+  TECH15
+  ENTROPY;
 
 SAVEDATA:
-    FILE IS __RESULTS__;
-    SAVE IS cprob;
-
-OUTPUT: TECH15;
+  ESTIMATES = __ESTIMATES__;
+  RESULTS = __RESULTS__;
+  TECH3 = __TECH3__;
+  TECH4 = __TECH4__;
+  FILE = __CPROB__;
+  SAVE = CPROBABILITIES;

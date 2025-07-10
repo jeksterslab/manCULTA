@@ -1,4 +1,8 @@
 data_process_culta_2_profiles_1 <- function(overwrite = FALSE) {
+  wd <- getwd()
+  on.exit(
+    setwd(wd)
+  )
   root <- rprojroot::is_rstudio_project
   data_process_culta_2_profiles_1_out <- root$find_file(
     ".setup",
@@ -24,14 +28,43 @@ data_process_culta_2_profiles_1 <- function(overwrite = FALSE) {
       "data-process",
       "data-process-culta-2-profiles-1.inp"
     )
-    results <- "data-process-culta-2-profiles-1.results"
     data <- "data.txt"
+    estimates <- "data-process-culta-2-profiles-1.estimates"
+    results <- "data-process-culta-2-profiles-1.results"
+    tech3 <- "data-process-culta-2-profiles-1.tech3"
+    tech4 <- "data-process-culta-2-profiles-1.tech4"
+    cprob <- "data-process-culta-2-profiles-1.cprob"
     con <- file(data_process_culta_2_profiles_1_inp)
     input <- readLines(con)
     close(con)
     input <- gsub(
       pattern = "__DATA__",
       replacement = data,
+      x = input
+    )
+    input <- gsub(
+      pattern = "__ESTIMATES__",
+      replacement = estimates,
+      x = input
+    )
+    input <- gsub(
+      pattern = "__RESULTS__",
+      replacement = results,
+      x = input
+    )
+    input <- gsub(
+      pattern = "__TECH3__",
+      replacement = tech3,
+      x = input
+    )
+    input <- gsub(
+      pattern = "__TECH4__",
+      replacement = tech4,
+      x = input
+    )
+    input <- gsub(
+      pattern = "__CPROB__",
+      replacement = cprob,
       x = input
     )
     input <- gsub(
@@ -44,27 +77,28 @@ data_process_culta_2_profiles_1 <- function(overwrite = FALSE) {
       tmpdir = tempdir(),
       fileext = ".inp"
     )
-    input <- gsub(
-      pattern = "__RESULTS__",
-      replacement = results,
-      x = input
-    )
     on.exit(
       unlink(input_fn_name)
     )
     con <- file(input_fn_name)
     writeLines(input, con = con)
     close(con)
-    if (!(Sys.which("mplus") == "")) {
-      system(
-        paste(
-          "cd",
-          data_process,
-          "; ",
-          "mplus",
+    mplus_bin <- Sys.which("mplus")
+    if (!(mplus_bin == "")) {
+      setwd(data_process)
+      if (.Platform$OS.type == "windows") {
+        nullfile <- "NUL"
+      } else {
+        nullfile <- "/dev/null"
+      }
+      system2(
+        command = mplus_bin,
+        args = c(
           input_fn_name,
           data_process_culta_2_profiles_1_out
-        )
+        ),
+        stdout = nullfile,
+        stderr = nullfile
       )
     } else {
       message("The `mplus` command is not available in the system.")

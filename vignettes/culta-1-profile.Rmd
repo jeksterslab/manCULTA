@@ -1,0 +1,182 @@
+---
+title: "Comparing One- and Two-Profile Models"
+author: Ivan Jacob Agaloos Pesigan
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Comparing One- and Two-Profile Models}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+
+
+
+``` r
+library(manCULTA)
+```
+
+
+
+We generate data using the CULTA model with two latent profiles, where profile membership depends on a covariate and profile transitions follow a multinomial structure. However, for model fitting, we impose a simpler structure by fitting a CUTS (1 Profile) model with autoregressive effects, ignoring the latent profiles during estimation. We then compare this misspecified model to the correctly specified two-profile CULTA model.
+
+## Data Generation
+
+
+``` r
+# complete list of R function arguments
+
+# random seed for reproducibility
+set.seed(42)
+
+# dimensions
+n # number of individuals
+#> [1] 500
+m # measurement occasions
+#> [1] 6
+p # number of items
+#> [1] 4
+q # common trait dimension
+#> [1] 1
+
+# covariate parameters
+mu_x 
+#> [1] 11.4009
+sigma_x
+#> [1] 24.67566
+
+# profile membership and transition parameters
+nu_0
+#> [1] -3.563
+kappa_0
+#> [1] 0.122
+alpha_0
+#> [1] -3.586
+beta_00
+#> [1] 2.25
+gamma_00
+#> [1] 0.063
+gamma_10
+#> [1] 0.094
+
+# trait parameters
+psi_t
+#>      [,1]
+#> [1,]  0.1
+mu_t
+#> [1] 0
+psi_p
+#>      [,1] [,2] [,3] [,4]
+#> [1,]  0.1  0.0  0.0  0.0
+#> [2,]  0.0  0.1  0.0  0.0
+#> [3,]  0.0  0.0  0.5  0.0
+#> [4,]  0.0  0.0  0.0  0.5
+mu_p
+#> [1] 0 0 0 0
+common_trait_loading
+#>      [,1]
+#> [1,]    1
+#> [2,]    1
+#> [3,]    1
+#> [4,]    1
+
+# state parameters
+common_state_loading
+#>      [,1]
+#> [1,]    1
+#> [2,]    1
+#> [3,]    1
+#> [4,]    1
+beta_0
+#> [1] 0
+beta_1
+#> [1] 0.311
+psi_s0
+#> [1] 1
+psi_s
+#> [1] 0.25
+theta
+#>      [,1] [,2] [,3] [,4]
+#> [1,] 0.15 0.00 0.00 0.00
+#> [2,] 0.00 0.15 0.00 0.00
+#> [3,] 0.00 0.00 0.15 0.00
+#> [4,] 0.00 0.00 0.00 0.15
+
+# profile-specific means
+mu_profile
+#>       [,1]   [,2]
+#> [1,] 2.253 -0.278
+#> [2,] 1.493 -0.165
+#> [3,] 1.574 -0.199
+#> [4,] 1.117 -0.148
+```
+
+
+``` r
+data <- GenCULTA2Profiles(
+  n = n,
+  m = m,
+  mu_x = mu_x,
+  sigma_x = sigma_x,
+  nu_0 = nu_0,
+  kappa_0 = kappa_0,
+  alpha_0 = alpha_0,
+  beta_00 = beta_00,
+  gamma_00 = gamma_00,
+  gamma_10 = gamma_10,
+  mu_t = mu_t,
+  psi_t = psi_t,
+  mu_p = mu_p,
+  psi_p = psi_p,
+  common_trait_loading = common_trait_loading,
+  common_state_loading = common_state_loading,
+  beta_0 = beta_0,
+  beta_1 = beta_1,
+  psi_s0 = psi_s0,
+  psi_s = psi_s,
+  theta = theta, 
+  mu_profile = mu_profile
+)
+```
+
+
+
+## Model Fitting
+
+The `FitCULTA1Profiles` function fits the misspecified one-profile model using `Mplus`.
+**Note:** This function requires that **Mplus** is already installed on the system.
+
+
+``` r
+one_profile <- FitCULTA1Profile(data = data)
+```
+
+The `FitCULTA2Profiles` function fits the correct two-profile model using `Mplus`.
+**Note:** This function requires that **Mplus** is already installed on the system. To speed up model fitting, consider using the `ncores` argument to leverage multiple cores.
+
+
+``` r
+two_profiles <- FitCULTA2Profiles(data = data)
+```
+
+
+
+
+
+## Model Comparison
+
+
+``` r
+anova(one_profile, two_profiles)
+#> $fit
+#>              logLik df correction      AIC      BIC     aBIC   entropy
+#> 1-profile -12314.53 22  1.0603116 24673.06 24765.79 24695.96 0.0000000
+#> 2-profile -11866.88 33  0.9818982 23799.76 23938.84 23834.09 0.9378745
+#> 
+#> $test
+#>      chi_diff       df_diff       p_value 
+#>  1.085131e+03  1.100000e+01 9.050812e-226
+```
+
+Model comparison shows that the two-profile model fits the data better than the one-profile model.

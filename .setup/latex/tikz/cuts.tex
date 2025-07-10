@@ -136,15 +136,6 @@
 			color = mygreen,
 			>=stealth'
 		},
-		mean/.style={
-			regular polygon,
-			regular polygon sides = 3,
-			draw,
-			thick,
-			inner sep = 0pt,
-			minimum width = 7mm,
-			minimum height = 7mm
-		},
 		cov/.style = {
 			<->,
 			thick,
@@ -175,6 +166,7 @@
 	\node[manifest] (fall2) [below = of center2] {$Y_{\mathrm{fall}_{t_{5}}}$};
 	\node[inv] (bottom2) [below = of fall2] {};
 	\node[manifest] (dura2) [below = of bottom2] {$Y_{\mathrm{dura}_{t_{5}}}$};
+    \node[inv] (pad2) [below = of dura2] {};
 	% within
 	\node[latentwithin] (f0) [left = of center0] {$\mathrm{State}_{\mathrm{intoxication}_{t_{0}}}$};
 	\node[latentwithin] (f1) [left = of center1] {$\mathrm{State}_{\mathrm{intoxication}_{t_{\dots}}}$};
@@ -195,7 +187,6 @@
 	\draw[latentwithincov] (f1) to[out = 70, in = 110, looseness = 4] node[above] {$\psi_{S_{t_{\dots}}}$} (f1);
 	\draw[latentwithincov] (f2) to[out = 70, in = 110, looseness = 4] node[above] {$\psi_{S_{t_{5}}}$} (f2);
 	% between
-	\node[inv] (fbpad) [left = of pad1] {};
 	\node[latentbetween] (fb) [left = of f1] {$\mathrm{Trait}_{\mathrm{intoxication}}$};
 	\draw[latentbetweenpath] (fb) to node[near start, above] {$1$} (peak0);
 	\draw[latentbetweenpath] (fb) to node[near start, above] {$1$} (peak1);
@@ -252,6 +243,7 @@
 	\node[inv] (upad1) [right = of top1] {};
 	\node[inv] (upad2) [right = of bottom1] {};
 	\node[inv] (upad3) [right = of top2] {};
+    \node[inv] (upad4) [right = of bottom2] {};
 	\node[latentintercept] (u1) [right = of upad0] {$\mathrm{Unique}_{\mathrm{peak}}$};
 	\node[latentintercept] (u2) [right = of upad1] {$\mathrm{Unique}_{\mathrm{rise}}$};
 	\node[latentintercept] (u3) [right = of upad2] {$\mathrm{Unique}_{\mathrm{fall}}$};

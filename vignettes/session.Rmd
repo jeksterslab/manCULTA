@@ -20,9 +20,9 @@ library(manCULTA)
 
 ``` r
 sessionInfo()
-#> R version 4.4.3 (2025-02-28)
+#> R version 4.5.1 (2025-06-13)
 #> Platform: x86_64-pc-linux-gnu
-#> Running under: Ubuntu 24.04.1 LTS
+#> Running under: Ubuntu 24.04.2 LTS
 #> 
 #> Matrix products: default
 #> BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
@@ -43,11 +43,11 @@ sessionInfo()
 #> [1] stats     graphics  grDevices utils     datasets  methods   base     
 #> 
 #> other attached packages:
-#> [1] manCULTA_0.9.1
+#> [1] manCULTA_0.9.2
 #> 
 #> loaded via a namespace (and not attached):
-#> [1] compiler_4.4.3  tools_4.4.3     rProject_0.0.18 knitr_1.49     
-#> [5] xfun_0.51       evaluate_1.0.3
+#> [1] compiler_4.5.1  rprojroot_2.0.4 tools_4.5.1     Rcpp_1.0.14    
+#> [5] rProject_0.0.21 knitr_1.50      xfun_0.52       evaluate_1.0.4
 ```
 
 # CPU
@@ -69,10 +69,10 @@ cat(system("lscpu", intern = TRUE), sep = "\n")
 #> Core(s) per socket:                   12
 #> Socket(s):                            2
 #> Stepping:                             1
-#> CPU(s) scaling MHz:                   86%
+#> CPU(s) scaling MHz:                   68%
 #> CPU max MHz:                          2900.0000
 #> CPU min MHz:                          1200.0000
-#> BogoMIPS:                             4389.74
+#> BogoMIPS:                             4389.62
 #> Flags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single pti ssbd ibrs ibpb stibp fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm cqm rdt_a rdseed adx smap intel_pt xsaveopt cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts md_clear flush_l1d
 #> L1d cache:                            768 KiB (24 instances)
 #> L1i cache:                            768 KiB (24 instances)
@@ -103,7 +103,7 @@ cat(system("lscpu", intern = TRUE), sep = "\n")
 ``` r
 cat(system("free -g -h -t", intern = TRUE), sep = "\n")
 #>                total        used        free      shared  buff/cache   available
-#> Mem:           125Gi        20Gi        12Gi       5.5Gi        99Gi       105Gi
+#> Mem:           125Gi       9.8Gi        49Gi       5.7Gi        72Gi       115Gi
 #> Swap:             0B          0B          0B
-#> Total:         125Gi        20Gi        12Gi
+#> Total:         125Gi       9.8Gi        49Gi
 ```

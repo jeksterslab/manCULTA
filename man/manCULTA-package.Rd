@@ -13,7 +13,7 @@ Useful links:
 \itemize{
   \item \url{https://github.com/jeksterslab/manCULTA}
   \item \url{https://jeksterslab.github.io/manCULTA/}
-  \item \url{https://osf.io/gtdmr/?view_only=351d499977504acdb31948388d211372}
+  \item \url{https://osf.io/gtdmr/}
   \item \doi{10.0000/0000000000}
   \item Report bugs at \url{https://github.com/jeksterslab/manCULTA/issues}
 }

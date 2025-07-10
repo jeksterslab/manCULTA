@@ -17,7 +17,13 @@
 
 project <- "manCULTA"
 
-pkg_cran <- c()
+rproject_ver <- NULL
+
+pkg_cran <- c(
+  "Rcpp",
+  "RcppArmadillo",
+  "lavaan"
+)
 
 pkg_github <- c()
 
@@ -29,7 +35,7 @@ ver <- c()
 
 ignore <- "^vignettes$"
 
-license <- "mit"
+license <- "gpl3"
 
 git_user <- "jeksterslab"
 git_email <- "learn.jeksterslab@gmail.com"
