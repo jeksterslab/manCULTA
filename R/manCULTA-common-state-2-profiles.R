@@ -60,7 +60,7 @@
 #'   psi_s = 0.290
 #' )
 #'
-#' @family Simulation Functions
+#' @family Data Generation Functions
 #' @keywords manCULTA sim state
 #' @noRd
 CommonState2Profiles <- function(categorical,

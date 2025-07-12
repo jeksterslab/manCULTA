@@ -105,7 +105,7 @@
 #'   categorical = categorical
 #' )
 #'
-#' @family Simulation Functions
+#' @family Data Generation Functions
 #' @keywords manCULTA sim state trait mixture
 #' @noRd
 TraitState2Profiles <- function(mu_profile,

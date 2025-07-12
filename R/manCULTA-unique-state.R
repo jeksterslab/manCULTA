@@ -14,7 +14,7 @@
 #' set.seed(42)
 #' UniqueState(n = 10, theta = diag(2))
 #'
-#' @family Simulation Functions
+#' @family Data Generation Functions
 #' @keywords manCULTA sim state
 #' @noRd
 UniqueState <- function(n,

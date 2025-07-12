@@ -434,7 +434,7 @@
 #'   mu_profile = mu_profile
 #' )
 #'
-#' @family Simulation Functions
+#' @family Data Generation Functions
 #' @keywords manCULTA sim state trait mixture culta
 #' @export
 GenCULTA2Profiles <- function(n,

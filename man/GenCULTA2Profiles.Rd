@@ -489,10 +489,14 @@ data <- GenCULTA2Profiles(
 )
 
 }
+\seealso{
+Other Data Generation Functions: 
+\code{\link{GenData}()}
+}
 \author{
 Ivan Jacob Agaloos Pesigan
 }
-\concept{Simulation Functions}
+\concept{Data Generation Functions}
 \keyword{culta}
 \keyword{manCULTA}
 \keyword{mixture}

@@ -91,7 +91,7 @@
 #'   common_state_loading,
 #'   theta = diag(p)
 #' )
-#' @family Simulation Functions
+#' @family Data Generation Functions
 #' @keywords manCULTA sim state
 #' @noRd
 State <- function(common_state,

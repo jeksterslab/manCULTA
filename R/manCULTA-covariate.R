@@ -14,7 +14,7 @@
 #' set.seed(42)
 #' Covariate(n = 10, mu_x = 0, sigma_x = 1)
 #'
-#' @family Simulation Functions
+#' @family Data Generation Functions
 #' @keywords manCULTA sim covariate
 #' @noRd
 Covariate <- function(n,

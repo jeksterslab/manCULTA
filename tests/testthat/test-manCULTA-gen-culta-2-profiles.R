@@ -88,12 +88,12 @@ lapply(
     data <- as.data.frame(data)
 
     model <- "
-      t =~ 1*y1t0 + lambda_t_2*y2t0 + lambda_t_3*y3t0 + lambda_t_4*y4t0
-      t =~ 1*y1t1 + lambda_t_2*y2t1 + lambda_t_3*y3t1 + lambda_t_4*y4t1
-      t =~ 1*y1t2 + lambda_t_2*y2t2 + lambda_t_3*y3t2 + lambda_t_4*y4t2
-      t =~ 1*y1t3 + lambda_t_2*y2t3 + lambda_t_3*y3t3 + lambda_t_4*y4t3
-      t =~ 1*y1t4 + lambda_t_2*y2t4 + lambda_t_3*y3t4 + lambda_t_4*y4t4
-      t =~ 1*y1t5 + lambda_t_2*y2t5 + lambda_t_3*y3t5 + lambda_t_4*y4t5
+      t =~ 1*y1t0 + lambda_t2*y2t0 + lambda_t3*y3t0 + lambda_t4*y4t0
+      t =~ 1*y1t1 + lambda_t2*y2t1 + lambda_t3*y3t1 + lambda_t4*y4t1
+      t =~ 1*y1t2 + lambda_t2*y2t2 + lambda_t3*y3t2 + lambda_t4*y4t2
+      t =~ 1*y1t3 + lambda_t2*y2t3 + lambda_t3*y3t3 + lambda_t4*y4t3
+      t =~ 1*y1t4 + lambda_t2*y2t4 + lambda_t3*y3t4 + lambda_t4*y4t4
+      t =~ 1*y1t5 + lambda_t2*y2t5 + lambda_t3*y3t5 + lambda_t4*y4t5
       t ~ 0*1
       t ~~ psi_t*t
       u1 =~ 1*y1t0 + 1*y1t1 + 1*y1t2 + 1*y1t3 + 1*y1t4 + 1*y1t5
@@ -104,12 +104,12 @@ lapply(
       u2 ~~ psi_p_2*u2
       u3 ~~ psi_p_3*u3
       u4 ~~ psi_p_4*u4
-      s0 =~ 1*y1t0 + lambda_s_2*y2t0 + lambda_s_3*y3t0 + lambda_s_4*y4t0
-      s1 =~ 1*y1t1 + lambda_s_2*y2t1 + lambda_s_3*y3t1 + lambda_s_4*y4t1
-      s2 =~ 1*y1t2 + lambda_s_2*y2t2 + lambda_s_3*y3t2 + lambda_s_4*y4t2
-      s3 =~ 1*y1t3 + lambda_s_2*y2t3 + lambda_s_3*y3t3 + lambda_s_4*y4t3
-      s4 =~ 1*y1t4 + lambda_s_2*y2t4 + lambda_s_3*y3t4 + lambda_s_4*y4t4
-      s5 =~ 1*y1t5 + lambda_s_2*y2t5 + lambda_s_3*y3t5 + lambda_s_4*y4t5
+      s0 =~ 1*y1t0 + lambda_s2*y2t0 + lambda_s3*y3t0 + lambda_s4*y4t0
+      s1 =~ 1*y1t1 + lambda_s2*y2t1 + lambda_s3*y3t1 + lambda_s4*y4t1
+      s2 =~ 1*y1t2 + lambda_s2*y2t2 + lambda_s3*y3t2 + lambda_s4*y4t2
+      s3 =~ 1*y1t3 + lambda_s2*y2t3 + lambda_s3*y3t3 + lambda_s4*y4t3
+      s4 =~ 1*y1t4 + lambda_s2*y2t4 + lambda_s3*y3t4 + lambda_s4*y4t4
+      s5 =~ 1*y1t5 + lambda_s2*y2t5 + lambda_s3*y3t5 + lambda_s4*y4t5
       s0 ~~ psi_s0*s0
       s1 ~~ psi_s*s1
       s2 ~~ psi_s*s2
@@ -241,9 +241,9 @@ lapply(
             abs(
               c(common_trait_loading) - c(
                 1,
-                est["lambda_t_2"],
-                est["lambda_t_3"],
-                est["lambda_t_4"]
+                est["lambda_t2"],
+                est["lambda_t3"],
+                est["lambda_t4"]
               )
             ) <= tol
           )
@@ -258,9 +258,9 @@ lapply(
             abs(
               c(common_state_loading) - c(
                 1,
-                est["lambda_s_2"],
-                est["lambda_s_3"],
-                est["lambda_s_4"]
+                est["lambda_s2"],
+                est["lambda_s3"],
+                est["lambda_s4"]
               )
             ) <= tol
           )

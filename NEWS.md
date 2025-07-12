@@ -1,6 +1,8 @@
 # manCULTA 0.9.2
 
-* Added functions for Monte Carlo simulation.
+## Docker Hub Tag
+
+* ijapesigan/manculta
 
 # manCULTA 0.9.1
 

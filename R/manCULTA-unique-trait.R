@@ -19,7 +19,7 @@
 #' UniqueTrait(n = 10, psi_p = diag(2))
 #' UniqueTrait(n = 10, psi_p = diag(2), mu_p = c(1, 1))
 #'
-#' @family Simulation Functions
+#' @family Data Generation Functions
 #' @keywords manCULTA sim trait
 #' @noRd
 UniqueTrait <- function(n,

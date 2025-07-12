@@ -7,7 +7,7 @@
 #' @examples
 #' CovariateSample()
 #'
-#' @family Simulation Functions
+#' @family Data Generation Functions
 #' @keywords manCULTA sim covariate
 #' @noRd
 CovariateSample <- function() {
