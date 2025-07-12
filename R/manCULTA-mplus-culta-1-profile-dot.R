@@ -149,7 +149,7 @@
 
   ## Output Text: Inertia
   inertia <- sprintf(
-    "  s%d ON s%d (beta);",
+    "  s%d ON s%d (phi);",
     seq_0_m_minus_1[-length(seq_0_m_minus_1)],
     seq_0_m_minus_1[-1]
   )

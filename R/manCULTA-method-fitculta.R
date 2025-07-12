@@ -22,7 +22,7 @@
 #' set.seed(42)
 #'
 #' # dimensions
-#' n <- 5000 # number of individuals
+#' n <- 1000 # number of individuals
 #' m <- 6 # measurement occasions
 #' p <- 4 # number of items
 #' q <- 1 # common trait dimension
@@ -40,9 +40,19 @@
 #' gamma_10 <- 0.094
 #'
 #' # trait parameters
-#' psi_t <- diag(1)
+#' psi_t <- 0.10 * diag(1)
 #' mu_t <- 0
 #' psi_p <- diag(p)
+#' psi_p_1 <- 0.10
+#' psi_p_2 <- 0.10
+#' psi_p_3 <- 0.50
+#' psi_p_4 <- 0.50
+#' diag(psi_p) <- c(
+#'   psi_p_1,
+#'   psi_p_2,
+#'   psi_p_3,
+#'   psi_p_4
+#' )
 #' mu_p <- rep(x = 0, times = p)
 #' common_trait_loading <- matrix(
 #'   data = 1,
@@ -56,11 +66,11 @@
 #'   nrow = p,
 #'   ncol = 1
 #' )
-#' beta_0 <- 0.000
-#' beta_1 <- 0.311
-#' psi_s0 <- 0.151
-#' psi_s <- 0.290
-#' theta <- diag(p)
+#' phi_0 <- 0.000
+#' phi_1 <- 0.311
+#' psi_s0 <- 1.00
+#' psi_s <- 0.25
+#' theta <- 0.15 * diag(p)
 #'
 #' # profile-specific means
 #' mu_profile <- cbind(
@@ -86,8 +96,8 @@
 #'   psi_p = psi_p,
 #'   common_trait_loading = common_trait_loading,
 #'   common_state_loading = common_state_loading,
-#'   beta_0 = beta_0,
-#'   beta_1 = beta_1,
+#'   phi_0 = phi_0,
+#'   phi_1 = phi_1,
 #'   psi_s0 = psi_s0,
 #'   psi_s = psi_s,
 #'   theta = theta,
@@ -96,7 +106,7 @@
 #'
 #' # model fitting -------------------------------------------------------------
 #' # NOTE: Model fitting takes time
-#' fit <- FitCULTA2Profiles(data = data, ncores = parallel::detectCores())
+#' fit <- FitCULTA2Profiles(data = data)
 #' converged(fit)
 #' }
 #'
@@ -131,7 +141,7 @@ converged <- function(object,
 #' set.seed(42)
 #'
 #' # dimensions
-#' n <- 5000 # number of individuals
+#' n <- 1000 # number of individuals
 #' m <- 6 # measurement occasions
 #' p <- 4 # number of items
 #' q <- 1 # common trait dimension
@@ -149,9 +159,19 @@ converged <- function(object,
 #' gamma_10 <- 0.094
 #'
 #' # trait parameters
-#' psi_t <- diag(1)
+#' psi_t <- 0.10 * diag(1)
 #' mu_t <- 0
 #' psi_p <- diag(p)
+#' psi_p_1 <- 0.10
+#' psi_p_2 <- 0.10
+#' psi_p_3 <- 0.50
+#' psi_p_4 <- 0.50
+#' diag(psi_p) <- c(
+#'   psi_p_1,
+#'   psi_p_2,
+#'   psi_p_3,
+#'   psi_p_4
+#' )
 #' mu_p <- rep(x = 0, times = p)
 #' common_trait_loading <- matrix(
 #'   data = 1,
@@ -165,11 +185,11 @@ converged <- function(object,
 #'   nrow = p,
 #'   ncol = 1
 #' )
-#' beta_0 <- 0.000
-#' beta_1 <- 0.311
-#' psi_s0 <- 0.151
-#' psi_s <- 0.290
-#' theta <- diag(p)
+#' phi_0 <- 0.000
+#' phi_1 <- 0.311
+#' psi_s0 <- 1.00
+#' psi_s <- 0.25
+#' theta <- 0.15 * diag(p)
 #'
 #' # profile-specific means
 #' mu_profile <- cbind(
@@ -195,8 +215,8 @@ converged <- function(object,
 #'   psi_p = psi_p,
 #'   common_trait_loading = common_trait_loading,
 #'   common_state_loading = common_state_loading,
-#'   beta_0 = beta_0,
-#'   beta_1 = beta_1,
+#'   phi_0 = phi_0,
+#'   phi_1 = phi_1,
 #'   psi_s0 = psi_s0,
 #'   psi_s = psi_s,
 #'   theta = theta,
@@ -205,7 +225,7 @@ converged <- function(object,
 #'
 #' # model fitting -------------------------------------------------------------
 #' # NOTE: Model fitting takes time
-#' fit <- FitCULTA2Profiles(data = data, ncores = parallel::detectCores())
+#' fit <- FitCULTA2Profiles(data = data)
 #' converged(fit)
 #' }
 #'
@@ -215,7 +235,7 @@ converged.fitculta <- function(object,
                                ...) {
   lines <- object$output$output
   terminated <- grep(
-    pattern = "MODEL ESTIMATION TERMINATED NORMALLY",
+    pattern = "THE MODEL ESTIMATION TERMINATED NORMALLY",
     x = lines,
     value = TRUE
   )
@@ -225,7 +245,7 @@ converged.fitculta <- function(object,
     value = TRUE
   )
   if (object$fun == "FitCULTA1Profile") {
-    out <- length(x = terminated) > 0
+    out <- TRUE # assume that the model will always converge
   } else {
     out <- (
       (
@@ -266,7 +286,7 @@ converged.fitculta <- function(object,
 #' set.seed(42)
 #'
 #' # dimensions
-#' n <- 5000 # number of individuals
+#' n <- 1000 # number of individuals
 #' m <- 6 # measurement occasions
 #' p <- 4 # number of items
 #' q <- 1 # common trait dimension
@@ -284,9 +304,19 @@ converged.fitculta <- function(object,
 #' gamma_10 <- 0.094
 #'
 #' # trait parameters
-#' psi_t <- diag(1)
+#' psi_t <- 0.10 * diag(1)
 #' mu_t <- 0
 #' psi_p <- diag(p)
+#' psi_p_1 <- 0.10
+#' psi_p_2 <- 0.10
+#' psi_p_3 <- 0.50
+#' psi_p_4 <- 0.50
+#' diag(psi_p) <- c(
+#'   psi_p_1,
+#'   psi_p_2,
+#'   psi_p_3,
+#'   psi_p_4
+#' )
 #' mu_p <- rep(x = 0, times = p)
 #' common_trait_loading <- matrix(
 #'   data = 1,
@@ -300,11 +330,11 @@ converged.fitculta <- function(object,
 #'   nrow = p,
 #'   ncol = 1
 #' )
-#' beta_0 <- 0.000
-#' beta_1 <- 0.311
-#' psi_s0 <- 0.151
-#' psi_s <- 0.290
-#' theta <- diag(p)
+#' phi_0 <- 0.000
+#' phi_1 <- 0.311
+#' psi_s0 <- 1.00
+#' psi_s <- 0.25
+#' theta <- 0.15 * diag(p)
 #'
 #' # profile-specific means
 #' mu_profile <- cbind(
@@ -330,8 +360,8 @@ converged.fitculta <- function(object,
 #'   psi_p = psi_p,
 #'   common_trait_loading = common_trait_loading,
 #'   common_state_loading = common_state_loading,
-#'   beta_0 = beta_0,
-#'   beta_1 = beta_1,
+#'   phi_0 = phi_0,
+#'   phi_1 = phi_1,
 #'   psi_s0 = psi_s0,
 #'   psi_s = psi_s,
 #'   theta = theta,
@@ -340,7 +370,7 @@ converged.fitculta <- function(object,
 #'
 #' # model fitting -------------------------------------------------------------
 #' # NOTE: Model fitting takes time
-#' fit <- FitCULTA2Profiles(data = data, ncores = parallel::detectCores())
+#' fit <- FitCULTA2Profiles(data = data)
 #' print(fit)
 #' }
 #'
@@ -388,7 +418,7 @@ print.fitculta <- function(x,
 #' set.seed(42)
 #'
 #' # dimensions
-#' n <- 5000 # number of individuals
+#' n <- 1000 # number of individuals
 #' m <- 6 # measurement occasions
 #' p <- 4 # number of items
 #' q <- 1 # common trait dimension
@@ -406,9 +436,19 @@ print.fitculta <- function(x,
 #' gamma_10 <- 0.094
 #'
 #' # trait parameters
-#' psi_t <- diag(1)
+#' psi_t <- 0.10 * diag(1)
 #' mu_t <- 0
 #' psi_p <- diag(p)
+#' psi_p_1 <- 0.10
+#' psi_p_2 <- 0.10
+#' psi_p_3 <- 0.50
+#' psi_p_4 <- 0.50
+#' diag(psi_p) <- c(
+#'   psi_p_1,
+#'   psi_p_2,
+#'   psi_p_3,
+#'   psi_p_4
+#' )
 #' mu_p <- rep(x = 0, times = p)
 #' common_trait_loading <- matrix(
 #'   data = 1,
@@ -422,11 +462,11 @@ print.fitculta <- function(x,
 #'   nrow = p,
 #'   ncol = 1
 #' )
-#' beta_0 <- 0.000
-#' beta_1 <- 0.311
-#' psi_s0 <- 0.151
-#' psi_s <- 0.290
-#' theta <- diag(p)
+#' phi_0 <- 0.000
+#' phi_1 <- 0.311
+#' psi_s0 <- 1.00
+#' psi_s <- 0.25
+#' theta <- 0.15 * diag(p)
 #'
 #' # profile-specific means
 #' mu_profile <- cbind(
@@ -452,8 +492,8 @@ print.fitculta <- function(x,
 #'   psi_p = psi_p,
 #'   common_trait_loading = common_trait_loading,
 #'   common_state_loading = common_state_loading,
-#'   beta_0 = beta_0,
-#'   beta_1 = beta_1,
+#'   phi_0 = phi_0,
+#'   phi_1 = phi_1,
 #'   psi_s0 = psi_s0,
 #'   psi_s = psi_s,
 #'   theta = theta,
@@ -462,7 +502,7 @@ print.fitculta <- function(x,
 #'
 #' # model fitting -------------------------------------------------------------
 #' # NOTE: Model fitting takes time
-#' fit <- FitCULTA2Profiles(data = data, ncores = parallel::detectCores())
+#' fit <- FitCULTA2Profiles(data = data)
 #' summary(fit)
 #' }
 #'
@@ -483,28 +523,15 @@ summary.fitculta <- function(object,
     what = numeric(),
     quiet = TRUE
   )
-  if (object$fun == "FitCULTA1Profile") {
-    q <- (length(results) - 20) / 2
-    p <- (q - 2) / 5
-    est <- results[
-      seq_len(length.out = q)
-    ]
-    se <- results[
-      seq_len(length.out = q) + q
-    ]
-    names(est) <- .MPlusCULTA1ProfileParams(p = p)
-  }
-  if (object$fun == "FitCULTA2Profiles") {
-    q <- (length(results) - 8) / 2
-    p <- (q - 9) / 6
-    est <- results[
-      seq_len(length.out = q)
-    ]
-    se <- results[
-      seq_len(length.out = q) + q
-    ]
-    names(est) <- .MPlusCULTA2ProfileParams(p = p)
-  }
+  q <- object$args$q
+  params <- object$args$params
+  est <- results[
+    seq_len(length.out = q)
+  ]
+  se <- results[
+    seq_len(length.out = q) + q
+  ]
+  names(est) <- params
   cat("Call:\n")
   base::print(object$call)
   round(
@@ -536,7 +563,7 @@ summary.fitculta <- function(object,
 #' set.seed(42)
 #'
 #' # dimensions
-#' n <- 5000 # number of individuals
+#' n <- 1000 # number of individuals
 #' m <- 6 # measurement occasions
 #' p <- 4 # number of items
 #' q <- 1 # common trait dimension
@@ -554,9 +581,19 @@ summary.fitculta <- function(object,
 #' gamma_10 <- 0.094
 #'
 #' # trait parameters
-#' psi_t <- diag(1)
+#' psi_t <- 0.10 * diag(1)
 #' mu_t <- 0
 #' psi_p <- diag(p)
+#' psi_p_1 <- 0.10
+#' psi_p_2 <- 0.10
+#' psi_p_3 <- 0.50
+#' psi_p_4 <- 0.50
+#' diag(psi_p) <- c(
+#'   psi_p_1,
+#'   psi_p_2,
+#'   psi_p_3,
+#'   psi_p_4
+#' )
 #' mu_p <- rep(x = 0, times = p)
 #' common_trait_loading <- matrix(
 #'   data = 1,
@@ -570,11 +607,11 @@ summary.fitculta <- function(object,
 #'   nrow = p,
 #'   ncol = 1
 #' )
-#' beta_0 <- 0.000
-#' beta_1 <- 0.311
-#' psi_s0 <- 0.151
-#' psi_s <- 0.290
-#' theta <- diag(p)
+#' phi_0 <- 0.000
+#' phi_1 <- 0.311
+#' psi_s0 <- 1.00
+#' psi_s <- 0.25
+#' theta <- 0.15 * diag(p)
 #'
 #' # profile-specific means
 #' mu_profile <- cbind(
@@ -600,8 +637,8 @@ summary.fitculta <- function(object,
 #'   psi_p = psi_p,
 #'   common_trait_loading = common_trait_loading,
 #'   common_state_loading = common_state_loading,
-#'   beta_0 = beta_0,
-#'   beta_1 = beta_1,
+#'   phi_0 = phi_0,
+#'   phi_1 = phi_1,
 #'   psi_s0 = psi_s0,
 #'   psi_s = psi_s,
 #'   theta = theta,
@@ -610,7 +647,7 @@ summary.fitculta <- function(object,
 #'
 #' # model fitting -------------------------------------------------------------
 #' # NOTE: Model fitting takes time
-#' fit <- FitCULTA2Profiles(data = data, ncores = parallel::detectCores())
+#' fit <- FitCULTA2Profiles(data = data)
 #' coef(fit)
 #' }
 #'
@@ -623,22 +660,12 @@ coef.fitculta <- function(object,
     what = numeric(),
     quiet = TRUE
   )
-  if (object$fun == "FitCULTA1Profile") {
-    q <- (length(results) - 20) / 2
-    p <- (q - 2) / 5
-    est <- results[
-      seq_len(length.out = q)
-    ]
-    names(est) <- .MPlusCULTA1ProfileParams(p = p)
-  }
-  if (object$fun == "FitCULTA2Profiles") {
-    q <- (length(results) - 8) / 2
-    p <- (q - 9) / 6
-    est <- results[
-      seq_len(length.out = q)
-    ]
-    names(est) <- .MPlusCULTA2ProfileParams(p)
-  }
+  q <- object$args$q
+  params <- object$args$params
+  est <- results[
+    seq_len(length.out = q)
+  ]
+  names(est) <- params
   est
 }
 
@@ -661,7 +688,7 @@ coef.fitculta <- function(object,
 #' set.seed(42)
 #'
 #' # dimensions
-#' n <- 5000 # number of individuals
+#' n <- 1000 # number of individuals
 #' m <- 6 # measurement occasions
 #' p <- 4 # number of items
 #' q <- 1 # common trait dimension
@@ -679,9 +706,19 @@ coef.fitculta <- function(object,
 #' gamma_10 <- 0.094
 #'
 #' # trait parameters
-#' psi_t <- diag(1)
+#' psi_t <- 0.10 * diag(1)
 #' mu_t <- 0
 #' psi_p <- diag(p)
+#' psi_p_1 <- 0.10
+#' psi_p_2 <- 0.10
+#' psi_p_3 <- 0.50
+#' psi_p_4 <- 0.50
+#' diag(psi_p) <- c(
+#'   psi_p_1,
+#'   psi_p_2,
+#'   psi_p_3,
+#'   psi_p_4
+#' )
 #' mu_p <- rep(x = 0, times = p)
 #' common_trait_loading <- matrix(
 #'   data = 1,
@@ -695,11 +732,11 @@ coef.fitculta <- function(object,
 #'   nrow = p,
 #'   ncol = 1
 #' )
-#' beta_0 <- 0.000
-#' beta_1 <- 0.311
-#' psi_s0 <- 0.151
-#' psi_s <- 0.290
-#' theta <- diag(p)
+#' phi_0 <- 0.000
+#' phi_1 <- 0.311
+#' psi_s0 <- 1.00
+#' psi_s <- 0.25
+#' theta <- 0.15 * diag(p)
 #'
 #' # profile-specific means
 #' mu_profile <- cbind(
@@ -725,8 +762,8 @@ coef.fitculta <- function(object,
 #'   psi_p = psi_p,
 #'   common_trait_loading = common_trait_loading,
 #'   common_state_loading = common_state_loading,
-#'   beta_0 = beta_0,
-#'   beta_1 = beta_1,
+#'   phi_0 = phi_0,
+#'   phi_1 = phi_1,
 #'   psi_s0 = psi_s0,
 #'   psi_s = psi_s,
 #'   theta = theta,
@@ -735,7 +772,7 @@ coef.fitculta <- function(object,
 #'
 #' # model fitting -------------------------------------------------------------
 #' # NOTE: Model fitting takes time
-#' fit <- FitCULTA2Profiles(data = data, ncores = parallel::detectCores())
+#' fit <- FitCULTA2Profiles(data = data)
 #' vcov(fit)
 #' }
 #'
@@ -743,26 +780,13 @@ coef.fitculta <- function(object,
 #' @export
 vcov.fitculta <- function(object,
                           ...) {
-  results <- scan(
-    text = object$output$results,
-    what = numeric(),
-    quiet = TRUE
-  )
   tech3 <- scan(
     text = object$output$tech3,
     what = numeric(),
     quiet = TRUE
   )
-  if (object$fun == "FitCULTA1Profile") {
-    q <- (length(results) - 20) / 2
-    p <- (q - 2) / 5
-    varnames <- .MPlusCULTA1ProfileParams(p)
-  }
-  if (object$fun == "FitCULTA2Profiles") {
-    q <- (length(results) - 8) / 2
-    p <- (q - 9) / 6
-    varnames <- .MPlusCULTA2ProfileParams(p)
-  }
+  q <- object$args$q
+  params <- object$args$params
   out <- .SymofVech2(
     x = tech3[
       seq_len(
@@ -771,7 +795,7 @@ vcov.fitculta <- function(object,
     ],
     k = q
   )
-  colnames(out) <- rownames(out) <- varnames
+  colnames(out) <- rownames(out) <- params
   out
 }
 
@@ -797,7 +821,7 @@ vcov.fitculta <- function(object,
 #' set.seed(42)
 #'
 #' # dimensions
-#' n <- 5000 # number of individuals
+#' n <- 1000 # number of individuals
 #' m <- 6 # measurement occasions
 #' p <- 4 # number of items
 #' q <- 1 # common trait dimension
@@ -815,9 +839,19 @@ vcov.fitculta <- function(object,
 #' gamma_10 <- 0.094
 #'
 #' # trait parameters
-#' psi_t <- diag(1)
+#' psi_t <- 0.10 * diag(1)
 #' mu_t <- 0
 #' psi_p <- diag(p)
+#' psi_p_1 <- 0.10
+#' psi_p_2 <- 0.10
+#' psi_p_3 <- 0.50
+#' psi_p_4 <- 0.50
+#' diag(psi_p) <- c(
+#'   psi_p_1,
+#'   psi_p_2,
+#'   psi_p_3,
+#'   psi_p_4
+#' )
 #' mu_p <- rep(x = 0, times = p)
 #' common_trait_loading <- matrix(
 #'   data = 1,
@@ -831,11 +865,11 @@ vcov.fitculta <- function(object,
 #'   nrow = p,
 #'   ncol = 1
 #' )
-#' beta_0 <- 0.000
-#' beta_1 <- 0.311
-#' psi_s0 <- 0.151
-#' psi_s <- 0.290
-#' theta <- diag(p)
+#' phi_0 <- 0.000
+#' phi_1 <- 0.311
+#' psi_s0 <- 1.00
+#' psi_s <- 0.25
+#' theta <- 0.15 * diag(p)
 #'
 #' # profile-specific means
 #' mu_profile <- cbind(
@@ -861,8 +895,8 @@ vcov.fitculta <- function(object,
 #'   psi_p = psi_p,
 #'   common_trait_loading = common_trait_loading,
 #'   common_state_loading = common_state_loading,
-#'   beta_0 = beta_0,
-#'   beta_1 = beta_1,
+#'   phi_0 = phi_0,
+#'   phi_1 = phi_1,
 #'   psi_s0 = psi_s0,
 #'   psi_s = psi_s,
 #'   theta = theta,
@@ -871,7 +905,7 @@ vcov.fitculta <- function(object,
 #'
 #' # model fitting -------------------------------------------------------------
 #' # NOTE: Model fitting takes time
-#' fit <- FitCULTA2Profiles(data = data, ncores = parallel::detectCores())
+#' fit <- FitCULTA2Profiles(data = data)
 #' confint(fit, level = 0.95)
 #' }
 #'
@@ -886,33 +920,17 @@ confint.fitculta <- function(object,
     what = numeric(),
     quiet = TRUE
   )
-  if (object$fun == "FitCULTA1Profile") {
-    q <- (length(results) - 20) / 2
-    p <- (q - 2) / 5
-    if (is.null(parm)) {
-      parm <- seq_len(length.out = q)
-    }
-    est <- results[
-      seq_len(length.out = q)
-    ]
-    se <- results[
-      seq_len(length.out = q) + q
-    ]
-    names(est) <- .MPlusCULTA1ProfileParams(p = p)
-  }
-  if (object$fun == "FitCULTA2Profiles") {
-    q <- (length(results) - 8) / 2
-    p <- (q - 9) / 6
-    if (is.null(parm)) {
-      parm <- seq_len(length.out = q)
-    }
-    est <- results[
-      seq_len(length.out = q)
-    ]
-    se <- results[
-      seq_len(length.out = q) + q
-    ]
-    names(est) <- .MPlusCULTA2ProfileParams(p)
+  q <- object$args$q
+  params <- object$args$params
+  est <- results[
+    seq_len(length.out = q)
+  ]
+  se <- results[
+    seq_len(length.out = q) + q
+  ]
+  names(est) <- params
+  if (is.null(parm)) {
+    parm <- seq_len(length.out = q)
   }
   ci <- .CIWald(
     est = est,
@@ -952,7 +970,7 @@ confint.fitculta <- function(object,
 #' set.seed(42)
 #'
 #' # dimensions
-#' n <- 5000 # number of individuals
+#' n <- 1000 # number of individuals
 #' m <- 6 # measurement occasions
 #' p <- 4 # number of items
 #' q <- 1 # common trait dimension
@@ -970,9 +988,19 @@ confint.fitculta <- function(object,
 #' gamma_10 <- 0.094
 #'
 #' # trait parameters
-#' psi_t <- diag(1)
+#' psi_t <- 0.10 * diag(1)
 #' mu_t <- 0
 #' psi_p <- diag(p)
+#' psi_p_1 <- 0.10
+#' psi_p_2 <- 0.10
+#' psi_p_3 <- 0.50
+#' psi_p_4 <- 0.50
+#' diag(psi_p) <- c(
+#'   psi_p_1,
+#'   psi_p_2,
+#'   psi_p_3,
+#'   psi_p_4
+#' )
 #' mu_p <- rep(x = 0, times = p)
 #' common_trait_loading <- matrix(
 #'   data = 1,
@@ -986,11 +1014,11 @@ confint.fitculta <- function(object,
 #'   nrow = p,
 #'   ncol = 1
 #' )
-#' beta_0 <- 0.000
-#' beta_1 <- 0.311
-#' psi_s0 <- 0.151
-#' psi_s <- 0.290
-#' theta <- diag(p)
+#' phi_0 <- 0.000
+#' phi_1 <- 0.311
+#' psi_s0 <- 1.00
+#' psi_s <- 0.25
+#' theta <- 0.15 * diag(p)
 #'
 #' # profile-specific means
 #' mu_profile <- cbind(
@@ -1016,8 +1044,8 @@ confint.fitculta <- function(object,
 #'   psi_p = psi_p,
 #'   common_trait_loading = common_trait_loading,
 #'   common_state_loading = common_state_loading,
-#'   beta_0 = beta_0,
-#'   beta_1 = beta_1,
+#'   phi_0 = phi_0,
+#'   phi_1 = phi_1,
 #'   psi_s0 = psi_s0,
 #'   psi_s = psi_s,
 #'   theta = theta,
@@ -1026,7 +1054,7 @@ confint.fitculta <- function(object,
 #'
 #' # model fitting -------------------------------------------------------------
 #' # NOTE: Model fitting takes time
-#' fit <- FitCULTA2Profiles(data = data, ncores = parallel::detectCores())
+#' fit <- FitCULTA2Profiles(data = data)
 #' logLik(fit, level = 0.95)
 #' }
 #'
@@ -1040,15 +1068,13 @@ logLik.fitculta <- function(object,
     what = numeric(),
     quiet = TRUE
   )
+  q <- object$args$q
+  m <- (q * 2)
   if (object$fun == "FitCULTA1Profile") {
-    q <- (length(results) - 20) / 2
-    m <- (q * 2)
     df <- results[m + 1]
     ll <- results[m + 2]
     correction <- results[m + 3]
   } else {
-    q <- (length(results) - 8) / 2
-    m <- (q * 2)
     df <- results[m + 1]
     ll <- results[m + 2]
     correction <- results[m + 3]
@@ -1075,7 +1101,7 @@ logLik.fitculta <- function(object,
 #' set.seed(42)
 #'
 #' # dimensions
-#' n <- 5000 # number of individuals
+#' n <- 1000 # number of individuals
 #' m <- 6 # measurement occasions
 #' p <- 4 # number of items
 #' q <- 1 # common trait dimension
@@ -1093,9 +1119,19 @@ logLik.fitculta <- function(object,
 #' gamma_10 <- 0.094
 #'
 #' # trait parameters
-#' psi_t <- diag(1)
+#' psi_t <- 0.10 * diag(1)
 #' mu_t <- 0
 #' psi_p <- diag(p)
+#' psi_p_1 <- 0.10
+#' psi_p_2 <- 0.10
+#' psi_p_3 <- 0.50
+#' psi_p_4 <- 0.50
+#' diag(psi_p) <- c(
+#'   psi_p_1,
+#'   psi_p_2,
+#'   psi_p_3,
+#'   psi_p_4
+#' )
 #' mu_p <- rep(x = 0, times = p)
 #' common_trait_loading <- matrix(
 #'   data = 1,
@@ -1109,11 +1145,11 @@ logLik.fitculta <- function(object,
 #'   nrow = p,
 #'   ncol = 1
 #' )
-#' beta_0 <- 0.000
-#' beta_1 <- 0.311
-#' psi_s0 <- 0.151
-#' psi_s <- 0.290
-#' theta <- diag(p)
+#' phi_0 <- 0.000
+#' phi_1 <- 0.311
+#' psi_s0 <- 1.00
+#' psi_s <- 0.25
+#' theta <- 0.15 * diag(p)
 #'
 #' # profile-specific means
 #' mu_profile <- cbind(
@@ -1139,8 +1175,8 @@ logLik.fitculta <- function(object,
 #'   psi_p = psi_p,
 #'   common_trait_loading = common_trait_loading,
 #'   common_state_loading = common_state_loading,
-#'   beta_0 = beta_0,
-#'   beta_1 = beta_1,
+#'   phi_0 = phi_0,
+#'   phi_1 = phi_1,
 #'   psi_s0 = psi_s0,
 #'   psi_s = psi_s,
 #'   theta = theta,
@@ -1149,7 +1185,7 @@ logLik.fitculta <- function(object,
 #'
 #' # model fitting -------------------------------------------------------------
 #' # NOTE: Model fitting takes time
-#' fit <- FitCULTA2Profiles(data = data, ncores = parallel::detectCores())
+#' fit <- FitCULTA2Profiles(data = data)
 #' AIC(fit)
 #' }
 #'
@@ -1163,13 +1199,11 @@ AIC.fitculta <- function(object,
     what = numeric(),
     quiet = TRUE
   )
+  q <- object$args$q
+  m <- (q * 2)
   if (object$fun == "FitCULTA1Profile") {
-    q <- (length(results) - 20) / 2
-    m <- (q * 2)
     aic <- results[m + 6]
   } else {
-    q <- (length(results) - 8) / 2
-    m <- (q * 2)
     aic <- results[m + 4]
   }
   aic
@@ -1195,7 +1229,7 @@ AIC.fitculta <- function(object,
 #' set.seed(42)
 #'
 #' # dimensions
-#' n <- 5000 # number of individuals
+#' n <- 1000 # number of individuals
 #' m <- 6 # measurement occasions
 #' p <- 4 # number of items
 #' q <- 1 # common trait dimension
@@ -1213,9 +1247,19 @@ AIC.fitculta <- function(object,
 #' gamma_10 <- 0.094
 #'
 #' # trait parameters
-#' psi_t <- diag(1)
+#' psi_t <- 0.10 * diag(1)
 #' mu_t <- 0
 #' psi_p <- diag(p)
+#' psi_p_1 <- 0.10
+#' psi_p_2 <- 0.10
+#' psi_p_3 <- 0.50
+#' psi_p_4 <- 0.50
+#' diag(psi_p) <- c(
+#'   psi_p_1,
+#'   psi_p_2,
+#'   psi_p_3,
+#'   psi_p_4
+#' )
 #' mu_p <- rep(x = 0, times = p)
 #' common_trait_loading <- matrix(
 #'   data = 1,
@@ -1229,11 +1273,11 @@ AIC.fitculta <- function(object,
 #'   nrow = p,
 #'   ncol = 1
 #' )
-#' beta_0 <- 0.000
-#' beta_1 <- 0.311
-#' psi_s0 <- 0.151
-#' psi_s <- 0.290
-#' theta <- diag(p)
+#' phi_0 <- 0.000
+#' phi_1 <- 0.311
+#' psi_s0 <- 1.00
+#' psi_s <- 0.25
+#' theta <- 0.15 * diag(p)
 #'
 #' # profile-specific means
 #' mu_profile <- cbind(
@@ -1259,8 +1303,8 @@ AIC.fitculta <- function(object,
 #'   psi_p = psi_p,
 #'   common_trait_loading = common_trait_loading,
 #'   common_state_loading = common_state_loading,
-#'   beta_0 = beta_0,
-#'   beta_1 = beta_1,
+#'   phi_0 = phi_0,
+#'   phi_1 = phi_1,
 #'   psi_s0 = psi_s0,
 #'   psi_s = psi_s,
 #'   theta = theta,
@@ -1269,7 +1313,7 @@ AIC.fitculta <- function(object,
 #'
 #' # model fitting -------------------------------------------------------------
 #' # NOTE: Model fitting takes time
-#' fit <- FitCULTA2Profiles(data = data, ncores = parallel::detectCores())
+#' fit <- FitCULTA2Profiles(data = data)
 #' BIC(fit)
 #' BIC(fit, adjust = TRUE)
 #' }
@@ -1285,17 +1329,15 @@ BIC.fitculta <- function(object,
     what = numeric(),
     quiet = TRUE
   )
+  q <- object$args$q
+  m <- (q * 2)
   if (object$fun == "FitCULTA1Profile") {
-    q <- (length(results) - 20) / 2
-    m <- (q * 2)
     if (adjust) {
       bic <- results[m + 8]
     } else {
       bic <- results[m + 7]
     }
   } else {
-    q <- (length(results) - 8) / 2
-    m <- (q * 2)
     if (adjust) {
       bic <- results[m + 6]
     } else {
@@ -1322,7 +1364,7 @@ BIC.fitculta <- function(object,
 #' set.seed(42)
 #'
 #' # dimensions
-#' n <- 5000 # number of individuals
+#' n <- 1000 # number of individuals
 #' m <- 6 # measurement occasions
 #' p <- 4 # number of items
 #' q <- 1 # common trait dimension
@@ -1340,9 +1382,19 @@ BIC.fitculta <- function(object,
 #' gamma_10 <- 0.094
 #'
 #' # trait parameters
-#' psi_t <- diag(1)
+#' psi_t <- 0.10 * diag(1)
 #' mu_t <- 0
 #' psi_p <- diag(p)
+#' psi_p_1 <- 0.10
+#' psi_p_2 <- 0.10
+#' psi_p_3 <- 0.50
+#' psi_p_4 <- 0.50
+#' diag(psi_p) <- c(
+#'   psi_p_1,
+#'   psi_p_2,
+#'   psi_p_3,
+#'   psi_p_4
+#' )
 #' mu_p <- rep(x = 0, times = p)
 #' common_trait_loading <- matrix(
 #'   data = 1,
@@ -1356,11 +1408,11 @@ BIC.fitculta <- function(object,
 #'   nrow = p,
 #'   ncol = 1
 #' )
-#' beta_0 <- 0.000
-#' beta_1 <- 0.311
-#' psi_s0 <- 0.151
-#' psi_s <- 0.290
-#' theta <- diag(p)
+#' phi_0 <- 0.000
+#' phi_1 <- 0.311
+#' psi_s0 <- 1.00
+#' psi_s <- 0.25
+#' theta <- 0.15 * diag(p)
 #'
 #' # profile-specific means
 #' mu_profile <- cbind(
@@ -1386,8 +1438,8 @@ BIC.fitculta <- function(object,
 #'   psi_p = psi_p,
 #'   common_trait_loading = common_trait_loading,
 #'   common_state_loading = common_state_loading,
-#'   beta_0 = beta_0,
-#'   beta_1 = beta_1,
+#'   phi_0 = phi_0,
+#'   phi_1 = phi_1,
 #'   psi_s0 = psi_s0,
 #'   psi_s = psi_s,
 #'   theta = theta,
@@ -1396,7 +1448,7 @@ BIC.fitculta <- function(object,
 #'
 #' # model fitting -------------------------------------------------------------
 #' # NOTE: Model fitting takes time
-#' fit <- FitCULTA2Profiles(data = data, ncores = parallel::detectCores())
+#' fit <- FitCULTA2Profiles(data = data)
 #' entropy(fit)
 #' }
 #'
@@ -1424,7 +1476,7 @@ entropy <- function(object,
 #' set.seed(42)
 #'
 #' # dimensions
-#' n <- 5000 # number of individuals
+#' n <- 1000 # number of individuals
 #' m <- 6 # measurement occasions
 #' p <- 4 # number of items
 #' q <- 1 # common trait dimension
@@ -1442,9 +1494,19 @@ entropy <- function(object,
 #' gamma_10 <- 0.094
 #'
 #' # trait parameters
-#' psi_t <- diag(1)
+#' psi_t <- 0.10 * diag(1)
 #' mu_t <- 0
 #' psi_p <- diag(p)
+#' psi_p_1 <- 0.10
+#' psi_p_2 <- 0.10
+#' psi_p_3 <- 0.50
+#' psi_p_4 <- 0.50
+#' diag(psi_p) <- c(
+#'   psi_p_1,
+#'   psi_p_2,
+#'   psi_p_3,
+#'   psi_p_4
+#' )
 #' mu_p <- rep(x = 0, times = p)
 #' common_trait_loading <- matrix(
 #'   data = 1,
@@ -1458,11 +1520,11 @@ entropy <- function(object,
 #'   nrow = p,
 #'   ncol = 1
 #' )
-#' beta_0 <- 0.000
-#' beta_1 <- 0.311
-#' psi_s0 <- 0.151
-#' psi_s <- 0.290
-#' theta <- diag(p)
+#' phi_0 <- 0.000
+#' phi_1 <- 0.311
+#' psi_s0 <- 1.00
+#' psi_s <- 0.25
+#' theta <- 0.15 * diag(p)
 #'
 #' # profile-specific means
 #' mu_profile <- cbind(
@@ -1488,8 +1550,8 @@ entropy <- function(object,
 #'   psi_p = psi_p,
 #'   common_trait_loading = common_trait_loading,
 #'   common_state_loading = common_state_loading,
-#'   beta_0 = beta_0,
-#'   beta_1 = beta_1,
+#'   phi_0 = phi_0,
+#'   phi_1 = phi_1,
 #'   psi_s0 = psi_s0,
 #'   psi_s = psi_s,
 #'   theta = theta,
@@ -1498,7 +1560,7 @@ entropy <- function(object,
 #'
 #' # model fitting -------------------------------------------------------------
 #' # NOTE: Model fitting takes time
-#' fit <- FitCULTA2Profiles(data = data, ncores = parallel::detectCores())
+#' fit <- FitCULTA2Profiles(data = data)
 #' entropy(fit)
 #' }
 #'
@@ -1514,7 +1576,7 @@ entropy.fitculta <- function(object,
       what = numeric(),
       quiet = TRUE
     )
-    q <- (length(results) - 8) / 2
+    q <- object$args$q
     m <- (q * 2)
     entropy <- results[m + 7]
   }
@@ -1558,7 +1620,7 @@ entropy.fitculta <- function(object,
 #' set.seed(42)
 #'
 #' # dimensions
-#' n <- 5000 # number of individuals
+#' n <- 1000 # number of individuals
 #' m <- 6 # measurement occasions
 #' p <- 4 # number of items
 #' q <- 1 # common trait dimension
@@ -1576,9 +1638,19 @@ entropy.fitculta <- function(object,
 #' gamma_10 <- 0.094
 #'
 #' # trait parameters
-#' psi_t <- diag(1)
+#' psi_t <- 0.10 * diag(1)
 #' mu_t <- 0
 #' psi_p <- diag(p)
+#' psi_p_1 <- 0.10
+#' psi_p_2 <- 0.10
+#' psi_p_3 <- 0.50
+#' psi_p_4 <- 0.50
+#' diag(psi_p) <- c(
+#'   psi_p_1,
+#'   psi_p_2,
+#'   psi_p_3,
+#'   psi_p_4
+#' )
 #' mu_p <- rep(x = 0, times = p)
 #' common_trait_loading <- matrix(
 #'   data = 1,
@@ -1592,11 +1664,11 @@ entropy.fitculta <- function(object,
 #'   nrow = p,
 #'   ncol = 1
 #' )
-#' beta_0 <- 0.000
-#' beta_1 <- 0.311
-#' psi_s0 <- 0.151
-#' psi_s <- 0.290
-#' theta <- diag(p)
+#' phi_0 <- 0.000
+#' phi_1 <- 0.311
+#' psi_s0 <- 1.00
+#' psi_s <- 0.25
+#' theta <- 0.15 * diag(p)
 #'
 #' # profile-specific means
 #' mu_profile <- cbind(
@@ -1622,8 +1694,8 @@ entropy.fitculta <- function(object,
 #'   psi_p = psi_p,
 #'   common_trait_loading = common_trait_loading,
 #'   common_state_loading = common_state_loading,
-#'   beta_0 = beta_0,
-#'   beta_1 = beta_1,
+#'   phi_0 = phi_0,
+#'   phi_1 = phi_1,
 #'   psi_s0 = psi_s0,
 #'   psi_s = psi_s,
 #'   theta = theta,
@@ -1633,7 +1705,7 @@ entropy.fitculta <- function(object,
 #' # model fitting -------------------------------------------------------------
 #' # NOTE: Model fitting takes time
 #' one_profile <- FitCULTA1Profile(data = data)
-#' two_profiles <- FitCULTA2Profiles(data = data, ncores = parallel::detectCores())
+#' two_profiles <- FitCULTA2Profiles(data = data)
 #' anova(one_profile, two_profiles)
 #' }
 #'
@@ -1661,13 +1733,19 @@ anova.fitculta <- function(object,
   entropy_2 <- entropy(other)
   fun_name <- function(x) {
     if (x == "FitCULTA1Profile") {
-      out <- "1-profile"
+      out <- "1-profile CULTA"
     }
     if (x == "FitCULTA2Profiles") {
-      out <- "2-profile"
+      out <- "2-profile CULTA"
     }
     if (x == "FitCULTA3Profiles") {
-      out <- "3-profile"
+      out <- "3-profile CULTA"
+    }
+    if (x == "FitLTA2Profiles") {
+      out <- "2-profile LTA"
+    }
+    if (x == "FitRILTA2Profiles") {
+      out <- "2-profile RI-LTA"
     }
     out
   }

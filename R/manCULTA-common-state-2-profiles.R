@@ -4,7 +4,7 @@
 #' \deqn{
 #'   \mathrm{Common\ State}_{i, t}
 #'   =
-#'   \beta_{c} \times \mathrm{Common\ State}_{i, t - 1}
+#'   \phi_{c} \times \mathrm{Common\ State}_{i, t - 1}
 #'   +
 #'   \zeta_{i, t}
 #' }
@@ -14,20 +14,20 @@
 #' and
 #' \eqn{\zeta \sim \mathcal{N} \left( 0, \psi_{s}\right)}.
 #' The autoregressive parameter is given by
-#' \deqn{\beta_{c} = \beta_{0} + \left( \beta_{1} - \beta_{0} \right) c}
+#' \deqn{\phi_{c} = \phi_{0} + \left( \phi_{1} - \phi_{0} \right) c}
 #' where
-#' \eqn{\beta_{0}}
+#' \eqn{\phi_{0}}
 #' and
-#' \eqn{\beta_{1}} are autoregressive order 1 coefficients
+#' \eqn{\phi_{1}} are autoregressive order 1 coefficients
 #' for dummy coded 0 and 1 in a two-profile solution.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
 #' @param categorical Output of [Categorical2Profiles()].
-#' @param beta_0 Numeric.
-#'   \eqn{\beta_0} parameter.
-#' @param beta_1 Numeric.
-#'   \eqn{\beta_1} parameter.
+#' @param phi_0 Numeric.
+#'   \eqn{\phi_0} parameter.
+#' @param phi_1 Numeric.
+#'   \eqn{\phi_1} parameter.
 #' @param psi_s0 Numeric.
 #'   \eqn{\psi_{s_{0}}} parameter.
 #' @param psi_s Numeric.
@@ -54,8 +54,8 @@
 #' )
 #' CommonState2Profiles(
 #'   categorical = categorical,
-#'   beta_0 = 0,
-#'   beta_1 = 0.311,
+#'   phi_0 = 0,
+#'   phi_1 = 0.311,
 #'   psi_s0 = 0.151,
 #'   psi_s = 0.290
 #' )
@@ -64,14 +64,14 @@
 #' @keywords manCULTA sim state
 #' @noRd
 CommonState2Profiles <- function(categorical,
-                                 beta_0,
-                                 beta_1,
+                                 phi_0,
+                                 phi_1,
                                  psi_s0,
                                  psi_s) {
   out <- .CommonState2Profiles(
     categorical = categorical,
-    beta_0 = beta_0,
-    beta_1 = beta_1,
+    phi_0 = phi_0,
+    phi_1 = phi_1,
     psi_s0 = psi_s0,
     psi_s = psi_s
   )

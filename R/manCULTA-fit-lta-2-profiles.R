@@ -1,6 +1,6 @@
-#' Fit the Two-Profile CULTA Model
+#' Fit the Two-Profile LTA Model
 #'
-#' Fits the two-profile CULTA model using `Mplus`.
+#' Fits the two-profile LTA model using `Mplus`.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
@@ -26,7 +26,7 @@
 #' @return Returns an object of class `fitculta`.
 #'   which is a list with the following elements:
 #'   - `call`: Function call.
-#'   - `fun`: Function used ("FitCULTA2Profiles").
+#'   - `fun`: Function used ("FitLTA2Profiles").
 #'   - `args`: Function arguments.
 #'   - `output`: `Mplus` output files.
 #'   - `elapsed`: Elapsed time.
@@ -123,19 +123,19 @@
 #'
 #' # model fitting -------------------------------------------------------------
 #' # NOTE: Model fitting takes time
-#' FitCULTA2Profiles(data = data)
+#' FitLTA2Profiles(data = data)
 #' }
 #'
 #' @family Model Fitting Functions
 #' @keywords manCULTA fit state trait mixture culta
 #' @export
-FitCULTA2Profiles <- function(data,
-                              wd = ".",
-                              ncores = 1L,
-                              mplus_bin = NULL,
-                              starts = c(20, 4),
-                              stiterations = 10,
-                              stscale = 5) {
+FitLTA2Profiles <- function(data,
+                            wd = ".",
+                            ncores = 1L,
+                            mplus_bin = NULL,
+                            starts = c(20, 4),
+                            stiterations = 10,
+                            stscale = 5) {
   start <- Sys.time()
   stopifnot(
     inherits(
@@ -150,8 +150,8 @@ FitCULTA2Profiles <- function(data,
     ncores = ncores,
     mplus_bin = mplus_bin,
     p = data$args$p, # p items
-    q = (6 * data$args$p) + 9, # q parameters
-    params = .MPlusCULTA2ProfileParams(data$args$p) # parameter names
+    q = (3 * data$args$p) + 6, # q parameters
+    params = .MPlusLTA2ProfileParams(data$args$p) # parameter names
   )
   # directory
   old_wd <- getwd()
@@ -219,7 +219,7 @@ FitCULTA2Profiles <- function(data,
   )
   # input
   writeLines(
-    text = .MplusCULTA2Profiles(
+    text = .MplusLTA2Profiles(
       p = data$args$p,
       m = data$args$m,
       fn_data = fn_data,
@@ -290,7 +290,7 @@ FitCULTA2Profiles <- function(data,
     )
   )
   call <- match.call()
-  fun <- "FitCULTA2Profiles"
+  fun <- "FitLTA2Profiles"
   end <- Sys.time()
   elapsed <- end - start
   out <- list(

@@ -71,8 +71,8 @@
 #'   beta_00 = 2.250,
 #'   gamma_00 = 0.063,
 #'   gamma_10 = 0.094,
-#'   beta_0 = 0.311,
-#'   beta_1 = 0,
+#'   phi_0 = 0.311,
+#'   phi_1 = 0,
 #'   psi_s0 = 0.151,
 #'   psi_s = 0.290
 #' )
@@ -127,8 +127,8 @@ as.matrix.simculta <- function(x,
 #'   beta_00 = 2.250,
 #'   gamma_00 = 0.063,
 #'   gamma_10 = 0.094,
-#'   beta_0 = 0.311,
-#'   beta_1 = 0,
+#'   phi_0 = 0.311,
+#'   phi_1 = 0,
 #'   psi_s0 = 0.151,
 #'   psi_s = 0.290
 #' )
@@ -217,8 +217,8 @@ WriteData.simculta <- function(x,
 #'   beta_00 = 2.250,
 #'   gamma_00 = 0.063,
 #'   gamma_10 = 0.094,
-#'   beta_0 = 0.311,
-#'   beta_1 = 0,
+#'   phi_0 = 0.311,
+#'   phi_1 = 0,
 #'   psi_s0 = 0.151,
 #'   psi_s = 0.290
 #' )

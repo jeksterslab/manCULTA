@@ -1,12 +1,12 @@
 #' Generate Mplus Input file for the
-#' Two-Profile CULTA Model
+#' Two-Profile RI-LTA Model
 #'
 #' Generates `Mplus` input file for
-#' the two-profile CULTA model.
+#' the two-profile RI-LTA model.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
-#' @inheritParams FitCULTA2Profiles
+#' @inheritParams FitRILTA2Profiles
 #'
 #' @return Writes data and input files in `wd`.
 #'
@@ -101,13 +101,13 @@
 #' )
 #'
 #' # generate data and Mplus input files fitting -------------------------------
-#' InputCULTA2Profiles(data = data)
+#' InputRILTA2Profiles(data = data)
 #' }
 #'
 #' @family Model Fitting Functions
 #' @keywords manCULTA input state trait mixture culta
 #' @export
-InputCULTA2Profiles <- function(data,
+InputRILTA2Profiles <- function(data,
                                 wd = ".",
                                 ncores = 1L,
                                 starts = c(20, 4),
@@ -168,7 +168,7 @@ InputCULTA2Profiles <- function(data,
   )
   # input
   writeLines(
-    text = .MplusCULTA2Profiles(
+    text = .MplusRILTA2Profiles(
       p = data$args$p,
       m = data$args$m,
       fn_data = fn_data,

@@ -1,4 +1,4 @@
-.MplusCULTA2Profiles <- function(p,
+.MplusRILTA2Profiles <- function(p,
                                  m,
                                  fn_data,
                                  fn_estimates,
@@ -55,7 +55,7 @@
   )
 
   ## Helper: Common Trait Loadings
-  common_trait <- unlist(
+  ri <- unlist(
     x = lapply(
       X = seq_0_m_minus_1,
       FUN = function(t) {
@@ -67,56 +67,9 @@
           sprintf(
             ifelse(
               test = seq_p == 1,
-              yes = "    t BY y%dt%d@1;",
-              no = "    t BY y%dt%d (lambdat%d);"
+              yes = "    f BY y%dt%d* (lambdat%d);",
+              no = "    f BY y%dt%d (lambdat%d);"
             ),
-            seq_p,
-            t,
-            seq_p
-          )
-        )
-      }
-    )
-  )
-
-  ## Helper: Unique Traits Loadings
-  unique_traits <- unlist(
-    x = lapply(
-      X = seq_p,
-      FUN = function(k) {
-        c(
-          sprintf(
-            "    !!! k = %d",
-            k
-          ),
-          sprintf(
-            "    u%d BY y%dt%d@1;",
-            k,
-            k,
-            seq_0_m_minus_1
-          )
-        )
-      }
-    )
-  )
-
-  ## Helper: Common States Loadings
-  common_states <- unlist(
-    x = lapply(
-      X = seq_0_m_minus_1,
-      FUN = function(t) {
-        c(
-          sprintf(
-            "    !!! t = %d",
-            t
-          ),
-          sprintf(
-            ifelse(
-              test = seq_p == 1,
-              yes = "    s%d BY y%dt%d@1;",
-              no = "    s%d BY y%dt%d (lambdas%d);"
-            ),
-            t,
             seq_p,
             t,
             seq_p
@@ -142,26 +95,6 @@
             t,
             seq_p,
             seq_p
-          )
-        )
-      }
-    )
-  )
-
-  ## Helper: Constrained Intercepts
-  constrained_intercepts <- unlist(
-    x = lapply(
-      X = seq_0_m_minus_1,
-      FUN = function(t) {
-        c(
-          sprintf(
-            "    !! t = %d",
-            t
-          ),
-          sprintf(
-            "    [ y%dt%d@0 ];",
-            seq_p,
-            t
           )
         )
       }
@@ -215,13 +148,6 @@
           if (t == m - 1) {
             block <- c(
               block,
-              "",
-              "    ! inertia",
-              sprintf(
-                "    s%d ON s%d (phi0);",
-                t,
-                t - 1
-              ),
               ""
             )
           } else {
@@ -232,13 +158,6 @@
               sprintf(
                 "    c%d ON x (gamma00);",
                 t + 1
-              ),
-              "",
-              "    ! inertia",
-              sprintf(
-                "    s%d ON s%d (phi0);",
-                t,
-                t - 1
               ),
               ""
             )
@@ -272,13 +191,6 @@
           if (t == m - 1) {
             block <- c(
               block,
-              "",
-              "    ! inertia",
-              sprintf(
-                "    s%d ON s%d (phi1);",
-                t,
-                t - 1
-              ),
               ""
             )
           } else {
@@ -289,13 +201,6 @@
               sprintf(
                 "    c%d ON x (gamma10);",
                 t + 1
-              ),
-              "",
-              "    ! inertia",
-              sprintf(
-                "    s%d ON s%d (phi1);",
-                t,
-                t - 1
               ),
               ""
             )
@@ -310,7 +215,7 @@
   ## Assemble All Sections
   out <- c(
     "TITLE:",
-    "  2-Profile CULTA with Covariate;",
+    "  2-Profile RI-LTA with Covariate;",
     "",
     "DATA:",
     sprintf(
@@ -356,63 +261,21 @@
     "",
     "MODEL:",
     "  %OVERALL%",
-    "    ! common trait ------------------------------------------------------",
+    "    ! random intercept --------------------------------------------------",
     "",
-    "    !! factor loadings",
-    common_trait,
+    "    !! loadings",
+    ri,
     "",
     "    !! latent mean",
-    "    [ t@0 ];",
+    "    [ f@0 ];",
     "",
     "    !! latent variance",
-    "    t (psit);",
-    "",
-    "    ! unique traits -----------------------------------------------------",
-    "",
-    "    !! factor loadings",
-    unique_traits,
-    "",
-    "    !! latent means",
-    sprintf(
-      "    [ u%d@0 ];",
-      seq_p
-    ),
-    "",
-    "    !! latent variances",
-    sprintf(
-      "    u%d (psip%d);",
-      seq_p,
-      seq_p
-    ),
-    "",
-    "    ! common states -----------------------------------------------------",
-    "",
-    "    !! factor loadings",
-    common_states,
-    "",
-    "    !! latent means",
-    sprintf(
-      "    [ s%d@0 ];",
-      seq_0_m_minus_1
-    ),
-    "",
-    "    !! latent variance of s0",
-    "    s0 (psis0);",
-    "",
-    "    !! variance of the process noise",
-    sprintf(
-      "    s%d (psis);",
-      seq_1_m_minus_1
-    ),
+    "    f@1;",
     "",
     "    ! unique states -----------------------------------------------------",
     "",
     "    !! variances",
     unique_states,
-    "",
-    "    ! constrained intercepts --------------------------------------------",
-    "",
-    constrained_intercepts,
     "",
     "    ! lta ---------------------------------------------------------------",
     "",
@@ -434,13 +297,6 @@
     ),
     "",
     "  ! make sure variances are greater than zero",
-    "  psit > 0;",
-    sprintf(
-      "  psip%d > 0;",
-      seq_p
-    ),
-    "  psis0 > 0;",
-    "  psis > 0;",
     sprintf(
       "  theta%d%d > 0;",
       seq_p,

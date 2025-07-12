@@ -26,7 +26,7 @@
     mu,
     lt_ls,
     theta_diag,
-    "beta",
+    "phi",
     "psi_t",
     psi_p_diag,
     "psi_s0",

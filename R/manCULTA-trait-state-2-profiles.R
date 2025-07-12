@@ -79,8 +79,8 @@
 #' )
 #' common_state <- CommonState2Profiles(
 #'   categorical = categorical,
-#'   beta_0 = 0.311,
-#'   beta_1 = 0,
+#'   phi_0 = 0.311,
+#'   phi_1 = 0,
 #'   psi_s0 = 0.151,
 #'   psi_s = 0.290
 #' )
