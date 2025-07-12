@@ -73,8 +73,8 @@ time-varying fluctuations.</p>
 <span>  <span class="va">psi_p</span>,</span>
 <span>  <span class="va">common_trait_loading</span>,</span>
 <span>  <span class="va">common_state_loading</span>,</span>
-<span>  <span class="va">beta_0</span>,</span>
-<span>  <span class="va">beta_1</span>,</span>
+<span>  <span class="va">phi_0</span>,</span>
+<span>  <span class="va">phi_1</span>,</span>
 <span>  <span class="va">psi_s0</span>,</span>
 <span>  <span class="va">psi_s</span>,</span>
 <span>  <span class="va">theta</span>,</span>
@@ -177,15 +177,15 @@ Factor loading matrix
 specifying the influence of the common state on each observed item.</p></dd>
 
 
-<dt id="arg-beta-">beta_0<a class="anchor" aria-label="anchor" href="#arg-beta-"></a></dt>
+<dt id="arg-phi-">phi_0<a class="anchor" aria-label="anchor" href="#arg-phi-"></a></dt>
 <dd><p>Numeric.
-Autoregressive coefficient \(\beta_0\)
+Autoregressive coefficient \(\phi_0\)
 for the common state process in profile 0.</p></dd>
 
 
-<dt id="arg-beta-">beta_1<a class="anchor" aria-label="anchor" href="#arg-beta-"></a></dt>
+<dt id="arg-phi-">phi_1<a class="anchor" aria-label="anchor" href="#arg-phi-"></a></dt>
 <dd><p>Numeric.
-Autoregressive coefficient \(\beta_1\)
+Autoregressive coefficient \(\phi_1\)
 for the common state process in profile 0.</p></dd>
 
 
@@ -418,7 +418,7 @@ We describe each component below.</p>
 <p>The common state \(\mathrm{Common\ State}_{i, t}\)
 evolves over time following a first-order autoregressive process:
 $$
-  \mathrm{Common\ State}_{i, t} = \beta_{c} \times
+  \mathrm{Common\ State}_{i, t} = \phi_{c} \times
   \mathrm{Common\ State}_{i, t - 1} + \zeta_{i, t} .
 $$
 The initial common state is drawn from a normal distribution:
@@ -430,12 +430,12 @@ The innovation term \(\zeta_{i, t}\) is normally distributed:
 $$
   \zeta_{i, t} \sim \mathcal{N} \left( 0, \psi_{s} \right) .
 $$
-The autoregressive parameter \(\beta_{c}\)
+The autoregressive parameter \(\phi_{c}\)
 depends on latent profile membership \(c\):
 $$
-   \beta_{c} = \beta_{0} + \left( \beta_{1} - \beta_{0} \right) c .
+   \phi_{c} = \phi_{0} + \left( \phi_{1} - \phi_{0} \right) c .
 $$
-Here, \(\beta_{0}\) and \(\beta_{1}\) represent
+Here, \(\phi_{0}\) and \(\phi_{1}\) represent
 the autoregressive coefficients for profiles coded as 0 and 1, respectively.</p>
 <p><em><strong>Unique State</strong></em></p>
 <p>The unique state \(\mathrm{Unique\ State}_{k, i, t}\)
@@ -515,8 +515,8 @@ correspond to the trait and state components of the model.</p>
 <span class="r-in"><span>  nrow <span class="op">=</span> <span class="va">p</span>,</span></span>
 <span class="r-in"><span>  ncol <span class="op">=</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">beta_0</span> <span class="op">&lt;-</span> <span class="fl">0.000</span></span></span>
-<span class="r-in"><span><span class="va">beta_1</span> <span class="op">&lt;-</span> <span class="fl">0.311</span></span></span>
+<span class="r-in"><span><span class="va">phi_0</span> <span class="op">&lt;-</span> <span class="fl">0.000</span></span></span>
+<span class="r-in"><span><span class="va">phi_1</span> <span class="op">&lt;-</span> <span class="fl">0.311</span></span></span>
 <span class="r-in"><span><span class="va">psi_s0</span> <span class="op">&lt;-</span> <span class="fl">0.151</span></span></span>
 <span class="r-in"><span><span class="va">psi_s</span> <span class="op">&lt;-</span> <span class="fl">0.290</span></span></span>
 <span class="r-in"><span><span class="va">theta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></span>
@@ -545,8 +545,8 @@ correspond to the trait and state components of the model.</p>
 <span class="r-in"><span>  psi_p <span class="op">=</span> <span class="va">psi_p</span>,</span></span>
 <span class="r-in"><span>  common_trait_loading <span class="op">=</span> <span class="va">common_trait_loading</span>,</span></span>
 <span class="r-in"><span>  common_state_loading <span class="op">=</span> <span class="va">common_state_loading</span>,</span></span>
-<span class="r-in"><span>  beta_0 <span class="op">=</span> <span class="va">beta_0</span>,</span></span>
-<span class="r-in"><span>  beta_1 <span class="op">=</span> <span class="va">beta_1</span>,</span></span>
+<span class="r-in"><span>  phi_0 <span class="op">=</span> <span class="va">phi_0</span>,</span></span>
+<span class="r-in"><span>  phi_1 <span class="op">=</span> <span class="va">phi_1</span>,</span></span>
 <span class="r-in"><span>  psi_s0 <span class="op">=</span> <span class="va">psi_s0</span>,</span></span>
 <span class="r-in"><span>  psi_s <span class="op">=</span> <span class="va">psi_s</span>,</span></span>
 <span class="r-in"><span>  theta <span class="op">=</span> <span class="va">theta</span>,</span></span>

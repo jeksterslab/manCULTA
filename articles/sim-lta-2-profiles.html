@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Comparing One- and Two-Profile Models • manCULTA</title>
+<title>Comparing Two-Profile LTA and CULTA Models • manCULTA</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.10/font.css" rel="stylesheet">
@@ -13,7 +13,7 @@
 <link href="../deps/Roboto_Slab-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Comparing One- and Two-Profile Models">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Comparing Two-Profile LTA and CULTA Models">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
 </head>
@@ -57,13 +57,13 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>Comparing One- and Two-Profile Models</h1>
+      <h1>Comparing Two-Profile LTA and CULTA Models</h1>
                         <h4 data-toc-skip class="author">Ivan Jacob
 Agaloos Pesigan</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/jeksterslab/manCULTA/blob/main/vignettes/culta-1-profile.Rmd"><code>vignettes/culta-1-profile.Rmd</code></a></small>
-      <div class="d-none name"><code>culta-1-profile.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/jeksterslab/manCULTA/blob/main/vignettes/sim-lta-2-profiles.Rmd"><code>vignettes/sim-lta-2-profiles.Rmd</code></a></small>
+      <div class="d-none name"><code>sim-lta-2-profiles.Rmd</code></div>
     </div>
 
     
@@ -73,10 +73,9 @@ Agaloos Pesigan</h4>
 <p>We generate data using the CULTA model with two latent profiles,
 where profile membership depends on a covariate and profile transitions
 follow a multinomial structure. However, for model fitting, we impose a
-simpler structure by fitting a CUTS (1 Profile) model with
-autoregressive effects, ignoring the latent profiles during estimation.
-We then compare this misspecified model to the correctly specified
-two-profile CULTA model.</p>
+simpler structure by fitting a regular latent transition analysis (LTA)
+model. We then compare this misspecified model to the correctly
+specified two-profile CULTA model.</p>
 <div class="section level2">
 <h2 id="data-generation">Data Generation<a class="anchor" aria-label="anchor" href="#data-generation"></a>
 </h2>
@@ -88,7 +87,7 @@ two-profile CULTA model.</p>
 <span></span>
 <span><span class="co"># dimensions</span></span>
 <span><span class="va">n</span> <span class="co"># number of individuals</span></span>
-<span><span class="co">#&gt; [1] 500</span></span>
+<span><span class="co">#&gt; [1] 1000</span></span>
 <span><span class="va">m</span> <span class="co"># measurement occasions</span></span>
 <span><span class="co">#&gt; [1] 6</span></span>
 <span><span class="va">p</span> <span class="co"># number of items</span></span>
@@ -144,9 +143,9 @@ two-profile CULTA model.</p>
 <span><span class="co">#&gt; [2,]    1</span></span>
 <span><span class="co">#&gt; [3,]    1</span></span>
 <span><span class="co">#&gt; [4,]    1</span></span>
-<span><span class="va">beta_0</span></span>
+<span><span class="va">phi_0</span></span>
 <span><span class="co">#&gt; [1] 0</span></span>
-<span><span class="va">beta_1</span></span>
+<span><span class="va">phi_1</span></span>
 <span><span class="co">#&gt; [1] 0.311</span></span>
 <span><span class="va">psi_s0</span></span>
 <span><span class="co">#&gt; [1] 1</span></span>
@@ -184,8 +183,8 @@ two-profile CULTA model.</p>
 <span>  psi_p <span class="op">=</span> <span class="va">psi_p</span>,</span>
 <span>  common_trait_loading <span class="op">=</span> <span class="va">common_trait_loading</span>,</span>
 <span>  common_state_loading <span class="op">=</span> <span class="va">common_state_loading</span>,</span>
-<span>  beta_0 <span class="op">=</span> <span class="va">beta_0</span>,</span>
-<span>  beta_1 <span class="op">=</span> <span class="va">beta_1</span>,</span>
+<span>  phi_0 <span class="op">=</span> <span class="va">phi_0</span>,</span>
+<span>  phi_1 <span class="op">=</span> <span class="va">phi_1</span>,</span>
 <span>  psi_s0 <span class="op">=</span> <span class="va">psi_s0</span>,</span>
 <span>  psi_s <span class="op">=</span> <span class="va">psi_s</span>,</span>
 <span>  theta <span class="op">=</span> <span class="va">theta</span>, </span>
@@ -195,35 +194,175 @@ two-profile CULTA model.</p>
 <div class="section level2">
 <h2 id="model-fitting">Model Fitting<a class="anchor" aria-label="anchor" href="#model-fitting"></a>
 </h2>
-<p>The <code>FitCULTA1Profiles</code> function fits the misspecified
-one-profile model using <code>Mplus</code>. <strong>Note:</strong> This
-function requires that <strong>Mplus</strong> is already installed on
-the system.</p>
+<p>The <code>FitLTA2Profiles</code> function fits the misspecified
+two-profile LTA model using <code>Mplus</code>. <strong>Note:</strong>
+This function requires that <strong>Mplus</strong> is already installed
+on the system.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">one_profile</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/FitCULTA1Profile.html">FitCULTA1Profile</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">lta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/FitLTA2Profiles.html">FitLTA2Profiles</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span></code></pre></div>
 <p>The <code>FitCULTA2Profiles</code> function fits the correct
 two-profile model using <code>Mplus</code>. <strong>Note:</strong> This
 function requires that <strong>Mplus</strong> is already installed on
 the system. To speed up model fitting, consider using the
 <code>ncores</code> argument to leverage multiple cores.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">two_profiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/FitCULTA2Profiles.html">FitCULTA2Profiles</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">culta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/FitCULTA2Profiles.html">FitCULTA2Profiles</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="model-comparison">Model Comparison<a class="anchor" aria-label="anchor" href="#model-comparison"></a>
 </h2>
+<p>The <code>anova</code> function can be used to compare the two fitted
+models.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">one_profile</span>, <span class="va">two_profiles</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">lta</span>, <span class="va">culta</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $fit</span></span>
-<span><span class="co">#&gt;              logLik df correction      AIC      BIC     aBIC   entropy</span></span>
-<span><span class="co">#&gt; 1-profile -12314.53 22  1.0603116 24673.06 24765.79 24695.96 0.0000000</span></span>
-<span><span class="co">#&gt; 2-profile -11866.88 33  0.9818982 23799.76 23938.84 23834.09 0.9378745</span></span>
+<span><span class="co">#&gt;                    logLik df correction      AIC      BIC     aBIC   entropy</span></span>
+<span><span class="co">#&gt; 2-profile LTA   -33097.95 18   2.300145 66231.91 66320.25 66263.08 0.8558553</span></span>
+<span><span class="co">#&gt; 2-profile CULTA -23536.42 33   0.999548 47138.83 47300.79 47195.98 0.9410144</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $test</span></span>
-<span><span class="co">#&gt;      chi_diff       df_diff       p_value </span></span>
-<span><span class="co">#&gt;  1.085131e+03  1.100000e+01 9.050812e-226</span></span></code></pre></div>
-<p>Model comparison shows that the two-profile model fits the data
-better than the one-profile model.</p>
+<span><span class="co">#&gt;  chi_diff   df_diff   p_value </span></span>
+<span><span class="co">#&gt; -34077.26     15.00      1.00</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="parameter-recovery">Parameter Recovery<a class="anchor" aria-label="anchor" href="#parameter-recovery"></a>
+</h2>
+<p>Parameter recovery was assessed by calculating the differences
+between the population values and the estimated profile-specific means
+and log-odds.</p>
+<table class="table">
+<caption>Parameter Recovery</caption>
+<colgroup>
+<col width="13%">
+<col width="14%">
+<col width="18%">
+<col width="15%">
+<col width="21%">
+<col width="15%">
+</colgroup>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">Parameter</th>
+<th align="right">LTA Estimate</th>
+<th align="right">Difference</th>
+<th align="right">CULTA Estimate</th>
+<th align="right">Difference</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">mu_10</td>
+<td align="right">2.253</td>
+<td align="right">1.3406333</td>
+<td align="right">0.9123667</td>
+<td align="right">2.2892154</td>
+<td align="right">-0.0362154</td>
+</tr>
+<tr class="even">
+<td align="left">mu_20</td>
+<td align="right">1.493</td>
+<td align="right">1.1213610</td>
+<td align="right">0.3716390</td>
+<td align="right">1.5474649</td>
+<td align="right">-0.0544649</td>
+</tr>
+<tr class="odd">
+<td align="left">mu_30</td>
+<td align="right">1.574</td>
+<td align="right">1.2610295</td>
+<td align="right">0.3129705</td>
+<td align="right">1.6470261</td>
+<td align="right">-0.0730261</td>
+</tr>
+<tr class="even">
+<td align="left">mu_40</td>
+<td align="right">1.117</td>
+<td align="right">1.0551759</td>
+<td align="right">0.0618241</td>
+<td align="right">1.1475578</td>
+<td align="right">-0.0305578</td>
+</tr>
+<tr class="odd">
+<td align="left">mu_11</td>
+<td align="right">-0.278</td>
+<td align="right">-0.5176162</td>
+<td align="right">0.2396162</td>
+<td align="right">-0.2876850</td>
+<td align="right">0.0096850</td>
+</tr>
+<tr class="even">
+<td align="left">mu_21</td>
+<td align="right">-0.165</td>
+<td align="right">-0.4244073</td>
+<td align="right">0.2594073</td>
+<td align="right">-0.1842756</td>
+<td align="right">0.0192756</td>
+</tr>
+<tr class="odd">
+<td align="left">mu_31</td>
+<td align="right">-0.199</td>
+<td align="right">-0.4533098</td>
+<td align="right">0.2543098</td>
+<td align="right">-0.1778213</td>
+<td align="right">-0.0211787</td>
+</tr>
+<tr class="even">
+<td align="left">mu_41</td>
+<td align="right">-0.148</td>
+<td align="right">-0.4470438</td>
+<td align="right">0.2990438</td>
+<td align="right">-0.1727158</td>
+<td align="right">0.0247158</td>
+</tr>
+<tr class="odd">
+<td align="left">nu_0</td>
+<td align="right">-3.563</td>
+<td align="right">-1.3260426</td>
+<td align="right">-2.2369574</td>
+<td align="right">-4.2691825</td>
+<td align="right">0.7061825</td>
+</tr>
+<tr class="even">
+<td align="left">alpha_0</td>
+<td align="right">-3.586</td>
+<td align="right">-2.6160765</td>
+<td align="right">-0.9699235</td>
+<td align="right">-3.5915924</td>
+<td align="right">0.0055924</td>
+</tr>
+<tr class="odd">
+<td align="left">kappa_0</td>
+<td align="right">0.122</td>
+<td align="right">0.0419311</td>
+<td align="right">0.0800689</td>
+<td align="right">0.1577775</td>
+<td align="right">-0.0357775</td>
+</tr>
+<tr class="even">
+<td align="left">beta_00</td>
+<td align="right">2.250</td>
+<td align="right">2.7923526</td>
+<td align="right">-0.5423526</td>
+<td align="right">2.0830270</td>
+<td align="right">0.1669730</td>
+</tr>
+<tr class="odd">
+<td align="left">gamma_00</td>
+<td align="right">0.063</td>
+<td align="right">0.0146030</td>
+<td align="right">0.0483970</td>
+<td align="right">0.0779785</td>
+<td align="right">-0.0149785</td>
+</tr>
+<tr class="even">
+<td align="left">gamma_10</td>
+<td align="right">0.094</td>
+<td align="right">0.0760094</td>
+<td align="right">0.0179906</td>
+<td align="right">0.0989865</td>
+<td align="right">-0.0049865</td>
+</tr>
+</tbody>
+</table>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

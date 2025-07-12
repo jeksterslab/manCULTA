@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Generating Mplus Input Files • manCULTA</title>
+<title>Comparing Two-Profile RI-LTA and CULTA Models • manCULTA</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.10/font.css" rel="stylesheet">
@@ -13,7 +13,7 @@
 <link href="../deps/Roboto_Slab-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Generating Mplus Input Files">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Comparing Two-Profile RI-LTA and CULTA Models">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
 </head>
@@ -57,40 +57,25 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>Generating Mplus Input Files</h1>
+      <h1>Comparing Two-Profile RI-LTA and CULTA Models</h1>
                         <h4 data-toc-skip class="author">Ivan Jacob
 Agaloos Pesigan</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/jeksterslab/manCULTA/blob/main/vignettes/input.Rmd"><code>vignettes/input.Rmd</code></a></small>
-      <div class="d-none name"><code>input.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/jeksterslab/manCULTA/blob/main/vignettes/sim-ri-lta-2-profiles.Rmd"><code>vignettes/sim-ri-lta-2-profiles.Rmd</code></a></small>
+      <div class="d-none name"><code>sim-ri-lta-2-profiles.Rmd</code></div>
     </div>
 
     
     
-<p>The <code>FitCULTA1Profile</code>, <code>FitCULTA2Profiles</code>,
-and <code>FitCULTA3Profiles</code> functions require that
-<strong>Mplus</strong> is installed on the system.</p>
-<p>In contrast, the <code>InputCULTA1Profile</code> and
-<code>InputCULTA2Profiles</code> functions only generate
-Mplus-compatible data and input files. These files can be transferred
-and run on another machine with <strong>Mplus</strong> installed.</p>
-<p>The accompanying vignette demonstrates the use of the
-<code>InputCULTA1Profile</code> and <code>InputCULTA2Profiles</code>
-functions for preparing and exporting the necessary Mplus files.</p>
-<p>The workflow proceeds as follows:</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Generate the data</strong>.</li>
-<li>
-<strong>Use the <code>InputCULTA*</code> functions</strong> to
-create Mplus-compatible data and input files.</li>
-<li>
-<strong>Transfer and run the generated files</strong> on a system
-where <strong>Mplus</strong> is installed.</li>
-</ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jeksterslab/manCULTA">manCULTA</a></span><span class="op">)</span></span></code></pre></div>
+<p>We generate data using the CULTA model with two latent profiles,
+where profile membership depends on a covariate and profile transitions
+follow a multinomial structure. However, for model fitting, we impose a
+simpler structure by fitting a random intercept latent transition
+analysis (RI-LTA) model. We then compare this misspecified model to the
+correctly specified two-profile CULTA model.</p>
 <div class="section level2">
 <h2 id="data-generation">Data Generation<a class="anchor" aria-label="anchor" href="#data-generation"></a>
 </h2>
@@ -102,7 +87,7 @@ where <strong>Mplus</strong> is installed.</li>
 <span></span>
 <span><span class="co"># dimensions</span></span>
 <span><span class="va">n</span> <span class="co"># number of individuals</span></span>
-<span><span class="co">#&gt; [1] 500</span></span>
+<span><span class="co">#&gt; [1] 1000</span></span>
 <span><span class="va">m</span> <span class="co"># measurement occasions</span></span>
 <span><span class="co">#&gt; [1] 6</span></span>
 <span><span class="va">p</span> <span class="co"># number of items</span></span>
@@ -111,7 +96,7 @@ where <strong>Mplus</strong> is installed.</li>
 <span><span class="co">#&gt; [1] 1</span></span>
 <span></span>
 <span><span class="co"># covariate parameters</span></span>
-<span><span class="va">mu_x</span> </span>
+<span><span class="va">mu_x</span></span>
 <span><span class="co">#&gt; [1] 11.4009</span></span>
 <span><span class="va">sigma_x</span></span>
 <span><span class="co">#&gt; [1] 24.67566</span></span>
@@ -133,15 +118,15 @@ where <strong>Mplus</strong> is installed.</li>
 <span><span class="co"># trait parameters</span></span>
 <span><span class="va">psi_t</span></span>
 <span><span class="co">#&gt;      [,1]</span></span>
-<span><span class="co">#&gt; [1,]    1</span></span>
+<span><span class="co">#&gt; [1,]  0.1</span></span>
 <span><span class="va">mu_t</span></span>
 <span><span class="co">#&gt; [1] 0</span></span>
 <span><span class="va">psi_p</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
-<span><span class="co">#&gt; [1,]    1    0    0    0</span></span>
-<span><span class="co">#&gt; [2,]    0    1    0    0</span></span>
-<span><span class="co">#&gt; [3,]    0    0    1    0</span></span>
-<span><span class="co">#&gt; [4,]    0    0    0    1</span></span>
+<span><span class="co">#&gt; [1,]  0.1  0.0  0.0  0.0</span></span>
+<span><span class="co">#&gt; [2,]  0.0  0.1  0.0  0.0</span></span>
+<span><span class="co">#&gt; [3,]  0.0  0.0  0.5  0.0</span></span>
+<span><span class="co">#&gt; [4,]  0.0  0.0  0.0  0.5</span></span>
 <span><span class="va">mu_p</span></span>
 <span><span class="co">#&gt; [1] 0 0 0 0</span></span>
 <span><span class="va">common_trait_loading</span></span>
@@ -158,20 +143,20 @@ where <strong>Mplus</strong> is installed.</li>
 <span><span class="co">#&gt; [2,]    1</span></span>
 <span><span class="co">#&gt; [3,]    1</span></span>
 <span><span class="co">#&gt; [4,]    1</span></span>
-<span><span class="va">beta_0</span></span>
+<span><span class="va">phi_0</span></span>
 <span><span class="co">#&gt; [1] 0</span></span>
-<span><span class="va">beta_1</span></span>
+<span><span class="va">phi_1</span></span>
 <span><span class="co">#&gt; [1] 0.311</span></span>
 <span><span class="va">psi_s0</span></span>
-<span><span class="co">#&gt; [1] 0.151</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
 <span><span class="va">psi_s</span></span>
-<span><span class="co">#&gt; [1] 0.29</span></span>
+<span><span class="co">#&gt; [1] 0.25</span></span>
 <span><span class="va">theta</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
-<span><span class="co">#&gt; [1,]    1    0    0    0</span></span>
-<span><span class="co">#&gt; [2,]    0    1    0    0</span></span>
-<span><span class="co">#&gt; [3,]    0    0    1    0</span></span>
-<span><span class="co">#&gt; [4,]    0    0    0    1</span></span>
+<span><span class="co">#&gt; [1,] 0.15 0.00 0.00 0.00</span></span>
+<span><span class="co">#&gt; [2,] 0.00 0.15 0.00 0.00</span></span>
+<span><span class="co">#&gt; [3,] 0.00 0.00 0.15 0.00</span></span>
+<span><span class="co">#&gt; [4,] 0.00 0.00 0.00 0.15</span></span>
 <span></span>
 <span><span class="co"># profile-specific means</span></span>
 <span><span class="va">mu_profile</span></span>
@@ -198,48 +183,186 @@ where <strong>Mplus</strong> is installed.</li>
 <span>  psi_p <span class="op">=</span> <span class="va">psi_p</span>,</span>
 <span>  common_trait_loading <span class="op">=</span> <span class="va">common_trait_loading</span>,</span>
 <span>  common_state_loading <span class="op">=</span> <span class="va">common_state_loading</span>,</span>
-<span>  beta_0 <span class="op">=</span> <span class="va">beta_0</span>,</span>
-<span>  beta_1 <span class="op">=</span> <span class="va">beta_1</span>,</span>
+<span>  phi_0 <span class="op">=</span> <span class="va">phi_0</span>,</span>
+<span>  phi_1 <span class="op">=</span> <span class="va">phi_1</span>,</span>
 <span>  psi_s0 <span class="op">=</span> <span class="va">psi_s0</span>,</span>
 <span>  psi_s <span class="op">=</span> <span class="va">psi_s</span>,</span>
-<span>  theta <span class="op">=</span> <span class="va">theta</span>, </span>
+<span>  theta <span class="op">=</span> <span class="va">theta</span>,</span>
 <span>  mu_profile <span class="op">=</span> <span class="va">mu_profile</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="generate-mplus-files">Generate Mplus Files<a class="anchor" aria-label="anchor" href="#generate-mplus-files"></a>
+<h2 id="model-fitting">Model Fitting<a class="anchor" aria-label="anchor" href="#model-fitting"></a>
 </h2>
-<p>In this stage, we generate the Mplus-compatible data and input files
-using the <code>InputCULTA1Profile</code> and
-<code>InputCULTA2Profiles</code> functions. These functions take the
-simulated dataset and export the necessary files to run the model in
-Mplus.</p>
-<p>Each function corresponds to a specific version of the CULTA
-model:</p>
+<p>The <code>FitLTA2Profiles</code> function fits the misspecified
+two-profile RI-LTA model using <code>Mplus</code>.
+<strong>Note:</strong> This function requires that
+<strong>Mplus</strong> is already installed on the system.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/InputCULTA1Profile.html">InputCULTA1Profile</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Check data and `Mplus` input files in /scratch/ibp5092/manCULTA/vignettes/fl_WKayjJr5WUxgJyKTtzXU</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">rilta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/FitRILTA2Profiles.html">FitRILTA2Profiles</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span></code></pre></div>
+<p>The <code>FitCULTA2Profiles</code> function fits the correct
+two-profile model using <code>Mplus</code>. <strong>Note:</strong> This
+function requires that <strong>Mplus</strong> is already installed on
+the system. To speed up model fitting, consider using the
+<code>ncores</code> argument to leverage multiple cores.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/InputCULTA2Profiles.html">InputCULTA2Profiles</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Check data and `Mplus` input files in /scratch/ibp5092/manCULTA/vignettes/fl_ov5hJdvrSBedH3XIxwW0</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">culta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/FitCULTA2Profiles.html">FitCULTA2Profiles</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="run-in-mplus">Run in Mplus<a class="anchor" aria-label="anchor" href="#run-in-mplus"></a>
+<h2 id="model-comparison">Model Comparison<a class="anchor" aria-label="anchor" href="#model-comparison"></a>
 </h2>
-<p>In the final stage, the Mplus-compatible data and input files
-generated by the <code>InputCULTA1Profile</code> and
-<code>InputCULTA2Profiles</code> functions can be transferred to a
-machine where <code>Mplus</code> is installed.</p>
-<p>To run the model:</p>
-<ul>
-<li>Open <code>Mplus</code> on the target system.</li>
-<li>Load the generated <code>.inp</code> (input) file.</li>
-<li>Execute the model to produce the desired output, including parameter
-estimates, fit statistics, and saved results (e.g., <code>TECH3</code>,
-<code>TECH4</code>, and <code>CPROBS</code>).</li>
-</ul>
-<p>This stage completes the workflow by fitting the CULTA model using
-the fully prepared files from earlier stages.</p>
+<p>The <code>anova</code> function can be used to compare the two fitted
+models.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">rilta</span>, <span class="va">culta</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $fit</span></span>
+<span><span class="co">#&gt;                     logLik df correction      AIC      BIC     aBIC   entropy</span></span>
+<span><span class="co">#&gt; 2-profile RI-LTA -30931.40 22   2.475479 61906.80 62014.77 61944.89 0.8932332</span></span>
+<span><span class="co">#&gt; 2-profile CULTA  -23536.42 33   0.999548 47138.83 47300.79 47195.98 0.9410144</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $test</span></span>
+<span><span class="co">#&gt;  chi_diff   df_diff   p_value </span></span>
+<span><span class="co">#&gt; -7575.607    11.000     1.000</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="parameter-recovery">Parameter Recovery<a class="anchor" aria-label="anchor" href="#parameter-recovery"></a>
+</h2>
+<p>Parameter recovery was assessed by calculating the differences
+between the population values and the estimated profile-specific means
+and log-odds.</p>
+<table class="table">
+<caption>Parameter Recovery</caption>
+<colgroup>
+<col width="12%">
+<col width="13%">
+<col width="22%">
+<col width="15%">
+<col width="20%">
+<col width="15%">
+</colgroup>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">Parameter</th>
+<th align="right">RI-LTA Estimate</th>
+<th align="right">Difference</th>
+<th align="right">CULTA Estimate</th>
+<th align="right">Difference</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">mu_10</td>
+<td align="right">2.253</td>
+<td align="right">1.5218012</td>
+<td align="right">0.7311988</td>
+<td align="right">2.2892154</td>
+<td align="right">-0.0362154</td>
+</tr>
+<tr class="even">
+<td align="left">mu_20</td>
+<td align="right">1.493</td>
+<td align="right">1.2453362</td>
+<td align="right">0.2476638</td>
+<td align="right">1.5474649</td>
+<td align="right">-0.0544649</td>
+</tr>
+<tr class="odd">
+<td align="left">mu_30</td>
+<td align="right">1.574</td>
+<td align="right">1.3730178</td>
+<td align="right">0.2009822</td>
+<td align="right">1.6470261</td>
+<td align="right">-0.0730261</td>
+</tr>
+<tr class="even">
+<td align="left">mu_40</td>
+<td align="right">1.117</td>
+<td align="right">0.9565883</td>
+<td align="right">0.1604117</td>
+<td align="right">1.1475578</td>
+<td align="right">-0.0305578</td>
+</tr>
+<tr class="odd">
+<td align="left">mu_11</td>
+<td align="right">-0.278</td>
+<td align="right">-0.5157223</td>
+<td align="right">0.2377223</td>
+<td align="right">-0.2876850</td>
+<td align="right">0.0096850</td>
+</tr>
+<tr class="even">
+<td align="left">mu_21</td>
+<td align="right">-0.165</td>
+<td align="right">-0.4139780</td>
+<td align="right">0.2489780</td>
+<td align="right">-0.1842756</td>
+<td align="right">0.0192756</td>
+</tr>
+<tr class="odd">
+<td align="left">mu_31</td>
+<td align="right">-0.199</td>
+<td align="right">-0.4332938</td>
+<td align="right">0.2342938</td>
+<td align="right">-0.1778213</td>
+<td align="right">-0.0211787</td>
+</tr>
+<tr class="even">
+<td align="left">mu_41</td>
+<td align="right">-0.148</td>
+<td align="right">-0.3643389</td>
+<td align="right">0.2163389</td>
+<td align="right">-0.1727158</td>
+<td align="right">0.0247158</td>
+</tr>
+<tr class="odd">
+<td align="left">nu_0</td>
+<td align="right">-3.563</td>
+<td align="right">-1.3256314</td>
+<td align="right">-2.2373686</td>
+<td align="right">-4.2691825</td>
+<td align="right">0.7061825</td>
+</tr>
+<tr class="even">
+<td align="left">alpha_0</td>
+<td align="right">-3.586</td>
+<td align="right">-2.7385506</td>
+<td align="right">-0.8474494</td>
+<td align="right">-3.5915924</td>
+<td align="right">0.0055924</td>
+</tr>
+<tr class="odd">
+<td align="left">kappa_0</td>
+<td align="right">0.122</td>
+<td align="right">0.0293941</td>
+<td align="right">0.0926059</td>
+<td align="right">0.1577775</td>
+<td align="right">-0.0357775</td>
+</tr>
+<tr class="even">
+<td align="left">beta_00</td>
+<td align="right">2.250</td>
+<td align="right">2.9771867</td>
+<td align="right">-0.7271867</td>
+<td align="right">2.0830270</td>
+<td align="right">0.1669730</td>
+</tr>
+<tr class="odd">
+<td align="left">gamma_00</td>
+<td align="right">0.063</td>
+<td align="right">0.0016448</td>
+<td align="right">0.0613552</td>
+<td align="right">0.0779785</td>
+<td align="right">-0.0149785</td>
+</tr>
+<tr class="even">
+<td align="left">gamma_10</td>
+<td align="right">0.094</td>
+<td align="right">0.0802600</td>
+<td align="right">0.0137400</td>
+<td align="right">0.0989865</td>
+<td align="right">-0.0049865</td>
+</tr>
+</tbody>
+</table>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

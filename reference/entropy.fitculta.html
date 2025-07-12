@@ -75,7 +75,7 @@
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># dimensions</span></span></span>
-<span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">5000</span> <span class="co"># number of individuals</span></span></span>
+<span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1000</span> <span class="co"># number of individuals</span></span></span>
 <span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fl">6</span> <span class="co"># measurement occasions</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">4</span> <span class="co"># number of items</span></span></span>
 <span class="r-in"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="co"># common trait dimension</span></span></span>
@@ -93,9 +93,19 @@
 <span class="r-in"><span><span class="va">gamma_10</span> <span class="op">&lt;-</span> <span class="fl">0.094</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># trait parameters</span></span></span>
-<span class="r-in"><span><span class="va">psi_t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">psi_t</span> <span class="op">&lt;-</span> <span class="fl">0.10</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mu_t</span> <span class="op">&lt;-</span> <span class="fl">0</span></span></span>
 <span class="r-in"><span><span class="va">psi_p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">psi_p_1</span> <span class="op">&lt;-</span> <span class="fl">0.10</span></span></span>
+<span class="r-in"><span><span class="va">psi_p_2</span> <span class="op">&lt;-</span> <span class="fl">0.10</span></span></span>
+<span class="r-in"><span><span class="va">psi_p_3</span> <span class="op">&lt;-</span> <span class="fl">0.50</span></span></span>
+<span class="r-in"><span><span class="va">psi_p_4</span> <span class="op">&lt;-</span> <span class="fl">0.50</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">psi_p</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">psi_p_1</span>,</span></span>
+<span class="r-in"><span>  <span class="va">psi_p_2</span>,</span></span>
+<span class="r-in"><span>  <span class="va">psi_p_3</span>,</span></span>
+<span class="r-in"><span>  <span class="va">psi_p_4</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mu_p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, times <span class="op">=</span> <span class="va">p</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">common_trait_loading</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  data <span class="op">=</span> <span class="fl">1</span>,</span></span>
@@ -109,11 +119,11 @@
 <span class="r-in"><span>  nrow <span class="op">=</span> <span class="va">p</span>,</span></span>
 <span class="r-in"><span>  ncol <span class="op">=</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">beta_0</span> <span class="op">&lt;-</span> <span class="fl">0.000</span></span></span>
-<span class="r-in"><span><span class="va">beta_1</span> <span class="op">&lt;-</span> <span class="fl">0.311</span></span></span>
-<span class="r-in"><span><span class="va">psi_s0</span> <span class="op">&lt;-</span> <span class="fl">0.151</span></span></span>
-<span class="r-in"><span><span class="va">psi_s</span> <span class="op">&lt;-</span> <span class="fl">0.290</span></span></span>
-<span class="r-in"><span><span class="va">theta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">phi_0</span> <span class="op">&lt;-</span> <span class="fl">0.000</span></span></span>
+<span class="r-in"><span><span class="va">phi_1</span> <span class="op">&lt;-</span> <span class="fl">0.311</span></span></span>
+<span class="r-in"><span><span class="va">psi_s0</span> <span class="op">&lt;-</span> <span class="fl">1.00</span></span></span>
+<span class="r-in"><span><span class="va">psi_s</span> <span class="op">&lt;-</span> <span class="fl">0.25</span></span></span>
+<span class="r-in"><span><span class="va">theta</span> <span class="op">&lt;-</span> <span class="fl">0.15</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># profile-specific means</span></span></span>
 <span class="r-in"><span><span class="va">mu_profile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span></span></span>
@@ -139,8 +149,8 @@
 <span class="r-in"><span>  psi_p <span class="op">=</span> <span class="va">psi_p</span>,</span></span>
 <span class="r-in"><span>  common_trait_loading <span class="op">=</span> <span class="va">common_trait_loading</span>,</span></span>
 <span class="r-in"><span>  common_state_loading <span class="op">=</span> <span class="va">common_state_loading</span>,</span></span>
-<span class="r-in"><span>  beta_0 <span class="op">=</span> <span class="va">beta_0</span>,</span></span>
-<span class="r-in"><span>  beta_1 <span class="op">=</span> <span class="va">beta_1</span>,</span></span>
+<span class="r-in"><span>  phi_0 <span class="op">=</span> <span class="va">phi_0</span>,</span></span>
+<span class="r-in"><span>  phi_1 <span class="op">=</span> <span class="va">phi_1</span>,</span></span>
 <span class="r-in"><span>  psi_s0 <span class="op">=</span> <span class="va">psi_s0</span>,</span></span>
 <span class="r-in"><span>  psi_s <span class="op">=</span> <span class="va">psi_s</span>,</span></span>
 <span class="r-in"><span>  theta <span class="op">=</span> <span class="va">theta</span>,</span></span>
@@ -149,7 +159,7 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># model fitting -------------------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co"># NOTE: Model fitting takes time</span></span></span>
-<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="FitCULTA2Profiles.html">FitCULTA2Profiles</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, ncores <span class="op">=</span> <span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html" class="external-link">detectCores</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="FitCULTA2Profiles.html">FitCULTA2Profiles</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="entropy.html">entropy</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
