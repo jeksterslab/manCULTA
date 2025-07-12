@@ -5,13 +5,15 @@ articles:
   containers: containers.html
   empirical-mplus: empirical-mplus.html
   manCULTA: manCULTA.html
+  params: params.html
   session: session.html
   sim-culta-1-profile: sim-culta-1-profile.html
   sim-culta-2-profiles: sim-culta-2-profiles.html
   sim-input: sim-input.html
   sim-lta-2-profiles: sim-lta-2-profiles.html
+  sim-replication: sim-replication.html
   sim-ri-lta-2-profiles: sim-ri-lta-2-profiles.html
-last_built: 2025-07-12T01:40Z
+last_built: 2025-07-12T23:46Z
 urls:
   reference: https://github.com/jeksterslab/manCULTA/reference
   article: https://github.com/jeksterslab/manCULTA/articles

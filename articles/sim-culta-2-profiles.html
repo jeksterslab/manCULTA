@@ -93,7 +93,7 @@ in this context.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># dimensions</span></span>
 <span><span class="va">n</span> <span class="co"># number of individuals</span></span>
-<span><span class="co">#&gt; [1] 1000</span></span>
+<span><span class="co">#&gt; [1] 10000</span></span>
 <span><span class="va">m</span> <span class="co"># measurement occasions</span></span>
 <span><span class="co">#&gt; [1] 6</span></span>
 <span><span class="va">p</span> <span class="co"># number of items</span></span>
@@ -460,7 +460,7 @@ call.</p>
 <span></span>
 <span><span class="co"># dimensions</span></span>
 <span><span class="va">n</span> <span class="co"># number of individuals</span></span>
-<span><span class="co">#&gt; [1] 1000</span></span>
+<span><span class="co">#&gt; [1] 10000</span></span>
 <span><span class="va">m</span> <span class="co"># measurement occasions</span></span>
 <span><span class="co">#&gt; [1] 6</span></span>
 <span><span class="va">p</span> <span class="co"># number of items</span></span>
@@ -578,40 +578,40 @@ leverage multiple cores.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Call:</span></span>
 <span><span class="co">#&gt; FitCULTA2Profiles(data = data)</span></span>
-<span><span class="co">#&gt;                est     se        z      p    2.5%   97.5%</span></span>
-<span><span class="co">#&gt; mu_10       2.2892 0.0345  66.4408 0.0000  2.2217  2.3567</span></span>
-<span><span class="co">#&gt; mu_20       1.5475 0.0354  43.6871 0.0000  1.4780  1.6169</span></span>
-<span><span class="co">#&gt; mu_30       1.6470 0.0391  42.1564 0.0000  1.5705  1.7236</span></span>
-<span><span class="co">#&gt; mu_40       1.1476 0.0375  30.6217 0.0000  1.0741  1.2210</span></span>
-<span><span class="co">#&gt; lambda_t_2  1.0188 0.1096   9.2959 0.0000  0.8040  1.2336</span></span>
-<span><span class="co">#&gt; lambda_s_2  1.0125 0.0149  67.8492 0.0000  0.9832  1.0417</span></span>
-<span><span class="co">#&gt; lambda_t_3  0.9220 0.1603   5.7508 0.0000  0.6078  1.2362</span></span>
-<span><span class="co">#&gt; lambda_s_3  0.9907 0.0144  68.6033 0.0000  0.9624  1.0190</span></span>
-<span><span class="co">#&gt; lambda_t_4  1.1529 0.1623   7.1020 0.0000  0.8348  1.4711</span></span>
-<span><span class="co">#&gt; lambda_s_4  0.9783 0.0152  64.5268 0.0000  0.9486  1.0080</span></span>
-<span><span class="co">#&gt; theta_11    0.1491 0.0041  36.2299 0.0000  0.1411  0.1572</span></span>
-<span><span class="co">#&gt; theta_22    0.1439 0.0039  36.4985 0.0000  0.1362  0.1516</span></span>
-<span><span class="co">#&gt; theta_33    0.1484 0.0041  36.1035 0.0000  0.1403  0.1564</span></span>
-<span><span class="co">#&gt; theta_44    0.1497 0.0041  36.4700 0.0000  0.1417  0.1577</span></span>
-<span><span class="co">#&gt; phi_0      -0.0364 0.0465  -0.7824 0.4340 -0.1274  0.0547</span></span>
-<span><span class="co">#&gt; psi_t       0.0854 0.0158   5.4060 0.0000  0.0544  0.1163</span></span>
-<span><span class="co">#&gt; psi_p_11    0.0914 0.0098   9.3505 0.0000  0.0723  0.1106</span></span>
-<span><span class="co">#&gt; psi_p_22    0.0848 0.0096   8.8383 0.0000  0.0660  0.1036</span></span>
-<span><span class="co">#&gt; psi_p_33    0.5065 0.0259  19.5887 0.0000  0.4558  0.5572</span></span>
-<span><span class="co">#&gt; psi_p_44    0.5112 0.0261  19.5831 0.0000  0.4600  0.5623</span></span>
-<span><span class="co">#&gt; psi_s0      1.0311 0.0589  17.5197 0.0000  0.9157  1.1464</span></span>
-<span><span class="co">#&gt; psi_s       0.2463 0.0092  26.7726 0.0000  0.2283  0.2643</span></span>
-<span><span class="co">#&gt; mu_11      -0.2877 0.0181 -15.8557 0.0000 -0.3232 -0.2521</span></span>
-<span><span class="co">#&gt; mu_21      -0.1843 0.0175 -10.5194 0.0000 -0.2186 -0.1499</span></span>
-<span><span class="co">#&gt; mu_31      -0.1778 0.0268  -6.6429 0.0000 -0.2303 -0.1254</span></span>
-<span><span class="co">#&gt; mu_41      -0.1727 0.0277  -6.2303 0.0000 -0.2270 -0.1184</span></span>
-<span><span class="co">#&gt; phi_1       0.3142 0.0179  17.5229 0.0000  0.2790  0.3493</span></span>
-<span><span class="co">#&gt; nu_0       -4.2692 0.4096 -10.4237 0.0000 -5.0719 -3.4664</span></span>
-<span><span class="co">#&gt; alpha_0    -3.5916 0.1635 -21.9696 0.0000 -3.9120 -3.2712</span></span>
-<span><span class="co">#&gt; kappa_0     0.1578 0.0273   5.7834 0.0000  0.1043  0.2112</span></span>
-<span><span class="co">#&gt; beta_00     2.0830 0.3584   5.8113 0.0000  1.3805  2.7856</span></span>
-<span><span class="co">#&gt; gamma_00    0.0780 0.0208   3.7502 0.0002  0.0372  0.1187</span></span>
-<span><span class="co">#&gt; gamma_10    0.0990 0.0122   8.1211 0.0000  0.0751  0.1229</span></span></code></pre></div>
+<span><span class="co">#&gt;               est     se        z      p    2.5%   97.5%</span></span>
+<span><span class="co">#&gt; mu_10      2.2690 0.0117 193.2129 0.0000  2.2460  2.2920</span></span>
+<span><span class="co">#&gt; mu_20      1.5140 0.0112 134.9006 0.0000  1.4920  1.5360</span></span>
+<span><span class="co">#&gt; mu_30      1.6058 0.0128 125.1805 0.0000  1.5806  1.6309</span></span>
+<span><span class="co">#&gt; mu_40      1.1275 0.0126  89.7203 0.0000  1.1029  1.1522</span></span>
+<span><span class="co">#&gt; lambda_t2  1.0505 0.0381  27.5961 0.0000  0.9759  1.1251</span></span>
+<span><span class="co">#&gt; lambda_s2  1.0063 0.0048 209.3670 0.0000  0.9969  1.0157</span></span>
+<span><span class="co">#&gt; lambda_t3  1.0209 0.0481  21.2367 0.0000  0.9267  1.1151</span></span>
+<span><span class="co">#&gt; lambda_s3  1.0041 0.0047 214.8586 0.0000  0.9949  1.0133</span></span>
+<span><span class="co">#&gt; lambda_t4  1.0261 0.0474  21.6425 0.0000  0.9332  1.1190</span></span>
+<span><span class="co">#&gt; lambda_s4  1.0121 0.0048 209.9015 0.0000  1.0027  1.0216</span></span>
+<span><span class="co">#&gt; theta_11   0.1508 0.0014 110.9646 0.0000  0.1481  0.1535</span></span>
+<span><span class="co">#&gt; theta_22   0.1496 0.0013 117.9673 0.0000  0.1471  0.1521</span></span>
+<span><span class="co">#&gt; theta_33   0.1484 0.0012 118.8785 0.0000  0.1460  0.1509</span></span>
+<span><span class="co">#&gt; theta_44   0.1493 0.0013 114.0088 0.0000  0.1468  0.1519</span></span>
+<span><span class="co">#&gt; phi_0     -0.0140 0.0170  -0.8248 0.4095 -0.0473  0.0193</span></span>
+<span><span class="co">#&gt; psi_t      0.0896 0.0052  17.0664 0.0000  0.0793  0.0999</span></span>
+<span><span class="co">#&gt; psi_p_11   0.1004 0.0032  30.9448 0.0000  0.0940  0.1067</span></span>
+<span><span class="co">#&gt; psi_p_22   0.1004 0.0035  28.7053 0.0000  0.0935  0.1073</span></span>
+<span><span class="co">#&gt; psi_p_33   0.4963 0.0081  61.0379 0.0000  0.4804  0.5122</span></span>
+<span><span class="co">#&gt; psi_p_44   0.4938 0.0082  60.5071 0.0000  0.4778  0.5098</span></span>
+<span><span class="co">#&gt; psi_s0     0.9992 0.0189  52.9458 0.0000  0.9622  1.0362</span></span>
+<span><span class="co">#&gt; psi_s      0.2481 0.0028  87.6672 0.0000  0.2425  0.2536</span></span>
+<span><span class="co">#&gt; mu_11     -0.2779 0.0058 -47.6439 0.0000 -0.2893 -0.2665</span></span>
+<span><span class="co">#&gt; mu_21     -0.1652 0.0059 -28.2113 0.0000 -0.1767 -0.1538</span></span>
+<span><span class="co">#&gt; mu_31     -0.1830 0.0086 -21.3750 0.0000 -0.1998 -0.1662</span></span>
+<span><span class="co">#&gt; mu_41     -0.1516 0.0085 -17.7637 0.0000 -0.1683 -0.1349</span></span>
+<span><span class="co">#&gt; phi_1      0.3169 0.0059  53.6573 0.0000  0.3053  0.3285</span></span>
+<span><span class="co">#&gt; nu_0      -3.6911 0.1177 -31.3505 0.0000 -3.9218 -3.4603</span></span>
+<span><span class="co">#&gt; alpha_0   -3.5634 0.0551 -64.7026 0.0000 -3.6713 -3.4555</span></span>
+<span><span class="co">#&gt; kappa_0    0.1274 0.0080  15.8995 0.0000  0.1117  0.1431</span></span>
+<span><span class="co">#&gt; beta_00    2.1226 0.1132  18.7586 0.0000  1.9008  2.3443</span></span>
+<span><span class="co">#&gt; gamma_00   0.0677 0.0064  10.5087 0.0000  0.0550  0.0803</span></span>
+<span><span class="co">#&gt; gamma_10   0.0942 0.0040  23.5322 0.0000  0.0864  0.1021</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="parameter-recovery">Parameter Recovery<a class="anchor" aria-label="anchor" href="#parameter-recovery"></a>
@@ -630,200 +630,200 @@ between the population values and the estimated parameters.</p>
 <tr class="odd">
 <td align="left">mu_10</td>
 <td align="right">2.253</td>
-<td align="right">2.2892154</td>
-<td align="right">-0.0362154</td>
+<td align="right">2.2689973</td>
+<td align="right">-0.0159973</td>
 </tr>
 <tr class="even">
 <td align="left">mu_20</td>
 <td align="right">1.493</td>
-<td align="right">1.5474649</td>
-<td align="right">-0.0544649</td>
+<td align="right">1.5140045</td>
+<td align="right">-0.0210045</td>
 </tr>
 <tr class="odd">
 <td align="left">mu_30</td>
 <td align="right">1.574</td>
-<td align="right">1.6470261</td>
-<td align="right">-0.0730261</td>
+<td align="right">1.6057853</td>
+<td align="right">-0.0317853</td>
 </tr>
 <tr class="even">
 <td align="left">mu_40</td>
 <td align="right">1.117</td>
-<td align="right">1.1475578</td>
-<td align="right">-0.0305578</td>
+<td align="right">1.1275251</td>
+<td align="right">-0.0105251</td>
 </tr>
 <tr class="odd">
-<td align="left">lambda_t_2</td>
+<td align="left">lambda_t2</td>
 <td align="right">1.000</td>
-<td align="right">1.0188157</td>
-<td align="right">-0.0188157</td>
+<td align="right">1.0504634</td>
+<td align="right">-0.0504634</td>
 </tr>
 <tr class="even">
-<td align="left">lambda_s_2</td>
+<td align="left">lambda_s2</td>
 <td align="right">1.000</td>
-<td align="right">1.0124533</td>
-<td align="right">-0.0124533</td>
+<td align="right">1.0062885</td>
+<td align="right">-0.0062885</td>
 </tr>
 <tr class="odd">
-<td align="left">lambda_t_3</td>
+<td align="left">lambda_t3</td>
 <td align="right">1.000</td>
-<td align="right">0.9219963</td>
-<td align="right">0.0780037</td>
+<td align="right">1.0209131</td>
+<td align="right">-0.0209131</td>
 </tr>
 <tr class="even">
-<td align="left">lambda_s_3</td>
+<td align="left">lambda_s3</td>
 <td align="right">1.000</td>
-<td align="right">0.9906921</td>
-<td align="right">0.0093079</td>
+<td align="right">1.0040943</td>
+<td align="right">-0.0040943</td>
 </tr>
 <tr class="odd">
-<td align="left">lambda_t_4</td>
+<td align="left">lambda_t4</td>
 <td align="right">1.000</td>
-<td align="right">1.1529289</td>
-<td align="right">-0.1529289</td>
+<td align="right">1.0260833</td>
+<td align="right">-0.0260833</td>
 </tr>
 <tr class="even">
-<td align="left">lambda_s_4</td>
+<td align="left">lambda_s4</td>
 <td align="right">1.000</td>
-<td align="right">0.9782699</td>
-<td align="right">0.0217301</td>
+<td align="right">1.0121351</td>
+<td align="right">-0.0121351</td>
 </tr>
 <tr class="odd">
 <td align="left">theta_11</td>
 <td align="right">0.150</td>
-<td align="right">0.1491231</td>
-<td align="right">0.0008769</td>
+<td align="right">0.1508128</td>
+<td align="right">-0.0008128</td>
 </tr>
 <tr class="even">
 <td align="left">theta_22</td>
 <td align="right">0.150</td>
-<td align="right">0.1439066</td>
-<td align="right">0.0060934</td>
+<td align="right">0.1496218</td>
+<td align="right">0.0003782</td>
 </tr>
 <tr class="odd">
 <td align="left">theta_33</td>
 <td align="right">0.150</td>
-<td align="right">0.1483516</td>
-<td align="right">0.0016484</td>
+<td align="right">0.1484347</td>
+<td align="right">0.0015653</td>
 </tr>
 <tr class="even">
 <td align="left">theta_44</td>
 <td align="right">0.150</td>
-<td align="right">0.1496998</td>
-<td align="right">0.0003002</td>
+<td align="right">0.1493491</td>
+<td align="right">0.0006509</td>
 </tr>
 <tr class="odd">
 <td align="left">phi_0</td>
 <td align="right">0.000</td>
-<td align="right">-0.0363620</td>
-<td align="right">0.0363620</td>
+<td align="right">-0.0140050</td>
+<td align="right">0.0140050</td>
 </tr>
 <tr class="even">
 <td align="left">psi_t</td>
 <td align="right">0.100</td>
-<td align="right">0.0853758</td>
-<td align="right">0.0146242</td>
+<td align="right">0.0895956</td>
+<td align="right">0.0104044</td>
 </tr>
 <tr class="odd">
 <td align="left">psi_p_11</td>
 <td align="right">0.100</td>
-<td align="right">0.0914291</td>
-<td align="right">0.0085709</td>
+<td align="right">0.1003680</td>
+<td align="right">-0.0003680</td>
 </tr>
 <tr class="even">
 <td align="left">psi_p_22</td>
 <td align="right">0.100</td>
-<td align="right">0.0848098</td>
-<td align="right">0.0151902</td>
+<td align="right">0.1004050</td>
+<td align="right">-0.0004050</td>
 </tr>
 <tr class="odd">
 <td align="left">psi_p_33</td>
 <td align="right">0.500</td>
-<td align="right">0.5064767</td>
-<td align="right">-0.0064767</td>
+<td align="right">0.4962964</td>
+<td align="right">0.0037036</td>
 </tr>
 <tr class="even">
 <td align="left">psi_p_44</td>
 <td align="right">0.500</td>
-<td align="right">0.5111656</td>
-<td align="right">-0.0111656</td>
+<td align="right">0.4937720</td>
+<td align="right">0.0062280</td>
 </tr>
 <tr class="odd">
 <td align="left">psi_s0</td>
 <td align="right">1.000</td>
-<td align="right">1.0310506</td>
-<td align="right">-0.0310506</td>
+<td align="right">0.9991861</td>
+<td align="right">0.0008139</td>
 </tr>
 <tr class="even">
 <td align="left">psi_s</td>
 <td align="right">0.250</td>
-<td align="right">0.2462948</td>
-<td align="right">0.0037052</td>
+<td align="right">0.2480841</td>
+<td align="right">0.0019159</td>
 </tr>
 <tr class="odd">
 <td align="left">mu_11</td>
 <td align="right">-0.278</td>
-<td align="right">-0.2876850</td>
-<td align="right">0.0096850</td>
+<td align="right">-0.2779016</td>
+<td align="right">-0.0000984</td>
 </tr>
 <tr class="even">
 <td align="left">mu_21</td>
 <td align="right">-0.165</td>
-<td align="right">-0.1842756</td>
-<td align="right">0.0192756</td>
+<td align="right">-0.1652498</td>
+<td align="right">0.0002498</td>
 </tr>
 <tr class="odd">
 <td align="left">mu_31</td>
 <td align="right">-0.199</td>
-<td align="right">-0.1778213</td>
-<td align="right">-0.0211787</td>
+<td align="right">-0.1829942</td>
+<td align="right">-0.0160058</td>
 </tr>
 <tr class="even">
 <td align="left">mu_41</td>
 <td align="right">-0.148</td>
-<td align="right">-0.1727158</td>
-<td align="right">0.0247158</td>
+<td align="right">-0.1515997</td>
+<td align="right">0.0035997</td>
 </tr>
 <tr class="odd">
 <td align="left">phi_1</td>
 <td align="right">0.311</td>
-<td align="right">0.3141922</td>
-<td align="right">-0.0031922</td>
+<td align="right">0.3169217</td>
+<td align="right">-0.0059217</td>
 </tr>
 <tr class="even">
 <td align="left">nu_0</td>
 <td align="right">-3.563</td>
-<td align="right">-4.2691825</td>
-<td align="right">0.7061825</td>
+<td align="right">-3.6910557</td>
+<td align="right">0.1280557</td>
 </tr>
 <tr class="odd">
 <td align="left">alpha_0</td>
 <td align="right">-3.586</td>
-<td align="right">-3.5915924</td>
-<td align="right">0.0055924</td>
+<td align="right">-3.5634025</td>
+<td align="right">-0.0225975</td>
 </tr>
 <tr class="even">
 <td align="left">kappa_0</td>
 <td align="right">0.122</td>
-<td align="right">0.1577775</td>
-<td align="right">-0.0357775</td>
+<td align="right">0.1273813</td>
+<td align="right">-0.0053813</td>
 </tr>
 <tr class="odd">
 <td align="left">beta_00</td>
 <td align="right">2.250</td>
-<td align="right">2.0830270</td>
-<td align="right">0.1669730</td>
+<td align="right">2.1225611</td>
+<td align="right">0.1274389</td>
 </tr>
 <tr class="even">
 <td align="left">gamma_00</td>
 <td align="right">0.063</td>
-<td align="right">0.0779785</td>
-<td align="right">-0.0149785</td>
+<td align="right">0.0676685</td>
+<td align="right">-0.0046685</td>
 </tr>
 <tr class="odd">
 <td align="left">gamma_10</td>
 <td align="right">0.094</td>
-<td align="right">0.0989865</td>
-<td align="right">-0.0049865</td>
+<td align="right">0.0942463</td>
+<td align="right">-0.0002463</td>
 </tr>
 </tbody>
 </table>
@@ -846,9 +846,10 @@ including the following:</p>
 <li><code>entropy</code></li>
 <li><code>anova</code></li>
 </ul>
-<div class="section level3">
-<h3 id="mplus-script-used">Mplus Script Used<a class="anchor" aria-label="anchor" href="#mplus-script-used"></a>
-</h3>
+</div>
+<div class="section level2">
+<h2 id="mplus-script-used">Mplus Script Used<a class="anchor" aria-label="anchor" href="#mplus-script-used"></a>
+</h2>
 <pre><code>TITLE:
   2-Profile CULTA with Covariate;
 
@@ -1335,13 +1336,12 @@ OUTPUT:
   ENTROPY;
 
 SAVEDATA:
-  ESTIMATES = fn_ICSIHjJ462fvaczvQI98_estimates.dat;
-  RESULTS = fn_ICSIHjJ462fvaczvQI98_results.dat;
-  TECH3 = fn_ICSIHjJ462fvaczvQI98_tech3.dat;
-  TECH4 = fn_ICSIHjJ462fvaczvQI98_tech4.dat;
-  FILE = fn_ICSIHjJ462fvaczvQI98_cprobs.dat;
+  ESTIMATES = fn_34rXapIX7srOsFvdz2Ab_estimates.dat;
+  RESULTS = fn_34rXapIX7srOsFvdz2Ab_results.dat;
+  TECH3 = fn_34rXapIX7srOsFvdz2Ab_tech3.dat;
+  TECH4 = fn_34rXapIX7srOsFvdz2Ab_tech4.dat;
+  FILE = fn_34rXapIX7srOsFvdz2Ab_cprobs.dat;
   SAVE = CPROBABILITIES;</code></pre>
-</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

@@ -87,7 +87,7 @@ correctly specified two-profile CULTA model.</p>
 <span></span>
 <span><span class="co"># dimensions</span></span>
 <span><span class="va">n</span> <span class="co"># number of individuals</span></span>
-<span><span class="co">#&gt; [1] 1000</span></span>
+<span><span class="co">#&gt; [1] 10000</span></span>
 <span><span class="va">m</span> <span class="co"># measurement occasions</span></span>
 <span><span class="co">#&gt; [1] 6</span></span>
 <span><span class="va">p</span> <span class="co"># number of items</span></span>
@@ -96,7 +96,7 @@ correctly specified two-profile CULTA model.</p>
 <span><span class="co">#&gt; [1] 1</span></span>
 <span></span>
 <span><span class="co"># covariate parameters</span></span>
-<span><span class="va">mu_x</span></span>
+<span><span class="va">mu_x</span> </span>
 <span><span class="co">#&gt; [1] 11.4009</span></span>
 <span><span class="va">sigma_x</span></span>
 <span><span class="co">#&gt; [1] 24.67566</span></span>
@@ -187,7 +187,7 @@ correctly specified two-profile CULTA model.</p>
 <span>  phi_1 <span class="op">=</span> <span class="va">phi_1</span>,</span>
 <span>  psi_s0 <span class="op">=</span> <span class="va">psi_s0</span>,</span>
 <span>  psi_s <span class="op">=</span> <span class="va">psi_s</span>,</span>
-<span>  theta <span class="op">=</span> <span class="va">theta</span>,</span>
+<span>  theta <span class="op">=</span> <span class="va">theta</span>, </span>
 <span>  mu_profile <span class="op">=</span> <span class="va">mu_profile</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -217,12 +217,12 @@ models.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">rilta</span>, <span class="va">culta</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $fit</span></span>
 <span><span class="co">#&gt;                     logLik df correction      AIC      BIC     aBIC   entropy</span></span>
-<span><span class="co">#&gt; 2-profile RI-LTA -30931.40 22   2.475479 61906.80 62014.77 61944.89 0.8932332</span></span>
-<span><span class="co">#&gt; 2-profile CULTA  -23536.42 33   0.999548 47138.83 47300.79 47195.98 0.9410144</span></span>
+<span><span class="co">#&gt; 2-profile RI-LTA -309109.4 22   2.679461 618262.7 618421.3 618351.4 0.8920079</span></span>
+<span><span class="co">#&gt; 2-profile CULTA  -237508.2 33   1.000768 475082.4 475320.3 475215.5 0.9367669</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $test</span></span>
 <span><span class="co">#&gt;  chi_diff   df_diff   p_value </span></span>
-<span><span class="co">#&gt; -7575.607    11.000     1.000</span></span></code></pre></div>
+<span><span class="co">#&gt; -60765.98     11.00      1.00</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="parameter-recovery">Parameter Recovery<a class="anchor" aria-label="anchor" href="#parameter-recovery"></a>
@@ -252,117 +252,124 @@ and log-odds.</p>
 <tr class="odd">
 <td align="left">mu_10</td>
 <td align="right">2.253</td>
-<td align="right">1.5218012</td>
-<td align="right">0.7311988</td>
-<td align="right">2.2892154</td>
-<td align="right">-0.0362154</td>
+<td align="right">1.5255399</td>
+<td align="right">0.7274601</td>
+<td align="right">2.2689973</td>
+<td align="right">-0.0159973</td>
 </tr>
 <tr class="even">
 <td align="left">mu_20</td>
 <td align="right">1.493</td>
-<td align="right">1.2453362</td>
-<td align="right">0.2476638</td>
-<td align="right">1.5474649</td>
-<td align="right">-0.0544649</td>
+<td align="right">1.2540192</td>
+<td align="right">0.2389808</td>
+<td align="right">1.5140045</td>
+<td align="right">-0.0210045</td>
 </tr>
 <tr class="odd">
 <td align="left">mu_30</td>
 <td align="right">1.574</td>
-<td align="right">1.3730178</td>
-<td align="right">0.2009822</td>
-<td align="right">1.6470261</td>
-<td align="right">-0.0730261</td>
+<td align="right">1.3511744</td>
+<td align="right">0.2228256</td>
+<td align="right">1.6057853</td>
+<td align="right">-0.0317853</td>
 </tr>
 <tr class="even">
 <td align="left">mu_40</td>
 <td align="right">1.117</td>
-<td align="right">0.9565883</td>
-<td align="right">0.1604117</td>
-<td align="right">1.1475578</td>
-<td align="right">-0.0305578</td>
+<td align="right">0.9648591</td>
+<td align="right">0.1521409</td>
+<td align="right">1.1275251</td>
+<td align="right">-0.0105251</td>
 </tr>
 <tr class="odd">
 <td align="left">mu_11</td>
 <td align="right">-0.278</td>
-<td align="right">-0.5157223</td>
-<td align="right">0.2377223</td>
-<td align="right">-0.2876850</td>
-<td align="right">0.0096850</td>
+<td align="right">-0.5080130</td>
+<td align="right">0.2300130</td>
+<td align="right">-0.2779016</td>
+<td align="right">-0.0000984</td>
 </tr>
 <tr class="even">
 <td align="left">mu_21</td>
 <td align="right">-0.165</td>
-<td align="right">-0.4139780</td>
-<td align="right">0.2489780</td>
-<td align="right">-0.1842756</td>
-<td align="right">0.0192756</td>
+<td align="right">-0.3956839</td>
+<td align="right">0.2306839</td>
+<td align="right">-0.1652498</td>
+<td align="right">0.0002498</td>
 </tr>
 <tr class="odd">
 <td align="left">mu_31</td>
 <td align="right">-0.199</td>
-<td align="right">-0.4332938</td>
-<td align="right">0.2342938</td>
-<td align="right">-0.1778213</td>
-<td align="right">-0.0211787</td>
+<td align="right">-0.4362505</td>
+<td align="right">0.2372505</td>
+<td align="right">-0.1829942</td>
+<td align="right">-0.0160058</td>
 </tr>
 <tr class="even">
 <td align="left">mu_41</td>
 <td align="right">-0.148</td>
-<td align="right">-0.3643389</td>
-<td align="right">0.2163389</td>
-<td align="right">-0.1727158</td>
-<td align="right">0.0247158</td>
+<td align="right">-0.3389233</td>
+<td align="right">0.1909233</td>
+<td align="right">-0.1515997</td>
+<td align="right">0.0035997</td>
 </tr>
 <tr class="odd">
 <td align="left">nu_0</td>
 <td align="right">-3.563</td>
-<td align="right">-1.3256314</td>
-<td align="right">-2.2373686</td>
-<td align="right">-4.2691825</td>
-<td align="right">0.7061825</td>
+<td align="right">-1.2267252</td>
+<td align="right">-2.3362748</td>
+<td align="right">-3.6910557</td>
+<td align="right">0.1280557</td>
 </tr>
 <tr class="even">
 <td align="left">alpha_0</td>
 <td align="right">-3.586</td>
-<td align="right">-2.7385506</td>
-<td align="right">-0.8474494</td>
-<td align="right">-3.5915924</td>
-<td align="right">0.0055924</td>
+<td align="right">-2.5248986</td>
+<td align="right">-1.0611014</td>
+<td align="right">-3.5634025</td>
+<td align="right">-0.0225975</td>
 </tr>
 <tr class="odd">
 <td align="left">kappa_0</td>
 <td align="right">0.122</td>
-<td align="right">0.0293941</td>
-<td align="right">0.0926059</td>
-<td align="right">0.1577775</td>
-<td align="right">-0.0357775</td>
+<td align="right">0.0357181</td>
+<td align="right">0.0862819</td>
+<td align="right">0.1273813</td>
+<td align="right">-0.0053813</td>
 </tr>
 <tr class="even">
 <td align="left">beta_00</td>
 <td align="right">2.250</td>
-<td align="right">2.9771867</td>
-<td align="right">-0.7271867</td>
-<td align="right">2.0830270</td>
-<td align="right">0.1669730</td>
+<td align="right">2.7720950</td>
+<td align="right">-0.5220950</td>
+<td align="right">2.1225611</td>
+<td align="right">0.1274389</td>
 </tr>
 <tr class="odd">
 <td align="left">gamma_00</td>
 <td align="right">0.063</td>
-<td align="right">0.0016448</td>
-<td align="right">0.0613552</td>
-<td align="right">0.0779785</td>
-<td align="right">-0.0149785</td>
+<td align="right">-0.0014707</td>
+<td align="right">0.0644707</td>
+<td align="right">0.0676685</td>
+<td align="right">-0.0046685</td>
 </tr>
 <tr class="even">
 <td align="left">gamma_10</td>
 <td align="right">0.094</td>
-<td align="right">0.0802600</td>
-<td align="right">0.0137400</td>
-<td align="right">0.0989865</td>
-<td align="right">-0.0049865</td>
+<td align="right">0.0595538</td>
+<td align="right">0.0344462</td>
+<td align="right">0.0942463</td>
+<td align="right">-0.0002463</td>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="section level2">
+<h2 id="mplus-script-used">Mplus Script Used<a class="anchor" aria-label="anchor" href="#mplus-script-used"></a>
+</h2>
+<p>The RI-LTA model was estimated using the following <code>Mplus</code>
+script.</p>
+<pre><code>Error: object 'lta' not found</code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
