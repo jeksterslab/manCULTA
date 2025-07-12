@@ -38,7 +38,7 @@
 #'   m = m
 #' )
 #'
-#' @family Simulation Functions
+#' @family Data Generation Functions
 #' @keywords manCULTA sim mixture
 #' @noRd
 Transition2Profiles <- function(initial_profile,

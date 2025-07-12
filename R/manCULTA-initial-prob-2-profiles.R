@@ -72,7 +72,7 @@
 #'   main = "Probability of Profile Membership in the Second Group" # nolint
 #' )
 #'
-#' @family Simulation Functions
+#' @family Data Generation Functions
 #' @keywords manCULTA sim mixture
 #' @noRd
 InitialProb2Profiles <- function(covariate,

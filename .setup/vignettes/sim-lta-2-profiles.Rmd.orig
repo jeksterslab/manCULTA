@@ -40,7 +40,7 @@ library(manCULTA)
 set.seed(42)
 
 # dimensions
-n <- 1000 # number of individuals
+n <- 10000 # number of individuals
 m <- 6    # measurement occasions
 p <- 4    # number of items
 q <- 1    # common trait dimension
@@ -58,10 +58,8 @@ gamma_00 <- 0.063
 gamma_10 <- 0.094
 
 # trait parameters
-# psi_t <- diag(1)
 psi_t <- 0.10 * diag(1)
 mu_t <- 0
-# psi_p <- diag(p)
 psi_p <- diag(p)
 psi_p_1 <- 0.10
 psi_p_2 <- 0.10
@@ -88,11 +86,8 @@ common_state_loading <- matrix(
 )
 phi_0 <- 0.000
 phi_1 <- 0.311
-# psi_s0 <- 0.151
-# psi_s <- 0.290
 psi_s0 <- 1.00
 psi_s <- 0.25
-# theta <- diag(p)
 theta <- 0.15 * diag(p)
 
 # profile-specific means
@@ -100,6 +95,8 @@ mu_profile <- cbind(
   c(2.253, 1.493, 1.574, 1.117),
   c(-0.278, -0.165, -0.199, -0.148)
 )
+
+# parameters
 parameters <- c(
   mu_profile[, 1],
   mu_profile[, 2],
@@ -288,7 +285,7 @@ Parameter recovery was assessed by calculating the differences between the popul
 
 ```{r}
 #| echo = FALSE
-lta <- coef(lta)[
+lta_coef <- coef(lta)[
   c(
     "mu_10",
     "mu_20",
@@ -306,7 +303,7 @@ lta <- coef(lta)[
     "gamma_10"
   )
 ]
-culta <- coef(culta)[
+culta_coef <- coef(culta)[
   c(
     "mu_10",
     "mu_20",
@@ -324,13 +321,13 @@ culta <- coef(culta)[
     "gamma_10"
   )
 ]
-lta_difference <- parameters - lta
-culta_difference <- parameters - culta
+lta_difference <- parameters - lta_coef
+culta_difference <- parameters - culta_coef
 recovery <- cbind(
   parameters,
-  lta,
+  lta_coef,
   lta_difference,
-  culta,
+  culta_coef,
   culta_difference
 )
 colnames(recovery) <- c(
@@ -340,9 +337,25 @@ colnames(recovery) <- c(
   "CULTA Estimate",
   "Difference"
 )
-rownames(recovery) <- names(lta)
+rownames(recovery) <- names(culta_coef)
 knitr::kable(
   x = recovery,
   caption = "Parameter Recovery"
+)
+```
+
+## Mplus Script Used
+
+The LTA model was estimated using the following `Mplus` script.
+
+```{r}
+#| echo = FALSE,
+#| comment = NA,
+#| size = "small"
+cat(
+  paste(
+    lta$output$input,
+    collapse = "\n"
+  )
 )
 ```

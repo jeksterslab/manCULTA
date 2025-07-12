@@ -115,7 +115,7 @@
 #'   main = "Probability of Remaining in the Second Profile" # nolint
 #' )
 #'
-#' @family Simulation Functions
+#' @family Data Generation Functions
 #' @keywords manCULTA sim mixture
 #' @noRd
 TransitionProb2Profiles <- function(covariate,

@@ -32,7 +32,7 @@ set.seed(42)
 
 # dimensions
 n # number of individuals
-#> [1] 1000
+#> [1] 10000
 m # measurement occasions
 #> [1] 6
 p # number of items
@@ -173,12 +173,324 @@ The `anova` function can be used to compare the two fitted models.
 anova(one_profile, two_profiles)
 #> $fit
 #>                    logLik df correction      AIC      BIC     aBIC   entropy
-#> 1-profile CULTA -24432.83 22   1.093913 48909.65 49017.62 48947.75 0.0000000
-#> 2-profile CULTA -23536.42 33   0.999548 47138.83 47300.79 47195.98 0.9410144
+#> 1-profile CULTA -246042.9 22   1.083395 492129.8 492288.5 492218.5 0.0000000
+#> 2-profile CULTA -237508.2 33   1.000768 475082.4 475320.3 475215.5 0.9367669
 #> 
 #> $test
 #> chi_diff  df_diff  p_value 
-#> 2211.121   11.000    0.000
+#> 20429.88    11.00     0.00
+```
+
+## Mplus Script Used
+
+The one-profile model was estimated using the following `Mplus` script.
+
+
+```
+TITLE:
+  CUTS with AR;
+
+DATA:
+  FILE = data.dat;
+
+VARIABLE:
+  NAMES =
+    id
+    x
+    y1t0
+    y2t0
+    y3t0
+    y4t0
+    y1t1
+    y2t1
+    y3t1
+    y4t1
+    y1t2
+    y2t2
+    y3t2
+    y4t2
+    y1t3
+    y2t3
+    y3t3
+    y4t3
+    y1t4
+    y2t4
+    y3t4
+    y4t4
+    y1t5
+    y2t5
+    y3t5
+    y4t5
+  ;
+  USEVARIABLES =
+    y1t0
+    y2t0
+    y3t0
+    y4t0
+    y1t1
+    y2t1
+    y3t1
+    y4t1
+    y1t2
+    y2t2
+    y3t2
+    y4t2
+    y1t3
+    y2t3
+    y3t3
+    y4t3
+    y1t4
+    y2t4
+    y3t4
+    y4t4
+    y1t5
+    y2t5
+    y3t5
+    y4t5
+  ;
+
+ANALYSIS:
+  TYPE = GENERAL;
+  ESTIMATOR = MLR;
+  STARTS = 10;
+  MODEL = NOCOV;
+
+MODEL:
+  ! common trait ------------------------------------------------------
+
+  !! factor loadings
+  !!! t = 0
+  t BY y1t0@1;
+  t BY y2t0 (lambdat2);
+  t BY y3t0 (lambdat3);
+  t BY y4t0 (lambdat4);
+  !!! t = 1
+  t BY y1t1@1;
+  t BY y2t1 (lambdat2);
+  t BY y3t1 (lambdat3);
+  t BY y4t1 (lambdat4);
+  !!! t = 2
+  t BY y1t2@1;
+  t BY y2t2 (lambdat2);
+  t BY y3t2 (lambdat3);
+  t BY y4t2 (lambdat4);
+  !!! t = 3
+  t BY y1t3@1;
+  t BY y2t3 (lambdat2);
+  t BY y3t3 (lambdat3);
+  t BY y4t3 (lambdat4);
+  !!! t = 4
+  t BY y1t4@1;
+  t BY y2t4 (lambdat2);
+  t BY y3t4 (lambdat3);
+  t BY y4t4 (lambdat4);
+  !!! t = 5
+  t BY y1t5@1;
+  t BY y2t5 (lambdat2);
+  t BY y3t5 (lambdat3);
+  t BY y4t5 (lambdat4);
+
+  !! latent mean
+  [ t@0 ];
+
+  !! latent variance
+  t (psit);
+
+  ! unique traits -----------------------------------------------------
+
+  !! factor loadings
+  !!! k = 1
+  u1 BY y1t0@1;
+  u1 BY y1t1@1;
+  u1 BY y1t2@1;
+  u1 BY y1t3@1;
+  u1 BY y1t4@1;
+  u1 BY y1t5@1;
+  !!! k = 2
+  u2 BY y2t0@1;
+  u2 BY y2t1@1;
+  u2 BY y2t2@1;
+  u2 BY y2t3@1;
+  u2 BY y2t4@1;
+  u2 BY y2t5@1;
+  !!! k = 3
+  u3 BY y3t0@1;
+  u3 BY y3t1@1;
+  u3 BY y3t2@1;
+  u3 BY y3t3@1;
+  u3 BY y3t4@1;
+  u3 BY y3t5@1;
+  !!! k = 4
+  u4 BY y4t0@1;
+  u4 BY y4t1@1;
+  u4 BY y4t2@1;
+  u4 BY y4t3@1;
+  u4 BY y4t4@1;
+  u4 BY y4t5@1;
+
+  !! latent means
+  [ u1@0 ];
+  [ u2@0 ];
+  [ u3@0 ];
+  [ u4@0 ];
+
+  !! latent variances
+  u1 (psip1);
+  u2 (psip2);
+  u3 (psip3);
+  u4 (psip4);
+
+  ! common states -----------------------------------------------------
+
+  !! factor loadings
+  !!! t = 0
+  s0 BY y1t0@1;
+  s0 BY y2t0 (lambdas2);
+  s0 BY y3t0 (lambdas3);
+  s0 BY y4t0 (lambdas4);
+  !!! t = 1
+  s1 BY y1t1@1;
+  s1 BY y2t1 (lambdas2);
+  s1 BY y3t1 (lambdas3);
+  s1 BY y4t1 (lambdas4);
+  !!! t = 2
+  s2 BY y1t2@1;
+  s2 BY y2t2 (lambdas2);
+  s2 BY y3t2 (lambdas3);
+  s2 BY y4t2 (lambdas4);
+  !!! t = 3
+  s3 BY y1t3@1;
+  s3 BY y2t3 (lambdas2);
+  s3 BY y3t3 (lambdas3);
+  s3 BY y4t3 (lambdas4);
+  !!! t = 4
+  s4 BY y1t4@1;
+  s4 BY y2t4 (lambdas2);
+  s4 BY y3t4 (lambdas3);
+  s4 BY y4t4 (lambdas4);
+  !!! t = 5
+  s5 BY y1t5@1;
+  s5 BY y2t5 (lambdas2);
+  s5 BY y3t5 (lambdas3);
+  s5 BY y4t5 (lambdas4);
+
+  !! latent means
+  [ s0@0 ];
+  [ s1@0 ];
+  [ s2@0 ];
+  [ s3@0 ];
+  [ s4@0 ];
+  [ s5@0 ];
+
+  !! latent variance of s0
+  s0 (psis0);
+
+  !! variance of the process noise
+  s1 (psis);
+  s2 (psis);
+  s3 (psis);
+  s4 (psis);
+  s5 (psis);
+
+  ! unique states -----------------------------------------------------
+
+  !! variances
+  !!! t = 0
+  y1t0 (theta11);
+  y2t0 (theta22);
+  y3t0 (theta33);
+  y4t0 (theta44);
+  !!! t = 1
+  y1t1 (theta11);
+  y2t1 (theta22);
+  y3t1 (theta33);
+  y4t1 (theta44);
+  !!! t = 2
+  y1t2 (theta11);
+  y2t2 (theta22);
+  y3t2 (theta33);
+  y4t2 (theta44);
+  !!! t = 3
+  y1t3 (theta11);
+  y2t3 (theta22);
+  y3t3 (theta33);
+  y4t3 (theta44);
+  !!! t = 4
+  y1t4 (theta11);
+  y2t4 (theta22);
+  y3t4 (theta33);
+  y4t4 (theta44);
+  !!! t = 5
+  y1t5 (theta11);
+  y2t5 (theta22);
+  y3t5 (theta33);
+  y4t5 (theta44);
+
+  ! grand means -------------------------------------------------------
+
+  !! t = 0
+  [ y1t0 ] (mu1);
+  [ y2t0 ] (mu2);
+  [ y3t0 ] (mu3);
+  [ y4t0 ] (mu4);
+  !! t = 1
+  [ y1t1 ] (mu1);
+  [ y2t1 ] (mu2);
+  [ y3t1 ] (mu3);
+  [ y4t1 ] (mu4);
+  !! t = 2
+  [ y1t2 ] (mu1);
+  [ y2t2 ] (mu2);
+  [ y3t2 ] (mu3);
+  [ y4t2 ] (mu4);
+  !! t = 3
+  [ y1t3 ] (mu1);
+  [ y2t3 ] (mu2);
+  [ y3t3 ] (mu3);
+  [ y4t3 ] (mu4);
+  !! t = 4
+  [ y1t4 ] (mu1);
+  [ y2t4 ] (mu2);
+  [ y3t4 ] (mu3);
+  [ y4t4 ] (mu4);
+  !! t = 5
+  [ y1t5 ] (mu1);
+  [ y2t5 ] (mu2);
+  [ y3t5 ] (mu3);
+  [ y4t5 ] (mu4);
+
+  ! inertia -----------------------------------------------------------
+
+  s0 ON s1 (phi);
+  s1 ON s2 (phi);
+  s2 ON s3 (phi);
+  s3 ON s4 (phi);
+  s4 ON s5 (phi);
+
+MODEL CONSTRAINT:
+  ! variance constraints
+  psit > 0;
+  psip1 > 0;
+  psip2 > 0;
+  psip3 > 0;
+  psip4 > 0;
+  psis0 > 0;
+  psis > 0;
+  theta11 > 0;
+  theta22 > 0;
+  theta33 > 0;
+  theta44 > 0;
+
+OUTPUT:
+  TECH1
+  TECH3
+  TECH4;
+
+SAVEDATA:
+  ESTIMATES = fn_TBpjfDc7G4UC5Z7eY3PN_estimates.dat;
+  RESULTS = fn_TBpjfDc7G4UC5Z7eY3PN_results.dat;
+  TECH3 = fn_TBpjfDc7G4UC5Z7eY3PN_tech3.dat;
+  TECH4 = fn_TBpjfDc7G4UC5Z7eY3PN_tech4.dat;
 ```
 
 

@@ -14,21 +14,24 @@ template:
     code_font: {google: "JetBrains Mono"}
 
 reference:
-- title: Data Generation
+- title: Data Generation Functions
   contents:
-  - has_keyword("sim")
-- title: Model Fitting
+  - has_concept("Data Generation Functions")
+- title: Model Fitting Functions
   contents:
-  - has_keyword("fit")
-- title: Input Files
+  - has_concept("Model Fitting Functions")
+- title: Simulation Functions
   contents:
-  - has_keyword("input")
+  - has_keyword("simulation")
+- title: Data
+  contents:
+  - has_keyword("data")
 - title: Methods
   contents:
   - has_keyword("methods")
 - title: All Functions
   contents:
-  - has_keyword("manculta")
+  - has_keyword("manCULTA")
 
 articles:
 - title: manCULTA
@@ -48,6 +51,12 @@ articles:
 - title: Generating Mplus Input Files
   contents:
   - sim-input
+- title: Single Replication from the Simulation Study
+  contents:
+  - sim-replication
+- title: Parameters
+  contents:
+  - params
 - title: Containers
   contents:
   - containers

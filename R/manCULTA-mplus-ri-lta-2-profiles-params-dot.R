@@ -7,7 +7,7 @@
     idx,
     "0"
   )
-  lf <- paste0("lambda_t_", 1:p)
+  lf <- paste0("lambda_t", 1:p)
   theta_diag <- paste0(
     "theta_",
     idx,

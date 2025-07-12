@@ -20,7 +20,7 @@
 #' CommonTrait(n = 10, psi_t = diag(2))
 #' CommonTrait(n = 10, psi_t = diag(2), mu_t = c(1, 1))
 #'
-#' @family Simulation Functions
+#' @family Data Generation Functions
 #' @keywords manCULTA sim trait
 #' @noRd
 CommonTrait <- function(n,

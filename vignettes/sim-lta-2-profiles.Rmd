@@ -32,7 +32,7 @@ set.seed(42)
 
 # dimensions
 n # number of individuals
-#> [1] 1000
+#> [1] 10000
 m # measurement occasions
 #> [1] 6
 p # number of items
@@ -173,12 +173,12 @@ The `anova` function can be used to compare the two fitted models.
 anova(lta, culta)
 #> $fit
 #>                    logLik df correction      AIC      BIC     aBIC   entropy
-#> 2-profile LTA   -33097.95 18   2.300145 66231.91 66320.25 66263.08 0.8558553
-#> 2-profile CULTA -23536.42 33   0.999548 47138.83 47300.79 47195.98 0.9410144
+#> 2-profile LTA   -330843.0 18   2.354802 661722.0 661851.8 661794.6 0.8513129
+#> 2-profile CULTA -237508.2 33   1.000768 475082.4 475320.3 475215.5 0.9367669
 #> 
 #> $test
 #>  chi_diff   df_diff   p_value 
-#> -34077.26     15.00      1.00
+#> -299114.7      15.0       1.0
 ```
 
 ## Parameter Recovery
@@ -191,19 +191,313 @@ Table: Parameter Recovery
 
 |         | Parameter| LTA Estimate| Difference| CULTA Estimate| Difference|
 |:--------|---------:|------------:|----------:|--------------:|----------:|
-|mu_10    |     2.253|    1.3406333|  0.9123667|      2.2892154| -0.0362154|
-|mu_20    |     1.493|    1.1213610|  0.3716390|      1.5474649| -0.0544649|
-|mu_30    |     1.574|    1.2610295|  0.3129705|      1.6470261| -0.0730261|
-|mu_40    |     1.117|    1.0551759|  0.0618241|      1.1475578| -0.0305578|
-|mu_11    |    -0.278|   -0.5176162|  0.2396162|     -0.2876850|  0.0096850|
-|mu_21    |    -0.165|   -0.4244073|  0.2594073|     -0.1842756|  0.0192756|
-|mu_31    |    -0.199|   -0.4533098|  0.2543098|     -0.1778213| -0.0211787|
-|mu_41    |    -0.148|   -0.4470438|  0.2990438|     -0.1727158|  0.0247158|
-|nu_0     |    -3.563|   -1.3260426| -2.2369574|     -4.2691825|  0.7061825|
-|alpha_0  |    -3.586|   -2.6160765| -0.9699235|     -3.5915924|  0.0055924|
-|kappa_0  |     0.122|    0.0419311|  0.0800689|      0.1577775| -0.0357775|
-|beta_00  |     2.250|    2.7923526| -0.5423526|      2.0830270|  0.1669730|
-|gamma_00 |     0.063|    0.0146030|  0.0483970|      0.0779785| -0.0149785|
-|gamma_10 |     0.094|    0.0760094|  0.0179906|      0.0989865| -0.0049865|
+|mu_10    |     2.253|    1.3824160|  0.8705840|      2.2689973| -0.0159973|
+|mu_20    |     1.493|    1.1580352|  0.3349648|      1.5140045| -0.0210045|
+|mu_30    |     1.574|    1.2645449|  0.3094551|      1.6057853| -0.0317853|
+|mu_40    |     1.117|    1.0778100|  0.0391900|      1.1275251| -0.0105251|
+|mu_11    |    -0.278|   -0.4931759|  0.2151759|     -0.2779016| -0.0000984|
+|mu_21    |    -0.165|   -0.3910813|  0.2260813|     -0.1652498|  0.0002498|
+|mu_31    |    -0.199|   -0.4376782|  0.2386782|     -0.1829942| -0.0160058|
+|mu_41    |    -0.148|   -0.4050322|  0.2570322|     -0.1515997|  0.0035997|
+|nu_0     |    -3.563|   -1.1072981| -2.4557019|     -3.6910557|  0.1280557|
+|alpha_0  |    -3.586|   -2.3408923| -1.2451077|     -3.5634025| -0.0225975|
+|kappa_0  |     0.122|    0.0375012|  0.0844988|      0.1273813| -0.0053813|
+|beta_00  |     2.250|    2.2757322| -0.0257322|      2.1225611|  0.1274389|
+|gamma_00 |     0.063|    0.0198196|  0.0431804|      0.0676685| -0.0046685|
+|gamma_10 |     0.094|    0.0511943|  0.0428057|      0.0942463| -0.0002463|
 
 
+
+## Mplus Script Used
+
+The LTA model was estimated using the following `Mplus` script.
+
+
+```
+TITLE:
+  2-Profile LTA with Covariate;
+
+DATA:
+  FILE = data.dat;
+
+VARIABLE:
+  NAMES =
+    id
+    x
+    y1t0
+    y2t0
+    y3t0
+    y4t0
+    y1t1
+    y2t1
+    y3t1
+    y4t1
+    y1t2
+    y2t2
+    y3t2
+    y4t2
+    y1t3
+    y2t3
+    y3t3
+    y4t3
+    y1t4
+    y2t4
+    y3t4
+    y4t4
+    y1t5
+    y2t5
+    y3t5
+    y4t5
+  ;
+  USEVARIABLES =
+    x
+    y1t0
+    y2t0
+    y3t0
+    y4t0
+    y1t1
+    y2t1
+    y3t1
+    y4t1
+    y1t2
+    y2t2
+    y3t2
+    y4t2
+    y1t3
+    y2t3
+    y3t3
+    y4t3
+    y1t4
+    y2t4
+    y3t4
+    y4t4
+    y1t5
+    y2t5
+    y3t5
+    y4t5
+  ;
+  IDVARIABLE = id;
+  CLASSES =
+    c0(2)
+    c1(2)
+    c2(2)
+    c3(2)
+    c4(2)
+    c5(2)
+  ;
+
+ANALYSIS:
+  TYPE = MIXTURE;
+  STARTS = 20 4;
+  STSCALE = 5;
+  STITERATIONS = 10;
+  PROCESS = 1;
+  MODEL = NOCOV;
+
+MODEL:
+  %OVERALL%
+    ! unique states -----------------------------------------------------
+
+    !! variances
+    !!! t = 0
+    y1t0 (theta11);
+    y2t0 (theta22);
+    y3t0 (theta33);
+    y4t0 (theta44);
+    !!! t = 1
+    y1t1 (theta11);
+    y2t1 (theta22);
+    y3t1 (theta33);
+    y4t1 (theta44);
+    !!! t = 2
+    y1t2 (theta11);
+    y2t2 (theta22);
+    y3t2 (theta33);
+    y4t2 (theta44);
+    !!! t = 3
+    y1t3 (theta11);
+    y2t3 (theta22);
+    y3t3 (theta33);
+    y4t3 (theta44);
+    !!! t = 4
+    y1t4 (theta11);
+    y2t4 (theta22);
+    y3t4 (theta33);
+    y4t4 (theta44);
+    !!! t = 5
+    y1t5 (theta11);
+    y2t5 (theta22);
+    y3t5 (theta33);
+    y4t5 (theta44);
+
+    ! lta ---------------------------------------------------------------
+
+    !! initial profile membership
+    [ c0#1 ] (nu0);
+    c0#1 ON x (kappa0);
+
+    !! profile transitions
+    [ c1#1 ] (alpha0);
+    [ c2#1 ] (alpha0);
+    [ c3#1 ] (alpha0);
+    [ c4#1 ] (alpha0);
+    [ c5#1 ] (alpha0);
+    c1#1 ON c0#1 (beta00);
+    c2#1 ON c1#1 (beta00);
+    c3#1 ON c2#1 (beta00);
+    c4#1 ON c3#1 (beta00);
+    c5#1 ON c4#1 (beta00);
+
+MODEL c0:
+  %c0#1%
+    ! profile specific means
+    [ y1t0 ] (mu10);
+    [ y2t0 ] (mu20);
+    [ y3t0 ] (mu30);
+    [ y4t0 ] (mu40);
+
+    ! covariate
+    c1 ON x (gamma00);
+
+  %c0#2%
+    ! profile specific means
+    [ y1t0 ] (mu11);
+    [ y2t0 ] (mu21);
+    [ y3t0 ] (mu31);
+    [ y4t0 ] (mu41);
+
+    ! covariate
+    c1 ON x (gamma10);
+
+MODEL c1:
+  %c1#1%
+    ! profile specific means
+    [ y1t1 ] (mu10);
+    [ y2t1 ] (mu20);
+    [ y3t1 ] (mu30);
+    [ y4t1 ] (mu40);
+
+    ! covariate
+    c2 ON x (gamma00);
+
+  %c1#2%
+    ! profile specific means
+    [ y1t1 ] (mu11);
+    [ y2t1 ] (mu21);
+    [ y3t1 ] (mu31);
+    [ y4t1 ] (mu41);
+
+    ! covariate
+    c2 ON x (gamma10);
+
+MODEL c2:
+  %c2#1%
+    ! profile specific means
+    [ y1t2 ] (mu10);
+    [ y2t2 ] (mu20);
+    [ y3t2 ] (mu30);
+    [ y4t2 ] (mu40);
+
+    ! covariate
+    c3 ON x (gamma00);
+
+  %c2#2%
+    ! profile specific means
+    [ y1t2 ] (mu11);
+    [ y2t2 ] (mu21);
+    [ y3t2 ] (mu31);
+    [ y4t2 ] (mu41);
+
+    ! covariate
+    c3 ON x (gamma10);
+
+MODEL c3:
+  %c3#1%
+    ! profile specific means
+    [ y1t3 ] (mu10);
+    [ y2t3 ] (mu20);
+    [ y3t3 ] (mu30);
+    [ y4t3 ] (mu40);
+
+    ! covariate
+    c4 ON x (gamma00);
+
+  %c3#2%
+    ! profile specific means
+    [ y1t3 ] (mu11);
+    [ y2t3 ] (mu21);
+    [ y3t3 ] (mu31);
+    [ y4t3 ] (mu41);
+
+    ! covariate
+    c4 ON x (gamma10);
+
+MODEL c4:
+  %c4#1%
+    ! profile specific means
+    [ y1t4 ] (mu10);
+    [ y2t4 ] (mu20);
+    [ y3t4 ] (mu30);
+    [ y4t4 ] (mu40);
+
+    ! covariate
+    c5 ON x (gamma00);
+
+  %c4#2%
+    ! profile specific means
+    [ y1t4 ] (mu11);
+    [ y2t4 ] (mu21);
+    [ y3t4 ] (mu31);
+    [ y4t4 ] (mu41);
+
+    ! covariate
+    c5 ON x (gamma10);
+
+MODEL c5:
+  %c5#1%
+    ! profile specific means
+    [ y1t5 ] (mu10);
+    [ y2t5 ] (mu20);
+    [ y3t5 ] (mu30);
+    [ y4t5 ] (mu40);
+
+  %c5#2%
+    ! profile specific means
+    [ y1t5 ] (mu11);
+    [ y2t5 ] (mu21);
+    [ y3t5 ] (mu31);
+    [ y4t5 ] (mu41);
+
+
+MODEL CONSTRAINT:
+  ! means for the first profile are higher than the second
+  mu10 > mu11;
+  mu20 > mu21;
+  mu30 > mu31;
+  mu40 > mu41;
+
+  ! make sure variances are greater than zero
+  theta11 > 0;
+  theta22 > 0;
+  theta33 > 0;
+  theta44 > 0;
+
+OUTPUT:
+  TECH1
+  TECH3
+  TECH4
+  TECH7
+  TECH8
+  TECH12
+  TECH13
+  TECH15
+  ENTROPY;
+
+SAVEDATA:
+  ESTIMATES = fn_hqkdKzsBrLDoUq0A6l3I_estimates.dat;
+  RESULTS = fn_hqkdKzsBrLDoUq0A6l3I_results.dat;
+  TECH3 = fn_hqkdKzsBrLDoUq0A6l3I_tech3.dat;
+  TECH4 = fn_hqkdKzsBrLDoUq0A6l3I_tech4.dat;
+  FILE = fn_hqkdKzsBrLDoUq0A6l3I_cprobs.dat;
+  SAVE = CPROBABILITIES;
+```

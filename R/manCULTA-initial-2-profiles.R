@@ -20,7 +20,7 @@
 #'
 #' @return Returns a vector of initial profiles.
 #'
-#' @family Simulation Functions
+#' @family Data Generation Functions
 #' @keywords manCULTA sim mixture
 #' @noRd
 Initial2Profiles <- function(initial_prob) {

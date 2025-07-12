@@ -8,8 +8,8 @@
   )
   lt_ls <- as.vector(
     rbind(
-      paste0("lambda_t_", 2:p),
-      paste0("lambda_s_", 2:p)
+      paste0("lambda_t", 2:p),
+      paste0("lambda_s", 2:p)
     )
   )
   theta_diag <- paste0(

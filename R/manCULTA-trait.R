@@ -56,7 +56,7 @@
 #'   grand_mean = grand_mean
 #' )
 #'
-#' @family Simulation Functions
+#' @family Data Generation Functions
 #' @keywords manCULTA sim trait
 #' @noRd
 Trait <- function(common_trait,
