@@ -10,14 +10,14 @@ lapply(
     m <- 6
     p <- 4
     q <- 1
-    beta_0 <- 0
-    beta_1 <- 0.311
+    phi_0 <- 0
+    phi_1 <- 0.311
     psi_s0 <- 0.151
     psi_s <- 0.290
     if (i == 0) {
-      beta <- beta_0
+      phi <- phi_0
     } else {
-      beta <- beta_1
+      phi <- phi_1
     }
     categorical <- matrix(
       data = i,
@@ -26,8 +26,8 @@ lapply(
     )
     common_state <- CommonState2Profiles(
       categorical = categorical,
-      beta_0 = beta_0,
-      beta_1 = beta_1,
+      phi_0 = phi_0,
+      phi_1 = phi_1,
       psi_s0 = psi_s0,
       psi_s = psi_s
     )
@@ -82,7 +82,7 @@ lapply(
         times = m
       ),
       rep(
-        x = beta,
+        x = phi,
         times = m - 1
       ),
       rep(

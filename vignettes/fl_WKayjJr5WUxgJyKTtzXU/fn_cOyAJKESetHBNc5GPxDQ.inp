@@ -272,11 +272,11 @@ MODEL:
 
   ! inertia -----------------------------------------------------------
 
-  s0 ON s1 (beta);
-  s1 ON s2 (beta);
-  s2 ON s3 (beta);
-  s3 ON s4 (beta);
-  s4 ON s5 (beta);
+  s0 ON s1 (phi);
+  s1 ON s2 (phi);
+  s2 ON s3 (phi);
+  s3 ON s4 (phi);
+  s4 ON s5 (phi);
 
 MODEL CONSTRAINT:
   ! variance constraints

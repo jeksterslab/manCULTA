@@ -12,17 +12,17 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // CommonState2Profiles
-arma::mat CommonState2Profiles(const arma::imat& categorical, double beta_0, double beta_1, double psi_s0, double psi_s);
-RcppExport SEXP _manCULTA_CommonState2Profiles(SEXP categoricalSEXP, SEXP beta_0SEXP, SEXP beta_1SEXP, SEXP psi_s0SEXP, SEXP psi_sSEXP) {
+arma::mat CommonState2Profiles(const arma::imat& categorical, double phi_0, double phi_1, double psi_s0, double psi_s);
+RcppExport SEXP _manCULTA_CommonState2Profiles(SEXP categoricalSEXP, SEXP phi_0SEXP, SEXP phi_1SEXP, SEXP psi_s0SEXP, SEXP psi_sSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const arma::imat& >::type categorical(categoricalSEXP);
-    Rcpp::traits::input_parameter< double >::type beta_0(beta_0SEXP);
-    Rcpp::traits::input_parameter< double >::type beta_1(beta_1SEXP);
+    Rcpp::traits::input_parameter< double >::type phi_0(phi_0SEXP);
+    Rcpp::traits::input_parameter< double >::type phi_1(phi_1SEXP);
     Rcpp::traits::input_parameter< double >::type psi_s0(psi_s0SEXP);
     Rcpp::traits::input_parameter< double >::type psi_s(psi_sSEXP);
-    rcpp_result_gen = Rcpp::wrap(CommonState2Profiles(categorical, beta_0, beta_1, psi_s0, psi_s));
+    rcpp_result_gen = Rcpp::wrap(CommonState2Profiles(categorical, phi_0, phi_1, psi_s0, psi_s));
     return rcpp_result_gen;
 END_RCPP
 }

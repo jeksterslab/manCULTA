@@ -218,7 +218,7 @@
               "",
               "    ! inertia",
               sprintf(
-                "    s%d ON s%d (beta0);",
+                "    s%d ON s%d (phi0);",
                 t,
                 t - 1
               ),
@@ -236,7 +236,7 @@
               "",
               "    ! inertia",
               sprintf(
-                "    s%d ON s%d (beta0);",
+                "    s%d ON s%d (phi0);",
                 t,
                 t - 1
               ),
@@ -275,7 +275,7 @@
               "",
               "    ! inertia",
               sprintf(
-                "    s%d ON s%d (beta1);",
+                "    s%d ON s%d (phi1);",
                 t,
                 t - 1
               ),
@@ -293,7 +293,7 @@
               "",
               "    ! inertia",
               sprintf(
-                "    s%d ON s%d (beta1);",
+                "    s%d ON s%d (phi1);",
                 t,
                 t - 1
               ),

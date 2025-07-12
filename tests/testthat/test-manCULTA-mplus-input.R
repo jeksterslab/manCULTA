@@ -38,6 +38,34 @@ lapply(
       stscale = 5
     )
     manCULTA:::.MPlusCULTA2ProfileParams(p = p)
+    manCULTA:::.MplusLTA2Profiles(
+      p = p,
+      m = m,
+      fn_data = fn_data,
+      fn_estimates = fn_estimates,
+      fn_results = fn_results,
+      fn_tech3 = fn_tech3,
+      fn_tech4 = fn_tech4,
+      fn_cprobs = fn_cprobs,
+      ncores = 1,
+      starts = c(20, 4),
+      stiterations = 10,
+      stscale = 5
+    )
+    manCULTA:::.MplusRILTA2Profiles(
+      p = p,
+      m = m,
+      fn_data = fn_data,
+      fn_estimates = fn_estimates,
+      fn_results = fn_results,
+      fn_tech3 = fn_tech3,
+      fn_tech4 = fn_tech4,
+      fn_cprobs = fn_cprobs,
+      ncores = 1,
+      starts = c(20, 4),
+      stiterations = 10,
+      stscale = 5
+    )
   },
   text = "test-manCULTA-mplus-input"
 )

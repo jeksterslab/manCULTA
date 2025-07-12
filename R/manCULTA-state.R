@@ -24,7 +24,7 @@
 #'   \deqn{
 #'     \mathrm{Common\ State}_{i, t}
 #'     =
-#'     \beta_{c} \times \mathrm{Common\ State}_{i, t - 1}
+#'     \phi_{c} \times \mathrm{Common\ State}_{i, t - 1}
 #'     +
 #'     \zeta_{i, t}
 #'   }
@@ -34,11 +34,11 @@
 #'   and
 #'   \eqn{\zeta_{i, t} \sim \mathcal{N} \left( 0, \psi_{s}\right)}.
 #'   The autoregressive parameter is given by
-#'   \deqn{\beta_{c} = \beta_{0} + \left( \beta_{1} - \beta_{0} \right) c}
+#'   \deqn{\phi_{c} = \phi_{0} + \left( \phi_{1} - \phi_{0} \right) c}
 #'   where
-#'   \eqn{\beta_{0}}
+#'   \eqn{\phi_{0}}
 #'   and
-#'   \eqn{\beta_{1}} are autoregressive order 1 coefficients
+#'   \eqn{\phi_{1}} are autoregressive order 1 coefficients
 #'   for dummy coded 0 and 1 in a two-profile solution.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
@@ -76,8 +76,8 @@
 #' )
 #' common_state <- CommonState2Profiles(
 #'   categorical = categorical,
-#'   beta_0 = 0,
-#'   beta_1 = 0.311,
+#'   phi_0 = 0,
+#'   phi_1 = 0.311,
 #'   psi_s0 = 0.151,
 #'   psi_s = 0.290
 #' )

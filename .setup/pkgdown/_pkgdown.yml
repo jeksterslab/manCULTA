@@ -39,13 +39,15 @@ articles:
   - empirical-mplus
 - title: Data Simulation and Model Fitting
   contents:
-  - culta-2-profiles
+  - sim-culta-2-profiles
 - title: Comparison of Misspecified and Correctly Specified Models
   contents:
-  - culta-1-profile
+  - sim-culta-1-profile
+  - sim-lta-2-profiles
+  - sim-ri-lta-2-profiles
 - title: Generating Mplus Input Files
   contents:
-  - input
+  - sim-input
 - title: Containers
   contents:
   - containers

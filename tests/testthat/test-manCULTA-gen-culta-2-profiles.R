@@ -46,8 +46,8 @@ lapply(
       nrow = p,
       ncol = 1
     )
-    beta_0 <- 0.311
-    beta_1 <- 0.311
+    phi_0 <- 0.311
+    phi_1 <- 0.311
     psi_s0 <- 0.151
     psi_s <- 0.290
     theta <- diag(p)
@@ -77,8 +77,8 @@ lapply(
       psi_p = psi_p,
       common_trait_loading = common_trait_loading,
       common_state_loading = common_state_loading,
-      beta_0 = beta_0,
-      beta_1 = beta_1,
+      phi_0 = phi_0,
+      phi_1 = phi_1,
       psi_s0 = psi_s0,
       psi_s = psi_s,
       theta = theta,
@@ -170,11 +170,11 @@ lapply(
       y2t5 ~ mu_2*1
       y3t5 ~ mu_3*1
       y4t5 ~ mu_4*1
-      s1 ~ beta*s0
-      s2 ~ beta*s1
-      s3 ~ beta*s2
-      s4 ~ beta*s3
-      s5 ~ beta*s4
+      s1 ~ phi*s0
+      s2 ~ phi*s1
+      s3 ~ phi*s2
+      s4 ~ phi*s3
+      s5 ~ phi*s4
     "
     no_cov <- combn(
       x = c(
@@ -268,24 +268,24 @@ lapply(
       }
     )
     testthat::test_that(
-      paste(text, "beta_0"),
+      paste(text, "phi_0"),
       {
         testthat::expect_true(
           all(
             abs(
-              beta_0 - est["beta"]
+              phi_0 - est["phi"]
             ) <= tol
           )
         )
       }
     )
     testthat::test_that(
-      paste(text, "beta_1"),
+      paste(text, "phi_1"),
       {
         testthat::expect_true(
           all(
             abs(
-              beta_1 - est["beta"]
+              phi_1 - est["phi"]
             ) <= tol
           )
         )

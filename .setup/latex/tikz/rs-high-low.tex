@@ -1044,14 +1044,14 @@
 		\draw[myviolet, ultra thick] (501,2) -- (1000,2);
 		\draw[myteal, ultra thick] (0,0) -- (500,0);
 		\draw[gray] (500,-4) -- (500,4);
-		% \legend{$\beta_{c_{2}} = 0.99$, $\beta_{c_{1}} = 0.05$}
+		% \legend{$\phi_{c_{2}} = 0.99$, $\phi_{c_{1}} = 0.05$}
 	\end{axis}
 \end{tikzpicture}
 \end{document}
 
 % set.seed(42)
-% beta1 <- 0.99
-% beta2 <- 0.05
+% phi1 <- 0.99
+% phi2 <- 0.05
 % time1 <- 500
 % time2 <- 500
 % psi <- 0.20
@@ -1059,10 +1059,10 @@
 % y <- rep(x = NA, times = time1 + time2)
 % y[1] <- 0
 % for (i in 2:time1) {
-%   y[i] <- beta1 * y[i - 1] + rnorm(n = 1, mean = 0, sd = sqrt_psi)
+%   y[i] <- phi1 * y[i - 1] + rnorm(n = 1, mean = 0, sd = sqrt_psi)
 % }
 % for (i in (time1 + 1):length(y)) {
-%   y[i] <- 2 + beta2 * y[i - 1] + rnorm(n = 1, mean = 0, sd = sqrt_psi)
+%   y[i] <- 2 + phi2 * y[i - 1] + rnorm(n = 1, mean = 0, sd = sqrt_psi)
 % }
 
 % plot(y, type = "l")

@@ -1,9 +1,9 @@
 ---
-title: "Comparing One- and Two-Profile Models"
+title: "Comparing Two-Profile LTA and CULTA Models"
 author: Ivan Jacob Agaloos Pesigan
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Comparing One- and Two-Profile Models}
+  %\VignetteIndexEntry{Comparing Two-Profile LTA and CULTA Models}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -40,7 +40,7 @@ library(manCULTA)
 set.seed(42)
 
 # dimensions
-n <- 500  # number of individuals
+n <- 1000 # number of individuals
 m <- 6    # measurement occasions
 p <- 4    # number of items
 q <- 1    # common trait dimension
@@ -86,8 +86,8 @@ common_state_loading <- matrix(
   nrow = p,
   ncol = 1
 )
-beta_0 <- 0.000
-beta_1 <- 0.311
+phi_0 <- 0.000
+phi_1 <- 0.311
 # psi_s0 <- 0.151
 # psi_s <- 0.290
 psi_s0 <- 1.00
@@ -100,9 +100,19 @@ mu_profile <- cbind(
   c(2.253, 1.493, 1.574, 1.117),
   c(-0.278, -0.165, -0.199, -0.148)
 )
+parameters <- c(
+  mu_profile[, 1],
+  mu_profile[, 2],
+  nu_0,
+  alpha_0,
+  kappa_0,
+  beta_00,
+  gamma_00,
+  gamma_10 
+)
 ```
 
-We generate data using the CULTA model with two latent profiles, where profile membership depends on a covariate and profile transitions follow a multinomial structure. However, for model fitting, we impose a simpler structure by fitting a CUTS (1 Profile) model with autoregressive effects, ignoring the latent profiles during estimation. We then compare this misspecified model to the correctly specified two-profile CULTA model.
+We generate data using the CULTA model with two latent profiles, where profile membership depends on a covariate and profile transitions follow a multinomial structure. However, for model fitting, we impose a simpler structure by fitting a regular latent transition analysis (LTA) model. We then compare this misspecified model to the correctly specified two-profile CULTA model.
 
 ## Data Generation
 
@@ -139,8 +149,8 @@ common_trait_loading
 
 # state parameters
 common_state_loading
-beta_0
-beta_1
+phi_0
+phi_1
 psi_s0
 psi_s
 theta
@@ -168,8 +178,8 @@ data <- GenCULTA2Profiles(
   psi_p = psi_p,
   common_trait_loading = common_trait_loading,
   common_state_loading = common_state_loading,
-  beta_0 = beta_0,
-  beta_1 = beta_1,
+  phi_0 = phi_0,
+  phi_1 = phi_1,
   psi_s0 = psi_s0,
   psi_s = psi_s,
   theta = theta, 
@@ -202,8 +212,8 @@ if (!file.exists(fn_example_data)) {
     psi_p = psi_p,
     common_trait_loading = common_trait_loading,
     common_state_loading = common_state_loading,
-    beta_0 = beta_0,
-    beta_1 = beta_1,
+    phi_0 = phi_0,
+    phi_1 = phi_1,
     psi_s0 = psi_s0,
     psi_s = psi_s,
     theta = theta, 
@@ -216,12 +226,12 @@ data <- readRDS(fn_example_data)
 
 ## Model Fitting
 
-The `FitCULTA1Profiles` function fits the misspecified one-profile model using `Mplus`.
+The `FitLTA2Profiles` function fits the misspecified two-profile LTA model using `Mplus`.
 **Note:** This function requires that **Mplus** is already installed on the system.
 
 ```{r}
 #| eval = FALSE
-one_profile <- FitCULTA1Profile(data = data)
+lta <- FitLTA2Profiles(data = data)
 ```
 
 The `FitCULTA2Profiles` function fits the correct two-profile model using `Mplus`.
@@ -229,45 +239,110 @@ The `FitCULTA2Profiles` function fits the correct two-profile model using `Mplus
 
 ```{r}
 #| eval = FALSE
-two_profiles <- FitCULTA2Profiles(data = data)
+culta <- FitCULTA2Profiles(data = data)
 ```
 
 ```{r}
 #| include = FALSE
-fn_fit_one_profile <- root$find_file(
+fn_fit_lta <- root$find_file(
   ".setup",
   "data-raw",
-  "culta-1-profile.Rds"
+  "lta-2-profiles.Rds"
 )
-if (!file.exists(fn_fit_one_profile)) {
-  one_profile <- FitCULTA1Profile(
+if (!file.exists(fn_fit_lta)) {
+  lta <- FitLTA2Profiles(
     data = data
   )
-  saveRDS(one_profile, file = fn_fit_one_profile)
+  saveRDS(lta, file = fn_fit_lta)
 }
-one_profile <- readRDS(fn_fit_one_profile)
+lta <- readRDS(fn_fit_lta)
 ```
 
 ```{r}
 #| include = FALSE
-fn_fit_two_profiles <- root$find_file(
+fn_fit_culta <- root$find_file(
   ".setup",
   "data-raw",
   "culta-2-profiles.Rds"
 )
-if (!file.exists(fn_fit_two_profiles)) {
-  two_profiles <- FitCULTA2Profiles(
+if (!file.exists(fn_fit_culta)) {
+  culta <- FitCULTA2Profiles(
     data = data
   )
-  saveRDS(two_profiles, file = fn_fit_two_profiles)
+  saveRDS(culta, file = fn_fit_culta)
 }
-two_profiles <- readRDS(fn_fit_two_profiles)
+culta <- readRDS(fn_fit_culta)
 ```
 
 ## Model Comparison
 
+The `anova` function can be used to compare the two fitted models.
+
 ```{r}
-anova(one_profile, two_profiles)
+anova(lta, culta)
 ```
 
-Model comparison shows that the two-profile model fits the data better than the one-profile model.
+## Parameter Recovery
+
+Parameter recovery was assessed by calculating the differences between the population values and the estimated profile-specific means and log-odds.
+
+```{r}
+#| echo = FALSE
+lta <- coef(lta)[
+  c(
+    "mu_10",
+    "mu_20",
+    "mu_30",
+    "mu_40",
+    "mu_11",
+    "mu_21",
+    "mu_31",
+    "mu_41",
+    "nu_0",
+    "alpha_0",
+    "kappa_0",
+    "beta_00",
+    "gamma_00",
+    "gamma_10"
+  )
+]
+culta <- coef(culta)[
+  c(
+    "mu_10",
+    "mu_20",
+    "mu_30",
+    "mu_40",
+    "mu_11",
+    "mu_21",
+    "mu_31",
+    "mu_41",
+    "nu_0",
+    "alpha_0",
+    "kappa_0",
+    "beta_00",
+    "gamma_00",
+    "gamma_10"
+  )
+]
+lta_difference <- parameters - lta
+culta_difference <- parameters - culta
+recovery <- cbind(
+  parameters,
+  lta,
+  lta_difference,
+  culta,
+  culta_difference
+)
+colnames(recovery) <- c(
+  "Parameter",
+  "LTA Estimate",
+  "Difference",
+  "CULTA Estimate",
+  "Difference"
+)
+rownames(recovery) <- names(lta)
+knitr::kable(
+  x = recovery,
+  caption = "Parameter Recovery"
+)
+```

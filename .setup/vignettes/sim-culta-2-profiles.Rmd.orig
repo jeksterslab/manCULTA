@@ -40,7 +40,7 @@ library(manCULTA)
 set.seed(42)
 
 # dimensions
-n <- 500  # number of individuals
+n <- 1000 # number of individuals
 m <- 6    # measurement occasions
 p <- 4    # number of items
 q <- 1    # common trait dimension
@@ -86,8 +86,8 @@ common_state_loading <- matrix(
   nrow = p,
   ncol = 1
 )
-beta_0 <- 0.000
-beta_1 <- 0.311
+phi_0 <- 0.000
+phi_1 <- 0.311
 # psi_s0 <- 0.151
 # psi_s <- 0.290
 psi_s0 <- 1.00
@@ -99,6 +99,29 @@ theta <- 0.15 * diag(p)
 mu_profile <- cbind(
   c(2.253, 1.493, 1.574, 1.117),
   c(-0.278, -0.165, -0.199, -0.148)
+)
+parameters <- c(
+  mu_profile[, 1],
+  common_trait_loading[2, 1],
+  common_state_loading[2, 1],
+  common_trait_loading[3, 1],
+  common_state_loading[3, 1],
+  common_trait_loading[4, 1],
+  common_state_loading[4, 1],
+  diag(theta),
+  phi_0,
+  c(psi_t),
+  diag(psi_p),
+  psi_s0,
+  psi_s,
+  mu_profile[, 2],
+  phi_1,
+  nu_0,
+  alpha_0,
+  kappa_0,
+  beta_00,
+  gamma_00,
+  gamma_10
 )
 ```
 
@@ -352,7 +375,7 @@ We describe each component below.
 
 The common state $\mathrm{Common\ State}_{i, t}$ evolves over time following a first-order autoregressive process:
 \begin{equation}
-  \mathrm{Common\ State}_{i, t} = \beta_{c} \times \mathrm{Common\ State}_{i, t - 1} + \zeta_{i, t} .
+  \mathrm{Common\ State}_{i, t} = \phi_{c} \times \mathrm{Common\ State}_{i, t - 1} + \zeta_{i, t} .
 \end{equation}
 The initial common state is drawn from a normal distribution:
 \begin{equation}
@@ -362,11 +385,11 @@ The innovation term $\zeta_{i, t}$ is normally distributed:
 \begin{equation}
   \zeta_{i, t} \sim \mathcal{N} \left( 0, \psi_{s} \right) .
 \end{equation}
-The autoregressive parameter $\beta_{c}$ depends on latent profile membership $c$:
+The autoregressive parameter $\phi_{c}$ depends on latent profile membership $c$:
 \begin{equation}
-   \beta_{c} = \beta_{0} + \left( \beta_{1} - \beta_{0} \right) c .
+   \phi_{c} = \phi_{0} + \left( \phi_{1} - \phi_{0} \right) c .
 \end{equation}
-Here, $\beta_{0}$ and $\beta_{1}$ represent the autoregressive coefficients for profiles coded as 0 and 1, respectively.
+Here, $\phi_{0}$ and $\phi_{1}$ represent the autoregressive coefficients for profiles coded as 0 and 1, respectively.
 
 ### Unique State
 
@@ -387,8 +410,8 @@ The common state loading parameter $\mathrm{Common\ State\ Loading}_{k}$ control
 ```{r}
 # state parameters
 common_state_loading
-beta_0
-beta_1
+phi_0
+phi_1
 psi_s0
 psi_s
 theta
@@ -399,8 +422,8 @@ theta
 #| eval = FALSE
 common_state <- CommonState2Profiles(
   categorical = categorical,
-  beta_0 = beta_0,
-  beta_1 = beta_1,
+  phi_0 = phi_0,
+  phi_1 = phi_1,
   psi_s0 = psi_s0,
   psi_s = psi_s
 )
@@ -472,8 +495,8 @@ common_trait_loading
 
 # state parameters
 common_state_loading
-beta_0
-beta_1
+phi_0
+phi_1
 psi_s0
 psi_s
 theta
@@ -501,8 +524,8 @@ data <- GenCULTA2Profiles(
   psi_p = psi_p,
   common_trait_loading = common_trait_loading,
   common_state_loading = common_state_loading,
-  beta_0 = beta_0,
-  beta_1 = beta_1,
+  phi_0 = phi_0,
+  phi_1 = phi_1,
   psi_s0 = psi_s0,
   psi_s = psi_s,
   theta = theta, 
@@ -535,8 +558,8 @@ if (!file.exists(fn_example_data)) {
     psi_p = psi_p,
     common_trait_loading = common_trait_loading,
     common_state_loading = common_state_loading,
-    beta_0 = beta_0,
-    beta_1 = beta_1,
+    phi_0 = phi_0,
+    phi_1 = phi_1,
     psi_s0 = psi_s0,
     psi_s = psi_s,
     theta = theta, 
@@ -573,48 +596,110 @@ if (!file.exists(fn_fit)) {
 fit <- readRDS(fn_fit)
 ```
 
-### Methods
-
-The `FitCULTA2Profiles` function has a number of methods including the following:
-
-```{r}
-converged(fit)
-```
-
-```{r}
-print(fit)
-```
-
 ```{r}
 summary(fit)
 ```
 
+## Parameter Recovery
+
+Parameter recovery was assessed by calculating the differences between the population values and the estimated parameters.
+
 ```{r}
+#| echo = FALSE
+estimates <- coef(fit)
+difference <- parameters - estimates
+recovery <- cbind(
+  parameters,
+  estimates,
+  difference
+)
+colnames(recovery) <- c(
+  "Parameter",
+  "Estimate",
+  "Difference"
+)
+rownames(recovery) <- names(estimates)
+knitr::kable(
+  x = recovery,
+  caption = "Parameter Recovery"
+)
+```
+
+## Methods
+
+The `FitCULTA2Profiles` function has a number of methods including the following:
+
+- `print`
+- `summary`
+- `converged`
+- `confint`
+- `coef`
+- `vcov`
+- `logLik`
+- `AIC`
+- `BIC`
+- `entropy`
+- `anova`
+
+
+```{r}
+#| echo = FALSE,
+#| eval = FALSE
+converged(fit)
+```
+
+```{r}
+#| echo = FALSE,
+#| eval = FALSE
+print(fit)
+```
+
+```{r}
+#| echo = FALSE,
+#| eval = FALSE
+summary(fit)
+```
+
+```{r}
+#| echo = FALSE,
+#| eval = FALSE
 confint(fit)
 ```
 
 ```{r}
+#| echo = FALSE,
+#| eval = FALSE
 coef(fit)
 ```
 
 ```{r}
+#| echo = FALSE,
+#| eval = FALSE
 vcov(fit)
 ```
 
 ```{r}
+#| echo = FALSE,
+#| eval = FALSE
 logLik(fit)
 ```
 
 ```{r}
+#| echo = FALSE,
+#| eval = FALSE
 AIC(fit)
 ```
 
 ```{r}
+#| echo = FALSE,
+#| eval = FALSE
 BIC(fit, adjust = FALSE)
 BIC(fit, adjust = TRUE)
 ```
 
 ```{r}
+#| echo = FALSE,
+#| eval = FALSE
 entropy(fit)
 ```
 

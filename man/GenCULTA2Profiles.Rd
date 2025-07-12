@@ -21,8 +21,8 @@ GenCULTA2Profiles(
   psi_p,
   common_trait_loading,
   common_state_loading,
-  beta_0,
-  beta_1,
+  phi_0,
+  phi_1,
   psi_s0,
   psi_s,
   theta,
@@ -89,12 +89,12 @@ specifying the influence of the common trait on each observed item.}
 Factor loading matrix
 specifying the influence of the common state on each observed item.}
 
-\item{beta_0}{Numeric.
-Autoregressive coefficient \eqn{\beta_0}
+\item{phi_0}{Numeric.
+Autoregressive coefficient \eqn{\phi_0}
 for the common state process in profile 0.}
 
-\item{beta_1}{Numeric.
-Autoregressive coefficient \eqn{\beta_1}
+\item{phi_1}{Numeric.
+Autoregressive coefficient \eqn{\phi_1}
 for the common state process in profile 0.}
 
 \item{psi_s0}{Numeric.
@@ -353,7 +353,7 @@ We describe each component below.
 The common state \eqn{\mathrm{Common\ State}_{i, t}}
 evolves over time following a first-order autoregressive process:
 \deqn{
-  \mathrm{Common\ State}_{i, t} = \beta_{c} \times
+  \mathrm{Common\ State}_{i, t} = \phi_{c} \times
   \mathrm{Common\ State}_{i, t - 1} + \zeta_{i, t} .
 }
 The initial common state is drawn from a normal distribution:
@@ -365,12 +365,12 @@ The innovation term \eqn{\zeta_{i, t}} is normally distributed:
 \deqn{
   \zeta_{i, t} \sim \mathcal{N} \left( 0, \psi_{s} \right) .
 }
-The autoregressive parameter \eqn{\beta_{c}}
+The autoregressive parameter \eqn{\phi_{c}}
 depends on latent profile membership \eqn{c}:
 \deqn{
-   \beta_{c} = \beta_{0} + \left( \beta_{1} - \beta_{0} \right) c .
+   \phi_{c} = \phi_{0} + \left( \phi_{1} - \phi_{0} \right) c .
 }
-Here, \eqn{\beta_{0}} and \eqn{\beta_{1}} represent
+Here, \eqn{\phi_{0}} and \eqn{\phi_{1}} represent
 the autoregressive coefficients for profiles coded as 0 and 1, respectively.
 
 \emph{\strong{Unique State}}
@@ -450,8 +450,8 @@ common_state_loading <- matrix(
   nrow = p,
   ncol = 1
 )
-beta_0 <- 0.000
-beta_1 <- 0.311
+phi_0 <- 0.000
+phi_1 <- 0.311
 psi_s0 <- 0.151
 psi_s <- 0.290
 theta <- diag(p)
@@ -480,8 +480,8 @@ data <- GenCULTA2Profiles(
   psi_p = psi_p,
   common_trait_loading = common_trait_loading,
   common_state_loading = common_state_loading,
-  beta_0 = beta_0,
-  beta_1 = beta_1,
+  phi_0 = phi_0,
+  phi_1 = phi_1,
   psi_s0 = psi_s0,
   psi_s = psi_s,
   theta = theta,

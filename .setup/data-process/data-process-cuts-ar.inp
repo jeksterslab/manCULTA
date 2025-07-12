@@ -249,11 +249,11 @@ MODEL:
   [ y4t5 ] (mu4);
 
   !! inertia
-  s1 ON s0 (beta);
-  s2 ON s1 (beta);
-  s3 ON s2 (beta);
-  s4 ON s3 (beta);
-  s5 ON s4 (beta);
+  s1 ON s0 (phi);
+  s2 ON s1 (phi);
+  s3 ON s2 (phi);
+  s4 ON s3 (phi);
+  s5 ON s4 (phi);
 
 MODEL CONSTRAINT:
   ! make sure variances are greater than zero

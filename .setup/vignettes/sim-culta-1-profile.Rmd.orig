@@ -1,9 +1,9 @@
 ---
-title: "Generating Mplus Input Files"
+title: "Comparing One- and Two-Profile Models"
 author: Ivan Jacob Agaloos Pesigan
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Generating Mplus Input Files}
+  %\VignetteIndexEntry{Comparing One- and Two-Profile Models}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -28,18 +28,6 @@ if (!dir.exists(data_raw)) {
 }
 ```
 
-The `FitCULTA1Profile`, `FitCULTA2Profiles`, and `FitCULTA3Profiles` functions require that **Mplus** is installed on the system.
-
-In contrast, the `InputCULTA1Profile` and `InputCULTA2Profiles` functions only generate Mplus-compatible data and input files. These files can be transferred and run on another machine with **Mplus** installed.
-
-The accompanying vignette demonstrates the use of the `InputCULTA1Profile` and `InputCULTA2Profiles` functions for preparing and exporting the necessary Mplus files.
-
-The workflow proceeds as follows:
-
-1. **Generate the data**.
-2. **Use the `InputCULTA*` functions** to create Mplus-compatible data and input files.
-3. **Transfer and run the generated files** on a system where **Mplus** is installed.
-
 ```{r}
 library(manCULTA)
 ```
@@ -52,7 +40,7 @@ library(manCULTA)
 set.seed(42)
 
 # dimensions
-n <- 500  # number of individuals
+n <- 1000 # number of individuals
 m <- 6    # measurement occasions
 p <- 4    # number of items
 q <- 1    # common trait dimension
@@ -70,9 +58,21 @@ gamma_00 <- 0.063
 gamma_10 <- 0.094
 
 # trait parameters
-psi_t <- diag(1)
+# psi_t <- diag(1)
+psi_t <- 0.10 * diag(1)
 mu_t <- 0
+# psi_p <- diag(p)
 psi_p <- diag(p)
+psi_p_1 <- 0.10
+psi_p_2 <- 0.10
+psi_p_3 <- 0.50
+psi_p_4 <- 0.50
+diag(psi_p) <- c(
+  psi_p_1,
+  psi_p_2,
+  psi_p_3,
+  psi_p_4
+)
 mu_p <- rep(x = 0, times = p)
 common_trait_loading <- matrix(
   data = 1,
@@ -86,11 +86,14 @@ common_state_loading <- matrix(
   nrow = p,
   ncol = 1
 )
-beta_0 <- 0.000
-beta_1 <- 0.311
-psi_s0 <- 0.151
-psi_s <- 0.290
-theta <- diag(p)
+phi_0 <- 0.000
+phi_1 <- 0.311
+# psi_s0 <- 0.151
+# psi_s <- 0.290
+psi_s0 <- 1.00
+psi_s <- 0.25
+# theta <- diag(p)
+theta <- 0.15 * diag(p)
 
 # profile-specific means
 mu_profile <- cbind(
@@ -98,6 +101,8 @@ mu_profile <- cbind(
   c(-0.278, -0.165, -0.199, -0.148)
 )
 ```
+
+We generate data using the CULTA model with two latent profiles, where profile membership depends on a covariate and profile transitions follow a multinomial structure. However, for model fitting, we impose a simpler structure by fitting a CUTS (1 Profile) model with autoregressive effects, ignoring the latent profiles during estimation. We then compare this misspecified model to the correctly specified two-profile CULTA model.
 
 ## Data Generation
 
@@ -134,8 +139,8 @@ common_trait_loading
 
 # state parameters
 common_state_loading
-beta_0
-beta_1
+phi_0
+phi_1
 psi_s0
 psi_s
 theta
@@ -163,8 +168,8 @@ data <- GenCULTA2Profiles(
   psi_p = psi_p,
   common_trait_loading = common_trait_loading,
   common_state_loading = common_state_loading,
-  beta_0 = beta_0,
-  beta_1 = beta_1,
+  phi_0 = phi_0,
+  phi_1 = phi_1,
   psi_s0 = psi_s0,
   psi_s = psi_s,
   theta = theta, 
@@ -197,8 +202,8 @@ if (!file.exists(fn_example_data)) {
     psi_p = psi_p,
     common_trait_loading = common_trait_loading,
     common_state_loading = common_state_loading,
-    beta_0 = beta_0,
-    beta_1 = beta_1,
+    phi_0 = phi_0,
+    phi_1 = phi_1,
     psi_s0 = psi_s0,
     psi_s = psi_s,
     theta = theta, 
@@ -209,28 +214,90 @@ if (!file.exists(fn_example_data)) {
 data <- readRDS(fn_example_data)
 ```
 
-## Generate Mplus Files
+## Model Fitting
 
-In this stage, we generate the Mplus-compatible data and input files using the `InputCULTA1Profile` and `InputCULTA2Profiles` functions. These functions take the simulated dataset and export the necessary files to run the model in Mplus.
-
-Each function corresponds to a specific version of the CULTA model:
+The `FitCULTA1Profiles` function fits the misspecified one-profile model using `Mplus`.
+**Note:** This function requires that **Mplus** is already installed on the system.
 
 ```{r}
-InputCULTA1Profile(data = data)
+#| eval = FALSE
+one_profile <- FitCULTA1Profile(data = data)
+```
+
+The `FitCULTA2Profiles` function fits the correct two-profile model using `Mplus`.
+**Note:** This function requires that **Mplus** is already installed on the system. To speed up model fitting, consider using the `ncores` argument to leverage multiple cores.
+
+```{r}
+#| eval = FALSE
+two_profiles <- FitCULTA2Profiles(data = data)
 ```
 
 ```{r}
-InputCULTA2Profiles(data = data)
+#| include = FALSE
+fn_fit_one_profile <- root$find_file(
+  ".setup",
+  "data-raw",
+  "culta-1-profile.Rds"
+)
+if (!file.exists(fn_fit_one_profile)) {
+  one_profile <- FitCULTA1Profile(
+    data = data
+  )
+  saveRDS(one_profile, file = fn_fit_one_profile)
+}
+one_profile <- readRDS(fn_fit_one_profile)
 ```
 
-## Run in Mplus
+```{r}
+#| include = FALSE
+fn_fit_two_profiles <- root$find_file(
+  ".setup",
+  "data-raw",
+  "culta-2-profiles.Rds"
+)
+if (!file.exists(fn_fit_two_profiles)) {
+  two_profiles <- FitCULTA2Profiles(
+    data = data
+  )
+  saveRDS(two_profiles, file = fn_fit_two_profiles)
+}
+two_profiles <- readRDS(fn_fit_two_profiles)
+```
 
-In the final stage, the Mplus-compatible data and input files generated by the `InputCULTA1Profile` and `InputCULTA2Profiles` functions can be transferred to a machine where `Mplus` is installed.
+## Model Comparison
 
-To run the model:
+The `anova` function can be used to compare the two fitted models.
 
-- Open `Mplus` on the target system.
-- Load the generated `.inp` (input) file.
-- Execute the model to produce the desired output, including parameter estimates, fit statistics, and saved results (e.g., `TECH3`, `TECH4`, and `CPROBS`).
+```{r}
+anova(one_profile, two_profiles)
+```
 
-This stage completes the workflow by fitting the CULTA model using the fully prepared files from earlier stages.
+```{r}
+#| include = FALSE
+fn_fit_lta <- root$find_file(
+  ".setup",
+  "data-raw",
+  "lta-2-profiles.Rds"
+)
+if (!file.exists(fn_fit_lta)) {
+  lta <- FitLTA2Profiles(
+    data = data
+  )
+  saveRDS(lta, file = fn_fit_lta)
+}
+```
+
+```{r}
+#| include = FALSE
+fn_fit_rilta <- root$find_file(
+  ".setup",
+  "data-raw",
+  "ri-lta-2-profiles.Rds"
+)
+if (!file.exists(fn_fit_rilta)) {
+  rilta <- FitRILTA2Profiles(
+    data = data
+  )
+  saveRDS(rilta, file = fn_fit_rilta)
+}
+```
