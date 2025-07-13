@@ -63,4 +63,31 @@ Sim <- function(taskid,
     overwrite = overwrite,
     integrity = integrity
   )
+  SimFitLTA2Profiles(
+    taskid = taskid,
+    repid = repid,
+    output_folder = output_folder,
+    seed = seed,
+    suffix = suffix,
+    overwrite = overwrite,
+    integrity = integrity
+  )
+  SimFitRILTA2Profiles(
+    taskid = taskid,
+    repid = repid,
+    output_folder = output_folder,
+    seed = seed,
+    suffix = suffix,
+    overwrite = overwrite,
+    integrity = integrity
+  )
+  SimFitCULTA1Profile(
+    taskid = taskid,
+    repid = repid,
+    output_folder = output_folder,
+    seed = seed,
+    suffix = suffix,
+    overwrite = overwrite,
+    integrity = integrity
+  )
 }

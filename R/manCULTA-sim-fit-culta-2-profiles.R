@@ -42,7 +42,7 @@ SimFitCULTA2Profiles <- function(taskid,
         wd = output_folder,
         ncores = 1L,
         mplus_bin = "mplus",
-        starts = c(1000, 500),
+        starts = c(200, 100),
         stiterations = 200,
         stscale = 2
       ),

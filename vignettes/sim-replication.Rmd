@@ -84,14 +84,14 @@ fit <- FitCULTA2Profiles(
   wd = ".",
   ncores = parallel::detectCores(),
   mplus_bin = "mplus",
-  starts = c(1000, 500),
+  starts = c(200, 100),
   stiterations = 200,
   stscale = 2
 )
 summary(fit)
 #> Call:
 #> FitCULTA2Profiles(data = data, wd = ".", ncores = parallel::detectCores(), 
-#>     mplus_bin = "mplus", starts = c(1000, 500), stiterations = 200, 
+#>     mplus_bin = "mplus", starts = c(200, 100), stiterations = 200, 
 #>     stscale = 2)
 #>               est     se        z      p    2.5%   97.5%
 #> mu_10      2.3395 0.1224  19.1131 0.0000  2.0996  2.5794
