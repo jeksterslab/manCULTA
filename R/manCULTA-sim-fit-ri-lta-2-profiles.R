@@ -1,4 +1,4 @@
-#' Simulation Replication - FitCULTA2Profiles
+#' Simulation Replication - FitRILTA2Profiles
 #'
 #' @details This function is executed via the `Sim` function.
 #'
@@ -9,7 +9,7 @@
 #' @inheritParams Template
 #' @export
 #' @keywords manCULTA fit simulation
-SimFitCULTA2Profiles <- function(taskid,
+SimFitRILTA2Profiles <- function(taskid,
                                  repid,
                                  output_folder,
                                  seed,
@@ -24,7 +24,7 @@ SimFitCULTA2Profiles <- function(taskid,
     suffix = suffix
   )
   fn_output <- SimFN(
-    output_type = "fit-culta-2-profiles",
+    output_type = "fit-rilta-2-profiles",
     output_folder = output_folder,
     suffix = suffix
   )
@@ -37,7 +37,7 @@ SimFitCULTA2Profiles <- function(taskid,
     set.seed(seed)
     con <- file(fn_output)
     saveRDS(
-      object = FitCULTA2Profiles(
+      object = FitRILTA2Profiles(
         data = readRDS(fn_input),
         wd = output_folder,
         ncores = 1L,

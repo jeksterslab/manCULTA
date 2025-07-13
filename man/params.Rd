@@ -24,151 +24,151 @@ Level of separation.
 Measurement occasions.
 }
 \item{mu_x}{
-\eqn{mu_{x}} parameter.
+\eqn{\mu_{x}} parameter.
 Mean of the covariate.
 }
 \item{sigma_x}{
-\eqn{sigma_{x}} parameter.
+\eqn{\sigma_{x}} parameter.
 Variance of the covariate.
 }
 \item{mu_10}{
-\eqn{mu_{10}} parameter.
+\eqn{\mu_{10}} parameter.
 Profile specific mean for profile 0 and item 1.
 }
 \item{mu_20}{
-\eqn{mu_{20}} parameter.
+\eqn{\mu_{20}} parameter.
 Profile specific mean for profile 0 and item 2.
 }
 \item{mu_30}{
-\eqn{mu_{30}} parameter.
+\eqn{\mu_{30}} parameter.
 Profile specific mean for profile 0 and item 3.
 }
 \item{mu_40}{
-\eqn{mu_{40}} parameter.
+\eqn{\mu_{40}} parameter.
 Profile specific mean for profile 0 and item 4.
 }
 \item{lambda_t2}{
-\eqn{lambda_{t2}} parameter.
+\eqn{\lambda_{t2}} parameter.
 Factor loading for the common trait and item 2.
 }
 \item{lambda_s2}{
-\eqn{lambda_{s2}} parameter.
+\eqn{\lambda_{s2}} parameter.
 Factor loading for the common state and item 2.
 }
 \item{lambda_t3}{
-\eqn{lambda_{t3}} parameter.
+\eqn{\lambda_{t3}} parameter.
 Factor loading for the common trait and item 3.
 }
 \item{lambda_s3}{
-\eqn{lambda_{s3}} parameter.
+\eqn{\lambda_{s3}} parameter.
 Factor loading for the common state and item 3.
 }
 \item{lambda_t4}{
-\eqn{lambda_{t4}} parameter.
+\eqn{\lambda_{t4}} parameter.
 Factor loading for the common trait and item 4.
 }
 \item{lambda_s4}{
-\eqn{lambda_{s4}} parameter.
+\eqn{\lambda_{s4}} parameter.
 Factor loading for the common state and item 4.
 }
 \item{theta_11}{
-\eqn{theta_{11}} parameter.
+\eqn{\theta_{11}} parameter.
 Unique state variance for item 1.
 }
 \item{theta_22}{
-\eqn{theta_{22}} parameter.
+\eqn{\theta_{22}} parameter.
 Unique state variance for item 2.
 }
 \item{theta_33}{
-\eqn{theta_{33}} parameter.
+\eqn{\theta_{33}} parameter.
 Unique state variance for item 3.
 }
 \item{theta_44}{
-\eqn{theta_{44}} parameter.
+\eqn{\theta_{44}} parameter.
 Unique state variance for item 4.
 }
 \item{phi_0}{
-\eqn{phi_{0}} parameter.
+\eqn{\phi_{0}} parameter.
 Autoregressive coefficient for profile 0.
 }
 \item{psi_t}{
-\eqn{psi_{t}} parameter.
+\eqn{\psi_{t}} parameter.
 Variance in the common trait;
 reflects stable between-person differences.
 }
 \item{psi_p_11}{
-\eqn{psi_{p11}} parameter.
+\eqn{\psi_{p11}} parameter.
 Trait-specific item 1 variance.
 }
 \item{psi_p_22}{
-\eqn{psi_{p22}} parameter.
+\eqn{\psi_{p22}} parameter.
 Trait-specific item 2 variance.
 }
 \item{psi_p_33}{
-\eqn{psi_{p33}} parameter.
+\eqn{\psi_{p33}} parameter.
 Trait-specific item 3 variance.
 }
 \item{psi_p_44}{
-\eqn{psi_{p44}} parameter.
+\eqn{\psi_{p44}} parameter.
 Trait-specific item 4 variance.
 }
 \item{psi_s0}{
-\eqn{psi_{s0}} parameter.
+\eqn{\psi_{s0}} parameter.
 Initial-day variance of the common state;
 reflects variability in intoxication levels at observation start.
 }
 \item{psi_s}{
-\eqn{psi_{s}} parameter.
+\eqn{\psi_{s}} parameter.
 Residual state variance over days;
 captures within-person daily fluctuations
 not explained by trait or AR effects.
 }
 \item{mu_11}{
-\eqn{mu_{11}} parameter.
+\eqn{\mu_{11}} parameter.
 Profile specific mean for profile 1 and item 1.
 }
 \item{mu_21}{
-\eqn{mu_{21}} parameter.
+\eqn{\mu_{21}} parameter.
 Profile specific mean for profile 1 and item 2.
 }
 \item{mu_31}{
-\eqn{mu_{31}} parameter.
+\eqn{\mu_{31}} parameter.
 Profile specific mean for profile 1 and item 3.
 }
 \item{mu_41}{
-\eqn{mu_{41}} parameter.
+\eqn{\mu_{41}} parameter.
 Profile specific mean for profile 1 and item 4.
 }
 \item{phi_1}{
-\eqn{phi_{1}} parameter.
+\eqn{\phi_{1}} parameter.
 Autoregressive coefficient for profile 1.
 }
 \item{nu_0}{
-\eqn{nu_{0}} parameter.
+\eqn{\nu_{0}} parameter.
 Intercept for initial log-odds of profile 0
 (vs. profile 1) when \eqn{X = 0}.
 }
 \item{alpha_0}{
-\eqn{alpha_{0}} parameter.
+\eqn{\alpha_{0}} parameter.
 Baseline log-odds of being in profile 0 across days.
 }
 \item{kappa_0}{
-\eqn{kappa_{0}} parameter.
+\eqn{\kappa_{0}} parameter.
 Covariate effect on initial profile membership;
 higher \eqn{X} increases odds of profile 0.
 }
 \item{beta_00}{
-\eqn{beta_{00}} parameter.
+\eqn{\beta_{00}} parameter.
 Increased odds of staying in profile 0
 if previously in that profile; reflects persistence.
 }
 \item{gamma_00}{
-\eqn{gamma_{00}} parameter.
+\eqn{\gamma_{00}} parameter.
 Covariate effect on staying in profile 0;
 higher \eqn{X} increases persistence.
 }
 \item{gamma_10}{
-\eqn{gamma_{10}} parameter.
+\eqn{\gamma_{10}} parameter.
 Covariate effect on switching from state to profile 0;
 higher \eqn{X} increases transition odds.
 }
