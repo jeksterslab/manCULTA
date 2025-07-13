@@ -31,7 +31,9 @@
   }
   chi_diff <- -2 * (ll_higher - ll_lower)
   df_diff <- df_lower - df_higher
-  cd <- ((df_lower * c_lower) - (df_higher * c_higher)) / df_diff
+  cd <- (
+    (df_lower * c_lower) - (df_higher * c_higher)
+  ) / df_diff
   td <- chi_diff / cd
   p_value <- stats::pchisq(
     q = td,

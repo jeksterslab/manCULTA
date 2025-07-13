@@ -1,0 +1,65 @@
+destination: pkgdown
+url: https://github.com/jeksterslab/manCULTA/
+
+template:
+  bootstrap: 5
+  includes:
+    in_header: |
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+  bslib:
+    base_font: {google: "Roboto"}
+    heading_font: {google: "Roboto Slab"}
+    code_font: {google: "JetBrains Mono"}
+
+reference:
+- title: Data Generation Functions
+  contents:
+  - has_concept("Data Generation Functions")
+- title: Model Fitting Functions
+  contents:
+  - has_concept("Model Fitting Functions")
+- title: Simulation Functions
+  contents:
+  - has_keyword("simulation")
+- title: Data
+  contents:
+  - has_keyword("data")
+- title: Methods
+  contents:
+  - has_keyword("methods")
+- title: All Functions
+  contents:
+  - has_keyword("manCULTA")
+
+articles:
+- title: manCULTA
+  contents:
+  - manCULTA
+- title: Mplus Input File for the Empirical Data Analysis
+  contents:
+  - empirical-mplus
+- title: Data Simulation and Model Fitting
+  contents:
+  - sim-culta-2-profiles
+- title: Comparison of Misspecified and Correctly Specified Models
+  contents:
+  - sim-culta-1-profile
+  - sim-lta-2-profiles
+  - sim-ri-lta-2-profiles
+- title: Generating Mplus Input Files
+  contents:
+  - sim-input
+- title: Single Replication from the Simulation Study
+  contents:
+  - sim-replication
+- title: Parameters
+  contents:
+  - params
+- title: Containers
+  contents:
+  - containers
+- title: Session
+  contents:
+  - session

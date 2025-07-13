@@ -1,6 +1,6 @@
-#' Fit the Two-Profile RI-LTA Model
+#' Fit the Two-Profile RILTA Model
 #'
-#' Fits the two-profile RI-LTA model using `Mplus`.
+#' Fits the two-profile RILTA model using `Mplus`.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'

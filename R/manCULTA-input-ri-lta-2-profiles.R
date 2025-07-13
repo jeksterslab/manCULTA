@@ -1,8 +1,8 @@
 #' Generate Mplus Input file for the
-#' Two-Profile RI-LTA Model
+#' Two-Profile RILTA Model
 #'
 #' Generates `Mplus` input file for
-#' the two-profile RI-LTA model.
+#' the two-profile RILTA model.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'

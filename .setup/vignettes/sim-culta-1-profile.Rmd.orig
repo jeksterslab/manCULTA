@@ -303,7 +303,7 @@ if (!file.exists(fn_fit_lta)) {
 fn_fit_rilta <- root$find_file(
   ".setup",
   "data-raw",
-  "ri-lta-2-profiles.Rds"
+  "rilta-2-profiles.Rds"
 )
 if (!file.exists(fn_fit_rilta)) {
   rilta <- FitRILTA2Profiles(

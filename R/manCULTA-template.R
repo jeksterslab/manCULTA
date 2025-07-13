@@ -7,7 +7,7 @@
 #' @param output_type Character string.
 #'   Output type.
 #' @param suffix Character string.
-#'   Output of `manCTMed:::.SimSuffix()`.
+#'   Output of `manCULTA:::.SimSuffix()`.
 #' @param seed Integer.
 #'   Random seed.
 #' @param overwrite Logical.

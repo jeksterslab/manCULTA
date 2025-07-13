@@ -2,7 +2,7 @@
 % Please edit documentation in R/manCULTA-fit-ri-lta-2-profiles.R
 \name{FitRILTA2Profiles}
 \alias{FitRILTA2Profiles}
-\title{Fit the Two-Profile RI-LTA Model}
+\title{Fit the Two-Profile RILTA Model}
 \usage{
 FitRILTA2Profiles(
   data,
@@ -52,7 +52,7 @@ which is a list with the following elements:
 }
 }
 \description{
-Fits the two-profile RI-LTA model using \code{Mplus}.
+Fits the two-profile RILTA model using \code{Mplus}.
 }
 \examples{
 \dontrun{

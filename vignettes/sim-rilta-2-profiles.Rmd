@@ -1,0 +1,218 @@
+---
+title: "Comparing Two-Profile RILTA and CULTA Models"
+author: Ivan Jacob Agaloos Pesigan
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Comparing Two-Profile RILTA and CULTA Models}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+
+
+
+``` r
+library(manCULTA)
+```
+
+
+
+We generate data using the CULTA model with two latent profiles, where profile membership depends on a covariate and profile transitions follow a multinomial structure. However, for model fitting, we impose a simpler structure by fitting a random intercept latent transition analysis (RILTA) model. We then compare this misspecified model to the correctly specified two-profile CULTA model.
+
+## Data Generation
+
+
+``` r
+# complete list of R function arguments
+
+# random seed for reproducibility
+set.seed(42)
+
+# dimensions
+n # number of individuals
+#> [1] 10000
+m # measurement occasions
+#> [1] 6
+p # number of items
+#> [1] 4
+q # common trait dimension
+#> [1] 1
+
+# covariate parameters
+mu_x 
+#> [1] 11.4009
+sigma_x
+#> [1] 24.67566
+
+# profile membership and transition parameters
+nu_0
+#> [1] -3.563
+kappa_0
+#> [1] 0.122
+alpha_0
+#> [1] -3.586
+beta_00
+#> [1] 2.25
+gamma_00
+#> [1] 0.063
+gamma_10
+#> [1] 0.094
+
+# trait parameters
+psi_t
+#>      [,1]
+#> [1,]  0.1
+mu_t
+#> [1] 0
+psi_p
+#>      [,1] [,2] [,3] [,4]
+#> [1,]  0.1  0.0  0.0  0.0
+#> [2,]  0.0  0.1  0.0  0.0
+#> [3,]  0.0  0.0  0.5  0.0
+#> [4,]  0.0  0.0  0.0  0.5
+mu_p
+#> [1] 0 0 0 0
+common_trait_loading
+#>      [,1]
+#> [1,]    1
+#> [2,]    1
+#> [3,]    1
+#> [4,]    1
+
+# state parameters
+common_state_loading
+#>      [,1]
+#> [1,]    1
+#> [2,]    1
+#> [3,]    1
+#> [4,]    1
+phi_0
+#> [1] 0
+phi_1
+#> [1] 0.311
+psi_s0
+#> [1] 1
+psi_s
+#> [1] 0.25
+theta
+#>      [,1] [,2] [,3] [,4]
+#> [1,] 0.15 0.00 0.00 0.00
+#> [2,] 0.00 0.15 0.00 0.00
+#> [3,] 0.00 0.00 0.15 0.00
+#> [4,] 0.00 0.00 0.00 0.15
+
+# profile-specific means
+mu_profile
+#>       [,1]   [,2]
+#> [1,] 2.253 -0.278
+#> [2,] 1.493 -0.165
+#> [3,] 1.574 -0.199
+#> [4,] 1.117 -0.148
+```
+
+
+``` r
+data <- GenCULTA2Profiles(
+  n = n,
+  m = m,
+  mu_x = mu_x,
+  sigma_x = sigma_x,
+  nu_0 = nu_0,
+  kappa_0 = kappa_0,
+  alpha_0 = alpha_0,
+  beta_00 = beta_00,
+  gamma_00 = gamma_00,
+  gamma_10 = gamma_10,
+  mu_t = mu_t,
+  psi_t = psi_t,
+  mu_p = mu_p,
+  psi_p = psi_p,
+  common_trait_loading = common_trait_loading,
+  common_state_loading = common_state_loading,
+  phi_0 = phi_0,
+  phi_1 = phi_1,
+  psi_s0 = psi_s0,
+  psi_s = psi_s,
+  theta = theta, 
+  mu_profile = mu_profile
+)
+```
+
+
+
+## Model Fitting
+
+The `FitLTA2Profiles` function fits the misspecified two-profile RILTA model using `Mplus`.
+**Note:** This function requires that **Mplus** is already installed on the system.
+
+
+``` r
+rilta <- FitRILTA2Profiles(data = data)
+```
+
+The `FitCULTA2Profiles` function fits the correct two-profile model using `Mplus`.
+**Note:** This function requires that **Mplus** is already installed on the system. To speed up model fitting, consider using the `ncores` argument to leverage multiple cores.
+
+
+``` r
+culta <- FitCULTA2Profiles(data = data)
+```
+
+
+
+
+
+## Model Comparison
+
+The `anova` function can be used to compare the two fitted models.
+
+
+``` r
+anova(rilta, culta)
+#> $fit
+#>                    logLik df correction      AIC      BIC     aBIC   entropy
+#> 2-profile RILTA -309109.4 22   2.679461 618262.7 618421.3 618351.4 0.8920079
+#> 2-profile CULTA -237508.2 33   1.000768 475082.4 475320.3 475215.5 0.9367669
+#> 
+#> $test
+#>  chi_diff   df_diff   p_value 
+#> -60765.98     11.00      1.00
+```
+
+## Parameter Recovery
+
+Parameter recovery was assessed by calculating the differences between the population values and the estimated profile-specific means and log-odds.
+
+
+
+Table: Parameter Recovery
+
+|         | Parameter| RILTA Estimate| Difference| CULTA Estimate| Difference|
+|:--------|---------:|--------------:|----------:|--------------:|----------:|
+|mu_10    |     2.253|      1.5255399|  0.7274601|      2.2689973| -0.0159973|
+|mu_20    |     1.493|      1.2540192|  0.2389808|      1.5140045| -0.0210045|
+|mu_30    |     1.574|      1.3511744|  0.2228256|      1.6057853| -0.0317853|
+|mu_40    |     1.117|      0.9648591|  0.1521409|      1.1275251| -0.0105251|
+|mu_11    |    -0.278|     -0.5080130|  0.2300130|     -0.2779016| -0.0000984|
+|mu_21    |    -0.165|     -0.3956839|  0.2306839|     -0.1652498|  0.0002498|
+|mu_31    |    -0.199|     -0.4362505|  0.2372505|     -0.1829942| -0.0160058|
+|mu_41    |    -0.148|     -0.3389233|  0.1909233|     -0.1515997|  0.0035997|
+|nu_0     |    -3.563|     -1.2267252| -2.3362748|     -3.6910557|  0.1280557|
+|alpha_0  |    -3.586|     -2.5248986| -1.0611014|     -3.5634025| -0.0225975|
+|kappa_0  |     0.122|      0.0357181|  0.0862819|      0.1273813| -0.0053813|
+|beta_00  |     2.250|      2.7720950| -0.5220950|      2.1225611|  0.1274389|
+|gamma_00 |     0.063|     -0.0014707|  0.0644707|      0.0676685| -0.0046685|
+|gamma_10 |     0.094|      0.0595538|  0.0344462|      0.0942463| -0.0002463|
+
+
+
+## Mplus Script Used
+
+The RILTA model was estimated using the following `Mplus` script.
+
+
+```
+Error: object 'lta' not found
+```
