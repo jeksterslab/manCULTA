@@ -14,7 +14,7 @@ Output type.}
 Output folder.}
 
 \item{suffix}{Character string.
-Output of \code{manCTMed:::.SimSuffix()}.}
+Output of \code{manCULTA:::.SimSuffix()}.}
 }
 \value{
 Returns a character string file name with the \code{output_folder}

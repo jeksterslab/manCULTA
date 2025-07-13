@@ -215,7 +215,7 @@
   ## Assemble All Sections
   out <- c(
     "TITLE:",
-    "  2-Profile RI-LTA with Covariate;",
+    "  2-Profile RILTA with Covariate;",
     "",
     "DATA:",
     sprintf(

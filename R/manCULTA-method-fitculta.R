@@ -1745,7 +1745,7 @@ anova.fitculta <- function(object,
       out <- "2-profile LTA"
     }
     if (x == "FitRILTA2Profiles") {
-      out <- "2-profile RI-LTA"
+      out <- "2-profile RILTA"
     }
     out
   }

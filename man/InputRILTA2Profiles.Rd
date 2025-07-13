@@ -3,7 +3,7 @@
 \name{InputRILTA2Profiles}
 \alias{InputRILTA2Profiles}
 \title{Generate Mplus Input file for the
-Two-Profile RI-LTA Model}
+Two-Profile RILTA Model}
 \usage{
 InputRILTA2Profiles(
   data,
@@ -39,7 +39,7 @@ Writes data and input files in \code{wd}.
 }
 \description{
 Generates \code{Mplus} input file for
-the two-profile RI-LTA model.
+the two-profile RILTA model.
 }
 \examples{
 \dontrun{

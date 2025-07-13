@@ -20,7 +20,7 @@ Output folder.}
 Random seed.}
 
 \item{suffix}{Character string.
-Output of \code{manCTMed:::.SimSuffix()}.}
+Output of \code{manCULTA:::.SimSuffix()}.}
 
 \item{overwrite}{Logical.
 Overwrite existing output in \code{output_folder}.}
