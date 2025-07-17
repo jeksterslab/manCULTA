@@ -18,6 +18,7 @@
 <url><loc>https://github.com/jeksterslab/manCULTA/news/index.html</loc></url>
 <url><loc>https://github.com/jeksterslab/manCULTA/reference/AIC.fitculta.html</loc></url>
 <url><loc>https://github.com/jeksterslab/manCULTA/reference/BIC.fitculta.html</loc></url>
+<url><loc>https://github.com/jeksterslab/manCULTA/reference/Compress.html</loc></url>
 <url><loc>https://github.com/jeksterslab/manCULTA/reference/FitCULTA1Profile.html</loc></url>
 <url><loc>https://github.com/jeksterslab/manCULTA/reference/FitCULTA2Profiles.html</loc></url>
 <url><loc>https://github.com/jeksterslab/manCULTA/reference/FitLTA2Profiles.html</loc></url>
@@ -36,6 +37,15 @@
 <url><loc>https://github.com/jeksterslab/manCULTA/reference/SimFitRILTA2Profiles.html</loc></url>
 <url><loc>https://github.com/jeksterslab/manCULTA/reference/SimGenData.html</loc></url>
 <url><loc>https://github.com/jeksterslab/manCULTA/reference/SimProj.html</loc></url>
+<url><loc>https://github.com/jeksterslab/manCULTA/reference/Sum.html</loc></url>
+<url><loc>https://github.com/jeksterslab/manCULTA/reference/SumFitCULTA1Profile.html</loc></url>
+<url><loc>https://github.com/jeksterslab/manCULTA/reference/SumFitCULTA2Profiles.html</loc></url>
+<url><loc>https://github.com/jeksterslab/manCULTA/reference/SumFitLTA2Profiles.html</loc></url>
+<url><loc>https://github.com/jeksterslab/manCULTA/reference/SumFitRILTA2Profiles.html</loc></url>
+<url><loc>https://github.com/jeksterslab/manCULTA/reference/SumLTAParamsCULTA2Profiles.html</loc></url>
+<url><loc>https://github.com/jeksterslab/manCULTA/reference/SumLTAParamsLTA2Profiles.html</loc></url>
+<url><loc>https://github.com/jeksterslab/manCULTA/reference/SumLTAParamsRILTA2Profiles.html</loc></url>
+<url><loc>https://github.com/jeksterslab/manCULTA/reference/SumParamsCULTA2Profiles.html</loc></url>
 <url><loc>https://github.com/jeksterslab/manCULTA/reference/WriteData.html</loc></url>
 <url><loc>https://github.com/jeksterslab/manCULTA/reference/anova.fitculta.html</loc></url>
 <url><loc>https://github.com/jeksterslab/manCULTA/reference/as.data.frame.simculta.html</loc></url>

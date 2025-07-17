@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">manCULTA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,19 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Sim</span><span class="op">(</span><span class="va">taskid</span>, <span class="va">repid</span>, <span class="va">output_folder</span>, <span class="va">overwrite</span>, <span class="va">integrity</span>, <span class="va">seed</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Sim</span><span class="op">(</span></span>
+<span>  <span class="va">taskid</span>,</span>
+<span>  <span class="va">repid</span>,</span>
+<span>  <span class="va">output_folder</span>,</span>
+<span>  <span class="va">overwrite</span>,</span>
+<span>  <span class="va">integrity</span>,</span>
+<span>  <span class="va">seed</span>,</span>
+<span>  <span class="va">mplus_bin</span>,</span>
+<span>  <span class="va">starts</span>,</span>
+<span>  <span class="va">stiterations</span>,</span>
+<span>  <span class="va">stscale</span>,</span>
+<span>  <span class="va">max_iter</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -77,6 +89,35 @@ check for the output file integrity when <code>overwrite = FALSE</code>.</p></dd
 <dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
 <dd><p>Integer.
 Random seed.</p></dd>
+
+
+<dt id="arg-mplus-bin">mplus_bin<a class="anchor" aria-label="anchor" href="#arg-mplus-bin"></a></dt>
+<dd><p>Character string.
+Path to Mplus binary.
+If <code>mplus_bin = NULL</code>,
+the function will try to find
+the appropriate binary.</p></dd>
+
+
+<dt id="arg-starts">starts<a class="anchor" aria-label="anchor" href="#arg-starts"></a></dt>
+<dd><p>Vector of positive integer of length two.
+Number of initial stage starts
+and number of final stage optimizations.</p></dd>
+
+
+<dt id="arg-stiterations">stiterations<a class="anchor" aria-label="anchor" href="#arg-stiterations"></a></dt>
+<dd><p>Positive integer.
+Number of initial stage iterations.</p></dd>
+
+
+<dt id="arg-stscale">stscale<a class="anchor" aria-label="anchor" href="#arg-stscale"></a></dt>
+<dd><p>Positive integer.
+Random start scale.</p></dd>
+
+
+<dt id="arg-max-iter">max_iter<a class="anchor" aria-label="anchor" href="#arg-max-iter"></a></dt>
+<dd><p>Positive integer.
+Maximum number of reruns.</p></dd>
 
 </dl></div>
     <div class="section level2">
