@@ -218,7 +218,7 @@ TITLE:
   2-Profile LTA with Covariate;
 
 DATA:
-  FILE = data.dat;
+  FILE = lta_data.dat;
 
 VARIABLE:
   NAMES =
@@ -494,10 +494,10 @@ OUTPUT:
   ENTROPY;
 
 SAVEDATA:
-  ESTIMATES = fn_hqkdKzsBrLDoUq0A6l3I_estimates.dat;
-  RESULTS = fn_hqkdKzsBrLDoUq0A6l3I_results.dat;
-  TECH3 = fn_hqkdKzsBrLDoUq0A6l3I_tech3.dat;
-  TECH4 = fn_hqkdKzsBrLDoUq0A6l3I_tech4.dat;
-  FILE = fn_hqkdKzsBrLDoUq0A6l3I_cprobs.dat;
+  ESTIMATES = lta_hqkdKzsBrLDoUq0A6l3I_estimates.dat;
+  RESULTS = lta_hqkdKzsBrLDoUq0A6l3I_results.dat;
+  TECH3 = lta_hqkdKzsBrLDoUq0A6l3I_tech3.dat;
+  TECH4 = lta_hqkdKzsBrLDoUq0A6l3I_tech4.dat;
+  FILE = lta_hqkdKzsBrLDoUq0A6l3I_cprobs.dat;
   SAVE = CPROBABILITIES;
 ```

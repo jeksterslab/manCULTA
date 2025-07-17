@@ -92,7 +92,7 @@
 #'     Autoregressive coefficient for profile 0.
 #'   }
 #'   \item{psi_t}{
-#'     \eqn{\psi_{t}} parameter.
+#'     \eqn{\psi_{T}} parameter.
 #'     Variance in the common trait;
 #'     reflects stable between-person differences.
 #'   }

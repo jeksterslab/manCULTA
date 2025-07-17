@@ -190,9 +190,9 @@ We describe each component below.
 
 ### Common Trait
 
-The common trait $\mathrm{Common\ Trait}_{i}$ represents shared individual differences that influence all items uniformly. It is drawn from a normal distribution with mean $\mu_t$ and variance $\psi_t$:
+The common trait $\mathrm{Common\ Trait}_{i}$ represents shared individual differences that influence all items uniformly. It is drawn from a normal distribution with mean $\mu_T$ and variance $\psi_T$:
 \begin{equation}
-    \mathrm{Common\ Trait}_{i} \sim \mathcal{N} \left( \mu_t, \psi_t \right)
+    \mathrm{Common\ Trait}_{i} \sim \mathcal{N} \left( \mu_T, \psi_T \right)
 \end{equation}
 
 The influence of the common trait on each item is determined by the $p \times q$ common trait loading,
@@ -472,8 +472,6 @@ fit <- FitCULTA2Profiles(data = data)
 
 ``` r
 summary(fit)
-#> Call:
-#> FitCULTA2Profiles(data = data)
 #>               est     se        z      p    2.5%   97.5%
 #> mu_10      2.2690 0.0117 193.2129 0.0000  2.2460  2.2920
 #> mu_20      1.5140 0.0112 134.9006 0.0000  1.4920  1.5360
@@ -601,7 +599,7 @@ TITLE:
   2-Profile CULTA with Covariate;
 
 DATA:
-  FILE = data.dat;
+  FILE = culta_data.dat;
 
 VARIABLE:
   NAMES =
@@ -1083,10 +1081,10 @@ OUTPUT:
   ENTROPY;
 
 SAVEDATA:
-  ESTIMATES = fn_34rXapIX7srOsFvdz2Ab_estimates.dat;
-  RESULTS = fn_34rXapIX7srOsFvdz2Ab_results.dat;
-  TECH3 = fn_34rXapIX7srOsFvdz2Ab_tech3.dat;
-  TECH4 = fn_34rXapIX7srOsFvdz2Ab_tech4.dat;
-  FILE = fn_34rXapIX7srOsFvdz2Ab_cprobs.dat;
+  ESTIMATES = culta_34rXapIX7srOsFvdz2Ab_estimates.dat;
+  RESULTS = culta_34rXapIX7srOsFvdz2Ab_results.dat;
+  TECH3 = culta_34rXapIX7srOsFvdz2Ab_tech3.dat;
+  TECH4 = culta_34rXapIX7srOsFvdz2Ab_tech4.dat;
+  FILE = culta_34rXapIX7srOsFvdz2Ab_cprobs.dat;
   SAVE = CPROBABILITIES;
 ```

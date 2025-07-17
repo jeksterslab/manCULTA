@@ -1,6 +1,10 @@
-.RandomFile <- function() {
+.RandomFile <- function(prefix = NULL) {
+  if (is.null(prefix)) {
+    prefix <- "fn"
+  }
   paste0(
-    "fn_",
+    prefix,
+    "_",
     paste(
       sample(
         c(letters, LETTERS, 0:9),

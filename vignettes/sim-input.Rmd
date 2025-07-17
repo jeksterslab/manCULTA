@@ -162,28 +162,28 @@ Each function corresponds to a specific version of the CULTA model:
 ``` r
 InputCULTA1Profile(data = data)
 #> Check data and Mplus input files in
-#> /scratch/ibp5092/manCULTA/vignettes/fl_WKayjJr5WUxgJyKTtzXU
+#> /scratch/ibp5092/manCULTA/vignettes/cutsar_WKayjJr5WUxgJyKTtzXU
 ```
 
 
 ``` r
 InputCULTA2Profiles(data = data)
 #> Check data and Mplus input files in
-#> /scratch/ibp5092/manCULTA/vignettes/fl_ov5hJdvrSBedH3XIxwW0
+#> /scratch/ibp5092/manCULTA/vignettes/culta_ov5hJdvrSBedH3XIxwW0
 ```
 
 
 ``` r
 InputLTA2Profiles(data = data)
 #> Check data and Mplus input files in
-#> /scratch/ibp5092/manCULTA/vignettes/fl_SPiCltiQICpKB3TeB1br
+#> /scratch/ibp5092/manCULTA/vignettes/lta_SPiCltiQICpKB3TeB1br
 ```
 
 
 ``` r
 InputRILTA2Profiles(data = data)
 #> Check data and Mplus input files in
-#> /scratch/ibp5092/manCULTA/vignettes/fl_Fp17CqRi4u9Q45VhC2La
+#> /scratch/ibp5092/manCULTA/vignettes/rilta_Fp17CqRi4u9Q45VhC2La
 ```
 
 ## Run in Mplus

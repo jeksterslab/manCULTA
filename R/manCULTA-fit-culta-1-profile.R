@@ -125,11 +125,13 @@ FitCULTA1Profile <- function(data,
       what = "simculta"
     )
   )
+  model <- "cutsar"
   # arguments
   args <- list(
     data = data,
     wd = wd,
     mplus_bin = mplus_bin,
+    starts = starts,
     p = data$args$p, # p items
     q = (5 * data$args$p) + 2, # q parameters
     params = .MPlusCULTA1ProfileParams(data$args$p) # parameter names
@@ -143,7 +145,8 @@ FitCULTA1Profile <- function(data,
     x = normalizePath(
       path = wd,
       mustWork = FALSE
-    )
+    ),
+    prefix = model
   )
   on.exit(
     unlink(
@@ -154,8 +157,12 @@ FitCULTA1Profile <- function(data,
   )
   setwd(new_wd)
   # filenames
-  prefix <- .RandomFile()
-  fn_data <- "data.dat"
+  prefix <- .RandomFile(prefix = model)
+  fn_data <- paste0(
+    model,
+    "_",
+    "data.dat"
+  )
   fn_inp <- paste0(
     prefix,
     ".inp"

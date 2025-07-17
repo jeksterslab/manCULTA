@@ -1,4 +1,5 @@
-.CreateFolder <- function(x) {
+.CreateFolder <- function(x,
+                          prefix = NULL) {
   if (!dir.exists(x)) {
     stop(
       paste(
@@ -9,19 +10,11 @@
   }
   out <- file.path(
     x,
-    .RandomFolder()
+    .RandomFolder(prefix = prefix)
   )
-  if (
-    !(
-      dir.create(
-        path = out,
-        showWarnings = FALSE
-      )
-    )
-  ) {
-    stop(
-      "Could not create folder."
-    )
-  }
+  dir.create(
+    path = out,
+    showWarnings = FALSE
+  )
   out
 }

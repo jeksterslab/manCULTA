@@ -299,9 +299,9 @@ We describe each component below.
 
 ### Common Trait
 
-The common trait $\mathrm{Common\ Trait}_{i}$ represents shared individual differences that influence all items uniformly. It is drawn from a normal distribution with mean $\mu_t$ and variance $\psi_t$:
+The common trait $\mathrm{Common\ Trait}_{i}$ represents shared individual differences that influence all items uniformly. It is drawn from a normal distribution with mean $\mu_T$ and variance $\psi_T$:
 \begin{equation}
-    \mathrm{Common\ Trait}_{i} \sim \mathcal{N} \left( \mu_t, \psi_t \right)
+    \mathrm{Common\ Trait}_{i} \sim \mathcal{N} \left( \mu_T, \psi_T \right)
 \end{equation}
 
 The influence of the common trait on each item is determined by the $p \times q$ common trait loading,

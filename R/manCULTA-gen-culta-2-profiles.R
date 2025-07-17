@@ -172,10 +172,10 @@
 #'
 #' The common trait \eqn{\mathrm{Common\ Trait}_{i}}
 #' represents shared individual differences that influence all items uniformly.
-#' It is drawn from a normal distribution with mean \eqn{\mu_t}
-#' and variance \eqn{\psi_t}:
+#' It is drawn from a normal distribution with mean \eqn{\mu_T}
+#' and variance \eqn{\psi_T}:
 #' \deqn{
-#'     \mathrm{Common\ Trait}_{i} \sim \mathcal{N} \left( \mu_t, \psi_t \right)
+#'     \mathrm{Common\ Trait}_{i} \sim \mathcal{N} \left( \mu_T, \psi_T \right)
 #' }
 #'
 #' The influence of the common trait on each item
@@ -305,10 +305,10 @@
 #'   Covariate effect \eqn{\gamma_{10}}
 #'   on transitioning from profile 1 to profile 0.
 #' @param mu_t Numeric or vector of length \eqn{q}.
-#'   Mean \eqn{\mu_t} of the common trait factor.
+#'   Mean \eqn{\mu_T} of the common trait factor.
 #'   If `mu_t = NULL`, defaults to zero.
 #' @param psi_t Numeric matrix of size \eqn{q \times q}.
-#'   Positive definite covariance matrix \eqn{\Psi_t}
+#'   Positive definite covariance matrix \eqn{\psi_T}
 #'   for the common trait factor.
 #' @param mu_p Numeric vector of length \eqn{p}.
 #'   Mean vector \eqn{\boldsymbol{\mu}_p}

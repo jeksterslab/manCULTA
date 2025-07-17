@@ -29,7 +29,12 @@ tryCatch(
       output_folder = output_folder,
       overwrite = overwrite,
       integrity = TRUE, # FALSE to prioritize speed, TRUE to prioritize output
-      seed = seed
+      seed = seed,
+      mplus_bin = mplus_bin,
+      starts = starts,
+      stiterations = stiterations,
+      stscale = stscale,
+      max_iter = max_iter
     )
   },
   error = function(e) {

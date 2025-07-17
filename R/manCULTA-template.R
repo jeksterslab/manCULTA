@@ -15,6 +15,10 @@
 #' @param integrity Logical.
 #'   If `integrity = TRUE`,
 #'   check for the output file integrity when `overwrite = FALSE`.
+#' @param max_iter Positive integer.
+#'   Maximum number of reruns.
+#' @param reps Positive integer.
+#'   Number of replications.
 #'
 #' @name Template
 NULL

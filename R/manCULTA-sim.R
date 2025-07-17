@@ -5,6 +5,7 @@
 #' @return The output is saved as an external file in `output_folder`.
 #'
 #' @inheritParams Template
+#' @inheritParams FitCULTA2Profiles
 #' @export
 #' @keywords manCULTA simulation
 Sim <- function(taskid,
@@ -12,7 +13,12 @@ Sim <- function(taskid,
                 output_folder,
                 overwrite,
                 integrity,
-                seed) {
+                seed,
+                mplus_bin,
+                starts,
+                stiterations,
+                stscale,
+                max_iter) {
   # Do not include default arguments here.
   # All arguments should be set in `.sim/sim-args.R`.
   # Add taskid to output_folder
@@ -54,40 +60,66 @@ Sim <- function(taskid,
     overwrite = overwrite,
     integrity = integrity
   )
-  SimFitCULTA2Profiles(
-    taskid = taskid,
-    repid = repid,
-    output_folder = output_folder,
-    seed = seed,
-    suffix = suffix,
-    overwrite = overwrite,
-    integrity = integrity
+  try(
+    SimFitCULTA2Profiles(
+      taskid = taskid,
+      repid = repid,
+      output_folder = output_folder,
+      seed = seed,
+      suffix = suffix,
+      overwrite = overwrite,
+      integrity = integrity,
+      mplus_bin = mplus_bin,
+      starts = starts,
+      stiterations = stiterations,
+      stscale = stscale,
+      max_iter = max_iter
+    )
   )
-  SimFitLTA2Profiles(
-    taskid = taskid,
-    repid = repid,
-    output_folder = output_folder,
-    seed = seed,
-    suffix = suffix,
-    overwrite = overwrite,
-    integrity = integrity
+  try(
+    SimFitLTA2Profiles(
+      taskid = taskid,
+      repid = repid,
+      output_folder = output_folder,
+      seed = seed,
+      suffix = suffix,
+      overwrite = overwrite,
+      integrity = integrity,
+      mplus_bin = mplus_bin,
+      starts = starts,
+      stiterations = stiterations,
+      stscale = stscale,
+      max_iter = max_iter
+    )
   )
-  SimFitRILTA2Profiles(
-    taskid = taskid,
-    repid = repid,
-    output_folder = output_folder,
-    seed = seed,
-    suffix = suffix,
-    overwrite = overwrite,
-    integrity = integrity
+  try(
+    SimFitRILTA2Profiles(
+      taskid = taskid,
+      repid = repid,
+      output_folder = output_folder,
+      seed = seed,
+      suffix = suffix,
+      overwrite = overwrite,
+      integrity = integrity,
+      mplus_bin = mplus_bin,
+      starts = starts,
+      stiterations = stiterations,
+      stscale = stscale,
+      max_iter = max_iter
+    )
   )
-  SimFitCULTA1Profile(
-    taskid = taskid,
-    repid = repid,
-    output_folder = output_folder,
-    seed = seed,
-    suffix = suffix,
-    overwrite = overwrite,
-    integrity = integrity
+  try(
+    SimFitCULTA1Profile(
+      taskid = taskid,
+      repid = repid,
+      output_folder = output_folder,
+      seed = seed,
+      suffix = suffix,
+      overwrite = overwrite,
+      integrity = integrity,
+      mplus_bin = mplus_bin,
+      starts = starts[1],
+      max_iter = max_iter
+    )
   )
 }

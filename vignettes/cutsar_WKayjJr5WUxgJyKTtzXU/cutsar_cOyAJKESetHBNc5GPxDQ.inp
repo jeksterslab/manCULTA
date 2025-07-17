@@ -2,7 +2,7 @@ TITLE:
   CUTS with AR;
 
 DATA:
-  FILE = data.dat;
+  FILE = cutsar_data.dat;
 
 VARIABLE:
   NAMES =
@@ -298,7 +298,7 @@ OUTPUT:
   TECH4;
 
 SAVEDATA:
-  ESTIMATES = fn_cOyAJKESetHBNc5GPxDQ_estimates.dat;
-  RESULTS = fn_cOyAJKESetHBNc5GPxDQ_results.dat;
-  TECH3 = fn_cOyAJKESetHBNc5GPxDQ_tech3.dat;
-  TECH4 = fn_cOyAJKESetHBNc5GPxDQ_tech4.dat;
+  ESTIMATES = cutsar_cOyAJKESetHBNc5GPxDQ_estimates.dat;
+  RESULTS = cutsar_cOyAJKESetHBNc5GPxDQ_results.dat;
+  TECH3 = cutsar_cOyAJKESetHBNc5GPxDQ_tech3.dat;
+  TECH4 = cutsar_cOyAJKESetHBNc5GPxDQ_tech4.dat;

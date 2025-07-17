@@ -18,9 +18,7 @@ Logical.
 }
 \description{
 Checks whether the model fitting procedure for an object of class \code{fitculta}
-has successfully converged based on the presence of
-the string \code{"THE BEST LOGLIKELIHOOD VALUE HAS BEEN REPLICATED."}
-in the Mplus output.
+has successfully converged.
 }
 \examples{
 \dontrun{

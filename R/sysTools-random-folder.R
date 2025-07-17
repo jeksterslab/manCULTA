@@ -1,6 +1,10 @@
-.RandomFolder <- function() {
+.RandomFolder <- function(prefix = NULL) {
+  if (is.null(prefix)) {
+    prefix <- "fl"
+  }
   paste0(
-    "fl_",
+    prefix,
+    "_",
     paste(
       sample(
         c(letters, LETTERS, 0:9),

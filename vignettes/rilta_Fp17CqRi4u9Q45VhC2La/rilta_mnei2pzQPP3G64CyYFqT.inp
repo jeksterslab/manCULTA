@@ -1,8 +1,8 @@
 TITLE:
-  2-Profile LTA with Covariate;
+  2-Profile RILTA with Covariate;
 
 DATA:
-  FILE = data.dat;
+  FILE = rilta_data.dat;
 
 VARIABLE:
   NAMES =
@@ -80,6 +80,46 @@ ANALYSIS:
 
 MODEL:
   %OVERALL%
+    ! random intercept --------------------------------------------------
+
+    !! loadings
+    !!! t = 0
+    f BY y1t0* (lambdat1);
+    f BY y2t0 (lambdat2);
+    f BY y3t0 (lambdat3);
+    f BY y4t0 (lambdat4);
+    !!! t = 1
+    f BY y1t1* (lambdat1);
+    f BY y2t1 (lambdat2);
+    f BY y3t1 (lambdat3);
+    f BY y4t1 (lambdat4);
+    !!! t = 2
+    f BY y1t2* (lambdat1);
+    f BY y2t2 (lambdat2);
+    f BY y3t2 (lambdat3);
+    f BY y4t2 (lambdat4);
+    !!! t = 3
+    f BY y1t3* (lambdat1);
+    f BY y2t3 (lambdat2);
+    f BY y3t3 (lambdat3);
+    f BY y4t3 (lambdat4);
+    !!! t = 4
+    f BY y1t4* (lambdat1);
+    f BY y2t4 (lambdat2);
+    f BY y3t4 (lambdat3);
+    f BY y4t4 (lambdat4);
+    !!! t = 5
+    f BY y1t5* (lambdat1);
+    f BY y2t5 (lambdat2);
+    f BY y3t5 (lambdat3);
+    f BY y4t5 (lambdat4);
+
+    !! latent mean
+    [ f@0 ];
+
+    !! latent variance
+    f@1;
+
     ! unique states -----------------------------------------------------
 
     !! variances
@@ -278,9 +318,9 @@ OUTPUT:
   ENTROPY;
 
 SAVEDATA:
-  ESTIMATES = fn_xWreTN2NuJ4JMPrAm01s_estimates.dat;
-  RESULTS = fn_xWreTN2NuJ4JMPrAm01s_results.dat;
-  TECH3 = fn_xWreTN2NuJ4JMPrAm01s_tech3.dat;
-  TECH4 = fn_xWreTN2NuJ4JMPrAm01s_tech4.dat;
-  FILE = fn_xWreTN2NuJ4JMPrAm01s_cprobs.dat;
+  ESTIMATES = rilta_mnei2pzQPP3G64CyYFqT_estimates.dat;
+  RESULTS = rilta_mnei2pzQPP3G64CyYFqT_results.dat;
+  TECH3 = rilta_mnei2pzQPP3G64CyYFqT_tech3.dat;
+  TECH4 = rilta_mnei2pzQPP3G64CyYFqT_tech4.dat;
+  FILE = rilta_mnei2pzQPP3G64CyYFqT_cprobs.dat;
   SAVE = CPROBABILITIES;

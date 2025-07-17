@@ -3,9 +3,11 @@
 #SBATCH --job-name=sim
 #SBATCH --mail-user=r.jeksterslab@gmail.com
 #SBATCH --mail-type=ALL
-#SBATCH --nodes=1
-#SBATCH --exclusive
-#SBATCH --mem=0
+#SBATCH --qos=open                 # Enable use of 100 cores
+#SBATCH --nodes=5                  # Spread over ~5 nodes (20 cores each)
+#SBATCH --ntasks=100               # Total of 100 tasks (1 per core)
+#SBATCH --cpus-per-task=1          # 1 core per task
+#SBATCH --mem-per-cpu=8G           # Memory: 8 GB per core = 800 GB total
 #SBATCH --time=2-00:00:00
 #SBATCH --output=sim.out
 #SBATCH --error=sim.err
@@ -13,6 +15,7 @@
 # Define project variables
 PROJECT=manCULTA
 SIF=manculta.sif
+NCORES=$SLURM_NTASKS
 
 # load parallel module ---------------------------------------------------------
 module load parallel
@@ -40,6 +43,7 @@ cmd="apptainer exec \
 cd /scratch/$USER/${PROJECT} || exit
 
 parallel --tmpdir "$PARALLEL_TMP_FOLDER" \
+    --jobs "$NCORES" \
     --colsep ' ' "$cmd" :::: <(
     for repid in $(seq $repid_start $repid_end); do
         for taskid in $(seq $taskid_start $taskid_end); do

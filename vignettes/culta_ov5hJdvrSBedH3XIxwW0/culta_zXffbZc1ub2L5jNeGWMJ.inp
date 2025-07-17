@@ -2,7 +2,7 @@ TITLE:
   2-Profile CULTA with Covariate;
 
 DATA:
-  FILE = data.dat;
+  FILE = culta_data.dat;
 
 VARIABLE:
   NAMES =
@@ -484,9 +484,9 @@ OUTPUT:
   ENTROPY;
 
 SAVEDATA:
-  ESTIMATES = fn_zXffbZc1ub2L5jNeGWMJ_estimates.dat;
-  RESULTS = fn_zXffbZc1ub2L5jNeGWMJ_results.dat;
-  TECH3 = fn_zXffbZc1ub2L5jNeGWMJ_tech3.dat;
-  TECH4 = fn_zXffbZc1ub2L5jNeGWMJ_tech4.dat;
-  FILE = fn_zXffbZc1ub2L5jNeGWMJ_cprobs.dat;
+  ESTIMATES = culta_zXffbZc1ub2L5jNeGWMJ_estimates.dat;
+  RESULTS = culta_zXffbZc1ub2L5jNeGWMJ_results.dat;
+  TECH3 = culta_zXffbZc1ub2L5jNeGWMJ_tech3.dat;
+  TECH4 = culta_zXffbZc1ub2L5jNeGWMJ_tech4.dat;
+  FILE = culta_zXffbZc1ub2L5jNeGWMJ_cprobs.dat;
   SAVE = CPROBABILITIES;
