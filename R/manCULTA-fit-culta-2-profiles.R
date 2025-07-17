@@ -143,12 +143,16 @@ FitCULTA2Profiles <- function(data,
       what = "simculta"
     )
   )
+  model <- "culta"
   # arguments
   args <- list(
     data = data,
     wd = wd,
     ncores = ncores,
     mplus_bin = mplus_bin,
+    starts = starts,
+    stiterations = stiterations,
+    stscale = stscale,
     p = data$args$p, # p items
     q = (6 * data$args$p) + 9, # q parameters
     params = .MPlusCULTA2ProfileParams(data$args$p) # parameter names
@@ -162,7 +166,8 @@ FitCULTA2Profiles <- function(data,
     x = normalizePath(
       path = wd,
       mustWork = FALSE
-    )
+    ),
+    prefix = model
   )
   on.exit(
     unlink(
@@ -173,8 +178,12 @@ FitCULTA2Profiles <- function(data,
   )
   setwd(new_wd)
   # filenames
-  prefix <- .RandomFile()
-  fn_data <- "data.dat"
+  prefix <- .RandomFile(prefix = model)
+  fn_data <- paste0(
+    model,
+    "_",
+    "data.dat"
+  )
   fn_inp <- paste0(
     prefix,
     ".inp"

@@ -1,9 +1,7 @@
 #' Convergence Status of a Model Fit
 #'
 #' Checks whether the model fitting procedure for an object of class `fitculta`
-#' has successfully converged based on the presence of
-#' the string `"THE BEST LOGLIKELIHOOD VALUE HAS BEEN REPLICATED."`
-#' in the Mplus output.
+#' has successfully converged.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
@@ -120,9 +118,7 @@ converged <- function(object,
 #' Convergence Status of a Model Fit
 #'
 #' Checks whether the model fitting procedure for an object of class `fitculta`
-#' has successfully converged based on the presence of
-#' the string `"THE BEST LOGLIKELIHOOD VALUE HAS BEEN REPLICATED."`
-#' in the Mplus output.
+#' has successfully converged.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
@@ -233,27 +229,38 @@ converged <- function(object,
 #' @export
 converged.fitculta <- function(object,
                                ...) {
-  lines <- object$output$output
-  terminated <- grep(
-    pattern = "THE MODEL ESTIMATION TERMINATED NORMALLY",
-    x = lines,
-    value = TRUE
+  check_results <- .CheckReadLines(
+    x = object$output$results
   )
-  replicated <- grep(
-    pattern = "THE BEST LOGLIKELIHOOD VALUE HAS BEEN REPLICATED",
-    x = lines,
-    value = TRUE
+  check_output <- .CheckReadLines(
+    x = object$output$output
   )
-  if (object$fun == "FitCULTA1Profile") {
-    out <- TRUE # assume that the model will always converge
-  } else {
-    out <- (
-      (
-        length(x = terminated) > 0
-      ) && (
-        length(x = replicated) > 0
-      )
+  if (check_results && check_output) {
+    lines <- object$output$output
+    terminated <- grep(
+      pattern = "THE MODEL ESTIMATION TERMINATED NORMALLY",
+      x = lines,
+      value = TRUE
     )
+    replicated <- grep(
+      pattern = "THE BEST LOGLIKELIHOOD VALUE HAS BEEN REPLICATED",
+      x = lines,
+      value = TRUE
+    )
+    if (object$fun == "FitCULTA1Profile") {
+      # assume that the model converged if results is not NA
+      out <- TRUE
+    } else {
+      out <- (
+        (
+          length(x = terminated) > 0
+        ) && (
+          length(x = replicated) > 0
+        )
+      )
+    }
+  } else {
+    out <- FALSE
   }
   out
 }
@@ -512,38 +519,52 @@ summary.fitculta <- function(object,
                              alpha = NULL,
                              digits = 4,
                              ...) {
-  if (is.null(alpha)) {
-    alpha <- 0.05
+  convergence <- converged(object = object)
+  if (convergence) {
+    if (is.null(alpha)) {
+      alpha <- 0.05
+    }
+    stopifnot(
+      all(alpha > 0 & alpha < 1)
+    )
+    results <- scan(
+      text = object$output$results,
+      what = numeric(),
+      quiet = TRUE
+    )
+    q <- object$args$q
+    params <- object$args$params
+    est <- results[
+      seq_len(length.out = q)
+    ]
+    se <- results[
+      seq_len(length.out = q) + q
+    ]
+    names(est) <- params
+    if (interactive()) {
+      cat("Call:\n")
+      base::print(object$call)
+    }
+    out <- round(
+      .CIWald(
+        est = est,
+        se = se,
+        theta = 0,
+        alpha = alpha,
+        z = TRUE
+      ),
+      digits = digits
+    )
+  } else {
+    stop(
+      paste0(
+        "Model estimation did not terminate normally.",
+        "\n",
+        "No results were saved."
+      )
+    )
   }
-  stopifnot(
-    all(alpha > 0 & alpha < 1)
-  )
-  results <- scan(
-    text = object$output$results,
-    what = numeric(),
-    quiet = TRUE
-  )
-  q <- object$args$q
-  params <- object$args$params
-  est <- results[
-    seq_len(length.out = q)
-  ]
-  se <- results[
-    seq_len(length.out = q) + q
-  ]
-  names(est) <- params
-  cat("Call:\n")
-  base::print(object$call)
-  round(
-    .CIWald(
-      est = est,
-      se = se,
-      theta = 0,
-      alpha = alpha,
-      z = TRUE
-    ),
-    digits = digits
-  )
+  out
 }
 
 #' Parameter Estimates
@@ -655,17 +676,28 @@ summary.fitculta <- function(object,
 #' @export
 coef.fitculta <- function(object,
                           ...) {
-  results <- scan(
-    text = object$output$results,
-    what = numeric(),
-    quiet = TRUE
-  )
-  q <- object$args$q
-  params <- object$args$params
-  est <- results[
-    seq_len(length.out = q)
-  ]
-  names(est) <- params
+  convergence <- converged(object = object)
+  if (convergence) {
+    results <- scan(
+      text = object$output$results,
+      what = numeric(),
+      quiet = TRUE
+    )
+    q <- object$args$q
+    params <- object$args$params
+    est <- results[
+      seq_len(length.out = q)
+    ]
+    names(est) <- params
+  } else {
+    stop(
+      paste0(
+        "Model estimation did not terminate normally.",
+        "\n",
+        "No results were saved."
+      )
+    )
+  }
   est
 }
 
@@ -780,22 +812,46 @@ coef.fitculta <- function(object,
 #' @export
 vcov.fitculta <- function(object,
                           ...) {
-  tech3 <- scan(
-    text = object$output$tech3,
-    what = numeric(),
-    quiet = TRUE
-  )
-  q <- object$args$q
-  params <- object$args$params
-  out <- .SymofVech2(
-    x = tech3[
-      seq_len(
-        length.out = q * (q + 1) / 2
+  convergence <- converged(object = object)
+  if (convergence) {
+    check_tech3 <- .CheckReadLines(
+      x = object$output$tech3
+    )
+    if (check_tech3) {
+      tech3 <- scan(
+        text = object$output$tech3,
+        what = numeric(),
+        quiet = TRUE
       )
-    ],
-    k = q
-  )
-  colnames(out) <- rownames(out) <- params
+      q <- object$args$q
+      params <- object$args$params
+      out <- .SymofVech2(
+        x = tech3[
+          seq_len(
+            length.out = q * (q + 1) / 2
+          )
+        ],
+        k = q
+      )
+      colnames(out) <- rownames(out) <- params
+    } else {
+      stop(
+        paste0(
+          "Model estimation did not terminate normally.",
+          "\n",
+          "No results were saved."
+        )
+      )
+    }
+  } else {
+    stop(
+      paste0(
+        "Model estimation did not terminate normally.",
+        "\n",
+        "No results were saved."
+      )
+    )
+  }
   out
 }
 
@@ -915,37 +971,48 @@ confint.fitculta <- function(object,
                              parm = NULL,
                              level = 0.95,
                              ...) {
-  results <- scan(
-    text = object$output$results,
-    what = numeric(),
-    quiet = TRUE
-  )
-  q <- object$args$q
-  params <- object$args$params
-  est <- results[
-    seq_len(length.out = q)
-  ]
-  se <- results[
-    seq_len(length.out = q) + q
-  ]
-  names(est) <- params
-  if (is.null(parm)) {
-    parm <- seq_len(length.out = q)
+  convergence <- converged(object = object)
+  if (convergence) {
+    results <- scan(
+      text = object$output$results,
+      what = numeric(),
+      quiet = TRUE
+    )
+    q <- object$args$q
+    params <- object$args$params
+    est <- results[
+      seq_len(length.out = q)
+    ]
+    se <- results[
+      seq_len(length.out = q) + q
+    ]
+    names(est) <- params
+    if (is.null(parm)) {
+      parm <- seq_len(length.out = q)
+    }
+    ci <- .CIWald(
+      est = est,
+      se = se,
+      theta = 0,
+      alpha = 1 - level[1],
+      z = TRUE
+    )[parm, 5:6, drop = FALSE] # always z
+    varnames <- colnames(ci)
+    varnames <- gsub(
+      pattern = "%",
+      replacement = " %",
+      x = varnames
+    )
+    colnames(ci) <- varnames
+  } else {
+    stop(
+      paste0(
+        "Model estimation did not terminate normally.",
+        "\n",
+        "No results were saved."
+      )
+    )
   }
-  ci <- .CIWald(
-    est = est,
-    se = se,
-    theta = 0,
-    alpha = 1 - level[1],
-    z = TRUE
-  )[parm, 5:6, drop = FALSE] # always z
-  varnames <- colnames(ci)
-  varnames <- gsub(
-    pattern = "%",
-    replacement = " %",
-    x = varnames
-  )
-  colnames(ci) <- varnames
   ci
 }
 
@@ -1063,24 +1130,35 @@ confint.fitculta <- function(object,
 #' @export
 logLik.fitculta <- function(object,
                             ...) {
-  results <- scan(
-    text = object$output$results,
-    what = numeric(),
-    quiet = TRUE
-  )
-  q <- object$args$q
-  m <- (q * 2)
-  if (object$fun == "FitCULTA1Profile") {
-    df <- results[m + 1]
-    ll <- results[m + 2]
-    correction <- results[m + 3]
+  convergence <- converged(object = object)
+  if (convergence) {
+    results <- scan(
+      text = object$output$results,
+      what = numeric(),
+      quiet = TRUE
+    )
+    q <- object$args$q
+    m <- (q * 2)
+    if (object$fun == "FitCULTA1Profile") {
+      df <- results[m + 1]
+      ll <- results[m + 2]
+      correction <- results[m + 3]
+    } else {
+      df <- results[m + 1]
+      ll <- results[m + 2]
+      correction <- results[m + 3]
+    }
+    attr(ll, "df") <- df
+    attr(ll, "correction") <- correction
   } else {
-    df <- results[m + 1]
-    ll <- results[m + 2]
-    correction <- results[m + 3]
+    stop(
+      paste0(
+        "Model estimation did not terminate normally.",
+        "\n",
+        "No results were saved."
+      )
+    )
   }
-  attr(ll, "df") <- df
-  attr(ll, "correction") <- correction
   ll
 }
 
@@ -1194,17 +1272,28 @@ logLik.fitculta <- function(object,
 #' @export
 AIC.fitculta <- function(object,
                          ...) {
-  results <- scan(
-    text = object$output$results,
-    what = numeric(),
-    quiet = TRUE
-  )
-  q <- object$args$q
-  m <- (q * 2)
-  if (object$fun == "FitCULTA1Profile") {
-    aic <- results[m + 6]
+  convergence <- converged(object = object)
+  if (convergence) {
+    results <- scan(
+      text = object$output$results,
+      what = numeric(),
+      quiet = TRUE
+    )
+    q <- object$args$q
+    m <- (q * 2)
+    if (object$fun == "FitCULTA1Profile") {
+      aic <- results[m + 6]
+    } else {
+      aic <- results[m + 4]
+    }
   } else {
-    aic <- results[m + 4]
+    stop(
+      paste0(
+        "Model estimation did not terminate normally.",
+        "\n",
+        "No results were saved."
+      )
+    )
   }
   aic
 }
@@ -1324,25 +1413,36 @@ AIC.fitculta <- function(object,
 BIC.fitculta <- function(object,
                          adjust = FALSE,
                          ...) {
-  results <- scan(
-    text = object$output$results,
-    what = numeric(),
-    quiet = TRUE
-  )
-  q <- object$args$q
-  m <- (q * 2)
-  if (object$fun == "FitCULTA1Profile") {
-    if (adjust) {
-      bic <- results[m + 8]
+  convergence <- converged(object = object)
+  if (convergence) {
+    results <- scan(
+      text = object$output$results,
+      what = numeric(),
+      quiet = TRUE
+    )
+    q <- object$args$q
+    m <- (q * 2)
+    if (object$fun == "FitCULTA1Profile") {
+      if (adjust) {
+        bic <- results[m + 8]
+      } else {
+        bic <- results[m + 7]
+      }
     } else {
-      bic <- results[m + 7]
+      if (adjust) {
+        bic <- results[m + 6]
+      } else {
+        bic <- results[m + 5]
+      }
     }
   } else {
-    if (adjust) {
-      bic <- results[m + 6]
-    } else {
-      bic <- results[m + 5]
-    }
+    stop(
+      paste0(
+        "Model estimation did not terminate normally.",
+        "\n",
+        "No results were saved."
+      )
+    )
   }
   bic
 }
@@ -1568,17 +1668,28 @@ entropy <- function(object,
 #' @export
 entropy.fitculta <- function(object,
                              ...) {
-  if (object$fun == "FitCULTA1Profile") {
-    entropy <- 0
+  convergence <- converged(object = object)
+  if (convergence) {
+    if (object$fun == "FitCULTA1Profile") {
+      entropy <- 0
+    } else {
+      results <- scan(
+        text = object$output$results,
+        what = numeric(),
+        quiet = TRUE
+      )
+      q <- object$args$q
+      m <- (q * 2)
+      entropy <- results[m + 7]
+    }
   } else {
-    results <- scan(
-      text = object$output$results,
-      what = numeric(),
-      quiet = TRUE
+    stop(
+      paste0(
+        "Model estimation did not terminate normally.",
+        "\n",
+        "No results were saved."
+      )
     )
-    q <- object$args$q
-    m <- (q * 2)
-    entropy <- results[m + 7]
   }
   entropy
 }
@@ -1715,126 +1826,139 @@ entropy.fitculta <- function(object,
 anova.fitculta <- function(object,
                            other,
                            ...) {
-  fun_1 <- object$fun
-  ll_1 <- logLik(object)
-  df_1 <- attributes(ll_1)[["df"]]
-  c_1 <- attributes(ll_1)[["correction"]]
-  aic_1 <- AIC(object)
-  bic_1 <- BIC(object, adjust = FALSE)
-  abic_1 <- BIC(object, adjust = TRUE)
-  entropy_1 <- entropy(object)
-  fun_2 <- other$fun
-  ll_2 <- logLik(other)
-  df_2 <- attributes(ll_2)[["df"]]
-  c_2 <- attributes(ll_2)[["correction"]]
-  aic_2 <- AIC(other)
-  bic_2 <- BIC(other, adjust = FALSE)
-  abic_2 <- BIC(other, adjust = TRUE)
-  entropy_2 <- entropy(other)
-  fun_name <- function(x) {
-    if (x == "FitCULTA1Profile") {
-      out <- "1-profile CULTA"
+  convergence_1 <- converged(object = object)
+  convergence_2 <- converged(object = other)
+  if (convergence_1 && convergence_2) {
+    fun_1 <- object$fun
+    ll_1 <- logLik(object)
+    df_1 <- attributes(ll_1)[["df"]]
+    c_1 <- attributes(ll_1)[["correction"]]
+    aic_1 <- AIC(object)
+    bic_1 <- BIC(object, adjust = FALSE)
+    abic_1 <- BIC(object, adjust = TRUE)
+    entropy_1 <- entropy(object)
+    fun_2 <- other$fun
+    ll_2 <- logLik(other)
+    df_2 <- attributes(ll_2)[["df"]]
+    c_2 <- attributes(ll_2)[["correction"]]
+    aic_2 <- AIC(other)
+    bic_2 <- BIC(other, adjust = FALSE)
+    abic_2 <- BIC(other, adjust = TRUE)
+    entropy_2 <- entropy(other)
+    fun_name <- function(x) {
+      if (x == "FitCULTA1Profile") {
+        out <- "1-profile CULTA"
+      }
+      if (x == "FitCULTA2Profiles") {
+        out <- "2-profile CULTA"
+      }
+      if (x == "FitCULTA3Profiles") {
+        out <- "3-profile CULTA"
+      }
+      if (x == "FitLTA2Profiles") {
+        out <- "2-profile LTA"
+      }
+      if (x == "FitRILTA2Profiles") {
+        out <- "2-profile RILTA"
+      }
+      out
     }
-    if (x == "FitCULTA2Profiles") {
-      out <- "2-profile CULTA"
+    if (df_1 >= df_2) {
+      name_lower <- fun_name(
+        x = fun_1
+      )
+      ll_lower <- ll_1
+      df_lower <- df_1
+      c_lower <- c_1
+      aic_lower <- aic_1
+      bic_lower <- bic_1
+      abic_lower <- abic_1
+      entropy_lower <- entropy_1
+      name_higher <- fun_name(
+        x = fun_2
+      )
+      ll_higher <- ll_2
+      df_higher <- df_2
+      c_higher <- c_2
+      aic_higher <- aic_2
+      bic_higher <- bic_2
+      abic_higher <- abic_2
+      entropy_higher <- entropy_2
+    } else {
+      name_lower <- fun_name(
+        x = fun_2
+      )
+      ll_lower <- ll_2
+      df_lower <- df_2
+      c_lower <- c_2
+      aic_lower <- aic_2
+      bic_lower <- bic_2
+      abic_lower <- abic_2
+      entropy_lower <- entropy_2
+      name_higher <- fun_name(
+        x = fun_1
+      )
+      ll_higher <- ll_1
+      df_higher <- df_1
+      c_higher <- c_1
+      aic_higher <- aic_1
+      bic_higher <- bic_1
+      abic_higher <- abic_1
+      entropy_higher <- entropy_1
     }
-    if (x == "FitCULTA3Profiles") {
-      out <- "3-profile CULTA"
-    }
-    if (x == "FitLTA2Profiles") {
-      out <- "2-profile LTA"
-    }
-    if (x == "FitRILTA2Profiles") {
-      out <- "2-profile RILTA"
-    }
-    out
-  }
-  if (df_1 >= df_2) {
-    name_lower <- fun_name(
-      x = fun_1
+    model <- rbind(
+      c(
+        ll_higher,
+        df_higher,
+        c_higher,
+        aic_higher,
+        bic_higher,
+        abic_higher,
+        entropy_higher
+      ),
+      c(
+        ll_lower,
+        df_lower,
+        c_lower,
+        aic_lower,
+        bic_lower,
+        abic_lower,
+        entropy_lower
+      )
     )
-    ll_lower <- ll_1
-    df_lower <- df_1
-    c_lower <- c_1
-    aic_lower <- aic_1
-    bic_lower <- bic_1
-    abic_lower <- abic_1
-    entropy_lower <- entropy_1
-    name_higher <- fun_name(
-      x = fun_2
+    colnames(model) <- c(
+      "logLik",
+      "df",
+      "correction",
+      "AIC",
+      "BIC",
+      "aBIC",
+      "entropy"
     )
-    ll_higher <- ll_2
-    df_higher <- df_2
-    c_higher <- c_2
-    aic_higher <- aic_2
-    bic_higher <- bic_2
-    abic_higher <- abic_2
-    entropy_higher <- entropy_2
+    rownames(model) <- c(
+      name_higher,
+      name_lower
+    )
+    test <- .ChiDiffScaled(
+      ll_higher = ll_higher,
+      df_higher = df_higher,
+      c_higher = c_higher,
+      ll_lower = ll_lower,
+      df_lower = df_lower,
+      c_lower = c_lower
+    )
+    out <- list(
+      fit = model,
+      test = test
+    )
   } else {
-    name_lower <- fun_name(
-      x = fun_2
+    stop(
+      paste0(
+        "Model estimation did not terminate normally.",
+        "\n",
+        "No results were saved."
+      )
     )
-    ll_lower <- ll_2
-    df_lower <- df_2
-    c_lower <- c_2
-    aic_lower <- aic_2
-    bic_lower <- bic_2
-    abic_lower <- abic_2
-    entropy_lower <- entropy_2
-    name_higher <- fun_name(
-      x = fun_1
-    )
-    ll_higher <- ll_1
-    df_higher <- df_1
-    c_higher <- c_1
-    aic_higher <- aic_1
-    bic_higher <- bic_1
-    abic_higher <- abic_1
-    entropy_higher <- entropy_1
   }
-  model <- rbind(
-    c(
-      ll_higher,
-      df_higher,
-      c_higher,
-      aic_higher,
-      bic_higher,
-      abic_higher,
-      entropy_higher
-    ),
-    c(
-      ll_lower,
-      df_lower,
-      c_lower,
-      aic_lower,
-      bic_lower,
-      abic_lower,
-      entropy_lower
-    )
-  )
-  colnames(model) <- c(
-    "logLik",
-    "df",
-    "correction",
-    "AIC",
-    "BIC",
-    "aBIC",
-    "entropy"
-  )
-  rownames(model) <- c(
-    name_higher,
-    name_lower
-  )
-  test <- .ChiDiffScaled(
-    ll_higher = ll_higher,
-    df_higher = df_higher,
-    c_higher = c_higher,
-    ll_lower = ll_lower,
-    df_lower = df_lower,
-    c_lower = c_lower
-  )
-  list(
-    fit = model,
-    test = test
-  )
+  out
 }

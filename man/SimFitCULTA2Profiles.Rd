@@ -11,7 +11,12 @@ SimFitCULTA2Profiles(
   seed,
   suffix,
   overwrite,
-  integrity
+  integrity,
+  mplus_bin,
+  starts,
+  stiterations,
+  stscale,
+  max_iter
 )
 }
 \arguments{
@@ -36,6 +41,25 @@ Overwrite existing output in \code{output_folder}.}
 \item{integrity}{Logical.
 If \code{integrity = TRUE},
 check for the output file integrity when \code{overwrite = FALSE}.}
+
+\item{mplus_bin}{Character string.
+Path to Mplus binary.
+If \code{mplus_bin = NULL},
+the function will try to find
+the appropriate binary.}
+
+\item{starts}{Vector of positive integer of length two.
+Number of initial stage starts
+and number of final stage optimizations.}
+
+\item{stiterations}{Positive integer.
+Number of initial stage iterations.}
+
+\item{stscale}{Positive integer.
+Random start scale.}
+
+\item{max_iter}{Positive integer.
+Maximum number of reruns.}
 }
 \value{
 The output is saved as an external file in \code{output_folder}.

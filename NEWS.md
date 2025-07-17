@@ -1,3 +1,13 @@
+# manCULTA 0.9.3
+
+## Docker Hub Tag
+
+* ijapesigan/manculta:
+
+## Code Changes
+
+* Added summary functions.
+
 # manCULTA 0.9.2
 
 ## Docker Hub Tag

@@ -116,16 +116,22 @@ InputCULTA1Profile <- function(data,
       what = "simculta"
     )
   )
+  model <- "cutsar"
   # directory
   new_wd <- .CreateFolder(
     x = normalizePath(
       path = wd,
       mustWork = FALSE
-    )
+    ),
+    prefix = model
   )
   # filenames
-  prefix <- .RandomFile()
-  fn_data <- "data.dat"
+  prefix <- .RandomFile(prefix = model)
+  fn_data <- paste0(
+    model,
+    "_",
+    "data.dat"
+  )
   fn_inp <- paste0(
     prefix,
     ".inp"

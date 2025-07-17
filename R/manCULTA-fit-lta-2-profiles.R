@@ -143,12 +143,16 @@ FitLTA2Profiles <- function(data,
       what = "simculta"
     )
   )
+  model <- "lta"
   # arguments
   args <- list(
     data = data,
     wd = wd,
     ncores = ncores,
     mplus_bin = mplus_bin,
+    starts = starts,
+    stiterations = stiterations,
+    stscale = stscale,
     p = data$args$p, # p items
     q = (3 * data$args$p) + 6, # q parameters
     params = .MPlusLTA2ProfileParams(data$args$p) # parameter names
@@ -162,7 +166,8 @@ FitLTA2Profiles <- function(data,
     x = normalizePath(
       path = wd,
       mustWork = FALSE
-    )
+    ),
+    prefix = model
   )
   on.exit(
     unlink(
@@ -173,8 +178,12 @@ FitLTA2Profiles <- function(data,
   )
   setwd(new_wd)
   # filenames
-  prefix <- .RandomFile()
-  fn_data <- "data.dat"
+  prefix <- .RandomFile(prefix = model)
+  fn_data <- paste0(
+    model,
+    "_",
+    "data.dat"
+  )
   fn_inp <- paste0(
     prefix,
     ".inp"
