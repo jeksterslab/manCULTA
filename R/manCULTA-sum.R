@@ -184,7 +184,7 @@ Sum <- function(taskid,
   fit$separation <- factor(
     x = fit$separation,
     levels = c(-1, 0, 1),
-    labels = c("Low", "Moderate", "High")
+    labels = c("LO", "MO", "HI")
   )
   fit_fn <- SimFN(
     output_type = "summary-fit",
@@ -276,7 +276,7 @@ Sum <- function(taskid,
   ltaparams$separation <- factor(
     x = ltaparams$separation,
     levels = c(-1, 0, 1),
-    labels = c("Low", "Moderate", "High")
+    labels = c("LO", "MO", "HI")
   )
   ltaparams_fn <- SimFN(
     output_type = "summary-ltaparams",
