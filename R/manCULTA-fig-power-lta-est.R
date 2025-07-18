@@ -102,14 +102,14 @@ FigPowerLTAEst <- function(results_lta_est) {
   results_lta_est$Separation <- results_lta_est$separation
   results_lta_est$Parameters <- as.integer(results_lta_est$parnames)
   results_lta_est$n_label <- paste0(
-    "n = ",
+    "N = ",
     results_lta_est$n
   )
   results_lta_est$n_label <- factor(
     results_lta_est$n_label,
     levels = c(
       paste0(
-        "n = ",
+        "N = ",
         sort(unique(results_lta_est$n))
       )
     )

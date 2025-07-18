@@ -38,7 +38,7 @@ FigEntropy <- function(results_entropy) {
       ~Separation
     ) +
     ggplot2::xlab(
-      "Sample Size"
+      "N"
     ) +
     ggplot2::ylab(
       "Entropy"

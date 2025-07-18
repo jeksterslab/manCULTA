@@ -21,8 +21,16 @@ library(manCULTA)
 ``` r
 data(results_entropy, package = "manCULTA")
 FigEntropy(results_entropy = results_entropy)
+#> `geom_line()`: Each group consists of only one observation.
+#> ℹ Do you need to adjust the group aesthetic?
 ```
 
 <img src="fig-vignettes-scatter-plots-entropy-vignette-1.png" width="3300" />
+
+
+```
+#> `geom_line()`: Each group consists of only one observation.
+#> ℹ Do you need to adjust the group aesthetic?
+```
 
 <img src="fig-vignettes-scatter-plots-entropy-manuscript-1.png" width="3300" />

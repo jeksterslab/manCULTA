@@ -38,7 +38,7 @@ FigIC <- function(results_ic) {
       Separation ~ IC
     ) +
     ggplot2::xlab(
-      "Sample Size"
+      "N"
     ) +
     ggplot2::ylab(
       "Information Criteria"

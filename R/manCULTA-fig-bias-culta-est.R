@@ -166,14 +166,14 @@ FigBiasCULTAEst <- function(results_culta_est) {
   results_culta_est$Separation <- results_culta_est$separation
   results_culta_est$Parameters <- as.integer(results_culta_est$parnames)
   results_culta_est$n_label <- paste0(
-    "n = ",
+    "N = ",
     results_culta_est$n
   )
   results_culta_est$n_label <- factor(
     results_culta_est$n_label,
     levels = c(
       paste0(
-        "n = ",
+        "N = ",
         sort(unique(results_culta_est$n))
       )
     )
