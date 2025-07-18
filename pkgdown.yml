@@ -4,6 +4,10 @@ pkgdown_sha: ~
 articles:
   containers: containers.html
   empirical-mplus: empirical-mplus.html
+  fig-culta: fig-culta.html
+  fig-entropy: fig-entropy.html
+  fig-ic: fig-ic.html
+  fig-lta: fig-lta.html
   manCULTA: manCULTA.html
   params: params.html
   session: session.html
@@ -13,7 +17,7 @@ articles:
   sim-lta-2-profiles: sim-lta-2-profiles.html
   sim-replication: sim-replication.html
   sim-rilta-2-profiles: sim-rilta-2-profiles.html
-last_built: 2025-07-17T22:16Z
+last_built: 2025-07-18T01:49Z
 urls:
   reference: https://github.com/jeksterslab/manCULTA/reference
   article: https://github.com/jeksterslab/manCULTA/articles
