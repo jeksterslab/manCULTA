@@ -1,0 +1,75 @@
+---
+title: "Scatter Plots - CULTA Estimates"
+author: "Ivan Jacob Agaloos Pesigan"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Scatter Plots - CULTA Estimates}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+#| include = FALSE
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  fig.path = "fig-vignettes-scatter-plots-culta-est-",
+  fig.cap = "",
+  fig.width = 11,
+  fig.height = 8,
+  fig.retina = 2,
+  dpi = 300,
+  comment = "#>",
+  dev = "ragg_png"
+)
+```
+
+```{r}
+library(manCULTA)
+```
+## Bias
+
+```{r, vignette-bias}
+#| fig.width = 8.5 / 1.5,
+#| fig.height = 11 / 2.5,
+data(results_culta_est, package = "manCULTA")
+FigBiasCULTAEst(results_culta_est = results_culta_est)
+```
+
+```{r, manuscript-bias}
+#| echo = FALSE,
+#| cache = FALSE
+data(results_culta_est, package = "manCULTA")
+FigBiasCULTAEst(results_culta_est = results_culta_est)
+```
+
+## Coverage
+
+```{r, vignette-coverage}
+#| fig.width = 8.5 / 1.5,
+#| fig.height = 11 / 2.5,
+data(results_culta_est, package = "manCULTA")
+FigCoverageCULTAEst(results_culta_est = results_culta_est)
+```
+
+```{r, manuscript-coverage}
+#| echo = FALSE,
+#| cache = FALSE
+data(results_culta_est, package = "manCULTA")
+FigCoverageCULTAEst(results_culta_est = results_culta_est)
+```
+
+## Power
+
+```{r, vignette-power}
+#| fig.width = 8.5 / 1.5,
+#| fig.height = 11 / 2.5,
+data(results_lta_est, package = "manCULTA")
+FigPowerCULTAEst(results_lta_est = results_lta_est)
+```
+
+```{r, manuscript-power}
+#| echo = FALSE,
+#| cache = FALSE
+data(FigPowerCULTAEst, package = "manCULTA")
+FigCoverageCULTAEst(results_lta_est = results_lta_est)
+```

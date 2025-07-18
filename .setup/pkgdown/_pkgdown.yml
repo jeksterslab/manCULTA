@@ -29,6 +29,9 @@ reference:
 - title: Data
   contents:
   - has_keyword("data")
+- title: Figures
+  contents:
+  - has_keyword("figure")
 - title: Methods
   contents:
   - has_keyword("methods")
@@ -60,6 +63,12 @@ articles:
 - title: Parameters
   contents:
   - params
+- title: Plots
+  contents:
+  - fig-ic
+  - fig-entropy
+  - fig-lta
+  - fig-culta
 - title: Containers
   contents:
   - containers

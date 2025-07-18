@@ -24,7 +24,8 @@ LinkingTo:
     Rcpp,
     RcppArmadillo
 Imports: 
-    Rcpp
+    Rcpp,
+    ggplot2
 Suggests:
     knitr,
     rmarkdown,

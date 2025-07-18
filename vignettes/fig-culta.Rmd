@@ -1,0 +1,55 @@
+---
+title: "Scatter Plots - CULTA Estimates"
+author: "Ivan Jacob Agaloos Pesigan"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Scatter Plots - CULTA Estimates}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+
+``` r
+library(manCULTA)
+```
+## Bias
+
+
+``` r
+data(results_culta_est, package = "manCULTA")
+FigBiasCULTAEst(results_culta_est = results_culta_est)
+```
+
+<img src="fig-vignettes-scatter-plots-culta-est-vignette-bias-1.png" width="1700" />
+
+<img src="fig-vignettes-scatter-plots-culta-est-manuscript-bias-1.png" width="3300" />
+
+## Coverage
+
+
+``` r
+data(results_culta_est, package = "manCULTA")
+FigCoverageCULTAEst(results_culta_est = results_culta_est)
+```
+
+<img src="fig-vignettes-scatter-plots-culta-est-vignette-coverage-1.png" width="1700" />
+
+<img src="fig-vignettes-scatter-plots-culta-est-manuscript-coverage-1.png" width="3300" />
+
+## Power
+
+
+``` r
+data(results_lta_est, package = "manCULTA")
+FigPowerCULTAEst(results_lta_est = results_lta_est)
+#> Error in FigPowerCULTAEst(results_lta_est = results_lta_est): unused argument (results_lta_est = results_lta_est)
+```
+
+
+```
+#> Warning in data(FigPowerCULTAEst, package = "manCULTA"): data set
+#> 'FigPowerCULTAEst' not found
+#> Error in FigCoverageCULTAEst(results_lta_est = results_lta_est): unused argument (results_lta_est = results_lta_est)
+```

@@ -1,0 +1,28 @@
+---
+title: "Scatter Plots - Information Criteria"
+author: "Ivan Jacob Agaloos Pesigan"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Scatter Plots - Information Criteria}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+
+``` r
+library(manCULTA)
+```
+
+## Average Information Criteria
+
+
+``` r
+data(results_ic, package = "manCULTA")
+FigIC(results_ic = results_ic)
+```
+
+<img src="fig-vignettes-scatter-plots-ic-vignette-1.png" width="1700" />
+
+<img src="fig-vignettes-scatter-plots-ic-manuscript-1.png" width="3300" />

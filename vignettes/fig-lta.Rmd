@@ -1,0 +1,57 @@
+---
+title: "Scatter Plots - LTA Estimates"
+author: "Ivan Jacob Agaloos Pesigan"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Scatter Plots - LTA Estimates}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+
+``` r
+library(manCULTA)
+```
+## Bias
+
+
+``` r
+data(results_lta_est, package = "manCULTA")
+FigBiasLTAEst(results_lta_est = results_lta_est)
+```
+
+<img src="fig-vignettes-scatter-plots-lta-est-vignette-bias-1.png" width="1700" />
+
+<img src="fig-vignettes-scatter-plots-lta-est-manuscript-bias-1.png" width="3300" />
+
+## Coverage
+
+
+``` r
+data(results_lta_est, package = "manCULTA")
+FigCoverageLTAEst(results_lta_est = results_lta_est)
+```
+
+<img src="fig-vignettes-scatter-plots-lta-est-vignette-coverage-1.png" width="1700" />
+
+<img src="fig-vignettes-scatter-plots-lta-est-manuscript-coverage-1.png" width="3300" />
+
+## Power
+
+
+``` r
+data(results_lta_est, package = "manCULTA")
+FigPowerLTAEst(results_lta_est = results_lta_est)
+```
+
+<img src="fig-vignettes-scatter-plots-lta-est-vignette-power-1.png" width="1700" />
+
+
+```
+#> Warning in data(FigPowerLTAEst, package = "manCULTA"): data set
+#> 'FigPowerLTAEst' not found
+```
+
+<img src="fig-vignettes-scatter-plots-lta-est-manuscript-power-1.png" width="3300" />

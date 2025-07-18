@@ -1,0 +1,28 @@
+---
+title: "Scatter Plots - Entropy"
+author: "Ivan Jacob Agaloos Pesigan"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Scatter Plots - Entropy}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+
+``` r
+library(manCULTA)
+```
+
+## Average Entropy
+
+
+``` r
+data(results_entropy, package = "manCULTA")
+FigEntropy(results_entropy = results_entropy)
+```
+
+<img src="fig-vignettes-scatter-plots-entropy-vignette-1.png" width="1700" />
+
+<img src="fig-vignettes-scatter-plots-entropy-manuscript-1.png" width="3300" />
