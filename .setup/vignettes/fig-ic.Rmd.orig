@@ -30,8 +30,6 @@ library(manCULTA)
 ## Average Information Criteria
 
 ```{r, vignette}
-#| fig.width = 8.5 / 1.5,
-#| fig.height = 11 / 2.5,
 data(results_ic, package = "manCULTA")
 FigIC(results_ic = results_ic)
 ```

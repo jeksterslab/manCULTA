@@ -73,7 +73,7 @@ data_process_results_lta_est <- function(overwrite = TRUE) {
     results_lta_est$bias <- results_lta_est$parameter - results_lta_est$est
     results_lta_est$separation <- factor(
       x = results_lta_est$separation,
-      levels = c("Low", "Moderate", "High")
+      levels = c("LO", "MO", "HI")
     )
     results_lta_est$parnames <- factor(
       x = results_lta_est$parnames,

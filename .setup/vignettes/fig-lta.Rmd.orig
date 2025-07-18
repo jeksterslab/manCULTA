@@ -29,8 +29,6 @@ library(manCULTA)
 ## Bias
 
 ```{r, vignette-bias}
-#| fig.width = 8.5 / 1.5,
-#| fig.height = 11 / 2.5,
 data(results_lta_est, package = "manCULTA")
 FigBiasLTAEst(results_lta_est = results_lta_est)
 ```
@@ -45,8 +43,6 @@ FigBiasLTAEst(results_lta_est = results_lta_est)
 ## Coverage
 
 ```{r, vignette-coverage}
-#| fig.width = 8.5 / 1.5,
-#| fig.height = 11 / 2.5,
 data(results_lta_est, package = "manCULTA")
 FigCoverageLTAEst(results_lta_est = results_lta_est)
 ```
@@ -61,8 +57,6 @@ FigCoverageLTAEst(results_lta_est = results_lta_est)
 ## Power
 
 ```{r, vignette-power}
-#| fig.width = 8.5 / 1.5,
-#| fig.height = 11 / 2.5,
 data(results_lta_est, package = "manCULTA")
 FigPowerLTAEst(results_lta_est = results_lta_est)
 ```
@@ -70,6 +64,6 @@ FigPowerLTAEst(results_lta_est = results_lta_est)
 ```{r, manuscript-power}
 #| echo = FALSE,
 #| cache = FALSE
-data(FigPowerLTAEst, package = "manCULTA")
+data(results_lta_est, package = "manCULTA")
 FigCoverageLTAEst(results_lta_est = results_lta_est)
 ```

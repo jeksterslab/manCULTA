@@ -23,6 +23,6 @@ data(results_entropy, package = "manCULTA")
 FigEntropy(results_entropy = results_entropy)
 ```
 
-<img src="fig-vignettes-scatter-plots-entropy-vignette-1.png" width="1700" />
+<img src="fig-vignettes-scatter-plots-entropy-vignette-1.png" width="3300" />
 
 <img src="fig-vignettes-scatter-plots-entropy-manuscript-1.png" width="3300" />

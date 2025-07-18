@@ -30,8 +30,6 @@ library(manCULTA)
 ## Average Entropy
 
 ```{r, vignette}
-#| fig.width = 8.5 / 1.5,
-#| fig.height = 11 / 2.5,
 data(results_entropy, package = "manCULTA")
 FigEntropy(results_entropy = results_entropy)
 ```

@@ -71,7 +71,7 @@ data_process_results_culta_est <- function(overwrite = TRUE) {
       culta$separation <- factor(
         x = culta$separation,
         levels = c(-1, 0, 1),
-        labels = c("Low", "Moderate", "High")
+        labels = c("LO", "MO", "HI")
       )
       culta
     }
@@ -87,7 +87,7 @@ data_process_results_culta_est <- function(overwrite = TRUE) {
     results_culta_est$bias <- results_culta_est$parameter - results_culta_est$est
     results_culta_est$separation <- factor(
       x = results_culta_est$separation,
-      levels = c("Low", "Moderate", "High")
+      levels = c("LO", "MO", "HI")
     )
     results_culta_est$parnames <- factor(
       x = results_culta_est$parnames,

@@ -144,19 +144,7 @@ FigPowerLTAEst <- function(results_lta_est) {
     ggplot2::ylab(
       "Bias"
     ) +
-    ggplot2::scale_x_continuous(
-      breaks = sort(
-        unique(results_lta_est$Parameters)
-      )
-    ) +
     ggplot2::theme_bw() +
-    ggplot2::theme(
-      axis.text.x = ggplot2::element_text(
-        angle = -90,
-        size = 8,
-        vjust = 0.5
-      )
-    ) +
     ggplot2::scale_color_brewer(palette = "Set1") +
     ggplot2::scale_shape()
 }

@@ -83,7 +83,7 @@ data_process_results_fit <- function(overwrite = TRUE) {
     results_ic$entropy <- NULL
     results_ic$separation <- factor(
       x = results_ic$separation,
-      levels = c("Low", "Moderate", "High")
+      levels = c("LO", "MO", "HI")
     )
     colnames(results_ic) <- c(
       "TaskID",
@@ -124,7 +124,7 @@ data_process_results_fit <- function(overwrite = TRUE) {
     results_entropy$abic <- NULL
     results_entropy$separation <- factor(
       x = results_entropy$separation,
-      levels = c("Low", "Moderate", "High")
+      levels = c("LO", "MO", "HI")
     )
     colnames(results_entropy) <- c(
       "TaskID",

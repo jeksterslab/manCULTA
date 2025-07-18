@@ -22,7 +22,7 @@ data(results_lta_est, package = "manCULTA")
 FigBiasLTAEst(results_lta_est = results_lta_est)
 ```
 
-<img src="fig-vignettes-scatter-plots-lta-est-vignette-bias-1.png" width="1700" />
+<img src="fig-vignettes-scatter-plots-lta-est-vignette-bias-1.png" width="3300" />
 
 <img src="fig-vignettes-scatter-plots-lta-est-manuscript-bias-1.png" width="3300" />
 
@@ -34,7 +34,7 @@ data(results_lta_est, package = "manCULTA")
 FigCoverageLTAEst(results_lta_est = results_lta_est)
 ```
 
-<img src="fig-vignettes-scatter-plots-lta-est-vignette-coverage-1.png" width="1700" />
+<img src="fig-vignettes-scatter-plots-lta-est-vignette-coverage-1.png" width="3300" />
 
 <img src="fig-vignettes-scatter-plots-lta-est-manuscript-coverage-1.png" width="3300" />
 
@@ -46,12 +46,6 @@ data(results_lta_est, package = "manCULTA")
 FigPowerLTAEst(results_lta_est = results_lta_est)
 ```
 
-<img src="fig-vignettes-scatter-plots-lta-est-vignette-power-1.png" width="1700" />
-
-
-```
-#> Warning in data(FigPowerLTAEst, package = "manCULTA"): data set
-#> 'FigPowerLTAEst' not found
-```
+<img src="fig-vignettes-scatter-plots-lta-est-vignette-power-1.png" width="3300" />
 
 <img src="fig-vignettes-scatter-plots-lta-est-manuscript-power-1.png" width="3300" />
