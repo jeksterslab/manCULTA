@@ -23,11 +23,11 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 Depends: R (>= 4.0.0)
 LinkingTo: Rcpp, RcppArmadillo
-Imports: Rcpp
+Imports: Rcpp, ggplot2
 Suggests: knitr, rmarkdown, testthat, lavaan
 RoxygenNote: 7.3.2
 NeedsCompilation: yes
-Packaged: 2025-07-17 22:16:45 UTC; root
+Packaged: 2025-07-18 01:49:51 UTC; root
 Author: Ivan Jacob Agaloos Pesigan [aut, cre, cph] (ORCID:
     <https://orcid.org/0000-0003-4818-8420>)
 Maintainer: Ivan Jacob Agaloos Pesigan <r.jeksterslab@gmail.com>
