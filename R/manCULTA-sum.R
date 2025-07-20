@@ -11,7 +11,8 @@ Sum <- function(taskid,
                 reps,
                 output_folder,
                 overwrite,
-                integrity) {
+                integrity,
+                ncores = 1L) {
   # Do not include default arguments here.
   # All arguments should be set in `.sim/sim-args.R.R`.
   # Add taskid to output_folder
@@ -39,56 +40,64 @@ Sum <- function(taskid,
     reps = reps,
     output_folder = output_folder,
     overwrite = overwrite,
-    integrity = integrity
+    integrity = integrity,
+    ncores = ncores
   )
   SumFitCULTA1Profile(
     taskid = taskid,
     reps = reps,
     output_folder = output_folder,
     overwrite = overwrite,
-    integrity = integrity
+    integrity = integrity,
+    ncores = ncores
   )
   SumFitLTA2Profiles(
     taskid = taskid,
     reps = reps,
     output_folder = output_folder,
     overwrite = overwrite,
-    integrity = integrity
+    integrity = integrity,
+    ncores = ncores
   )
   SumFitRILTA2Profiles(
     taskid = taskid,
     reps = reps,
     output_folder = output_folder,
     overwrite = overwrite,
-    integrity = integrity
+    integrity = integrity,
+    ncores = ncores
   )
   SumParamsCULTA2Profiles(
     taskid = taskid,
     reps = reps,
     output_folder = output_folder,
     overwrite = overwrite,
-    integrity = integrity
+    integrity = integrity,
+    ncores = ncores
   )
   SumLTAParamsCULTA2Profiles(
     taskid = taskid,
     reps = reps,
     output_folder = output_folder,
     overwrite = overwrite,
-    integrity = integrity
+    integrity = integrity,
+    ncores = ncores
   )
   SumLTAParamsLTA2Profiles(
     taskid = taskid,
     reps = reps,
     output_folder = output_folder,
     overwrite = overwrite,
-    integrity = integrity
+    integrity = integrity,
+    ncores = ncores
   )
   SumLTAParamsRILTA2Profiles(
     taskid = taskid,
     reps = reps,
     output_folder = output_folder,
     overwrite = overwrite,
-    integrity = integrity
+    integrity = integrity,
+    ncores = ncores
   )
   # save model fit results
   culta <- readRDS(
@@ -181,11 +190,6 @@ Sum <- function(taskid,
     "RILTA",
     "CULTA"
   )
-  fit$separation <- factor(
-    x = fit$separation,
-    levels = c(-1, 0, 1),
-    labels = c("LO", "MO", "HI")
-  )
   fit_fn <- SimFN(
     output_type = "summary-fit",
     output_folder = output_folder,
@@ -207,6 +211,7 @@ Sum <- function(taskid,
     file = fit_fn,
     compress = "xz"
   )
+  .SimChMod(fit_fn)
   # save lta param results
   culta <- readRDS(
     SimFN(
@@ -273,11 +278,6 @@ Sum <- function(taskid,
     rilta,
     culta
   )
-  ltaparams$separation <- factor(
-    x = ltaparams$separation,
-    levels = c(-1, 0, 1),
-    labels = c("LO", "MO", "HI")
-  )
   ltaparams_fn <- SimFN(
     output_type = "summary-ltaparams",
     output_folder = output_folder,
@@ -299,4 +299,5 @@ Sum <- function(taskid,
     file = ltaparams_fn,
     compress = "xz"
   )
+  .SimChMod(ltaparams_fn)
 }

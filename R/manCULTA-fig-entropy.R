@@ -17,6 +17,11 @@
 #' @export
 FigEntropy <- function(results_entropy) {
   N <- Entropy <- Model <- NULL
+  results_entropy$Separation <- factor(
+    x = results_entropy$Separation,
+    levels = c(-1, 0, 1),
+    labels = c("LO", "MO", "HI")
+  )
   ggplot2::ggplot(
     data = results_entropy,
     ggplot2::aes(

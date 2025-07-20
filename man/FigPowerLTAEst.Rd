@@ -109,7 +109,9 @@ Other Figure Functions:
 \code{\link{FigCoverageLTAEst}()},
 \code{\link{FigEntropy}()},
 \code{\link{FigIC}()},
-\code{\link{FigPowerCULTAEst}()}
+\code{\link{FigPowerCULTAEst}()},
+\code{\link{FigRMSECULTAEst}()},
+\code{\link{FigRMSELTAEst}()}
 }
 \author{
 Ivan Jacob Agaloos Pesigan

@@ -1,6 +1,6 @@
-#' Plot Statistical Power (LTA Estimates)
+#' Plot Root Mean Square Error (LTA Estimates)
 #'
-#' Plot statistical power for common LTA estimates.
+#' Plot root mean square error for common LTA estimates.
 #'
 #' @details The parameters are indexed as follows:
 #' \describe{
@@ -90,14 +90,15 @@
 #' @examples
 #' \dontrun{
 #' data(results_lta_est, package = "manCULTA")
-#' FigPowerLTAEst(results_lta_est)
+#' FigRMSELTAEst(results_lta_est)
 #' }
 #'
 #' @family Figure Functions
 #' @keywords manCULTA figure
 #' @export
-FigPowerLTAEst <- function(results_lta_est) {
-  Parameters <- power <- Model <- NULL
+FigRMSELTAEst <- function(results_lta_est) {
+  Parameters <- rmse <- Model <- NULL
+  results_lta_est$rmse <- sqrt(results_lta_est$sq_error)
   results_lta_est$Model <- results_lta_est$model
   results_lta_est$Separation <- factor(
     x = results_lta_est$separation,
@@ -122,7 +123,7 @@ FigPowerLTAEst <- function(results_lta_est) {
     data = results_lta_est,
     ggplot2::aes(
       x = Parameters,
-      y = power,
+      y = rmse,
       shape = Model,
       color = Model,
       group = Model,
@@ -130,7 +131,7 @@ FigPowerLTAEst <- function(results_lta_est) {
     )
   ) +
     ggplot2::geom_hline(
-      yintercept = 0.80,
+      yintercept = 0.0,
       alpha = 0.5
     ) +
     ggplot2::geom_point(
@@ -146,7 +147,7 @@ FigPowerLTAEst <- function(results_lta_est) {
       "Parameter No."
     ) +
     ggplot2::ylab(
-      "Statistical Power"
+      "RMSE"
     ) +
     ggplot2::theme_bw() +
     ggplot2::scale_color_brewer(palette = "Set1") +

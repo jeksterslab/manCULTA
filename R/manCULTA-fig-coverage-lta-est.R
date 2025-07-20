@@ -99,7 +99,11 @@
 FigCoverageLTAEst <- function(results_lta_est) {
   Parameters <- theta_hit <- Model <- NULL
   results_lta_est$Model <- results_lta_est$model
-  results_lta_est$Separation <- results_lta_est$separation
+  results_lta_est$Separation <- factor(
+    x = results_lta_est$separation,
+    levels = c(-1, 0, 1),
+    labels = c("LO", "MO", "HI")
+  )
   results_lta_est$Parameters <- as.integer(results_lta_est$parnames)
   results_lta_est$n_label <- paste0(
     "N = ",
@@ -156,7 +160,7 @@ FigCoverageLTAEst <- function(results_lta_est) {
       n_label ~ Separation
     ) +
     ggplot2::xlab(
-      "Parameters"
+      "Parameter No."
     ) +
     ggplot2::ylab(
       "Coverage Probability"

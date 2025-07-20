@@ -1,6 +1,6 @@
-#' Plot Statistical Power (CULTA Estimates)
+#' Plot Root Mean Square Error (CULTA Estimates)
 #'
-#' Plot statistical power for common CULTA estimates.
+#' Plot root mean square error for common CULTA estimates.
 #'
 #' @details The parameters are indexed as follows:
 #' \describe{
@@ -154,14 +154,15 @@
 #' @examples
 #' \dontrun{
 #' data(results_culta_est, package = "manCULTA")
-#' FigPowerCULTAEst(results_culta_est)
+#' FigRMSECULTAEst(results_culta_est)
 #' }
 #'
 #' @family Figure Functions
 #' @keywords manCULTA figure
 #' @export
-FigPowerCULTAEst <- function(results_culta_est) {
-  Parameters <- power <- Separation <- NULL
+FigRMSECULTAEst <- function(results_culta_est) {
+  Parameters <- rmse <- Separation <- NULL
+  results_culta_est$rmse <- sqrt(results_culta_est$sq_error)
   results_culta_est$Model <- results_culta_est$model
   results_culta_est$Separation <- factor(
     x = results_culta_est$separation,
@@ -186,7 +187,7 @@ FigPowerCULTAEst <- function(results_culta_est) {
     data = results_culta_est,
     ggplot2::aes(
       x = Parameters,
-      y = power,
+      y = rmse,
       shape = Separation,
       color = Separation,
       group = Separation,
@@ -194,25 +195,8 @@ FigPowerCULTAEst <- function(results_culta_est) {
     )
   ) +
     ggplot2::geom_hline(
-      yintercept = 0.95,
+      yintercept = 0.0,
       alpha = 0.5
-    ) +
-    ggplot2::geom_hline(
-      yintercept = 0.925,
-      alpha = 0.5
-    ) +
-    ggplot2::geom_hline(
-      yintercept = 0.975,
-      alpha = 0.5
-    ) +
-    ggplot2::annotate(
-      geom = "rect",
-      fill = "grey",
-      alpha = 0.50,
-      xmin = -Inf,
-      xmax = Inf,
-      ymin = 0.925,
-      ymax = 0.975
     ) +
     ggplot2::geom_point(
       na.rm = TRUE
@@ -227,7 +211,7 @@ FigPowerCULTAEst <- function(results_culta_est) {
       "Parameter No."
     ) +
     ggplot2::ylab(
-      "Statistical Power"
+      "RMSE"
     ) +
     ggplot2::theme_bw() +
     ggplot2::scale_color_brewer(palette = "Set1") +

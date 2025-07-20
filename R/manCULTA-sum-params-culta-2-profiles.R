@@ -14,7 +14,8 @@ SumParamsCULTA2Profiles <- function(taskid,
                                     reps,
                                     output_folder,
                                     overwrite,
-                                    integrity) {
+                                    integrity,
+                                    ncores = 1L) {
   # Do not include default arguments here.
   # Do not run on its own. Use the `Sum` function.
   fn_output <- SimFN(
@@ -126,7 +127,8 @@ SumParamsCULTA2Profiles <- function(taskid,
     i <- parallel::mclapply(
       X = seq_len(reps),
       FUN = replication,
-      taskid = taskid
+      taskid = taskid,
+      mc.cores = ncores
     )
     means <- (
       1 / reps
@@ -139,7 +141,8 @@ SumParamsCULTA2Profiles <- function(taskid,
       FUN = function(x, means) {
         (means - x)^2
       },
-      means = means
+      means = means,
+      mc.cores = ncores
     )
     vars <- (
       1 / (reps - 1)

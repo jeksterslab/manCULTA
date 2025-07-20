@@ -6,6 +6,8 @@
 #'   Output folder.
 #' @param output_type Character string.
 #'   Output type.
+#' @param ncores Positive integer.
+#'   Number of cores to use.
 #' @param suffix Character string.
 #'   Output of `manCULTA:::.SimSuffix()`.
 #' @param seed Integer.
