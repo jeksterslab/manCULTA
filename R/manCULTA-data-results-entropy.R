@@ -16,6 +16,9 @@
 #'   }
 #'   \item{Separation}{
 #'     Level of separation.
+#'     `0` for moderate,
+#'     `-1` for low, and
+#'     `1` for strong.
 #'   }
 #'   \item{Model}{
 #'     Fitted model.

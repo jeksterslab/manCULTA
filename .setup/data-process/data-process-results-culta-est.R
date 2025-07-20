@@ -1,4 +1,5 @@
-data_process_results_culta_est <- function(overwrite = TRUE) {
+data_process_results_culta_est <- function(overwrite = TRUE,
+                                           reps = 5L) {
   cat("\ndata_process_results_culta_est\n")
   set.seed(42)
   # find root directory
@@ -50,7 +51,6 @@ data_process_results_culta_est <- function(overwrite = TRUE) {
     }
   }
   if (write) {
-    reps <- 5L
     tasks <- 9L
     foo <- function(taskid,
                     reps) {
@@ -66,13 +66,10 @@ data_process_results_culta_est <- function(overwrite = TRUE) {
         )
       )
       culta <- readRDS(fn)
-      culta <- culta$means
-      culta$method <- "CULTA"
-      culta$separation <- factor(
-        x = culta$separation,
-        levels = c(-1, 0, 1),
-        labels = c("LO", "MO", "HI")
+      culta <- as.data.frame(
+        culta$means
       )
+      culta$method <- "CULTA"
       culta
     }
     results_culta_est <- lapply(
@@ -80,15 +77,13 @@ data_process_results_culta_est <- function(overwrite = TRUE) {
       FUN = foo,
       reps = reps
     )
-    results_culta_est <- do.call(
-      what = "rbind",
-      args = results_culta_est
+    results_culta_est <- as.data.frame(
+      do.call(
+        what = "rbind",
+        args = results_culta_est
+      )
     )
     results_culta_est$bias <- results_culta_est$parameter - results_culta_est$est
-    results_culta_est$separation <- factor(
-      x = results_culta_est$separation,
-      levels = c("LO", "MO", "HI")
-    )
     results_culta_est$parnames <- factor(
       x = results_culta_est$parnames,
       levels = c(

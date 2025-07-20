@@ -163,7 +163,11 @@
 FigPowerCULTAEst <- function(results_culta_est) {
   Parameters <- power <- Separation <- NULL
   results_culta_est$Model <- results_culta_est$model
-  results_culta_est$Separation <- results_culta_est$separation
+  results_culta_est$Separation <- factor(
+    x = results_culta_est$separation,
+    levels = c(-1, 0, 1),
+    labels = c("LO", "MO", "HI")
+  )
   results_culta_est$Parameters <- as.integer(results_culta_est$parnames)
   results_culta_est$n_label <- paste0(
     "N = ",
@@ -220,7 +224,7 @@ FigPowerCULTAEst <- function(results_culta_est) {
       ~n_label
     ) +
     ggplot2::xlab(
-      "Parameters"
+      "Parameter No."
     ) +
     ggplot2::ylab(
       "Statistical Power"

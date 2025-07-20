@@ -17,6 +17,11 @@
 #' @export
 FigIC <- function(results_ic) {
   N <- Value <- Model <- NULL
+  results_ic$Separation <- factor(
+    x = results_ic$Separation,
+    levels = c(-1, 0, 1),
+    labels = c("LO", "MO", "HI")
+  )
   ggplot2::ggplot(
     data = results_ic,
     ggplot2::aes(

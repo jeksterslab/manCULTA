@@ -1,4 +1,5 @@
-data_process_results_fit <- function(overwrite = TRUE) {
+data_process_results_fit <- function(overwrite = TRUE,
+                                     reps = 5L) {
   cat("\ndata_process_results_fit\n")
   set.seed(42)
   # find root directory
@@ -48,7 +49,6 @@ data_process_results_fit <- function(overwrite = TRUE) {
     }
   }
   if (write) {
-    reps <- 5L
     tasks <- 9L
     foo <- function(taskid,
                     reps) {
@@ -70,9 +70,11 @@ data_process_results_fit <- function(overwrite = TRUE) {
       FUN = foo,
       reps = reps
     )
-    results_fit <- do.call(
-      what = "rbind",
-      args = results_fit
+    results_fit <- as.data.frame(
+      do.call(
+        what = "rbind",
+        args = results_fit
+      )
     )
     results_ic <- results_fit
     results_entropy <- results_fit
@@ -81,10 +83,6 @@ data_process_results_fit <- function(overwrite = TRUE) {
     results_ic$df <- NULL
     results_ic$correction <- NULL
     results_ic$entropy <- NULL
-    results_ic$separation <- factor(
-      x = results_ic$separation,
-      levels = c("LO", "MO", "HI")
-    )
     colnames(results_ic) <- c(
       "TaskID",
       "N",
@@ -122,10 +120,6 @@ data_process_results_fit <- function(overwrite = TRUE) {
     results_entropy$aic <- NULL
     results_entropy$bic <- NULL
     results_entropy$abic <- NULL
-    results_entropy$separation <- factor(
-      x = results_entropy$separation,
-      levels = c("LO", "MO", "HI")
-    )
     colnames(results_entropy) <- c(
       "TaskID",
       "N",

@@ -28,42 +28,28 @@ library(manCULTA)
 ```
 ## Bias
 
-```{r, vignette-bias}
+```{r, bias}
 data(results_culta_est, package = "manCULTA")
 FigBiasCULTAEst(results_culta_est = results_culta_est)
 ```
 
-```{r, manuscript-bias}
-#| echo = FALSE,
-#| cache = FALSE
+## RMSE
+
+```{r, rmse}
 data(results_culta_est, package = "manCULTA")
-FigBiasCULTAEst(results_culta_est = results_culta_est)
+FigRMSECULTAEst(results_culta_est = results_culta_est)
 ```
 
 ## Coverage
 
-```{r, vignette-coverage}
-data(results_culta_est, package = "manCULTA")
-FigCoverageCULTAEst(results_culta_est = results_culta_est)
-```
-
-```{r, manuscript-coverage}
-#| echo = FALSE,
-#| cache = FALSE
+```{r, coverage}
 data(results_culta_est, package = "manCULTA")
 FigCoverageCULTAEst(results_culta_est = results_culta_est)
 ```
 
 ## Power
 
-```{r, vignette-power}
+```{r, power}
 data(results_culta_est, package = "manCULTA")
 FigPowerCULTAEst(results_culta_est = results_culta_est)
-```
-
-```{r, manuscript-power}
-#| echo = FALSE,
-#| cache = FALSE
-data(results_culta_est, package = "manCULTA")
-FigCoverageCULTAEst(results_culta_est = results_culta_est)
 ```

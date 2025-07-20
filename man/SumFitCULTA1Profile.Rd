@@ -4,7 +4,14 @@
 \alias{SumFitCULTA1Profile}
 \title{Summary (FitCULTA1Profile)}
 \usage{
-SumFitCULTA1Profile(taskid, reps, output_folder, overwrite, integrity)
+SumFitCULTA1Profile(
+  taskid,
+  reps,
+  output_folder,
+  overwrite,
+  integrity,
+  ncores = 1L
+)
 }
 \arguments{
 \item{taskid}{Positive integer.
@@ -22,6 +29,9 @@ Overwrite existing output in \code{output_folder}.}
 \item{integrity}{Logical.
 If \code{integrity = TRUE},
 check for the output file integrity when \code{overwrite = FALSE}.}
+
+\item{ncores}{Positive integer.
+Number of cores to use.}
 }
 \value{
 The output is saved as an external file in \code{output_folder}.

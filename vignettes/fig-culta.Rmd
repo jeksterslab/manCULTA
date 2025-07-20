@@ -22,9 +22,17 @@ data(results_culta_est, package = "manCULTA")
 FigBiasCULTAEst(results_culta_est = results_culta_est)
 ```
 
-<img src="fig-vignettes-scatter-plots-culta-est-vignette-bias-1.png" width="3300" />
+<img src="fig-vignettes-scatter-plots-culta-est-bias-1.png" width="3300" />
 
-<img src="fig-vignettes-scatter-plots-culta-est-manuscript-bias-1.png" width="3300" />
+## RMSE
+
+
+``` r
+data(results_culta_est, package = "manCULTA")
+FigRMSECULTAEst(results_culta_est = results_culta_est)
+```
+
+<img src="fig-vignettes-scatter-plots-culta-est-rmse-1.png" width="3300" />
 
 ## Coverage
 
@@ -34,9 +42,7 @@ data(results_culta_est, package = "manCULTA")
 FigCoverageCULTAEst(results_culta_est = results_culta_est)
 ```
 
-<img src="fig-vignettes-scatter-plots-culta-est-vignette-coverage-1.png" width="3300" />
-
-<img src="fig-vignettes-scatter-plots-culta-est-manuscript-coverage-1.png" width="3300" />
+<img src="fig-vignettes-scatter-plots-culta-est-coverage-1.png" width="3300" />
 
 ## Power
 
@@ -46,6 +52,4 @@ data(results_culta_est, package = "manCULTA")
 FigPowerCULTAEst(results_culta_est = results_culta_est)
 ```
 
-<img src="fig-vignettes-scatter-plots-culta-est-vignette-power-1.png" width="3300" />
-
-<img src="fig-vignettes-scatter-plots-culta-est-manuscript-power-1.png" width="3300" />
+<img src="fig-vignettes-scatter-plots-culta-est-power-1.png" width="3300" />

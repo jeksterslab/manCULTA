@@ -29,14 +29,7 @@ library(manCULTA)
 
 ## Average Information Criteria
 
-```{r, vignette}
-data(results_ic, package = "manCULTA")
-FigIC(results_ic = results_ic)
-```
-
-```{r, manuscript}
-#| echo = FALSE,
-#| cache = FALSE
+```{r}
 data(results_ic, package = "manCULTA")
 FigIC(results_ic = results_ic)
 ```

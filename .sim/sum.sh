@@ -16,5 +16,5 @@ SIF=/scratch/$USER/manCULTA/.sif/docs-mplus.sif
 
 # run
 
-cd ${PROJECT} || exit
+cd ${PROJECT}/.sim || exit
 apptainer exec ${SIF} Rscript sum.R

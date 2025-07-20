@@ -27,7 +27,9 @@ Other Figure Functions:
 \code{\link{FigCoverageLTAEst}()},
 \code{\link{FigIC}()},
 \code{\link{FigPowerCULTAEst}()},
-\code{\link{FigPowerLTAEst}()}
+\code{\link{FigPowerLTAEst}()},
+\code{\link{FigRMSECULTAEst}()},
+\code{\link{FigRMSELTAEst}()}
 }
 \author{
 Ivan Jacob Agaloos Pesigan

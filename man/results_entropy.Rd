@@ -16,6 +16,9 @@ Sample size.
 }
 \item{Separation}{
 Level of separation.
+\code{0} for moderate,
+\code{-1} for low, and
+\code{1} for strong.
 }
 \item{Model}{
 Fitted model.

@@ -21,5 +21,6 @@ lapply(
   reps = reps,
   output_folder = output_folder,
   overwrite = FALSE,
-  integrity = TRUE
+  integrity = TRUE,
+  ncores = parallel::detectCores()
 )

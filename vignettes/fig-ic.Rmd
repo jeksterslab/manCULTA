@@ -21,24 +21,6 @@ library(manCULTA)
 ``` r
 data(results_ic, package = "manCULTA")
 FigIC(results_ic = results_ic)
-#> `geom_line()`: Each group consists of only one observation.
-#> ℹ Do you need to adjust the group aesthetic?
-#> `geom_line()`: Each group consists of only one observation.
-#> ℹ Do you need to adjust the group aesthetic?
-#> `geom_line()`: Each group consists of only one observation.
-#> ℹ Do you need to adjust the group aesthetic?
 ```
 
-<img src="fig-vignettes-scatter-plots-ic-vignette-1.png" width="3300" />
-
-
-```
-#> `geom_line()`: Each group consists of only one observation.
-#> ℹ Do you need to adjust the group aesthetic?
-#> `geom_line()`: Each group consists of only one observation.
-#> ℹ Do you need to adjust the group aesthetic?
-#> `geom_line()`: Each group consists of only one observation.
-#> ℹ Do you need to adjust the group aesthetic?
-```
-
-<img src="fig-vignettes-scatter-plots-ic-manuscript-1.png" width="3300" />
+<img src="fig-vignettes-scatter-plots-ic-unnamed-chunk-3-1.png" width="3300" />

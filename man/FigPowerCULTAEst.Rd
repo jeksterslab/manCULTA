@@ -173,7 +173,9 @@ Other Figure Functions:
 \code{\link{FigCoverageLTAEst}()},
 \code{\link{FigEntropy}()},
 \code{\link{FigIC}()},
-\code{\link{FigPowerLTAEst}()}
+\code{\link{FigPowerLTAEst}()},
+\code{\link{FigRMSECULTAEst}()},
+\code{\link{FigRMSELTAEst}()}
 }
 \author{
 Ivan Jacob Agaloos Pesigan

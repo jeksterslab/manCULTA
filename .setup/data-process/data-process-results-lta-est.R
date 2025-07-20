@@ -1,4 +1,5 @@
-data_process_results_lta_est <- function(overwrite = TRUE) {
+data_process_results_lta_est <- function(overwrite = TRUE,
+                                         reps = 5L) {
   cat("\ndata_process_results_lta_est\n")
   set.seed(42)
   # find root directory
@@ -44,7 +45,6 @@ data_process_results_lta_est <- function(overwrite = TRUE) {
     }
   }
   if (write) {
-    reps <- 5L
     tasks <- 9L
     foo <- function(taskid,
                     reps) {
@@ -66,15 +66,13 @@ data_process_results_lta_est <- function(overwrite = TRUE) {
       FUN = foo,
       reps = reps
     )
-    results_lta_est <- do.call(
-      what = "rbind",
-      args = results_lta_est
+    results_lta_est <- as.data.frame(
+      do.call(
+        what = "rbind",
+        args = results_lta_est
+      )
     )
     results_lta_est$bias <- results_lta_est$parameter - results_lta_est$est
-    results_lta_est$separation <- factor(
-      x = results_lta_est$separation,
-      levels = c("LO", "MO", "HI")
-    )
     results_lta_est$parnames <- factor(
       x = results_lta_est$parnames,
       levels = c(

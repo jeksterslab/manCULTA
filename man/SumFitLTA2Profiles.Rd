@@ -4,7 +4,14 @@
 \alias{SumFitLTA2Profiles}
 \title{Summary (FitLTA2Profiles)}
 \usage{
-SumFitLTA2Profiles(taskid, reps, output_folder, overwrite, integrity)
+SumFitLTA2Profiles(
+  taskid,
+  reps,
+  output_folder,
+  overwrite,
+  integrity,
+  ncores = 1L
+)
 }
 \arguments{
 \item{taskid}{Positive integer.
@@ -22,6 +29,9 @@ Overwrite existing output in \code{output_folder}.}
 \item{integrity}{Logical.
 If \code{integrity = TRUE},
 check for the output file integrity when \code{overwrite = FALSE}.}
+
+\item{ncores}{Positive integer.
+Number of cores to use.}
 }
 \value{
 The output is saved as an external file in \code{output_folder}.

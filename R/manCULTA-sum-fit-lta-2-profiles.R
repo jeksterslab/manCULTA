@@ -14,7 +14,8 @@ SumFitLTA2Profiles <- function(taskid,
                                reps,
                                output_folder,
                                overwrite,
-                               integrity) {
+                               integrity,
+                               ncores = 1L) {
   # Do not include default arguments here.
   # Do not run on its own. Use the `Sum` function.
   fn_output <- SimFN(
@@ -83,7 +84,8 @@ SumFitLTA2Profiles <- function(taskid,
     i <- parallel::mclapply(
       X = seq_len(reps),
       FUN = replication,
-      taskid = taskid
+      taskid = taskid,
+      mc.cores = ncores
     )
     i <- do.call(
       what = "rbind",
