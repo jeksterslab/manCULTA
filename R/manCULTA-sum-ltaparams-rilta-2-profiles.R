@@ -53,7 +53,9 @@ SumLTAParamsRILTA2Profiles <- function(taskid,
       )
       raw <- as.data.frame(
         summary(
-          readRDS(fn_input)
+          object = readRDS(fn_input),
+          alpha = 0.05,
+          digits = NULL
         )
       )
       raw <- raw[
