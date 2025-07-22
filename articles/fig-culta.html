@@ -73,6 +73,9 @@ Agaloos Pesigan</h4>
 <div class="section level2">
 <h2 id="bias">Bias<a class="anchor" aria-label="anchor" href="#bias"></a>
 </h2>
+<p>Bias is computed as the difference between the population parameter
+and the mean of the parameter estimates obtained from the
+simulation.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">results_culta_est</span>, package <span class="op">=</span> <span class="st">"manCULTA"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/FigBiasCULTAEst.html">FigBiasCULTAEst</a></span><span class="op">(</span>results_culta_est <span class="op">=</span> <span class="va">results_culta_est</span><span class="op">)</span></span></code></pre></div>
@@ -81,6 +84,9 @@ Agaloos Pesigan</h4>
 <div class="section level2">
 <h2 id="rmse">RMSE<a class="anchor" aria-label="anchor" href="#rmse"></a>
 </h2>
+<p>Root mean square error (RMSE) is the square root of the average
+squared difference between the simulation estimates and the population
+parameter.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">results_culta_est</span>, package <span class="op">=</span> <span class="st">"manCULTA"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/FigRMSECULTAEst.html">FigRMSECULTAEst</a></span><span class="op">(</span>results_culta_est <span class="op">=</span> <span class="va">results_culta_est</span><span class="op">)</span></span></code></pre></div>
@@ -89,6 +95,8 @@ Agaloos Pesigan</h4>
 <div class="section level2">
 <h2 id="coverage">Coverage<a class="anchor" aria-label="anchor" href="#coverage"></a>
 </h2>
+<p>Coverage probability is the proportion of simulation replications in
+which the confidence interval contains the population parameter.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">results_culta_est</span>, package <span class="op">=</span> <span class="st">"manCULTA"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/FigCoverageCULTAEst.html">FigCoverageCULTAEst</a></span><span class="op">(</span>results_culta_est <span class="op">=</span> <span class="va">results_culta_est</span><span class="op">)</span></span></code></pre></div>
@@ -97,10 +105,129 @@ Agaloos Pesigan</h4>
 <div class="section level2">
 <h2 id="power">Power<a class="anchor" aria-label="anchor" href="#power"></a>
 </h2>
+<p>Statistical power is the proportion of simulation replications in
+which the null hypothesis was correctly rejected.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">results_culta_est</span>, package <span class="op">=</span> <span class="st">"manCULTA"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/FigPowerCULTAEst.html">FigPowerCULTAEst</a></span><span class="op">(</span>results_culta_est <span class="op">=</span> <span class="va">results_culta_est</span><span class="op">)</span></span></code></pre></div>
 <p><img src="fig-vignettes-scatter-plots-culta-est-power-1.png" width="3300"></p>
+</div>
+<div class="section level2">
+<h2 id="parameters">Parameters<a class="anchor" aria-label="anchor" href="#parameters"></a>
+</h2>
+<p>The parameters are indexed as follows:</p>
+<ol style="list-style-type: decimal">
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ψ</mi><mi>T</mi></msub><annotation encoding="application/x-tex">\psi_{T}</annotation></semantics></math>
+parameter.<br>
+Variance in the common trait; reflects stable between-person
+differences.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>λ</mi><mrow><mi>t</mi><mn>2</mn></mrow></msub><annotation encoding="application/x-tex">\lambda_{t2}</annotation></semantics></math>
+parameter.<br>
+Factor loading for the common trait and item 2.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>λ</mi><mrow><mi>t</mi><mn>3</mn></mrow></msub><annotation encoding="application/x-tex">\lambda_{t3}</annotation></semantics></math>
+parameter.<br>
+Factor loading for the common trait and item 3.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>λ</mi><mrow><mi>t</mi><mn>4</mn></mrow></msub><annotation encoding="application/x-tex">\lambda_{t4}</annotation></semantics></math>
+parameter.<br>
+Factor loading for the common trait and item 4.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ψ</mi><mrow><mi>p</mi><mn>11</mn></mrow></msub><annotation encoding="application/x-tex">\psi_{p11}</annotation></semantics></math>
+parameter.<br>
+Trait-specific item 1 variance.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ψ</mi><mrow><mi>p</mi><mn>22</mn></mrow></msub><annotation encoding="application/x-tex">\psi_{p22}</annotation></semantics></math>
+parameter.<br>
+Trait-specific item 2 variance.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ψ</mi><mrow><mi>p</mi><mn>33</mn></mrow></msub><annotation encoding="application/x-tex">\psi_{p33}</annotation></semantics></math>
+parameter.<br>
+Trait-specific item 3 variance.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ψ</mi><mrow><mi>p</mi><mn>44</mn></mrow></msub><annotation encoding="application/x-tex">\psi_{p44}</annotation></semantics></math>
+parameter.<br>
+Trait-specific item 4 variance.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ψ</mi><mrow><mi>s</mi><mn>0</mn></mrow></msub><annotation encoding="application/x-tex">\psi_{s0}</annotation></semantics></math>
+parameter.<br>
+Initial-day variance of the common state; reflects variability in
+intoxication levels at observation start.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ψ</mi><mi>s</mi></msub><annotation encoding="application/x-tex">\psi_{s}</annotation></semantics></math>
+parameter.<br>
+Residual state variance over days; captures within-person daily
+fluctuations not explained by trait or AR effects.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>λ</mi><mrow><mi>s</mi><mn>2</mn></mrow></msub><annotation encoding="application/x-tex">\lambda_{s2}</annotation></semantics></math>
+parameter.<br>
+Factor loading for the common state and item 2.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>λ</mi><mrow><mi>s</mi><mn>3</mn></mrow></msub><annotation encoding="application/x-tex">\lambda_{s3}</annotation></semantics></math>
+parameter.<br>
+Factor loading for the common state and item 3.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>λ</mi><mrow><mi>s</mi><mn>4</mn></mrow></msub><annotation encoding="application/x-tex">\lambda_{s4}</annotation></semantics></math>
+parameter.<br>
+Factor loading for the common state and item 4.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mn>11</mn></msub><annotation encoding="application/x-tex">\theta_{11}</annotation></semantics></math>
+parameter.<br>
+Unique state variance for item 1.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mn>22</mn></msub><annotation encoding="application/x-tex">\theta_{22}</annotation></semantics></math>
+parameter.<br>
+Unique state variance for item 2.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mn>33</mn></msub><annotation encoding="application/x-tex">\theta_{33}</annotation></semantics></math>
+parameter.<br>
+Unique state variance for item 3.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mn>44</mn></msub><annotation encoding="application/x-tex">\theta_{44}</annotation></semantics></math>
+parameter.<br>
+Unique state variance for item 4.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ν</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\nu_{0}</annotation></semantics></math>
+parameter.<br>
+Intercept for initial log-odds of profile 0 (vs. profile 1) when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">X = 0</annotation></semantics></math>.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>κ</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\kappa_{0}</annotation></semantics></math>
+parameter.<br>
+Covariate effect on initial profile membership; higher
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
+increases odds of profile 0.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>α</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\alpha_{0}</annotation></semantics></math>
+parameter.<br>
+Baseline log-odds of being in profile 0 across days.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mn>00</mn></msub><annotation encoding="application/x-tex">\beta_{00}</annotation></semantics></math>
+parameter.<br>
+Increased odds of staying in profile 0 if previously in that profile;
+reflects persistence.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>γ</mi><mn>00</mn></msub><annotation encoding="application/x-tex">\gamma_{00}</annotation></semantics></math>
+parameter.<br>
+Covariate effect on staying in profile 0; higher
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
+increases persistence.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>γ</mi><mn>10</mn></msub><annotation encoding="application/x-tex">\gamma_{10}</annotation></semantics></math>
+parameter.<br>
+Covariate effect on switching from state to profile 0; higher
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math>
+increases transition odds.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mn>10</mn></msub><annotation encoding="application/x-tex">\mu_{10}</annotation></semantics></math>
+parameter.<br>
+Profile specific mean for profile 0 and item 1.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mn>20</mn></msub><annotation encoding="application/x-tex">\mu_{20}</annotation></semantics></math>
+parameter.<br>
+Profile specific mean for profile 0 and item 2.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mn>30</mn></msub><annotation encoding="application/x-tex">\mu_{30}</annotation></semantics></math>
+parameter.<br>
+Profile specific mean for profile 0 and item 3.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mn>40</mn></msub><annotation encoding="application/x-tex">\mu_{40}</annotation></semantics></math>
+parameter.<br>
+Profile specific mean for profile 0 and item 4.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mn>11</mn></msub><annotation encoding="application/x-tex">\mu_{11}</annotation></semantics></math>
+parameter.<br>
+Profile specific mean for profile 1 and item 1.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mn>21</mn></msub><annotation encoding="application/x-tex">\mu_{21}</annotation></semantics></math>
+parameter.<br>
+Profile specific mean for profile 1 and item 2.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mn>31</mn></msub><annotation encoding="application/x-tex">\mu_{31}</annotation></semantics></math>
+parameter.<br>
+Profile specific mean for profile 1 and item 3.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mn>41</mn></msub><annotation encoding="application/x-tex">\mu_{41}</annotation></semantics></math>
+parameter.<br>
+Profile specific mean for profile 1 and item 4.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ϕ</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\phi_{0}</annotation></semantics></math>
+parameter.<br>
+Autoregressive coefficient for profile 0.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ϕ</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\phi_{1}</annotation></semantics></math>
+parameter.<br>
+Autoregressive coefficient for profile 1.</p></li>
+</ol>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
