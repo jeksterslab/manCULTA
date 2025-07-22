@@ -36,12 +36,3 @@ DT::datatable(
   )
 )
 ```
-
-```{r}
-#| include = FALSE
-library(printr)
-```
-
-```{r}
-?params
-```

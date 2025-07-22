@@ -1,8 +1,10 @@
 #' Plot Coverage Probabilities (CULTA Estimates)
 #'
-#' Plot coverage probabilities for common CULTA estimates.
+#' Plot coverage probabilities for CULTA estimates.
 #'
-#' @details The parameters are indexed as follows:
+#' @details Coverage probability is the proportion of simulation replications
+#' in which the confidence interval contains the population parameter.
+#' The parameters are indexed as follows:
 #' \describe{
 #'   \item{1}{
 #'     \eqn{\psi_{T}} parameter.

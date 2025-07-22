@@ -10,9 +10,11 @@ FigPowerCULTAEst(results_culta_est)
 \item{results_culta_est}{Summary CULTA estimates results data frame.}
 }
 \description{
-Plot statistical power for common CULTA estimates.
+Plot statistical power for CULTA estimates.
 }
 \details{
+Statistical power is the proportion of simulation replications
+in which the null hypothesis was correctly rejected.
 The parameters are indexed as follows:
 \describe{
 \item{1}{

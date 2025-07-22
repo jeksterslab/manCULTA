@@ -354,7 +354,7 @@ The RILTA model was estimated using the following `Mplus` script.
 #| size = "small"
 cat(
   paste(
-    lta$output$input,
+    rilta$output$input,
     collapse = "\n"
   )
 )

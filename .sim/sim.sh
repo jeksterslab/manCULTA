@@ -25,11 +25,25 @@ trap 'rm -rf -- "$PARALLEL_TMP_FOLDER"' EXIT
 echo "PARALLEL_TMP_FOLDER is $PARALLEL_TMP_FOLDER"
 # ------------------------------------------------------------------------------
 
-# script -----------------------------------------------------------------------
+# indices ----------------------------------------------------------------------
 repid_start=1
 repid_end=1000
+
 taskid_start=1
 taskid_end=9
+
+# script -----------------------------------------------------------------------
+cd /scratch/$USER/${PROJECT} || exit
+
+# Define ranges manually
+JOBLIST="${PARALLEL_TMP_FOLDER}/joblist.txt"
+touch "$JOBLIST"
+
+for repid in $(seq $repid_start $repid_end); do
+    for taskid in $(seq $taskid_start $taskid_end); do
+        echo "$repid $taskid" >> "$JOBLIST"
+    done
+done
 
 cmd="apptainer exec \
      --bind /scratch/\$USER/${PROJECT}:/scratch/\$USER/${PROJECT} \
@@ -37,16 +51,8 @@ cmd="apptainer exec \
      Rscript /scratch/\$USER/${PROJECT}/.sim/sim.R {1} {2}; \
      echo sim taskid \$(printf \"%05d\" {2}) repid \$(printf \"%05d\" {1}) date \$(date '+%Y-%m-%d %H:%M:%S')"
 
-cd /scratch/$USER/${PROJECT} || exit
-
 parallel --tmpdir "$PARALLEL_TMP_FOLDER" \
-    --colsep ' ' "$cmd" :::: <(
-    for repid in $(seq $repid_start $repid_end); do
-        for taskid in $(seq $taskid_start $taskid_end); do
-            echo "$repid $taskid"
-        done
-    done
-)
+    --colsep ' ' "$cmd" :::: "$JOBLIST"
 # ------------------------------------------------------------------------------
 
 # done -------------------------------------------------------------------------
