@@ -2,7 +2,7 @@
 
 ## Docker Hub Tag
 
-* ijapesigan/manculta:2025-07-18-03424476
+* ijapesigan/manculta:2025-07-20-23594948
 
 ## Code Changes
 

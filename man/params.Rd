@@ -16,8 +16,8 @@ Sample size.
 }
 \item{separation}{
 Level of separation.
-\code{0} for moderate,
-\code{-1} for low, and
+\code{-1} for low,
+\code{0} for moderate, and
 \code{1} for strong.
 }
 \item{m}{

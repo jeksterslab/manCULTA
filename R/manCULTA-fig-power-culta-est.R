@@ -1,8 +1,10 @@
 #' Plot Statistical Power (CULTA Estimates)
 #'
-#' Plot statistical power for common CULTA estimates.
+#' Plot statistical power for CULTA estimates.
 #'
-#' @details The parameters are indexed as follows:
+#' @details Statistical power is the proportion of simulation replications
+#' in which the null hypothesis was correctly rejected.
+#' The parameters are indexed as follows:
 #' \describe{
 #'   \item{1}{
 #'     \eqn{\psi_{T}} parameter.

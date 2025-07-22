@@ -2,6 +2,11 @@
 #'
 #' Plot bias for common CULTA estimates.
 #'
+#' @details Bias is computed as the difference between
+#' the population parameter
+#' and the mean of the parameter estimates
+#' obtained from the simulation.
+#'
 #' @details The parameters are indexed as follows:
 #' \describe{
 #'   \item{1}{

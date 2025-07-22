@@ -10,9 +10,13 @@ FigRMSECULTAEst(results_culta_est)
 \item{results_culta_est}{Summary CULTA estimates results data frame.}
 }
 \description{
-Plot root mean square error for common CULTA estimates.
+Plot root mean square error for CULTA estimates.
 }
 \details{
+Root mean square error (RMSE)
+is the square root of the average squared
+difference between the simulation estimates
+and the population parameter.
 The parameters are indexed as follows:
 \describe{
 \item{1}{

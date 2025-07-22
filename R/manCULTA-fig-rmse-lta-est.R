@@ -2,7 +2,11 @@
 #'
 #' Plot root mean square error for common LTA estimates.
 #'
-#' @details The parameters are indexed as follows:
+#' @details Root mean square error (RMSE)
+#' is the square root of the average squared
+#' difference between the simulation estimates
+#' and the population parameter.
+#' The parameters are indexed as follows:
 #' \describe{
 #'   \item{1}{
 #'     \eqn{\theta_{11}} parameter.
