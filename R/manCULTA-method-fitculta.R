@@ -545,16 +545,19 @@ summary.fitculta <- function(object,
       cat("Call:\n")
       base::print(object$call)
     }
-    out <- round(
-      .CIWald(
-        est = est,
-        se = se,
-        theta = 0,
-        alpha = alpha,
-        z = TRUE
-      ),
-      digits = digits
+    out <- .CIWald(
+      est = est,
+      se = se,
+      theta = 0,
+      alpha = alpha,
+      z = TRUE
     )
+    if (!is.null(digits)) {
+      out <- round(
+        x = out,
+        digits = digits
+      )
+    }
   } else {
     stop(
       paste0(
