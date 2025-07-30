@@ -4,7 +4,13 @@
 \alias{FitCULTA1Profile}
 \title{Fit the One-Profile CULTA Model (CUTS Model with AR)}
 \usage{
-FitCULTA1Profile(data, wd = ".", mplus_bin = NULL, starts = 10)
+FitCULTA1Profile(
+  data,
+  wd = ".",
+  mplus_bin = NULL,
+  starts = 10,
+  starting_values = NULL
+)
 }
 \arguments{
 \item{data}{R object.
@@ -21,6 +27,8 @@ the appropriate binary.}
 
 \item{starts}{Positive integer.
 Number of initial stage starting values.}
+
+\item{starting_values}{Optional list of starting values.}
 }
 \value{
 Returns an object of class \code{fitculta}.

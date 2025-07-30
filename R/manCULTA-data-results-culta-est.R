@@ -5,7 +5,7 @@
 #' @docType data
 #' @name results_culta_est
 #' @usage data(results_culta_est)
-#' @format A dataframe with 486 rows and 20 columns:
+#' @format A dataframe with 165 rows and 22 columns:
 #'
 #' \describe{
 #'   \item{taskid}{
@@ -22,12 +22,6 @@
 #'   }
 #'   \item{model}{
 #'     Fitted model.
-#'   }
-#'   \item{separation}{
-#'     Level of separation.
-#'     `-1` for low,
-#'     `0` for moderate, and
-#'     `1` for strong.
 #'   }
 #'   \item{n}{
 #'     Sample size.
@@ -61,17 +55,26 @@
 #'   \item{sq_error}{
 #'     Mean squared error.
 #'   }
+#'   \item{bias}{
+#'     Bias.
+#'   }
+#'   \item{rel_bias}{
+#'     Relative bias.
+#'   }
 #'   \item{se_bias}{
 #'     Bias in standard error estimate.
+#'   }
+#'   \item{rel_se_bias}{
+#'     Relative bias in standard error estimate.
+#'   }
+#'   \item{rmse}{
+#'     Root mean square error.
 #'   }
 #'   \item{coverage}{
 #'     Coverage probability.
 #'   }
 #'   \item{power}{
 #'     Statistical power.
-#'   }
-#'   \item{bias}{
-#'     Bias.
 #'   }
 #' }
 #'

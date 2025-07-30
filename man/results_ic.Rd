@@ -5,7 +5,7 @@
 \alias{results_ic}
 \title{Simulation Results (Information Criteria)}
 \format{
-A dataframe with 108 rows and 6 columns:
+A dataframe with 60 rows and 5 columns:
 
 \describe{
 \item{TaskID}{
@@ -13,12 +13,6 @@ Simulation Task ID.
 }
 \item{N}{
 Sample size.
-}
-\item{Separation}{
-Level of separation.
-\code{-1} for low,
-\code{0} for moderate, and
-\code{1} for strong.
 }
 \item{Model}{
 Fitted model.

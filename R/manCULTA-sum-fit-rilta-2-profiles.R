@@ -61,7 +61,6 @@ SumFitRILTA2Profiles <- function(taskid,
       entropy <- entropy(object)
       param <- params[taskid, ]
       n <- param$n
-      separation <- param$separation
       method <- 2
       # 0 culta-2-profiles
       # 1 lta-2-profiles
@@ -70,7 +69,6 @@ SumFitRILTA2Profiles <- function(taskid,
       c(
         taskid = taskid,
         n = n,
-        separation = separation,
         method = method,
         ll = ll,
         df = df,

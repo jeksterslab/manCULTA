@@ -60,7 +60,6 @@ SumParamsCULTA2Profiles <- function(taskid,
       )
       param <- params[taskid, ]
       n <- param$n
-      separation <- param$separation
       parameter <- c(
         param$mu_10,
         param$mu_20,
@@ -116,13 +115,17 @@ SumParamsCULTA2Profiles <- function(taskid,
             parameter <= raw[["97.5%"]]
           )
         ),
-        sq_error = (parameter - raw$est)^2
+        sq_error = (raw$est - parameter)^2,
+        bias = raw$est - parameter,
+        rel_bias = .SimRelBias(
+          thetahat = raw$est,
+          theta = parameter
+        )
       )
       attr(df, "taskid") <- taskid
       attr(df, "n") <- n
       attr(df, "parnames") <- rownames(raw)
       attr(df, "parameter") <- parameter
-      attr(df, "separation") <- separation
       attr(df, "method") <- "culta-2-profiles"
       df
     }
@@ -159,7 +162,6 @@ SumParamsCULTA2Profiles <- function(taskid,
       parnames = attr(i[[1]], "parnames"),
       parameter = attr(i[[1]], "parameter"),
       method = attr(i[[1]], "method"),
-      separation = attr(i[[1]], "separation"),
       n = attr(i[[1]], "n"),
       est = means$est,
       se = means$se,
@@ -170,7 +172,9 @@ SumParamsCULTA2Profiles <- function(taskid,
       sig = means$sig,
       zero_hit = means$zero_hit,
       theta_hit = means$theta_hit,
-      sq_error = means$sq_error
+      sq_error = means$sq_error,
+      bias = means$bias,
+      rel_bias = means$rel_bias
     )
     vars <- data.frame(
       taskid = attr(i[[1]], "taskid"),
@@ -178,7 +182,6 @@ SumParamsCULTA2Profiles <- function(taskid,
       parnames = attr(i[[1]], "parnames"),
       parameter = attr(i[[1]], "parameter"),
       method = attr(i[[1]], "method"),
-      separation = attr(i[[1]], "separation"),
       n = attr(i[[1]], "n"),
       est = vars$est,
       se = vars$se,
@@ -189,7 +192,9 @@ SumParamsCULTA2Profiles <- function(taskid,
       sig = vars$sig,
       zero_hit = vars$zero_hit,
       theta_hit = vars$theta_hit,
-      sq_error = vars$sq_error
+      sq_error = vars$sq_error,
+      bias = vars$bias,
+      rel_bias = vars$rel_bias
     )
     sds <- data.frame(
       taskid = attr(i[[1]], "taskid"),
@@ -197,7 +202,6 @@ SumParamsCULTA2Profiles <- function(taskid,
       parnames = attr(i[[1]], "parnames"),
       parameter = attr(i[[1]], "parameter"),
       method = attr(i[[1]], "method"),
-      separation = attr(i[[1]], "separation"),
       n = attr(i[[1]], "n"),
       est = sds$est,
       se = sds$se,
@@ -208,9 +212,13 @@ SumParamsCULTA2Profiles <- function(taskid,
       sig = sds$sig,
       zero_hit = sds$zero_hit,
       theta_hit = sds$theta_hit,
-      sq_error = sds$sq_error
+      sq_error = sds$sq_error,
+      bias = sds$bias,
+      rel_bias = sds$rel_bias
     )
-    means$se_bias <- sds$est - means$se
+    means$se_bias <- means$se - sds$est
+    means$rel_se_bias <- (means$se - sds$est) / sds$est
+    means$rmse <- sqrt(means$sq_error)
     means$coverage <- means$theta_hit
     means$power <- 1 - means$zero_hit
     output <- list(

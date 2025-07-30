@@ -112,7 +112,8 @@ InputCULTA2Profiles <- function(data,
                                 ncores = 1L,
                                 starts = c(20, 4),
                                 stiterations = 10,
-                                stscale = 5) {
+                                stscale = 5,
+                                starting_values = NULL) {
   stopifnot(
     inherits(
       x = data,
@@ -173,26 +174,65 @@ InputCULTA2Profiles <- function(data,
     )
   )
   # input
-  writeLines(
-    text = .MplusCULTA2Profiles(
-      p = data$args$p,
-      m = data$args$m,
-      fn_data = fn_data,
-      fn_estimates = fn_estimates,
-      fn_results = fn_results,
-      fn_tech3 = fn_tech3,
-      fn_tech4 = fn_tech4,
-      fn_cprobs = fn_cprobs,
-      ncores = as.integer(ncores),
-      starts = starts,
-      stiterations = stiterations,
-      stscale = stscale
-    ),
-    con = file.path(
-      new_wd,
-      fn_inp
+  if (is.null(starting_values)) {
+    writeLines(
+      text = .MplusCULTA2Profiles(
+        p = data$args$p,
+        m = data$args$m,
+        fn_data = fn_data,
+        fn_estimates = fn_estimates,
+        fn_results = fn_results,
+        fn_tech3 = fn_tech3,
+        fn_tech4 = fn_tech4,
+        fn_cprobs = fn_cprobs,
+        ncores = as.integer(ncores),
+        starts = starts,
+        stiterations = stiterations,
+        stscale = stscale
+      ),
+      con = file.path(
+        new_wd,
+        fn_inp
+      )
     )
-  )
+  } else {
+    writeLines(
+      text = .MplusStartsCULTA2Profiles(
+        p = data$args$p,
+        m = data$args$m,
+        fn_data = fn_data,
+        fn_estimates = fn_estimates,
+        fn_results = fn_results,
+        fn_tech3 = fn_tech3,
+        fn_tech4 = fn_tech4,
+        fn_cprobs = fn_cprobs,
+        ncores = as.integer(ncores),
+        starts = starts,
+        stiterations = stiterations,
+        stscale = stscale,
+        nu_0 = starting_values$nu_0,
+        kappa_0 = starting_values$kappa_0,
+        alpha_0 = starting_values$alpha_0,
+        beta_00 = starting_values$beta_00,
+        gamma_00 = starting_values$gamma_00,
+        gamma_10 = starting_values$gamma_10,
+        psi_t = starting_values$psi_t,
+        psi_p = starting_values$psi_p,
+        common_trait_loading = starting_values$common_trait_loading,
+        common_state_loading = starting_values$common_state_loading,
+        phi_0 = starting_values$phi_0,
+        phi_1 = starting_values$phi_1,
+        psi_s0 = starting_values$psi_s0,
+        psi_s = starting_values$psi_s,
+        theta = starting_values$theta,
+        mu_profile = starting_values$mu_profile
+      ),
+      con = file.path(
+        new_wd,
+        fn_inp
+      )
+    )
+  }
   message(
     paste0(
       "Check data and Mplus input files in",

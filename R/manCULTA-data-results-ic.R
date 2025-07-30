@@ -5,7 +5,7 @@
 #' @docType data
 #' @name results_ic
 #' @usage data(results_ic)
-#' @format A dataframe with 108 rows and 6 columns:
+#' @format A dataframe with 60 rows and 5 columns:
 #'
 #' \describe{
 #'   \item{TaskID}{
@@ -13,12 +13,6 @@
 #'   }
 #'   \item{N}{
 #'     Sample size.
-#'   }
-#'   \item{Separation}{
-#'     Level of separation.
-#'     `-1` for low,
-#'     `0` for moderate, and
-#'     `1` for strong.
 #'   }
 #'   \item{Model}{
 #'     Fitted model.

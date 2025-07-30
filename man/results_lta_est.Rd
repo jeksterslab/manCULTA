@@ -5,7 +5,7 @@
 \alias{results_lta_est}
 \title{Simulation Results (LTA Estimates)}
 \format{
-A dataframe with 486 rows and 20 columns:
+A dataframe with 270 rows and 22 columns:
 
 \describe{
 \item{taskid}{
@@ -22,12 +22,6 @@ Population parameter value.
 }
 \item{model}{
 Fitted model.
-}
-\item{separation}{
-Level of separation.
-\code{-1} for low,
-\code{0} for moderate, and
-\code{1} for strong.
 }
 \item{n}{
 Sample size.
@@ -61,17 +55,26 @@ contained the population parameter.
 \item{sq_error}{
 Mean squared error.
 }
+\item{bias}{
+Bias.
+}
+\item{rel_bias}{
+Relative bias.
+}
 \item{se_bias}{
 Bias in standard error estimate.
+}
+\item{rel_se_bias}{
+Relative bias in standard error estimate.
+}
+\item{rmse}{
+Root mean square error.
 }
 \item{coverage}{
 Coverage probability.
 }
 \item{power}{
 Statistical power.
-}
-\item{bias}{
-Bias.
 }
 }
 }

@@ -5,7 +5,7 @@
 \alias{params}
 \title{Simulation Parameters}
 \format{
-A dataframe with 9 rows and 39 columns:
+A dataframe with 5 rows and 38 columns:
 
 \describe{
 \item{taskid}{
@@ -13,12 +13,6 @@ Simulation Task ID.
 }
 \item{n}{
 Sample size.
-}
-\item{separation}{
-Level of separation.
-\code{-1} for low,
-\code{0} for moderate, and
-\code{1} for strong.
 }
 \item{m}{
 Measurement occasions.
