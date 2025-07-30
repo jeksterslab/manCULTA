@@ -40,31 +40,31 @@ library(manCULTA)
 set.seed(42)
 
 # dimensions
-n <- 10000 # number of individuals
+n <- 200  # number of individuals
 m <- 6    # measurement occasions
 p <- 4    # number of items
 q <- 1    # common trait dimension
 
 # covariate parameters
-mu_x <- 11.4009
-sigma_x <- 24.67566
+mu_x <- 0
+sigma_x <- 1
 
 # profile membership and transition parameters
-nu_0 <- -3.563
-kappa_0 <- 0.122
-alpha_0 <- -3.586
-beta_00 <- 2.250
-gamma_00 <- 0.063
-gamma_10 <- 0.094
+nu_0 <- -0.405
+kappa_0 <- 0.10
+alpha_0 <- -0.50
+beta_00 <- 0.85
+gamma_00 <- 0.20
+gamma_10 <- 0.20
 
 # trait parameters
-psi_t <- 0.10 * diag(1)
+psi_t <- 0.30 * diag(1)
 mu_t <- 0
 psi_p <- diag(p)
-psi_p_1 <- 0.10
-psi_p_2 <- 0.10
-psi_p_3 <- 0.50
-psi_p_4 <- 0.50
+psi_p_1 <- 0.3
+psi_p_2 <- 0.3
+psi_p_3 <- 0.3
+psi_p_4 <- 0.3
 diag(psi_p) <- c(
   psi_p_1,
   psi_p_2,
@@ -87,8 +87,8 @@ common_state_loading <- matrix(
 phi_0 <- 0.000
 phi_1 <- 0.311
 psi_s0 <- 1.00
-psi_s <- 0.25
-theta <- 0.15 * diag(p)
+psi_s <- 0.5
+theta <- 0.2 * diag(p)
 
 # profile-specific means
 mu_profile <- cbind(
@@ -105,7 +105,11 @@ parameters <- c(
   kappa_0,
   beta_00,
   gamma_00,
-  gamma_10 
+  gamma_10,
+  theta[1, 1],
+  theta[2, 2],
+  theta[3, 3],
+  theta[4, 4]
 )
 ```
 
@@ -223,7 +227,7 @@ data <- readRDS(fn_example_data)
 
 ## Model Fitting
 
-The `FitLTA2Profiles` function fits the misspecified two-profile RILTA model using `Mplus`.
+The `FitRILTA2Profiles` function fits the misspecified two-profile RILTA model using `Mplus`.
 **Note:** This function requires that **Mplus** is already installed on the system.
 
 ```{r}
@@ -281,7 +285,7 @@ anova(rilta, culta)
 
 ## Parameter Recovery
 
-Parameter recovery was assessed by calculating the differences between the population values and the estimated profile-specific means and log-odds.
+Parameter recovery was assessed by calculating the relative bias of the estimated profile-specific means, log-odds, and residual variances.
 
 ```{r}
 #| echo = FALSE
@@ -300,7 +304,11 @@ rilta_coef <- coef(rilta)[
     "kappa_0",
     "beta_00",
     "gamma_00",
-    "gamma_10"
+    "gamma_10",
+    "theta_11",
+    "theta_22",
+    "theta_33",
+    "theta_44"
   )
 ]
 culta_coef <- coef(culta)[
@@ -318,24 +326,28 @@ culta_coef <- coef(culta)[
     "kappa_0",
     "beta_00",
     "gamma_00",
-    "gamma_10"
+    "gamma_10",
+    "theta_11",
+    "theta_22",
+    "theta_33",
+    "theta_44"
   )
 ]
-rilta_difference <- parameters - rilta_coef
-culta_difference <- parameters - culta_coef
+rilta_relbias <- (rilta_coef - parameters) / parameters
+culta_relbias <- (culta_coef - parameters) / parameters
 recovery <- cbind(
   parameters,
   rilta_coef,
-  rilta_difference,
+  rilta_relbias,
   culta_coef,
-  culta_difference
+  culta_relbias
 )
 colnames(recovery) <- c(
   "Parameter",
   "RILTA Estimate",
-  "Difference",
+  "Relative Bias",
   "CULTA Estimate",
-  "Difference"
+  "Relative Bias"
 )
 rownames(recovery) <- names(culta_coef)
 knitr::kable(

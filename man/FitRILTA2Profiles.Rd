@@ -11,7 +11,8 @@ FitRILTA2Profiles(
   mplus_bin = NULL,
   starts = c(20, 4),
   stiterations = 10,
-  stscale = 5
+  stscale = 5,
+  starting_values = NULL
 )
 }
 \arguments{
@@ -39,6 +40,8 @@ Number of initial stage iterations.}
 
 \item{stscale}{Positive integer.
 Random start scale.}
+
+\item{starting_values}{Optional list of starting values.}
 }
 \value{
 Returns an object of class \code{fitculta}.

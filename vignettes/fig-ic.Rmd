@@ -21,6 +21,5 @@ library(manCULTA)
 ``` r
 data(results_ic, package = "manCULTA")
 FigIC(results_ic = results_ic)
+#> Error in `$<-.data.frame`(`*tmp*`, "PANEL", value = structure(c(1L, 1L, : replacement has 60 rows, data has 45
 ```
-
-<img src="fig-vignettes-scatter-plots-ic-unnamed-chunk-3-1.png" width="3300" />

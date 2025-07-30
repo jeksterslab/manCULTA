@@ -5,7 +5,7 @@
 \alias{results_entropy}
 \title{Simulation Results (Entropy)}
 \format{
-A dataframe with 27 rows and 5 columns:
+A dataframe with 14 rows and 4 columns:
 
 \describe{
 \item{TaskID}{
@@ -13,12 +13,6 @@ Simulation Task ID.
 }
 \item{N}{
 Sample size.
-}
-\item{Separation}{
-Level of separation.
-\code{-1} for low,
-\code{0} for moderate, and
-\code{1} for strong.
 }
 \item{Model}{
 Fitted model.

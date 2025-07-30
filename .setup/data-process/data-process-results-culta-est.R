@@ -1,5 +1,6 @@
-data_process_results_culta_est <- function(overwrite = TRUE,
-                                           reps = 5L) {
+data_process_results_culta_est <- function(overwrite = FALSE,
+                                           tasks = 5L,
+                                           reps = 1000L) {
   cat("\ndata_process_results_culta_est\n")
   set.seed(42)
   # find root directory
@@ -51,7 +52,6 @@ data_process_results_culta_est <- function(overwrite = TRUE,
     }
   }
   if (write) {
-    tasks <- 9L
     foo <- function(taskid,
                     reps) {
       suffix <- .SimSuffix(
@@ -83,10 +83,16 @@ data_process_results_culta_est <- function(overwrite = TRUE,
         args = results_culta_est
       )
     )
-    results_culta_est$bias <- results_culta_est$parameter - results_culta_est$est
+    results_culta_est$rel_bias <- ifelse(
+      test = results_culta_est$rel_bias < -999,
+      yes = NA,
+      no = results_culta_est$rel_bias
+    )
     results_culta_est$parnames <- factor(
       x = results_culta_est$parnames,
       levels = c(
+        "phi_0",
+        "phi_1",
         "psi_t",
         "lambda_t2",
         "lambda_t3",
@@ -117,9 +123,7 @@ data_process_results_culta_est <- function(overwrite = TRUE,
         "mu_11",
         "mu_21",
         "mu_31",
-        "mu_41",
-        "phi_0",
-        "phi_1"
+        "mu_41"
       )
     )
     results_culta_est$zero_hit <- NULL

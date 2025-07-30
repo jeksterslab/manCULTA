@@ -1,0 +1,305 @@
+TITLE:
+  CUTS with AR;
+
+DATA:
+  FILE = cutsar_data.dat;
+
+VARIABLE:
+  NAMES =
+    id
+    x
+    y1t0
+    y2t0
+    y3t0
+    y4t0
+    y1t1
+    y2t1
+    y3t1
+    y4t1
+    y1t2
+    y2t2
+    y3t2
+    y4t2
+    y1t3
+    y2t3
+    y3t3
+    y4t3
+    y1t4
+    y2t4
+    y3t4
+    y4t4
+    y1t5
+    y2t5
+    y3t5
+    y4t5
+  ;
+  USEVARIABLES =
+    y1t0
+    y2t0
+    y3t0
+    y4t0
+    y1t1
+    y2t1
+    y3t1
+    y4t1
+    y1t2
+    y2t2
+    y3t2
+    y4t2
+    y1t3
+    y2t3
+    y3t3
+    y4t3
+    y1t4
+    y2t4
+    y3t4
+    y4t4
+    y1t5
+    y2t5
+    y3t5
+    y4t5
+  ;
+
+ANALYSIS:
+  TYPE = GENERAL;
+  ESTIMATOR = MLR;
+  STARTS = 10;
+  MODEL = NOCOV;
+
+MODEL:
+  ! common trait ------------------------------------------------------
+
+  !! factor loadings
+  !!! t = 0
+  t BY y1t0@1;
+  t BY y2t0*1 (lambdat2);
+  t BY y3t0*1 (lambdat3);
+  t BY y4t0*1 (lambdat4);
+  !!! t = 1
+  t BY y1t1@1;
+  t BY y2t1*1 (lambdat2);
+  t BY y3t1*1 (lambdat3);
+  t BY y4t1*1 (lambdat4);
+  !!! t = 2
+  t BY y1t2@1;
+  t BY y2t2*1 (lambdat2);
+  t BY y3t2*1 (lambdat3);
+  t BY y4t2*1 (lambdat4);
+  !!! t = 3
+  t BY y1t3@1;
+  t BY y2t3*1 (lambdat2);
+  t BY y3t3*1 (lambdat3);
+  t BY y4t3*1 (lambdat4);
+  !!! t = 4
+  t BY y1t4@1;
+  t BY y2t4*1 (lambdat2);
+  t BY y3t4*1 (lambdat3);
+  t BY y4t4*1 (lambdat4);
+  !!! t = 5
+  t BY y1t5@1;
+  t BY y2t5*1 (lambdat2);
+  t BY y3t5*1 (lambdat3);
+  t BY y4t5*1 (lambdat4);
+
+  !! latent mean
+  [ t@0 ];
+
+  !! latent variance
+  t*0.3 (psit);
+
+  ! unique traits -----------------------------------------------------
+
+  !! factor loadings
+  !!! k = 1
+  u1 BY y1t0@1;
+  u1 BY y1t1@1;
+  u1 BY y1t2@1;
+  u1 BY y1t3@1;
+  u1 BY y1t4@1;
+  u1 BY y1t5@1;
+  !!! k = 2
+  u2 BY y2t0@1;
+  u2 BY y2t1@1;
+  u2 BY y2t2@1;
+  u2 BY y2t3@1;
+  u2 BY y2t4@1;
+  u2 BY y2t5@1;
+  !!! k = 3
+  u3 BY y3t0@1;
+  u3 BY y3t1@1;
+  u3 BY y3t2@1;
+  u3 BY y3t3@1;
+  u3 BY y3t4@1;
+  u3 BY y3t5@1;
+  !!! k = 4
+  u4 BY y4t0@1;
+  u4 BY y4t1@1;
+  u4 BY y4t2@1;
+  u4 BY y4t3@1;
+  u4 BY y4t4@1;
+  u4 BY y4t5@1;
+
+  !! latent means
+  [ u1@0 ];
+  [ u2@0 ];
+  [ u3@0 ];
+  [ u4@0 ];
+
+
+  !! latent variances
+  u1*0.3 (psip1);
+  u2*0.3 (psip2);
+  u3*0.3 (psip3);
+  u4*0.3 (psip4);
+
+  ! common states -----------------------------------------------------
+
+  !! factor loadings
+  !!! t = 0
+  s0 BY y1t0@1;
+  s0 BY y2t0*1 (lambdas2);
+  s0 BY y3t0*1 (lambdas3);
+  s0 BY y4t0*1 (lambdas4);
+  !!! t = 1
+  s1 BY y1t1@1;
+  s1 BY y2t1*1 (lambdas2);
+  s1 BY y3t1*1 (lambdas3);
+  s1 BY y4t1*1 (lambdas4);
+  !!! t = 2
+  s2 BY y1t2@1;
+  s2 BY y2t2*1 (lambdas2);
+  s2 BY y3t2*1 (lambdas3);
+  s2 BY y4t2*1 (lambdas4);
+  !!! t = 3
+  s3 BY y1t3@1;
+  s3 BY y2t3*1 (lambdas2);
+  s3 BY y3t3*1 (lambdas3);
+  s3 BY y4t3*1 (lambdas4);
+  !!! t = 4
+  s4 BY y1t4@1;
+  s4 BY y2t4*1 (lambdas2);
+  s4 BY y3t4*1 (lambdas3);
+  s4 BY y4t4*1 (lambdas4);
+  !!! t = 5
+  s5 BY y1t5@1;
+  s5 BY y2t5*1 (lambdas2);
+  s5 BY y3t5*1 (lambdas3);
+  s5 BY y4t5*1 (lambdas4);
+
+  !! latent means
+  [ s0@0 ];
+  [ s1@0 ];
+  [ s2@0 ];
+  [ s3@0 ];
+  [ s4@0 ];
+  [ s5@0 ];
+
+  !! latent variance of s0
+  s0*1 (psis0);
+
+  !! variance of the process noise
+  s1*0.5 (psis);
+  s2*0.5 (psis);
+  s3*0.5 (psis);
+  s4*0.5 (psis);
+  s5*0.5 (psis);
+
+  ! unique states -----------------------------------------------------
+
+  !! variances
+  !!! t = 0
+  y1t0*0.2 (theta11);
+  y2t0*0.2 (theta22);
+  y3t0*0.2 (theta33);
+  y4t0*0.2 (theta44);
+  !!! t = 1
+  y1t1*0.2 (theta11);
+  y2t1*0.2 (theta22);
+  y3t1*0.2 (theta33);
+  y4t1*0.2 (theta44);
+  !!! t = 2
+  y1t2*0.2 (theta11);
+  y2t2*0.2 (theta22);
+  y3t2*0.2 (theta33);
+  y4t2*0.2 (theta44);
+  !!! t = 3
+  y1t3*0.2 (theta11);
+  y2t3*0.2 (theta22);
+  y3t3*0.2 (theta33);
+  y4t3*0.2 (theta44);
+  !!! t = 4
+  y1t4*0.2 (theta11);
+  y2t4*0.2 (theta22);
+  y3t4*0.2 (theta33);
+  y4t4*0.2 (theta44);
+  !!! t = 5
+  y1t5*0.2 (theta11);
+  y2t5*0.2 (theta22);
+  y3t5*0.2 (theta33);
+  y4t5*0.2 (theta44);
+
+  ! grand means -------------------------------------------------------
+
+  !! t = 0
+  [ y1t0*0 ] (mu1);
+  [ y2t0*0 ] (mu2);
+  [ y3t0*0 ] (mu3);
+  [ y4t0*0 ] (mu4);
+  !! t = 1
+  [ y1t1*0 ] (mu1);
+  [ y2t1*0 ] (mu2);
+  [ y3t1*0 ] (mu3);
+  [ y4t1*0 ] (mu4);
+  !! t = 2
+  [ y1t2*0 ] (mu1);
+  [ y2t2*0 ] (mu2);
+  [ y3t2*0 ] (mu3);
+  [ y4t2*0 ] (mu4);
+  !! t = 3
+  [ y1t3*0 ] (mu1);
+  [ y2t3*0 ] (mu2);
+  [ y3t3*0 ] (mu3);
+  [ y4t3*0 ] (mu4);
+  !! t = 4
+  [ y1t4*0 ] (mu1);
+  [ y2t4*0 ] (mu2);
+  [ y3t4*0 ] (mu3);
+  [ y4t4*0 ] (mu4);
+  !! t = 5
+  [ y1t5*0 ] (mu1);
+  [ y2t5*0 ] (mu2);
+  [ y3t5*0 ] (mu3);
+  [ y4t5*0 ] (mu4);
+
+  ! inertia -----------------------------------------------------------
+
+  s0 ON s1*0 (phi);
+  s1 ON s2*0 (phi);
+  s2 ON s3*0 (phi);
+  s3 ON s4*0 (phi);
+  s4 ON s5*0 (phi);
+
+MODEL CONSTRAINT:
+  ! variance constraints
+  psit > 0;
+  psip1 > 0;
+  psip2 > 0;
+  psip3 > 0;
+  psip4 > 0;
+  psis0 > 0;
+  psis > 0;
+  theta11 > 0;
+  theta22 > 0;
+  theta33 > 0;
+  theta44 > 0;
+
+OUTPUT:
+  TECH1
+  TECH3
+  TECH4;
+
+SAVEDATA:
+  ESTIMATES = cutsar_Eft7oHPw79lzOab3xHyB_estimates.dat;
+  RESULTS = cutsar_Eft7oHPw79lzOab3xHyB_results.dat;
+  TECH3 = cutsar_Eft7oHPw79lzOab3xHyB_tech3.dat;
+  TECH4 = cutsar_Eft7oHPw79lzOab3xHyB_tech4.dat;

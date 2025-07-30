@@ -54,12 +54,10 @@ articles:
   - sim-culta-1-profile
   - sim-lta-2-profiles
   - sim-rilta-2-profiles
+  - sim-all-starts
 - title: Generating Mplus Input Files
   contents:
   - sim-input
-- title: Single Replication from the Simulation Study
-  contents:
-  - sim-replication
 - title: Parameters
   contents:
   - params

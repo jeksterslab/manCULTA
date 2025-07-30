@@ -5,7 +5,7 @@
 \title{Generate Mplus Inout file for the
 One-Profile CULTA Model (CUTS Model with AR)}
 \usage{
-InputCULTA1Profile(data, wd = ".", starts = 10)
+InputCULTA1Profile(data, wd = ".", starts = 10, starting_values = NULL)
 }
 \arguments{
 \item{data}{R object.
@@ -16,6 +16,8 @@ Working directory.}
 
 \item{starts}{Positive integer.
 Number of initial stage starting values.}
+
+\item{starting_values}{Optional list of starting values.}
 }
 \value{
 Writes data and input files in \code{wd}.

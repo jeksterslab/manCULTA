@@ -1,6 +1,6 @@
 Package: manCULTA
 Title: Common and Unique Latent Transition Analysis (CULTA) as a Way to Examine the Trait-State Dynamics of Alcohol Intoxication
-Version: 0.9.3
+Version: 1.0.0
 Authors@R: c(
     person(given = "Ivan Jacob Agaloos",
            family = "Pesigan",

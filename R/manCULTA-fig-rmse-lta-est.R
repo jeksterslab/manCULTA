@@ -2,11 +2,7 @@
 #'
 #' Plot root mean square error for common LTA estimates.
 #'
-#' @details Root mean square error (RMSE)
-#' is the square root of the average squared
-#' difference between the simulation estimates
-#' and the population parameter.
-#' The parameters are indexed as follows:
+#' @details The parameters are indexed as follows:
 #' \describe{
 #'   \item{1}{
 #'     \eqn{\theta_{11}} parameter.
@@ -101,15 +97,12 @@
 #' @keywords manCULTA figure
 #' @export
 FigRMSELTAEst <- function(results_lta_est) {
-  Parameters <- rmse <- Model <- NULL
+  Parameters <- rmse <- Model <- n_label <- NULL
   results_lta_est$rmse <- sqrt(results_lta_est$sq_error)
   results_lta_est$Model <- results_lta_est$model
-  results_lta_est$Separation <- factor(
-    x = results_lta_est$separation,
-    levels = c(-1, 0, 1),
-    labels = c("LO", "MO", "HI")
+  results_lta_est$Parameters <- factor(
+    as.integer(results_lta_est$parnames)
   )
-  results_lta_est$Parameters <- as.integer(results_lta_est$parnames)
   results_lta_est$n_label <- paste0(
     "N = ",
     results_lta_est$n
@@ -135,8 +128,25 @@ FigRMSELTAEst <- function(results_lta_est) {
     )
   ) +
     ggplot2::geom_hline(
-      yintercept = 0.0,
+      yintercept = 0.00,
       alpha = 0.5
+    ) +
+    ggplot2::geom_hline(
+      yintercept = 0.20,
+      alpha = 0.5
+    ) +
+    ggplot2::geom_hline(
+      yintercept = 0.10,
+      alpha = 0.5
+    ) +
+    ggplot2::annotate(
+      geom = "rect",
+      fill = "grey",
+      alpha = 0.50,
+      xmin = -Inf,
+      xmax = Inf,
+      ymin = 0.20,
+      ymax = 0.00
     ) +
     ggplot2::geom_point(
       na.rm = TRUE
@@ -145,13 +155,19 @@ FigRMSELTAEst <- function(results_lta_est) {
       na.rm = TRUE
     ) +
     ggplot2::facet_grid(
-      n_label ~ Separation
+      rows = ggplot2::vars(n_label)
     ) +
     ggplot2::xlab(
       "Parameter No."
     ) +
     ggplot2::ylab(
       "RMSE"
+    ) +
+    ggplot2::coord_cartesian(
+      ylim = c(0.00, 0.25)
+    ) +
+    ggplot2::scale_x_discrete(
+      breaks = unique(results_lta_est$Parameters)
     ) +
     ggplot2::theme_bw() +
     ggplot2::scale_color_brewer(palette = "Set1") +

@@ -5,7 +5,7 @@
 #' @docType data
 #' @name params
 #' @usage data(params)
-#' @format A dataframe with 9 rows and 39 columns:
+#' @format A dataframe with 5 rows and 38 columns:
 #'
 #' \describe{
 #'   \item{taskid}{
@@ -13,12 +13,6 @@
 #'   }
 #'   \item{n}{
 #'     Sample size.
-#'   }
-#'   \item{separation}{
-#'     Level of separation.
-#'     `-1` for low,
-#'     `0` for moderate, and
-#'     `1` for strong.
 #'   }
 #'   \item{m}{
 #'     Measurement occasions.

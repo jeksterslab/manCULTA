@@ -1,5 +1,6 @@
-data_process_results_fit <- function(overwrite = TRUE,
-                                     reps = 5L) {
+data_process_results_fit <- function(overwrite = FALSE,
+                                     tasks = 5L,
+                                     reps = 1000L) {
   cat("\ndata_process_results_fit\n")
   set.seed(42)
   # find root directory
@@ -49,7 +50,6 @@ data_process_results_fit <- function(overwrite = TRUE,
     }
   }
   if (write) {
-    tasks <- 9L
     foo <- function(taskid,
                     reps) {
       suffix <- .SimSuffix(
@@ -86,7 +86,6 @@ data_process_results_fit <- function(overwrite = TRUE,
     colnames(results_ic) <- c(
       "TaskID",
       "N",
-      "Separation",
       "Model",
       "AIC",
       "BIC",
@@ -123,7 +122,6 @@ data_process_results_fit <- function(overwrite = TRUE,
     colnames(results_entropy) <- c(
       "TaskID",
       "N",
-      "Separation",
       "Model",
       "Entropy"
     )

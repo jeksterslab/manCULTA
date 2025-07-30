@@ -5,7 +5,7 @@
 #' @docType data
 #' @name results_entropy
 #' @usage data(results_entropy)
-#' @format A dataframe with 27 rows and 5 columns:
+#' @format A dataframe with 14 rows and 4 columns:
 #'
 #' \describe{
 #'   \item{TaskID}{
@@ -13,12 +13,6 @@
 #'   }
 #'   \item{N}{
 #'     Sample size.
-#'   }
-#'   \item{Separation}{
-#'     Level of separation.
-#'     `-1` for low,
-#'     `0` for moderate, and
-#'     `1` for strong.
 #'   }
 #'   \item{Model}{
 #'     Fitted model.

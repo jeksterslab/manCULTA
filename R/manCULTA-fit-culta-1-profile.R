@@ -117,7 +117,8 @@
 FitCULTA1Profile <- function(data,
                              wd = ".",
                              mplus_bin = NULL,
-                             starts = 10) {
+                             starts = 10,
+                             starting_values = NULL) {
   start <- Sys.time()
   stopifnot(
     inherits(
@@ -132,6 +133,7 @@ FitCULTA1Profile <- function(data,
     wd = wd,
     mplus_bin = mplus_bin,
     starts = starts,
+    starting_values = starting_values,
     p = data$args$p, # p items
     q = (5 * data$args$p) + 2, # q parameters
     params = .MPlusCULTA1ProfileParams(data$args$p) # parameter names
@@ -197,19 +199,42 @@ FitCULTA1Profile <- function(data,
     file = fn_data
   )
   # input
-  writeLines(
-    text = .MplusCULTA1Profile(
-      p = data$args$p,
-      m = data$args$m,
-      fn_data = fn_data,
-      fn_estimates = fn_estimates,
-      fn_results = fn_results,
-      fn_tech3 = fn_tech3,
-      fn_tech4 = fn_tech4,
-      starts = starts
-    ),
-    con = fn_inp
-  )
+  if (is.null(starting_values)) {
+    writeLines(
+      text = .MplusCULTA1Profile(
+        p = data$args$p,
+        m = data$args$m,
+        fn_data = fn_data,
+        fn_estimates = fn_estimates,
+        fn_results = fn_results,
+        fn_tech3 = fn_tech3,
+        fn_tech4 = fn_tech4,
+        starts = starts
+      ),
+      con = fn_inp
+    )
+  } else {
+    writeLines(
+      text = .MplusStartsCULTA1Profile(
+        p = data$args$p,
+        m = data$args$m,
+        fn_data = fn_data,
+        fn_estimates = fn_estimates,
+        fn_results = fn_results,
+        fn_tech3 = fn_tech3,
+        fn_tech4 = fn_tech4,
+        starts = starts,
+        psi_t = starting_values$psi_t,
+        psi_p = starting_values$psi_p,
+        common_trait_loading = starting_values$common_trait_loading,
+        common_state_loading = starting_values$common_state_loading,
+        psi_s0 = starting_values$psi_s0,
+        psi_s = starting_values$psi_s,
+        theta = starting_values$theta
+      ),
+      con = fn_inp
+    )
+  }
   # output
   if (is.null(mplus_bin)) {
     mplus_bin <- .WhichMplus()

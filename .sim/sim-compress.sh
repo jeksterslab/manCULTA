@@ -5,7 +5,7 @@
 #SBATCH --mail-type=ALL
 #SBATCH --nodes=1
 #SBATCH --exclusive
-#SBATCH --mem 0
+#SBATCH --mem=0
 #SBATCH --time=2-00:00:00
 #SBATCH --output=compress.out
 #SBATCH --error=compress.err

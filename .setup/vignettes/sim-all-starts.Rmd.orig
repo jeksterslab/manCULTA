@@ -1,0 +1,535 @@
+---
+title: "With Starting Values"
+author: Ivan Jacob Agaloos Pesigan
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{With Starting Values}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+#| include = FALSE
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+#| include = FALSE
+root <- rprojroot::is_rstudio_project
+data_raw <- root$find_file(
+  ".setup",
+  "data-raw"
+)
+if (!dir.exists(data_raw)) {
+  dir.create(data_raw, recursive = TRUE)
+}
+```
+
+```{r}
+library(manCULTA)
+```
+
+```{r}
+#| echo = FALSE
+# complete list of R function arguments
+
+# random seed for reproducibility
+set.seed(42)
+
+# dimensions
+n <- 200  # number of individuals
+m <- 6    # measurement occasions
+p <- 4    # number of items
+q <- 1    # common trait dimension
+
+# covariate parameters
+mu_x <- 0
+sigma_x <- 1
+
+# profile membership and transition parameters
+nu_0 <- -0.405
+kappa_0 <- 0.10
+alpha_0 <- -0.50
+beta_00 <- 0.85
+gamma_00 <- 0.20
+gamma_10 <- 0.20
+
+# trait parameters
+psi_t <- 0.30 * diag(1)
+mu_t <- 0
+psi_p <- diag(p)
+psi_p_1 <- 0.3
+psi_p_2 <- 0.3
+psi_p_3 <- 0.3
+psi_p_4 <- 0.3
+diag(psi_p) <- c(
+  psi_p_1,
+  psi_p_2,
+  psi_p_3,
+  psi_p_4
+)
+mu_p <- rep(x = 0, times = p)
+common_trait_loading <- matrix(
+  data = 1,
+  nrow = p,
+  ncol = q
+)
+
+# state parameters
+common_state_loading <- matrix(
+  data = 1,
+  nrow = p,
+  ncol = 1
+)
+phi_0 <- 0.000
+phi_1 <- 0.311
+psi_s0 <- 1.00
+psi_s <- 0.5
+theta <- 0.2 * diag(p)
+
+# profile-specific means
+mu_profile <- cbind(
+  c(2.253, 1.493, 1.574, 1.117),
+  c(-0.278, -0.165, -0.199, -0.148)
+)
+  
+starting_values <- list(
+  nu_0 = nu_0,
+  kappa_0 = kappa_0,
+  alpha_0 = alpha_0,
+  beta_00 = beta_00,
+  gamma_00 = gamma_00,
+  gamma_10 = gamma_10,
+  psi_t = psi_t,
+  psi_p = psi_p,
+  common_trait_loading = common_trait_loading,
+  common_state_loading = common_state_loading,
+  phi_0 = phi_0,
+  phi_1 = phi_1,
+  psi_s0 = psi_s0,
+  psi_s = psi_s,
+  theta = theta,
+  mu_profile = mu_profile
+)
+```
+
+We generate data using the CULTA model with two latent profiles, where profile membership depends on a covariate and profile transitions follow a multinomial structure. However, for model fitting, we impose a simpler structure by fitting a CUTS (1 Profile) model with autoregressive effects, ignoring the latent profiles during estimation. We then compare this misspecified model to the correctly specified two-profile CULTA model.
+
+## Data Generation
+
+```{r}
+# complete list of R function arguments
+
+# random seed for reproducibility
+set.seed(42)
+
+# dimensions
+n # number of individuals
+m # measurement occasions
+p # number of items
+q # common trait dimension
+
+# covariate parameters
+mu_x 
+sigma_x
+
+# profile membership and transition parameters
+nu_0
+kappa_0
+alpha_0
+beta_00
+gamma_00
+gamma_10
+
+# trait parameters
+psi_t
+mu_t
+psi_p
+mu_p
+common_trait_loading
+
+# state parameters
+common_state_loading
+phi_0
+phi_1
+psi_s0
+psi_s
+theta
+
+# profile-specific means
+mu_profile
+
+# starting values
+starting_values
+```
+
+```{r}
+#| eval = FALSE
+data <- GenCULTA2Profiles(
+  n = n,
+  m = m,
+  mu_x = mu_x,
+  sigma_x = sigma_x,
+  nu_0 = nu_0,
+  kappa_0 = kappa_0,
+  alpha_0 = alpha_0,
+  beta_00 = beta_00,
+  gamma_00 = gamma_00,
+  gamma_10 = gamma_10,
+  mu_t = mu_t,
+  psi_t = psi_t,
+  mu_p = mu_p,
+  psi_p = psi_p,
+  common_trait_loading = common_trait_loading,
+  common_state_loading = common_state_loading,
+  phi_0 = phi_0,
+  phi_1 = phi_1,
+  psi_s0 = psi_s0,
+  psi_s = psi_s,
+  theta = theta, 
+  mu_profile = mu_profile
+)
+```
+
+```{r}
+#| include = FALSE
+fn_example_data <- root$find_file(
+  ".setup",
+  "data-raw",
+  "example-data.Rds"
+)
+if (!file.exists(fn_example_data)) {
+  data <- GenCULTA2Profiles(
+    n = n,
+    m = m,
+    mu_x = mu_x,
+    sigma_x = sigma_x,
+    nu_0 = nu_0,
+    kappa_0 = kappa_0,
+    alpha_0 = alpha_0,
+    beta_00 = beta_00,
+    gamma_00 = gamma_00,
+    gamma_10 = gamma_10,
+    mu_t = mu_t,
+    psi_t = psi_t,
+    mu_p = mu_p,
+    psi_p = psi_p,
+    common_trait_loading = common_trait_loading,
+    common_state_loading = common_state_loading,
+    phi_0 = phi_0,
+    phi_1 = phi_1,
+    psi_s0 = psi_s0,
+    psi_s = psi_s,
+    theta = theta, 
+    mu_profile = mu_profile
+  )
+  saveRDS(data, file = fn_example_data)
+}
+data <- readRDS(fn_example_data)
+```
+
+## Model Fitting
+
+The `FitCULTA1Profiles` function fits the misspecified one-profile model using `Mplus`.
+**Note:** This function requires that **Mplus** is already installed on the system.
+
+```{r}
+#| eval = FALSE
+one_profile_starts <- FitCULTA1Profile(
+  data = data,
+  starts = 1000,
+  starting_values = starting_values
+)
+```
+
+```{r}
+#| include = FALSE
+fn_fit_one_profile_starts <- root$find_file(
+  ".setup",
+  "data-raw",
+  "culta-1-profile-starts.Rds"
+)
+if (!file.exists(fn_fit_one_profile_starts)) {
+  one_profile_starts <- FitCULTA1Profile(
+    data = data,
+    starts = 1000,
+    starting_values = starting_values
+  )
+  saveRDS(one_profile_starts, file = fn_fit_one_profile_starts)
+}
+one_profile_starts <- readRDS(fn_fit_one_profile_starts)
+```
+
+```{r}
+summary(one_profile_starts)
+```
+
+```{r}
+#| eval = FALSE
+one_profile <- FitCULTA1Profile(
+  data = data,
+  starts = 1000
+)
+```
+
+```{r}
+#| include = FALSE
+fn_fit_one_profile <- root$find_file(
+  ".setup",
+  "data-raw",
+  "culta-1-profile.Rds"
+)
+if (!file.exists(fn_fit_one_profile)) {
+  one_profile <- FitCULTA1Profile(
+    data = data,
+    starts = 1000
+  )
+  saveRDS(one_profile, file = fn_fit_one_profile)
+}
+one_profile <- readRDS(fn_fit_one_profile)
+```
+
+```{r}
+summary(one_profile)
+```
+
+```{r}
+summary(one_profile_starts) - summary(one_profile)
+```
+
+The `FitLTA2Profiles` function fits the misspecified two-profile LTA model using `Mplus`.
+
+```{r}
+#| eval = FALSE
+lta_starts <- FitLTA2Profiles(
+  data = data,
+  ncores = parallel::detectCores(),
+  starts = c(500, 100),
+  stiterations = 200,
+  stscale = 2,
+  starting_values = starting_values
+)
+```
+
+```{r}
+#| include = FALSE
+fn_fit_lta_starts <- root$find_file(
+  ".setup",
+  "data-raw",
+  "lta-2-profiles-starts.Rds"
+)
+if (!file.exists(fn_fit_lta_starts)) {
+  lta_starts <- FitLTA2Profiles(
+    data = data,
+    ncores = parallel::detectCores(),
+    starts = c(500, 100),
+    stiterations = 200,
+    stscale = 2,
+    starting_values = starting_values
+  )
+  saveRDS(lta_starts, file = fn_fit_lta_starts)
+}
+lta_starts <- readRDS(fn_fit_lta_starts)
+```
+
+```{r}
+summary(lta_starts)
+```
+
+```{r}
+#| eval = FALSE
+lta <- FitLTA2Profiles(
+  data = data,
+  ncores = parallel::detectCores(),
+  starts = c(500, 100),
+  stiterations = 200,
+  stscale = 2
+)
+```
+
+```{r}
+#| include = FALSE
+fn_fit_lta <- root$find_file(
+  ".setup",
+  "data-raw",
+  "lta-2-profiles.Rds"
+)
+if (!file.exists(fn_fit_lta)) {
+  lta <- FitLTA2Profiles(
+    data = data,
+    ncores = parallel::detectCores(),
+    starts = c(500, 100),
+    stiterations = 200,
+    stscale = 2
+  )
+  saveRDS(lta, file = fn_fit_lta)
+}
+lta <- readRDS(fn_fit_lta)
+```
+
+```{r}
+summary(lta)
+```
+
+```{r}
+summary(lta_starts) - summary(lta)
+```
+
+The `FitRILTA2Profiles` function fits the misspecified two-profile RILTA model using `Mplus`.
+
+```{r}
+#| eval = FALSE
+rilta_starts <- FitRILTA2Profiles(
+  data = data,
+  ncores = parallel::detectCores(),
+  starts = c(500, 100),
+  stiterations = 200,
+  stscale = 2,
+  starting_values = starting_values
+)
+```
+
+```{r}
+#| include = FALSE
+fn_fit_rilta_starts <- root$find_file(
+  ".setup",
+  "data-raw",
+  "rilta-2-profiles-starts.Rds"
+)
+if (!file.exists(fn_fit_rilta_starts)) {
+  rilta_starts <- FitRILTA2Profiles(
+    data = data,
+    ncores = parallel::detectCores(),
+    starts = c(500, 100),
+    stiterations = 200,
+    stscale = 2,
+    starting_values = starting_values
+  )
+  saveRDS(rilta_starts, file = fn_fit_rilta_starts)
+}
+rilta_starts <- readRDS(fn_fit_rilta_starts)
+```
+
+```{r}
+summary(rilta_starts)
+```
+
+```{r}
+#| eval = FALSE
+rilta <- FitRILTA2Profiles(
+  data = data,
+  ncores = parallel::detectCores(),
+  starts = c(500, 100),
+  stiterations = 200,
+  stscale = 2
+)
+```
+
+```{r}
+#| include = FALSE
+fn_fit_rilta <- root$find_file(
+  ".setup",
+  "data-raw",
+  "rilta-2-profiles.Rds"
+)
+if (!file.exists(fn_fit_rilta)) {
+  rilta <- FitRILTA2Profiles(
+    data = data,
+    ncores = parallel::detectCores(),
+    starts = c(500, 100),
+    stiterations = 200,
+    stscale = 2
+  )
+  saveRDS(rilta, file = fn_fit_rilta)
+}
+rilta <- readRDS(fn_fit_rilta)
+```
+
+```{r}
+summary(rilta)
+```
+
+```{r}
+summary(rilta_starts) - summary(rilta)
+```
+
+The `FitCULTA2Profiles` function fits the correct two-profile model using `Mplus`.
+
+```{r}
+#| eval = FALSE
+two_profiles_starts <- FitCULTA2Profiles(
+  data = data,
+  ncores = parallel::detectCores(),
+  starts = c(500, 100),
+  stiterations = 200,
+  stscale = 2,
+  starting_values = starting_values
+)
+```
+
+```{r}
+#| include = FALSE
+fn_fit_two_profiles_starts <- root$find_file(
+  ".setup",
+  "data-raw",
+  "culta-2-profiles-starts.Rds"
+)
+if (!file.exists(fn_fit_two_profiles_starts)) {
+  two_profiles_starts <- FitCULTA2Profiles(
+    data = data,
+    ncores = parallel::detectCores(),
+    starts = c(500, 100),
+    stiterations = 200,
+    stscale = 2,
+    starting_values = starting_values
+  )
+  saveRDS(two_profiles_starts, file = fn_fit_two_profiles_starts)
+}
+two_profiles_starts <- readRDS(fn_fit_two_profiles_starts)
+```
+
+```{r}
+summary(two_profiles_starts)
+```
+
+```{r}
+#| eval = FALSE
+two_profiles <- FitCULTA2Profiles(
+  data = data,
+  ncores = parallel::detectCores(),
+  starts = c(500, 100),
+  stiterations = 200,
+  stscale = 2
+)
+```
+
+```{r}
+#| include = FALSE
+fn_fit_two_profiles <- root$find_file(
+  ".setup",
+  "data-raw",
+  "culta-2-profiles.Rds"
+)
+if (!file.exists(fn_fit_two_profiles)) {
+  two_profiles <- FitCULTA2Profiles(
+    data = data,
+    ncores = parallel::detectCores(),
+    starts = c(500, 100),
+    stiterations = 200,
+    stscale = 2
+  )
+  saveRDS(two_profiles, file = fn_fit_two_profiles)
+}
+two_profiles <- readRDS(fn_fit_two_profiles)
+```
+
+```{r}
+summary(two_profiles)
+```
+
+```{r}
+summary(two_profiles_starts) - summary(two_profiles)
+```

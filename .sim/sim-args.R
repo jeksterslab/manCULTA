@@ -7,7 +7,7 @@ mplus_bin <- "mplus"
 starts <- c(500, 100)
 stiterations <- 200
 stscale <- 2
-max_iter <- 100
+max_iter <- 0
 # ------------------------------------------------------------------------------
 output_root <- file.path(
   "/scratch",

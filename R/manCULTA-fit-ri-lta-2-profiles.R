@@ -4,24 +4,7 @@
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #'
-#' @param data R object.
-#'   Object of class `simculta`.
-#' @param wd Character string.
-#'   Working directory.
-#' @param ncores Positive integer.
-#'   Number of cores to use.
-#' @param mplus_bin Character string.
-#'   Path to Mplus binary.
-#'   If `mplus_bin = NULL`,
-#'   the function will try to find
-#'   the appropriate binary.
-#' @param starts Vector of positive integer of length two.
-#'   Number of initial stage starts
-#'   and number of final stage optimizations.
-#' @param stiterations Positive integer.
-#'   Number of initial stage iterations.
-#' @param stscale Positive integer.
-#'   Random start scale.
+#' @inheritParams FitCULTA2Profiles
 #'
 #' @return Returns an object of class `fitculta`.
 #'   which is a list with the following elements:
@@ -135,7 +118,8 @@ FitRILTA2Profiles <- function(data,
                               mplus_bin = NULL,
                               starts = c(20, 4),
                               stiterations = 10,
-                              stscale = 5) {
+                              stscale = 5,
+                              starting_values = NULL) {
   start <- Sys.time()
   stopifnot(
     inherits(
@@ -153,6 +137,7 @@ FitRILTA2Profiles <- function(data,
     starts = starts,
     stiterations = stiterations,
     stscale = stscale,
+    starting_values = starting_values,
     p = data$args$p, # p items
     q = (4 * data$args$p) + 6, # q parameters
     params = .MPlusRILTA2ProfileParams(data$args$p) # parameter names
@@ -227,23 +212,52 @@ FitRILTA2Profiles <- function(data,
     file = fn_data
   )
   # input
-  writeLines(
-    text = .MplusRILTA2Profiles(
-      p = data$args$p,
-      m = data$args$m,
-      fn_data = fn_data,
-      fn_estimates = fn_estimates,
-      fn_results = fn_results,
-      fn_tech3 = fn_tech3,
-      fn_tech4 = fn_tech4,
-      fn_cprobs = fn_cprobs,
-      ncores = as.integer(ncores),
-      starts = starts,
-      stiterations = stiterations,
-      stscale = stscale
-    ),
-    con = fn_inp
-  )
+  if (is.null(starting_values)) {
+    writeLines(
+      text = .MplusRILTA2Profiles(
+        p = data$args$p,
+        m = data$args$m,
+        fn_data = fn_data,
+        fn_estimates = fn_estimates,
+        fn_results = fn_results,
+        fn_tech3 = fn_tech3,
+        fn_tech4 = fn_tech4,
+        fn_cprobs = fn_cprobs,
+        ncores = as.integer(ncores),
+        starts = starts,
+        stiterations = stiterations,
+        stscale = stscale
+      ),
+      con = fn_inp
+    )
+  } else {
+    writeLines(
+      text = .MplusStartsRILTA2Profiles(
+        p = data$args$p,
+        m = data$args$m,
+        fn_data = fn_data,
+        fn_estimates = fn_estimates,
+        fn_results = fn_results,
+        fn_tech3 = fn_tech3,
+        fn_tech4 = fn_tech4,
+        fn_cprobs = fn_cprobs,
+        ncores = as.integer(ncores),
+        starts = starts,
+        stiterations = stiterations,
+        stscale = stscale,
+        nu_0 = starting_values$nu_0,
+        kappa_0 = starting_values$kappa_0,
+        alpha_0 = starting_values$alpha_0,
+        beta_00 = starting_values$beta_00,
+        gamma_00 = starting_values$gamma_00,
+        gamma_10 = starting_values$gamma_10,
+        common_trait_loading = starting_values$common_trait_loading,
+        theta = starting_values$theta,
+        mu_profile = starting_values$mu_profile
+      ),
+      con = fn_inp
+    )
+  }
   # output
   if (is.null(mplus_bin)) {
     mplus_bin <- .WhichMplus()

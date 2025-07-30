@@ -1,11 +1,6 @@
-#' Plot Bias (LTA Estimates)
+#' Plot Relative Bias (LTA Estimates)
 #'
-#' Plot bias for common LTA estimates.
-#'
-#' @details Bias is computed as the difference between
-#' the population parameter
-#' and the mean of the parameter estimates
-#' obtained from the simulation.
+#' Plot relative bias for common LTA estimates.
 #'
 #' @details The parameters are indexed as follows:
 #' \describe{
@@ -102,14 +97,11 @@
 #' @keywords manCULTA figure
 #' @export
 FigBiasLTAEst <- function(results_lta_est) {
-  Parameters <- bias <- Model <- NULL
+  Parameters <- rel_bias <- Model <- n_label <- NULL
   results_lta_est$Model <- results_lta_est$model
-  results_lta_est$Separation <- factor(
-    x = results_lta_est$separation,
-    levels = c(-1, 0, 1),
-    labels = c("LO", "MO", "HI")
+  results_lta_est$Parameters <- factor(
+    as.integer(results_lta_est$parnames)
   )
-  results_lta_est$Parameters <- as.integer(results_lta_est$parnames)
   results_lta_est$n_label <- paste0(
     "N = ",
     results_lta_est$n
@@ -127,7 +119,7 @@ FigBiasLTAEst <- function(results_lta_est) {
     data = results_lta_est,
     ggplot2::aes(
       x = Parameters,
-      y = bias,
+      y = rel_bias,
       shape = Model,
       color = Model,
       group = Model,
@@ -138,6 +130,23 @@ FigBiasLTAEst <- function(results_lta_est) {
       yintercept = 0.0,
       alpha = 0.5
     ) +
+    ggplot2::geom_hline(
+      yintercept = 0.10,
+      alpha = 0.5
+    ) +
+    ggplot2::geom_hline(
+      yintercept = -0.10,
+      alpha = 0.5
+    ) +
+    ggplot2::annotate(
+      geom = "rect",
+      fill = "grey",
+      alpha = 0.50,
+      xmin = -Inf,
+      xmax = Inf,
+      ymin = -0.10,
+      ymax = 0.10
+    ) +
     ggplot2::geom_point(
       na.rm = TRUE
     ) +
@@ -145,13 +154,19 @@ FigBiasLTAEst <- function(results_lta_est) {
       na.rm = TRUE
     ) +
     ggplot2::facet_grid(
-      n_label ~ Separation
+      rows = ggplot2::vars(n_label)
     ) +
     ggplot2::xlab(
       "Parameter No."
     ) +
     ggplot2::ylab(
-      "Bias"
+      "Relative Bias"
+    ) +
+    ggplot2::coord_cartesian(
+      ylim = c(-0.25, 0.25)
+    ) +
+    ggplot2::scale_x_discrete(
+      breaks = unique(results_lta_est$Parameters)
     ) +
     ggplot2::theme_bw() +
     ggplot2::scale_color_brewer(palette = "Set1") +

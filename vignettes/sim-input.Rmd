@@ -42,7 +42,7 @@ set.seed(42)
 
 # dimensions
 n # number of individuals
-#> [1] 10000
+#> [1] 200
 m # measurement occasions
 #> [1] 6
 p # number of items
@@ -52,36 +52,36 @@ q # common trait dimension
 
 # covariate parameters
 mu_x 
-#> [1] 11.4009
+#> [1] 0
 sigma_x
-#> [1] 24.67566
+#> [1] 1
 
 # profile membership and transition parameters
 nu_0
-#> [1] -3.563
+#> [1] -0.405
 kappa_0
-#> [1] 0.122
+#> [1] 0.1
 alpha_0
-#> [1] -3.586
+#> [1] -0.5
 beta_00
-#> [1] 2.25
+#> [1] 0.85
 gamma_00
-#> [1] 0.063
+#> [1] 0.2
 gamma_10
-#> [1] 0.094
+#> [1] 0.2
 
 # trait parameters
 psi_t
 #>      [,1]
-#> [1,]  0.1
+#> [1,]  0.3
 mu_t
 #> [1] 0
 psi_p
 #>      [,1] [,2] [,3] [,4]
-#> [1,]  0.1  0.0  0.0  0.0
-#> [2,]  0.0  0.1  0.0  0.0
-#> [3,]  0.0  0.0  0.5  0.0
-#> [4,]  0.0  0.0  0.0  0.5
+#> [1,]  0.3  0.0  0.0  0.0
+#> [2,]  0.0  0.3  0.0  0.0
+#> [3,]  0.0  0.0  0.3  0.0
+#> [4,]  0.0  0.0  0.0  0.3
 mu_p
 #> [1] 0 0 0 0
 common_trait_loading
@@ -105,16 +105,87 @@ phi_1
 psi_s0
 #> [1] 1
 psi_s
-#> [1] 0.25
+#> [1] 0.5
 theta
 #>      [,1] [,2] [,3] [,4]
-#> [1,] 0.15 0.00 0.00 0.00
-#> [2,] 0.00 0.15 0.00 0.00
-#> [3,] 0.00 0.00 0.15 0.00
-#> [4,] 0.00 0.00 0.00 0.15
+#> [1,]  0.2  0.0  0.0  0.0
+#> [2,]  0.0  0.2  0.0  0.0
+#> [3,]  0.0  0.0  0.2  0.0
+#> [4,]  0.0  0.0  0.0  0.2
 
 # profile-specific means
 mu_profile
+#>       [,1]   [,2]
+#> [1,] 2.253 -0.278
+#> [2,] 1.493 -0.165
+#> [3,] 1.574 -0.199
+#> [4,] 1.117 -0.148
+
+# starting values
+starting_values
+#> $nu_0
+#> [1] -0.405
+#> 
+#> $kappa_0
+#> [1] 0.1
+#> 
+#> $alpha_0
+#> [1] -0.5
+#> 
+#> $beta_00
+#> [1] 0.85
+#> 
+#> $gamma_00
+#> [1] 0.2
+#> 
+#> $gamma_10
+#> [1] 0.2
+#> 
+#> $psi_t
+#>      [,1]
+#> [1,]  0.3
+#> 
+#> $psi_p
+#>      [,1] [,2] [,3] [,4]
+#> [1,]  0.3  0.0  0.0  0.0
+#> [2,]  0.0  0.3  0.0  0.0
+#> [3,]  0.0  0.0  0.3  0.0
+#> [4,]  0.0  0.0  0.0  0.3
+#> 
+#> $common_trait_loading
+#>      [,1]
+#> [1,]    1
+#> [2,]    1
+#> [3,]    1
+#> [4,]    1
+#> 
+#> $common_state_loading
+#>      [,1]
+#> [1,]    1
+#> [2,]    1
+#> [3,]    1
+#> [4,]    1
+#> 
+#> $phi_0
+#> [1] 0
+#> 
+#> $phi_1
+#> [1] 0.311
+#> 
+#> $psi_s0
+#> [1] 1
+#> 
+#> $psi_s
+#> [1] 0.5
+#> 
+#> $theta
+#>      [,1] [,2] [,3] [,4]
+#> [1,]  0.2  0.0  0.0  0.0
+#> [2,]  0.0  0.2  0.0  0.0
+#> [3,]  0.0  0.0  0.2  0.0
+#> [4,]  0.0  0.0  0.0  0.2
+#> 
+#> $mu_profile
 #>       [,1]   [,2]
 #> [1,] 2.253 -0.278
 #> [2,] 1.493 -0.165
@@ -184,6 +255,48 @@ InputLTA2Profiles(data = data)
 InputRILTA2Profiles(data = data)
 #> Check data and Mplus input files in
 #> /scratch/ibp5092/manCULTA/vignettes/rilta_Fp17CqRi4u9Q45VhC2La
+```
+
+### With Starting Values
+
+
+``` r
+InputCULTA1Profile(
+  data = data,
+  starting_values = starting_values
+)
+#> Check data and Mplus input files in
+#> /scratch/ibp5092/manCULTA/vignettes/cutsar_nUf3UQ9KpW1WXEHDFfvL
+```
+
+
+``` r
+InputCULTA2Profiles(
+  data = data,
+  starting_values = starting_values
+)
+#> Check data and Mplus input files in
+#> /scratch/ibp5092/manCULTA/vignettes/culta_Q89nH7bEFAj4B1KjWWeI
+```
+
+
+``` r
+InputLTA2Profiles(
+  data = data,
+  starting_values = starting_values
+)
+#> Check data and Mplus input files in
+#> /scratch/ibp5092/manCULTA/vignettes/lta_Jtkqiq9mE97W8ZaqGBbE
+```
+
+
+``` r
+InputRILTA2Profiles(
+  data = data,
+  starting_values = starting_values
+)
+#> Check data and Mplus input files in
+#> /scratch/ibp5092/manCULTA/vignettes/rilta_Oycr0UB7oC4typ1xG8LQ
 ```
 
 ## Run in Mplus

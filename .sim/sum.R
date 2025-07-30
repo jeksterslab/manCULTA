@@ -20,7 +20,7 @@ lapply(
   FUN = Sum,
   reps = reps,
   output_folder = output_folder,
-  overwrite = FALSE,
+  overwrite = TRUE,
   integrity = TRUE,
   ncores = parallel::detectCores()
 )

@@ -1,29 +1,5 @@
-# manCULTA 0.9.3
+# manCULTA 1.0.0
 
 ## Docker Hub Tag
 
-* ijapesigan/manculta:2025-07-20-23594948
-
-## Code Changes
-
-* Added summary functions.
-
-# manCULTA 0.9.2
-
-## Docker Hub Tag
-
-* ijapesigan/manculta:2025-07-13-16280506
-
-## Code Changes
-
-* Added functions to generate data from a 2-profile CULTA model.
-* Added functions to fit the following models:
-  - 2-profile CULTA model
-  - 2-profile LTA model
-  - 2-profile RILTA model
-  - 1-profile CULTA model
-* Added simulation functions.
-
-# manCULTA 0.9.1
-
-* Initial setup
+* ijapesigan/manculta

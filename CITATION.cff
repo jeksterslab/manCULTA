@@ -9,7 +9,7 @@ type: software
 license: GPL-3.0-or-later
 title: 'manCULTA: Common and Unique Latent Transition Analysis (CULTA) as a Way to
   Examine the Trait-State Dynamics of Alcohol Intoxication'
-version: 0.9.3
+version: 1.0.0
 doi: 10.0000/0000000000
 identifiers:
 - type: url
@@ -35,7 +35,7 @@ preferred-citation:
   year: '2025'
   doi: 10.0000/0000000000
   journal: JOURNAL_TITLE_HERE
-  notes: R package version 0.9.3
+  notes: R package version 1.0.0
 repository-code: https://github.com/jeksterslab/manCULTA
 url: https://jeksterslab.github.io/manCULTA/
 contact:

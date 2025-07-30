@@ -13,8 +13,6 @@ FigPowerLTAEst(results_lta_est)
 Plot statistical power for common LTA estimates.
 }
 \details{
-Statistical power is the proportion of simulation replications
-in which the null hypothesis was correctly rejected.
 The parameters are indexed as follows:
 \describe{
 \item{1}{

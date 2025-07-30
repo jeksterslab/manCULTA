@@ -32,7 +32,7 @@ set.seed(42)
 
 # dimensions
 n # number of individuals
-#> [1] 10000
+#> [1] 200
 m # measurement occasions
 #> [1] 6
 p # number of items
@@ -42,36 +42,36 @@ q # common trait dimension
 
 # covariate parameters
 mu_x 
-#> [1] 11.4009
+#> [1] 0
 sigma_x
-#> [1] 24.67566
+#> [1] 1
 
 # profile membership and transition parameters
 nu_0
-#> [1] -3.563
+#> [1] -0.405
 kappa_0
-#> [1] 0.122
+#> [1] 0.1
 alpha_0
-#> [1] -3.586
+#> [1] -0.5
 beta_00
-#> [1] 2.25
+#> [1] 0.85
 gamma_00
-#> [1] 0.063
+#> [1] 0.2
 gamma_10
-#> [1] 0.094
+#> [1] 0.2
 
 # trait parameters
 psi_t
 #>      [,1]
-#> [1,]  0.1
+#> [1,]  0.3
 mu_t
 #> [1] 0
 psi_p
 #>      [,1] [,2] [,3] [,4]
-#> [1,]  0.1  0.0  0.0  0.0
-#> [2,]  0.0  0.1  0.0  0.0
-#> [3,]  0.0  0.0  0.5  0.0
-#> [4,]  0.0  0.0  0.0  0.5
+#> [1,]  0.3  0.0  0.0  0.0
+#> [2,]  0.0  0.3  0.0  0.0
+#> [3,]  0.0  0.0  0.3  0.0
+#> [4,]  0.0  0.0  0.0  0.3
 mu_p
 #> [1] 0 0 0 0
 common_trait_loading
@@ -95,13 +95,13 @@ phi_1
 psi_s0
 #> [1] 1
 psi_s
-#> [1] 0.25
+#> [1] 0.5
 theta
 #>      [,1] [,2] [,3] [,4]
-#> [1,] 0.15 0.00 0.00 0.00
-#> [2,] 0.00 0.15 0.00 0.00
-#> [3,] 0.00 0.00 0.15 0.00
-#> [4,] 0.00 0.00 0.00 0.15
+#> [1,]  0.2  0.0  0.0  0.0
+#> [2,]  0.0  0.2  0.0  0.0
+#> [3,]  0.0  0.0  0.2  0.0
+#> [4,]  0.0  0.0  0.0  0.2
 
 # profile-specific means
 mu_profile
@@ -173,38 +173,42 @@ The `anova` function can be used to compare the two fitted models.
 anova(lta, culta)
 #> $fit
 #>                    logLik df correction      AIC      BIC     aBIC   entropy
-#> 2-profile LTA   -330843.0 18   2.354802 661722.0 661851.8 661794.6 0.8513129
-#> 2-profile CULTA -237508.2 33   1.000768 475082.4 475320.3 475215.5 0.9367669
+#> 2-profile LTA   -7558.293 18   1.873770 15152.58 15211.95 15154.93 0.8566820
+#> 2-profile CULTA -5850.928 33   1.023671 11767.86 11876.70 11772.15 0.7169988
 #> 
 #> $test
-#>  chi_diff   df_diff   p_value 
-#> -299114.7      15.0       1.0
+#> chi_diff  df_diff  p_value 
+#> 961537.7     15.0      0.0
 ```
 
 ## Parameter Recovery
 
-Parameter recovery was assessed by calculating the differences between the population values and the estimated profile-specific means and log-odds.
+Parameter recovery was assessed by calculating the relative bias of the estimated profile-specific means, log-odds, and residual variances.
 
 
 
 Table: Parameter Recovery
 
-|         | Parameter| LTA Estimate| Difference| CULTA Estimate| Difference|
-|:--------|---------:|------------:|----------:|--------------:|----------:|
-|mu_10    |     2.253|    1.3824160|  0.8705840|      2.2689973| -0.0159973|
-|mu_20    |     1.493|    1.1580352|  0.3349648|      1.5140045| -0.0210045|
-|mu_30    |     1.574|    1.2645449|  0.3094551|      1.6057853| -0.0317853|
-|mu_40    |     1.117|    1.0778100|  0.0391900|      1.1275251| -0.0105251|
-|mu_11    |    -0.278|   -0.4931759|  0.2151759|     -0.2779016| -0.0000984|
-|mu_21    |    -0.165|   -0.3910813|  0.2260813|     -0.1652498|  0.0002498|
-|mu_31    |    -0.199|   -0.4376782|  0.2386782|     -0.1829942| -0.0160058|
-|mu_41    |    -0.148|   -0.4050322|  0.2570322|     -0.1515997|  0.0035997|
-|nu_0     |    -3.563|   -1.1072981| -2.4557019|     -3.6910557|  0.1280557|
-|alpha_0  |    -3.586|   -2.3408923| -1.2451077|     -3.5634025| -0.0225975|
-|kappa_0  |     0.122|    0.0375012|  0.0844988|      0.1273813| -0.0053813|
-|beta_00  |     2.250|    2.2757322| -0.0257322|      2.1225611|  0.1274389|
-|gamma_00 |     0.063|    0.0198196|  0.0431804|      0.0676685| -0.0046685|
-|gamma_10 |     0.094|    0.0511943|  0.0428057|      0.0942463| -0.0002463|
+|         | Parameter| LTA Estimate| Relative Bias| CULTA Estimate| Relative Bias|
+|:--------|---------:|------------:|-------------:|--------------:|-------------:|
+|mu_10    |     2.253|    2.1869526|    -0.0293153|      2.1694682|    -0.0370758|
+|mu_20    |     1.493|    1.7065222|     0.1430155|      1.5565449|     0.0425619|
+|mu_30    |     1.574|    1.7080435|     0.0851611|      1.5795206|     0.0035074|
+|mu_40    |     1.117|    1.4068860|     0.2595219|      1.1605009|     0.0389444|
+|mu_11    |    -0.278|   -0.4859643|     0.7480730|     -0.2859422|     0.0285691|
+|mu_21    |    -0.165|   -0.3673953|     1.2266384|     -0.0880921|    -0.4661086|
+|mu_31    |    -0.199|   -0.4180464|     1.1007355|     -0.1544862|    -0.2236876|
+|mu_41    |    -0.148|   -0.4000707|     1.7031803|     -0.0510851|    -0.6548303|
+|nu_0     |    -0.405|    0.0346461|    -1.0855458|     -0.2154072|    -0.4681304|
+|alpha_0  |    -0.500|   -0.5490292|     0.0980584|     -0.3451484|    -0.3097032|
+|kappa_0  |     0.100|    0.4532500|     3.5325000|      0.3926138|     2.9261377|
+|beta_00  |     0.850|    1.2140981|     0.4283507|      0.6689811|    -0.2129634|
+|gamma_00 |     0.200|    0.1395798|    -0.3021010|      0.2315390|     0.1576949|
+|gamma_10 |     0.200|    0.1272521|    -0.3637397|      0.2815591|     0.4077955|
+|theta_11 |     0.200|    1.2347940|     5.1739700|      0.2216670|     0.1083351|
+|theta_22 |     0.200|    1.0070835|     4.0354175|      0.2296140|     0.1480698|
+|theta_33 |     0.200|    1.0504398|     4.2521990|      0.2072222|     0.0361108|
+|theta_44 |     0.200|    0.8839528|     3.4197641|      0.1752072|    -0.1239641|
 
 
 
@@ -288,10 +292,10 @@ VARIABLE:
 
 ANALYSIS:
   TYPE = MIXTURE;
-  STARTS = 20 4;
-  STSCALE = 5;
-  STITERATIONS = 10;
-  PROCESS = 1;
+  STARTS = 500 100;
+  STSCALE = 2;
+  STITERATIONS = 200;
+  PROCESS = 24;
   MODEL = NOCOV;
 
 MODEL:
@@ -494,10 +498,10 @@ OUTPUT:
   ENTROPY;
 
 SAVEDATA:
-  ESTIMATES = lta_hqkdKzsBrLDoUq0A6l3I_estimates.dat;
-  RESULTS = lta_hqkdKzsBrLDoUq0A6l3I_results.dat;
-  TECH3 = lta_hqkdKzsBrLDoUq0A6l3I_tech3.dat;
-  TECH4 = lta_hqkdKzsBrLDoUq0A6l3I_tech4.dat;
-  FILE = lta_hqkdKzsBrLDoUq0A6l3I_cprobs.dat;
+  ESTIMATES = lta_fykP8lRa20dlCznANnWX_estimates.dat;
+  RESULTS = lta_fykP8lRa20dlCznANnWX_results.dat;
+  TECH3 = lta_fykP8lRa20dlCznANnWX_tech3.dat;
+  TECH4 = lta_fykP8lRa20dlCznANnWX_tech4.dat;
+  FILE = lta_fykP8lRa20dlCznANnWX_cprobs.dat;
   SAVE = CPROBABILITIES;
 ```

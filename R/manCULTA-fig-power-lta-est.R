@@ -2,9 +2,7 @@
 #'
 #' Plot statistical power for common LTA estimates.
 #'
-#' @details Statistical power is the proportion of simulation replications
-#' in which the null hypothesis was correctly rejected.
-#' The parameters are indexed as follows:
+#' @details The parameters are indexed as follows:
 #' \describe{
 #'   \item{1}{
 #'     \eqn{\theta_{11}} parameter.
@@ -99,14 +97,11 @@
 #' @keywords manCULTA figure
 #' @export
 FigPowerLTAEst <- function(results_lta_est) {
-  Parameters <- power <- Model <- NULL
+  Parameters <- power <- Model <- n_label <- NULL
   results_lta_est$Model <- results_lta_est$model
-  results_lta_est$Separation <- factor(
-    x = results_lta_est$separation,
-    levels = c(-1, 0, 1),
-    labels = c("LO", "MO", "HI")
+  results_lta_est$Parameters <- factor(
+    as.integer(results_lta_est$parnames)
   )
-  results_lta_est$Parameters <- as.integer(results_lta_est$parnames)
   results_lta_est$n_label <- paste0(
     "N = ",
     results_lta_est$n
@@ -142,13 +137,16 @@ FigPowerLTAEst <- function(results_lta_est) {
       na.rm = TRUE
     ) +
     ggplot2::facet_grid(
-      n_label ~ Separation
+      rows = ggplot2::vars(n_label)
     ) +
     ggplot2::xlab(
       "Parameter No."
     ) +
     ggplot2::ylab(
       "Statistical Power"
+    ) +
+    ggplot2::scale_x_discrete(
+      breaks = unique(results_lta_est$Parameters)
     ) +
     ggplot2::theme_bw() +
     ggplot2::scale_color_brewer(palette = "Set1") +
