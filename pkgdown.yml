@@ -11,13 +11,13 @@ articles:
   manCULTA: manCULTA.html
   params: params.html
   session: session.html
+  sim-all-starts: sim-all-starts.html
   sim-culta-1-profile: sim-culta-1-profile.html
   sim-culta-2-profiles: sim-culta-2-profiles.html
   sim-input: sim-input.html
   sim-lta-2-profiles: sim-lta-2-profiles.html
-  sim-replication: sim-replication.html
   sim-rilta-2-profiles: sim-rilta-2-profiles.html
-last_built: 2025-07-22T21:25Z
+last_built: 2025-07-30T05:26Z
 urls:
   reference: https://github.com/jeksterslab/manCULTA/reference
   article: https://github.com/jeksterslab/manCULTA/articles

@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">manCULTA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,7 +87,7 @@ correctly specified two-profile CULTA model.</p>
 <span></span>
 <span><span class="co"># dimensions</span></span>
 <span><span class="va">n</span> <span class="co"># number of individuals</span></span>
-<span><span class="co">#&gt; [1] 10000</span></span>
+<span><span class="co">#&gt; [1] 200</span></span>
 <span><span class="va">m</span> <span class="co"># measurement occasions</span></span>
 <span><span class="co">#&gt; [1] 6</span></span>
 <span><span class="va">p</span> <span class="co"># number of items</span></span>
@@ -97,36 +97,36 @@ correctly specified two-profile CULTA model.</p>
 <span></span>
 <span><span class="co"># covariate parameters</span></span>
 <span><span class="va">mu_x</span> </span>
-<span><span class="co">#&gt; [1] 11.4009</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
 <span><span class="va">sigma_x</span></span>
-<span><span class="co">#&gt; [1] 24.67566</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
 <span></span>
 <span><span class="co"># profile membership and transition parameters</span></span>
 <span><span class="va">nu_0</span></span>
-<span><span class="co">#&gt; [1] -3.563</span></span>
+<span><span class="co">#&gt; [1] -0.405</span></span>
 <span><span class="va">kappa_0</span></span>
-<span><span class="co">#&gt; [1] 0.122</span></span>
+<span><span class="co">#&gt; [1] 0.1</span></span>
 <span><span class="va">alpha_0</span></span>
-<span><span class="co">#&gt; [1] -3.586</span></span>
+<span><span class="co">#&gt; [1] -0.5</span></span>
 <span><span class="va">beta_00</span></span>
-<span><span class="co">#&gt; [1] 2.25</span></span>
+<span><span class="co">#&gt; [1] 0.85</span></span>
 <span><span class="va">gamma_00</span></span>
-<span><span class="co">#&gt; [1] 0.063</span></span>
+<span><span class="co">#&gt; [1] 0.2</span></span>
 <span><span class="va">gamma_10</span></span>
-<span><span class="co">#&gt; [1] 0.094</span></span>
+<span><span class="co">#&gt; [1] 0.2</span></span>
 <span></span>
 <span><span class="co"># trait parameters</span></span>
 <span><span class="va">psi_t</span></span>
 <span><span class="co">#&gt;      [,1]</span></span>
-<span><span class="co">#&gt; [1,]  0.1</span></span>
+<span><span class="co">#&gt; [1,]  0.3</span></span>
 <span><span class="va">mu_t</span></span>
 <span><span class="co">#&gt; [1] 0</span></span>
 <span><span class="va">psi_p</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
-<span><span class="co">#&gt; [1,]  0.1  0.0  0.0  0.0</span></span>
-<span><span class="co">#&gt; [2,]  0.0  0.1  0.0  0.0</span></span>
-<span><span class="co">#&gt; [3,]  0.0  0.0  0.5  0.0</span></span>
-<span><span class="co">#&gt; [4,]  0.0  0.0  0.0  0.5</span></span>
+<span><span class="co">#&gt; [1,]  0.3  0.0  0.0  0.0</span></span>
+<span><span class="co">#&gt; [2,]  0.0  0.3  0.0  0.0</span></span>
+<span><span class="co">#&gt; [3,]  0.0  0.0  0.3  0.0</span></span>
+<span><span class="co">#&gt; [4,]  0.0  0.0  0.0  0.3</span></span>
 <span><span class="va">mu_p</span></span>
 <span><span class="co">#&gt; [1] 0 0 0 0</span></span>
 <span><span class="va">common_trait_loading</span></span>
@@ -150,13 +150,13 @@ correctly specified two-profile CULTA model.</p>
 <span><span class="va">psi_s0</span></span>
 <span><span class="co">#&gt; [1] 1</span></span>
 <span><span class="va">psi_s</span></span>
-<span><span class="co">#&gt; [1] 0.25</span></span>
+<span><span class="co">#&gt; [1] 0.5</span></span>
 <span><span class="va">theta</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
-<span><span class="co">#&gt; [1,] 0.15 0.00 0.00 0.00</span></span>
-<span><span class="co">#&gt; [2,] 0.00 0.15 0.00 0.00</span></span>
-<span><span class="co">#&gt; [3,] 0.00 0.00 0.15 0.00</span></span>
-<span><span class="co">#&gt; [4,] 0.00 0.00 0.00 0.15</span></span>
+<span><span class="co">#&gt; [1,]  0.2  0.0  0.0  0.0</span></span>
+<span><span class="co">#&gt; [2,]  0.0  0.2  0.0  0.0</span></span>
+<span><span class="co">#&gt; [3,]  0.0  0.0  0.2  0.0</span></span>
+<span><span class="co">#&gt; [4,]  0.0  0.0  0.0  0.2</span></span>
 <span></span>
 <span><span class="co"># profile-specific means</span></span>
 <span><span class="va">mu_profile</span></span>
@@ -194,7 +194,7 @@ correctly specified two-profile CULTA model.</p>
 <div class="section level2">
 <h2 id="model-fitting">Model Fitting<a class="anchor" aria-label="anchor" href="#model-fitting"></a>
 </h2>
-<p>The <code>FitLTA2Profiles</code> function fits the misspecified
+<p>The <code>FitRILTA2Profiles</code> function fits the misspecified
 two-profile RILTA model using <code>Mplus</code>. <strong>Note:</strong>
 This function requires that <strong>Mplus</strong> is already installed
 on the system.</p>
@@ -216,150 +216,182 @@ models.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">rilta</span>, <span class="va">culta</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $fit</span></span>
-<span><span class="co">#&gt;                    logLik df correction      AIC      BIC     aBIC   entropy</span></span>
-<span><span class="co">#&gt; 2-profile RILTA -309109.4 22   2.679461 618262.7 618421.3 618351.4 0.8920079</span></span>
-<span><span class="co">#&gt; 2-profile CULTA -237508.2 33   1.000768 475082.4 475320.3 475215.5 0.9367669</span></span>
+<span><span class="co">#&gt;                    logLik df correction      AIC     BIC     aBIC   entropy</span></span>
+<span><span class="co">#&gt; 2-profile RILTA -6981.619 22   1.615733 14007.24 14079.8 14010.10 0.8836678</span></span>
+<span><span class="co">#&gt; 2-profile CULTA -5850.928 33   1.023671 11767.86 11876.7 11772.15 0.7169988</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $test</span></span>
 <span><span class="co">#&gt;  chi_diff   df_diff   p_value </span></span>
-<span><span class="co">#&gt; -60765.98     11.00      1.00</span></span></code></pre></div>
+<span><span class="co">#&gt; -14093.62     11.00      1.00</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="parameter-recovery">Parameter Recovery<a class="anchor" aria-label="anchor" href="#parameter-recovery"></a>
 </h2>
-<p>Parameter recovery was assessed by calculating the differences
-between the population values and the estimated profile-specific means
-and log-odds.</p>
+<p>Parameter recovery was assessed by calculating the relative bias of
+the estimated profile-specific means, log-odds, and residual
+variances.</p>
 <table class="table">
 <caption>Parameter Recovery</caption>
 <colgroup>
+<col width="11%">
 <col width="12%">
-<col width="14%">
-<col width="21%">
-<col width="15%">
-<col width="21%">
-<col width="15%">
+<col width="19%">
+<col width="18%">
+<col width="19%">
+<col width="18%">
 </colgroup>
 <thead><tr class="header">
 <th align="left"></th>
 <th align="right">Parameter</th>
 <th align="right">RILTA Estimate</th>
-<th align="right">Difference</th>
+<th align="right">Relative Bias</th>
 <th align="right">CULTA Estimate</th>
-<th align="right">Difference</th>
+<th align="right">Relative Bias</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td align="left">mu_10</td>
 <td align="right">2.253</td>
-<td align="right">1.5255399</td>
-<td align="right">0.7274601</td>
-<td align="right">2.2689973</td>
-<td align="right">-0.0159973</td>
+<td align="right">2.2035760</td>
+<td align="right">-0.0219370</td>
+<td align="right">2.1694682</td>
+<td align="right">-0.0370758</td>
 </tr>
 <tr class="even">
 <td align="left">mu_20</td>
 <td align="right">1.493</td>
-<td align="right">1.2540192</td>
-<td align="right">0.2389808</td>
-<td align="right">1.5140045</td>
-<td align="right">-0.0210045</td>
+<td align="right">1.6653136</td>
+<td align="right">0.1154143</td>
+<td align="right">1.5565449</td>
+<td align="right">0.0425619</td>
 </tr>
 <tr class="odd">
 <td align="left">mu_30</td>
 <td align="right">1.574</td>
-<td align="right">1.3511744</td>
-<td align="right">0.2228256</td>
-<td align="right">1.6057853</td>
-<td align="right">-0.0317853</td>
+<td align="right">1.6534203</td>
+<td align="right">0.0504576</td>
+<td align="right">1.5795206</td>
+<td align="right">0.0035074</td>
 </tr>
 <tr class="even">
 <td align="left">mu_40</td>
 <td align="right">1.117</td>
-<td align="right">0.9648591</td>
-<td align="right">0.1521409</td>
-<td align="right">1.1275251</td>
-<td align="right">-0.0105251</td>
+<td align="right">1.3752747</td>
+<td align="right">0.2312218</td>
+<td align="right">1.1605009</td>
+<td align="right">0.0389444</td>
 </tr>
 <tr class="odd">
 <td align="left">mu_11</td>
 <td align="right">-0.278</td>
-<td align="right">-0.5080130</td>
-<td align="right">0.2300130</td>
-<td align="right">-0.2779016</td>
-<td align="right">-0.0000984</td>
+<td align="right">-0.4207472</td>
+<td align="right">0.5134792</td>
+<td align="right">-0.2859422</td>
+<td align="right">0.0285691</td>
 </tr>
 <tr class="even">
 <td align="left">mu_21</td>
 <td align="right">-0.165</td>
-<td align="right">-0.3956839</td>
-<td align="right">0.2306839</td>
-<td align="right">-0.1652498</td>
-<td align="right">0.0002498</td>
+<td align="right">-0.2640176</td>
+<td align="right">0.6001068</td>
+<td align="right">-0.0880921</td>
+<td align="right">-0.4661086</td>
 </tr>
 <tr class="odd">
 <td align="left">mu_31</td>
 <td align="right">-0.199</td>
-<td align="right">-0.4362505</td>
-<td align="right">0.2372505</td>
-<td align="right">-0.1829942</td>
-<td align="right">-0.0160058</td>
+<td align="right">-0.2999945</td>
+<td align="right">0.5075099</td>
+<td align="right">-0.1544862</td>
+<td align="right">-0.2236876</td>
 </tr>
 <tr class="even">
 <td align="left">mu_41</td>
 <td align="right">-0.148</td>
-<td align="right">-0.3389233</td>
-<td align="right">0.1909233</td>
-<td align="right">-0.1515997</td>
-<td align="right">0.0035997</td>
+<td align="right">-0.3141873</td>
+<td align="right">1.1228870</td>
+<td align="right">-0.0510851</td>
+<td align="right">-0.6548303</td>
 </tr>
 <tr class="odd">
 <td align="left">nu_0</td>
-<td align="right">-3.563</td>
-<td align="right">-1.2267252</td>
-<td align="right">-2.3362748</td>
-<td align="right">-3.6910557</td>
-<td align="right">0.1280557</td>
+<td align="right">-0.405</td>
+<td align="right">-0.0013525</td>
+<td align="right">-0.9966605</td>
+<td align="right">-0.2154072</td>
+<td align="right">-0.4681304</td>
 </tr>
 <tr class="even">
 <td align="left">alpha_0</td>
-<td align="right">-3.586</td>
-<td align="right">-2.5248986</td>
-<td align="right">-1.0611014</td>
-<td align="right">-3.5634025</td>
-<td align="right">-0.0225975</td>
+<td align="right">-0.500</td>
+<td align="right">-0.4055947</td>
+<td align="right">-0.1888107</td>
+<td align="right">-0.3451484</td>
+<td align="right">-0.3097032</td>
 </tr>
 <tr class="odd">
 <td align="left">kappa_0</td>
-<td align="right">0.122</td>
-<td align="right">0.0357181</td>
-<td align="right">0.0862819</td>
-<td align="right">0.1273813</td>
-<td align="right">-0.0053813</td>
+<td align="right">0.100</td>
+<td align="right">0.4158691</td>
+<td align="right">3.1586911</td>
+<td align="right">0.3926138</td>
+<td align="right">2.9261377</td>
 </tr>
 <tr class="even">
 <td align="left">beta_00</td>
-<td align="right">2.250</td>
-<td align="right">2.7720950</td>
-<td align="right">-0.5220950</td>
-<td align="right">2.1225611</td>
-<td align="right">0.1274389</td>
+<td align="right">0.850</td>
+<td align="right">0.8192341</td>
+<td align="right">-0.0361952</td>
+<td align="right">0.6689811</td>
+<td align="right">-0.2129634</td>
 </tr>
 <tr class="odd">
 <td align="left">gamma_00</td>
-<td align="right">0.063</td>
-<td align="right">-0.0014707</td>
-<td align="right">0.0644707</td>
-<td align="right">0.0676685</td>
-<td align="right">-0.0046685</td>
+<td align="right">0.200</td>
+<td align="right">0.0853273</td>
+<td align="right">-0.5733633</td>
+<td align="right">0.2315390</td>
+<td align="right">0.1576949</td>
 </tr>
 <tr class="even">
 <td align="left">gamma_10</td>
-<td align="right">0.094</td>
-<td align="right">0.0595538</td>
-<td align="right">0.0344462</td>
-<td align="right">0.0942463</td>
-<td align="right">-0.0002463</td>
+<td align="right">0.200</td>
+<td align="right">0.1172341</td>
+<td align="right">-0.4138297</td>
+<td align="right">0.2815591</td>
+<td align="right">0.4077955</td>
+</tr>
+<tr class="odd">
+<td align="left">theta_11</td>
+<td align="right">0.200</td>
+<td align="right">0.8114558</td>
+<td align="right">3.0572789</td>
+<td align="right">0.2216670</td>
+<td align="right">0.1083351</td>
+</tr>
+<tr class="even">
+<td align="left">theta_22</td>
+<td align="right">0.200</td>
+<td align="right">0.6660180</td>
+<td align="right">2.3300901</td>
+<td align="right">0.2296140</td>
+<td align="right">0.1480698</td>
+</tr>
+<tr class="odd">
+<td align="left">theta_33</td>
+<td align="right">0.200</td>
+<td align="right">0.6553469</td>
+<td align="right">2.2767343</td>
+<td align="right">0.2072222</td>
+<td align="right">0.0361108</td>
+</tr>
+<tr class="even">
+<td align="left">theta_44</td>
+<td align="right">0.200</td>
+<td align="right">0.6757793</td>
+<td align="right">2.3788964</td>
+<td align="right">0.1752072</td>
+<td align="right">-0.1239641</td>
 </tr>
 </tbody>
 </table>
@@ -369,7 +401,332 @@ and log-odds.</p>
 </h2>
 <p>The RILTA model was estimated using the following <code>Mplus</code>
 script.</p>
-<pre><code>Error: object 'lta' not found</code></pre>
+<pre><code>TITLE:
+  2-Profile RILTA with Covariate;
+
+DATA:
+  FILE = rilta_data.dat;
+
+VARIABLE:
+  NAMES =
+    id
+    x
+    y1t0
+    y2t0
+    y3t0
+    y4t0
+    y1t1
+    y2t1
+    y3t1
+    y4t1
+    y1t2
+    y2t2
+    y3t2
+    y4t2
+    y1t3
+    y2t3
+    y3t3
+    y4t3
+    y1t4
+    y2t4
+    y3t4
+    y4t4
+    y1t5
+    y2t5
+    y3t5
+    y4t5
+  ;
+  USEVARIABLES =
+    x
+    y1t0
+    y2t0
+    y3t0
+    y4t0
+    y1t1
+    y2t1
+    y3t1
+    y4t1
+    y1t2
+    y2t2
+    y3t2
+    y4t2
+    y1t3
+    y2t3
+    y3t3
+    y4t3
+    y1t4
+    y2t4
+    y3t4
+    y4t4
+    y1t5
+    y2t5
+    y3t5
+    y4t5
+  ;
+  IDVARIABLE = id;
+  CLASSES =
+    c0(2)
+    c1(2)
+    c2(2)
+    c3(2)
+    c4(2)
+    c5(2)
+  ;
+
+ANALYSIS:
+  TYPE = MIXTURE;
+  STARTS = 500 100;
+  STSCALE = 2;
+  STITERATIONS = 200;
+  PROCESS = 24;
+  MODEL = NOCOV;
+
+MODEL:
+  %OVERALL%
+    ! random intercept --------------------------------------------------
+
+    !! loadings
+    !!! t = 0
+    f BY y1t0* (lambdat1);
+    f BY y2t0 (lambdat2);
+    f BY y3t0 (lambdat3);
+    f BY y4t0 (lambdat4);
+    !!! t = 1
+    f BY y1t1* (lambdat1);
+    f BY y2t1 (lambdat2);
+    f BY y3t1 (lambdat3);
+    f BY y4t1 (lambdat4);
+    !!! t = 2
+    f BY y1t2* (lambdat1);
+    f BY y2t2 (lambdat2);
+    f BY y3t2 (lambdat3);
+    f BY y4t2 (lambdat4);
+    !!! t = 3
+    f BY y1t3* (lambdat1);
+    f BY y2t3 (lambdat2);
+    f BY y3t3 (lambdat3);
+    f BY y4t3 (lambdat4);
+    !!! t = 4
+    f BY y1t4* (lambdat1);
+    f BY y2t4 (lambdat2);
+    f BY y3t4 (lambdat3);
+    f BY y4t4 (lambdat4);
+    !!! t = 5
+    f BY y1t5* (lambdat1);
+    f BY y2t5 (lambdat2);
+    f BY y3t5 (lambdat3);
+    f BY y4t5 (lambdat4);
+
+    !! latent mean
+    [ f@0 ];
+
+    !! latent variance
+    f@1;
+
+    ! unique states -----------------------------------------------------
+
+    !! variances
+    !!! t = 0
+    y1t0 (theta11);
+    y2t0 (theta22);
+    y3t0 (theta33);
+    y4t0 (theta44);
+    !!! t = 1
+    y1t1 (theta11);
+    y2t1 (theta22);
+    y3t1 (theta33);
+    y4t1 (theta44);
+    !!! t = 2
+    y1t2 (theta11);
+    y2t2 (theta22);
+    y3t2 (theta33);
+    y4t2 (theta44);
+    !!! t = 3
+    y1t3 (theta11);
+    y2t3 (theta22);
+    y3t3 (theta33);
+    y4t3 (theta44);
+    !!! t = 4
+    y1t4 (theta11);
+    y2t4 (theta22);
+    y3t4 (theta33);
+    y4t4 (theta44);
+    !!! t = 5
+    y1t5 (theta11);
+    y2t5 (theta22);
+    y3t5 (theta33);
+    y4t5 (theta44);
+
+    ! lta ---------------------------------------------------------------
+
+    !! initial profile membership
+    [ c0#1 ] (nu0);
+    c0#1 ON x (kappa0);
+
+    !! profile transitions
+    [ c1#1 ] (alpha0);
+    [ c2#1 ] (alpha0);
+    [ c3#1 ] (alpha0);
+    [ c4#1 ] (alpha0);
+    [ c5#1 ] (alpha0);
+    c1#1 ON c0#1 (beta00);
+    c2#1 ON c1#1 (beta00);
+    c3#1 ON c2#1 (beta00);
+    c4#1 ON c3#1 (beta00);
+    c5#1 ON c4#1 (beta00);
+
+MODEL c0:
+  %c0#1%
+    ! profile specific means
+    [ y1t0 ] (mu10);
+    [ y2t0 ] (mu20);
+    [ y3t0 ] (mu30);
+    [ y4t0 ] (mu40);
+
+    ! covariate
+    c1 ON x (gamma00);
+
+  %c0#2%
+    ! profile specific means
+    [ y1t0 ] (mu11);
+    [ y2t0 ] (mu21);
+    [ y3t0 ] (mu31);
+    [ y4t0 ] (mu41);
+
+    ! covariate
+    c1 ON x (gamma10);
+
+MODEL c1:
+  %c1#1%
+    ! profile specific means
+    [ y1t1 ] (mu10);
+    [ y2t1 ] (mu20);
+    [ y3t1 ] (mu30);
+    [ y4t1 ] (mu40);
+
+    ! covariate
+    c2 ON x (gamma00);
+
+  %c1#2%
+    ! profile specific means
+    [ y1t1 ] (mu11);
+    [ y2t1 ] (mu21);
+    [ y3t1 ] (mu31);
+    [ y4t1 ] (mu41);
+
+    ! covariate
+    c2 ON x (gamma10);
+
+MODEL c2:
+  %c2#1%
+    ! profile specific means
+    [ y1t2 ] (mu10);
+    [ y2t2 ] (mu20);
+    [ y3t2 ] (mu30);
+    [ y4t2 ] (mu40);
+
+    ! covariate
+    c3 ON x (gamma00);
+
+  %c2#2%
+    ! profile specific means
+    [ y1t2 ] (mu11);
+    [ y2t2 ] (mu21);
+    [ y3t2 ] (mu31);
+    [ y4t2 ] (mu41);
+
+    ! covariate
+    c3 ON x (gamma10);
+
+MODEL c3:
+  %c3#1%
+    ! profile specific means
+    [ y1t3 ] (mu10);
+    [ y2t3 ] (mu20);
+    [ y3t3 ] (mu30);
+    [ y4t3 ] (mu40);
+
+    ! covariate
+    c4 ON x (gamma00);
+
+  %c3#2%
+    ! profile specific means
+    [ y1t3 ] (mu11);
+    [ y2t3 ] (mu21);
+    [ y3t3 ] (mu31);
+    [ y4t3 ] (mu41);
+
+    ! covariate
+    c4 ON x (gamma10);
+
+MODEL c4:
+  %c4#1%
+    ! profile specific means
+    [ y1t4 ] (mu10);
+    [ y2t4 ] (mu20);
+    [ y3t4 ] (mu30);
+    [ y4t4 ] (mu40);
+
+    ! covariate
+    c5 ON x (gamma00);
+
+  %c4#2%
+    ! profile specific means
+    [ y1t4 ] (mu11);
+    [ y2t4 ] (mu21);
+    [ y3t4 ] (mu31);
+    [ y4t4 ] (mu41);
+
+    ! covariate
+    c5 ON x (gamma10);
+
+MODEL c5:
+  %c5#1%
+    ! profile specific means
+    [ y1t5 ] (mu10);
+    [ y2t5 ] (mu20);
+    [ y3t5 ] (mu30);
+    [ y4t5 ] (mu40);
+
+  %c5#2%
+    ! profile specific means
+    [ y1t5 ] (mu11);
+    [ y2t5 ] (mu21);
+    [ y3t5 ] (mu31);
+    [ y4t5 ] (mu41);
+
+
+MODEL CONSTRAINT:
+  ! means for the first profile are higher than the second
+  mu10 &gt; mu11;
+  mu20 &gt; mu21;
+  mu30 &gt; mu31;
+  mu40 &gt; mu41;
+
+  ! make sure variances are greater than zero
+  theta11 &gt; 0;
+  theta22 &gt; 0;
+  theta33 &gt; 0;
+  theta44 &gt; 0;
+
+OUTPUT:
+  TECH1
+  TECH3
+  TECH4
+  TECH7
+  TECH8
+  TECH12
+  TECH13
+  TECH15
+  ENTROPY;
+
+SAVEDATA:
+  ESTIMATES = rilta_lrIq31gaoeSlXSleIeIz_estimates.dat;
+  RESULTS = rilta_lrIq31gaoeSlXSleIeIz_results.dat;
+  TECH3 = rilta_lrIq31gaoeSlXSleIeIz_tech3.dat;
+  TECH4 = rilta_lrIq31gaoeSlXSleIeIz_tech4.dat;
+  FILE = rilta_lrIq31gaoeSlXSleIeIz_cprobs.dat;
+  SAVE = CPROBABILITIES;</code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

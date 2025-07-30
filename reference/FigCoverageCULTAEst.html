@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">manCULTA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,148 +54,146 @@
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Coverage probability is the proportion of simulation replications
-in which the confidence interval contains the population parameter.
-The parameters are indexed as follows:</p><dl><dt>1</dt>
+    <p>The parameters are indexed as follows:</p><dl><dt>1</dt>
+<dd><p>\(\phi_{0}\) parameter.
+Autoregressive coefficient for profile 0.</p></dd>
+
+<dt>2</dt>
+<dd><p>\(\phi_{1}\) parameter.
+Autoregressive coefficient for profile 1.</p></dd>
+
+<dt>3</dt>
 <dd><p>\(\psi_{T}\) parameter.
 Variance in the common trait;
 reflects stable between-person differences.</p></dd>
 
-<dt>2</dt>
+<dt>4</dt>
 <dd><p>\(\lambda_{t2}\) parameter.
 Factor loading for the common trait and item 2.</p></dd>
 
-<dt>3</dt>
+<dt>5</dt>
 <dd><p>\(\lambda_{t3}\) parameter.
 Factor loading for the common trait and item 3.</p></dd>
 
-<dt>4</dt>
+<dt>6</dt>
 <dd><p>\(\lambda_{t4}\) parameter.
 Factor loading for the common trait and item 4.</p></dd>
 
-<dt>5</dt>
+<dt>7</dt>
 <dd><p>\(\psi_{p11}\) parameter.
 Trait-specific item 1 variance.</p></dd>
 
-<dt>6</dt>
+<dt>8</dt>
 <dd><p>\(\psi_{p22}\) parameter.
 Trait-specific item 2 variance.</p></dd>
 
-<dt>7</dt>
+<dt>9</dt>
 <dd><p>\(\psi_{p33}\) parameter.
 Trait-specific item 3 variance.</p></dd>
 
-<dt>8</dt>
+<dt>10</dt>
 <dd><p>\(\psi_{p44}\) parameter.
 Trait-specific item 4 variance.</p></dd>
 
-<dt>9</dt>
+<dt>11</dt>
 <dd><p>\(\psi_{s0}\) parameter.
 Initial-day variance of the common state;
 reflects variability in intoxication levels at observation start.</p></dd>
 
-<dt>10</dt>
+<dt>12</dt>
 <dd><p>\(\psi_{s}\) parameter.
 Residual state variance over days;
 captures within-person daily fluctuations
 not explained by trait or AR effects.</p></dd>
 
-<dt>11</dt>
+<dt>13</dt>
 <dd><p>\(\lambda_{s2}\) parameter.
 Factor loading for the common state and item 2.</p></dd>
 
-<dt>12</dt>
+<dt>14</dt>
 <dd><p>\(\lambda_{s3}\) parameter.
 Factor loading for the common state and item 3.</p></dd>
 
-<dt>13</dt>
+<dt>15</dt>
 <dd><p>\(\lambda_{s4}\) parameter.
 Factor loading for the common state and item 4.</p></dd>
 
-<dt>14</dt>
+<dt>16</dt>
 <dd><p>\(\theta_{11}\) parameter.
 Unique state variance for item 1.</p></dd>
 
-<dt>15</dt>
+<dt>17</dt>
 <dd><p>\(\theta_{22}\) parameter.
 Unique state variance for item 2.</p></dd>
 
-<dt>16</dt>
+<dt>18</dt>
 <dd><p>\(\theta_{33}\) parameter.
 Unique state variance for item 3.</p></dd>
 
-<dt>17</dt>
+<dt>19</dt>
 <dd><p>\(\theta_{44}\) parameter.
 Unique state variance for item 4.</p></dd>
 
-<dt>18</dt>
+<dt>20</dt>
 <dd><p>\(\nu_{0}\) parameter.
 Intercept for initial log-odds of profile 0
 (vs. profile 1) when \(X = 0\).</p></dd>
 
-<dt>19</dt>
+<dt>21</dt>
 <dd><p>\(\kappa_{0}\) parameter.
 Covariate effect on initial profile membership;
 higher \(X\) increases odds of profile 0.</p></dd>
 
-<dt>20</dt>
+<dt>22</dt>
 <dd><p>\(\alpha_{0}\) parameter.
 Baseline log-odds of being in profile 0 across days.</p></dd>
 
-<dt>21</dt>
+<dt>23</dt>
 <dd><p>\(\beta_{00}\) parameter.
 Increased odds of staying in profile 0
 if previously in that profile; reflects persistence.</p></dd>
 
-<dt>22</dt>
+<dt>24</dt>
 <dd><p>\(\gamma_{00}\) parameter.
 Covariate effect on staying in profile 0;
 higher \(X\) increases persistence.</p></dd>
 
-<dt>23</dt>
+<dt>25</dt>
 <dd><p>\(\gamma_{10}\) parameter.
 Covariate effect on switching from state to profile 0;
 higher \(X\) increases transition odds.</p></dd>
 
-<dt>24</dt>
+<dt>26</dt>
 <dd><p>\(\mu_{10}\) parameter.
 Profile specific mean for profile 0 and item 1.</p></dd>
 
-<dt>25</dt>
+<dt>27</dt>
 <dd><p>\(\mu_{20}\) parameter.
 Profile specific mean for profile 0 and item 2.</p></dd>
 
-<dt>26</dt>
+<dt>28</dt>
 <dd><p>\(\mu_{30}\) parameter.
 Profile specific mean for profile 0 and item 3.</p></dd>
 
-<dt>27</dt>
+<dt>29</dt>
 <dd><p>\(\mu_{40}\) parameter.
 Profile specific mean for profile 0 and item 4.</p></dd>
 
-<dt>28</dt>
+<dt>30</dt>
 <dd><p>\(\mu_{11}\) parameter.
 Profile specific mean for profile 1 and item 1.</p></dd>
 
-<dt>29</dt>
+<dt>31</dt>
 <dd><p>\(\mu_{21}\) parameter.
 Profile specific mean for profile 1 and item 2.</p></dd>
 
-<dt>30</dt>
+<dt>32</dt>
 <dd><p>\(\mu_{31}\) parameter.
 Profile specific mean for profile 1 and item 3.</p></dd>
 
-<dt>31</dt>
+<dt>33</dt>
 <dd><p>\(\mu_{41}\) parameter.
 Profile specific mean for profile 1 and item 4.</p></dd>
-
-<dt>32</dt>
-<dd><p>\(\phi_{0}\) parameter.
-Autoregressive coefficient for profile 0.</p></dd>
-
-<dt>33</dt>
-<dd><p>\(\phi_{1}\) parameter.
-Autoregressive coefficient for profile 1.</p></dd>
 
 
 </dl></div>

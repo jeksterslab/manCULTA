@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">manCULTA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,7 +87,7 @@ specified two-profile CULTA model.</p>
 <span></span>
 <span><span class="co"># dimensions</span></span>
 <span><span class="va">n</span> <span class="co"># number of individuals</span></span>
-<span><span class="co">#&gt; [1] 10000</span></span>
+<span><span class="co">#&gt; [1] 200</span></span>
 <span><span class="va">m</span> <span class="co"># measurement occasions</span></span>
 <span><span class="co">#&gt; [1] 6</span></span>
 <span><span class="va">p</span> <span class="co"># number of items</span></span>
@@ -97,36 +97,36 @@ specified two-profile CULTA model.</p>
 <span></span>
 <span><span class="co"># covariate parameters</span></span>
 <span><span class="va">mu_x</span> </span>
-<span><span class="co">#&gt; [1] 11.4009</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
 <span><span class="va">sigma_x</span></span>
-<span><span class="co">#&gt; [1] 24.67566</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
 <span></span>
 <span><span class="co"># profile membership and transition parameters</span></span>
 <span><span class="va">nu_0</span></span>
-<span><span class="co">#&gt; [1] -3.563</span></span>
+<span><span class="co">#&gt; [1] -0.405</span></span>
 <span><span class="va">kappa_0</span></span>
-<span><span class="co">#&gt; [1] 0.122</span></span>
+<span><span class="co">#&gt; [1] 0.1</span></span>
 <span><span class="va">alpha_0</span></span>
-<span><span class="co">#&gt; [1] -3.586</span></span>
+<span><span class="co">#&gt; [1] -0.5</span></span>
 <span><span class="va">beta_00</span></span>
-<span><span class="co">#&gt; [1] 2.25</span></span>
+<span><span class="co">#&gt; [1] 0.85</span></span>
 <span><span class="va">gamma_00</span></span>
-<span><span class="co">#&gt; [1] 0.063</span></span>
+<span><span class="co">#&gt; [1] 0.2</span></span>
 <span><span class="va">gamma_10</span></span>
-<span><span class="co">#&gt; [1] 0.094</span></span>
+<span><span class="co">#&gt; [1] 0.2</span></span>
 <span></span>
 <span><span class="co"># trait parameters</span></span>
 <span><span class="va">psi_t</span></span>
 <span><span class="co">#&gt;      [,1]</span></span>
-<span><span class="co">#&gt; [1,]  0.1</span></span>
+<span><span class="co">#&gt; [1,]  0.3</span></span>
 <span><span class="va">mu_t</span></span>
 <span><span class="co">#&gt; [1] 0</span></span>
 <span><span class="va">psi_p</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
-<span><span class="co">#&gt; [1,]  0.1  0.0  0.0  0.0</span></span>
-<span><span class="co">#&gt; [2,]  0.0  0.1  0.0  0.0</span></span>
-<span><span class="co">#&gt; [3,]  0.0  0.0  0.5  0.0</span></span>
-<span><span class="co">#&gt; [4,]  0.0  0.0  0.0  0.5</span></span>
+<span><span class="co">#&gt; [1,]  0.3  0.0  0.0  0.0</span></span>
+<span><span class="co">#&gt; [2,]  0.0  0.3  0.0  0.0</span></span>
+<span><span class="co">#&gt; [3,]  0.0  0.0  0.3  0.0</span></span>
+<span><span class="co">#&gt; [4,]  0.0  0.0  0.0  0.3</span></span>
 <span><span class="va">mu_p</span></span>
 <span><span class="co">#&gt; [1] 0 0 0 0</span></span>
 <span><span class="va">common_trait_loading</span></span>
@@ -150,13 +150,13 @@ specified two-profile CULTA model.</p>
 <span><span class="va">psi_s0</span></span>
 <span><span class="co">#&gt; [1] 1</span></span>
 <span><span class="va">psi_s</span></span>
-<span><span class="co">#&gt; [1] 0.25</span></span>
+<span><span class="co">#&gt; [1] 0.5</span></span>
 <span><span class="va">theta</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
-<span><span class="co">#&gt; [1,] 0.15 0.00 0.00 0.00</span></span>
-<span><span class="co">#&gt; [2,] 0.00 0.15 0.00 0.00</span></span>
-<span><span class="co">#&gt; [3,] 0.00 0.00 0.15 0.00</span></span>
-<span><span class="co">#&gt; [4,] 0.00 0.00 0.00 0.15</span></span>
+<span><span class="co">#&gt; [1,]  0.2  0.0  0.0  0.0</span></span>
+<span><span class="co">#&gt; [2,]  0.0  0.2  0.0  0.0</span></span>
+<span><span class="co">#&gt; [3,]  0.0  0.0  0.2  0.0</span></span>
+<span><span class="co">#&gt; [4,]  0.0  0.0  0.0  0.2</span></span>
 <span></span>
 <span><span class="co"># profile-specific means</span></span>
 <span><span class="va">mu_profile</span></span>
@@ -217,149 +217,181 @@ models.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">lta</span>, <span class="va">culta</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $fit</span></span>
 <span><span class="co">#&gt;                    logLik df correction      AIC      BIC     aBIC   entropy</span></span>
-<span><span class="co">#&gt; 2-profile LTA   -330843.0 18   2.354802 661722.0 661851.8 661794.6 0.8513129</span></span>
-<span><span class="co">#&gt; 2-profile CULTA -237508.2 33   1.000768 475082.4 475320.3 475215.5 0.9367669</span></span>
+<span><span class="co">#&gt; 2-profile LTA   -7558.293 18   1.873770 15152.58 15211.95 15154.93 0.8566820</span></span>
+<span><span class="co">#&gt; 2-profile CULTA -5850.928 33   1.023671 11767.86 11876.70 11772.15 0.7169988</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $test</span></span>
-<span><span class="co">#&gt;  chi_diff   df_diff   p_value </span></span>
-<span><span class="co">#&gt; -299114.7      15.0       1.0</span></span></code></pre></div>
+<span><span class="co">#&gt; chi_diff  df_diff  p_value </span></span>
+<span><span class="co">#&gt; 961537.7     15.0      0.0</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="parameter-recovery">Parameter Recovery<a class="anchor" aria-label="anchor" href="#parameter-recovery"></a>
 </h2>
-<p>Parameter recovery was assessed by calculating the differences
-between the population values and the estimated profile-specific means
-and log-odds.</p>
-<table class="table">
+<p>Parameter recovery was assessed by calculating the relative bias of
+the estimated profile-specific means, log-odds, and residual
+variances.</p>
+<table style="width:100%;" class="table">
 <caption>Parameter Recovery</caption>
 <colgroup>
+<col width="12%">
 <col width="13%">
-<col width="14%">
+<col width="17%">
 <col width="18%">
-<col width="15%">
-<col width="21%">
-<col width="15%">
+<col width="20%">
+<col width="18%">
 </colgroup>
 <thead><tr class="header">
 <th align="left"></th>
 <th align="right">Parameter</th>
 <th align="right">LTA Estimate</th>
-<th align="right">Difference</th>
+<th align="right">Relative Bias</th>
 <th align="right">CULTA Estimate</th>
-<th align="right">Difference</th>
+<th align="right">Relative Bias</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td align="left">mu_10</td>
 <td align="right">2.253</td>
-<td align="right">1.3824160</td>
-<td align="right">0.8705840</td>
-<td align="right">2.2689973</td>
-<td align="right">-0.0159973</td>
+<td align="right">2.1869526</td>
+<td align="right">-0.0293153</td>
+<td align="right">2.1694682</td>
+<td align="right">-0.0370758</td>
 </tr>
 <tr class="even">
 <td align="left">mu_20</td>
 <td align="right">1.493</td>
-<td align="right">1.1580352</td>
-<td align="right">0.3349648</td>
-<td align="right">1.5140045</td>
-<td align="right">-0.0210045</td>
+<td align="right">1.7065222</td>
+<td align="right">0.1430155</td>
+<td align="right">1.5565449</td>
+<td align="right">0.0425619</td>
 </tr>
 <tr class="odd">
 <td align="left">mu_30</td>
 <td align="right">1.574</td>
-<td align="right">1.2645449</td>
-<td align="right">0.3094551</td>
-<td align="right">1.6057853</td>
-<td align="right">-0.0317853</td>
+<td align="right">1.7080435</td>
+<td align="right">0.0851611</td>
+<td align="right">1.5795206</td>
+<td align="right">0.0035074</td>
 </tr>
 <tr class="even">
 <td align="left">mu_40</td>
 <td align="right">1.117</td>
-<td align="right">1.0778100</td>
-<td align="right">0.0391900</td>
-<td align="right">1.1275251</td>
-<td align="right">-0.0105251</td>
+<td align="right">1.4068860</td>
+<td align="right">0.2595219</td>
+<td align="right">1.1605009</td>
+<td align="right">0.0389444</td>
 </tr>
 <tr class="odd">
 <td align="left">mu_11</td>
 <td align="right">-0.278</td>
-<td align="right">-0.4931759</td>
-<td align="right">0.2151759</td>
-<td align="right">-0.2779016</td>
-<td align="right">-0.0000984</td>
+<td align="right">-0.4859643</td>
+<td align="right">0.7480730</td>
+<td align="right">-0.2859422</td>
+<td align="right">0.0285691</td>
 </tr>
 <tr class="even">
 <td align="left">mu_21</td>
 <td align="right">-0.165</td>
-<td align="right">-0.3910813</td>
-<td align="right">0.2260813</td>
-<td align="right">-0.1652498</td>
-<td align="right">0.0002498</td>
+<td align="right">-0.3673953</td>
+<td align="right">1.2266384</td>
+<td align="right">-0.0880921</td>
+<td align="right">-0.4661086</td>
 </tr>
 <tr class="odd">
 <td align="left">mu_31</td>
 <td align="right">-0.199</td>
-<td align="right">-0.4376782</td>
-<td align="right">0.2386782</td>
-<td align="right">-0.1829942</td>
-<td align="right">-0.0160058</td>
+<td align="right">-0.4180464</td>
+<td align="right">1.1007355</td>
+<td align="right">-0.1544862</td>
+<td align="right">-0.2236876</td>
 </tr>
 <tr class="even">
 <td align="left">mu_41</td>
 <td align="right">-0.148</td>
-<td align="right">-0.4050322</td>
-<td align="right">0.2570322</td>
-<td align="right">-0.1515997</td>
-<td align="right">0.0035997</td>
+<td align="right">-0.4000707</td>
+<td align="right">1.7031803</td>
+<td align="right">-0.0510851</td>
+<td align="right">-0.6548303</td>
 </tr>
 <tr class="odd">
 <td align="left">nu_0</td>
-<td align="right">-3.563</td>
-<td align="right">-1.1072981</td>
-<td align="right">-2.4557019</td>
-<td align="right">-3.6910557</td>
-<td align="right">0.1280557</td>
+<td align="right">-0.405</td>
+<td align="right">0.0346461</td>
+<td align="right">-1.0855458</td>
+<td align="right">-0.2154072</td>
+<td align="right">-0.4681304</td>
 </tr>
 <tr class="even">
 <td align="left">alpha_0</td>
-<td align="right">-3.586</td>
-<td align="right">-2.3408923</td>
-<td align="right">-1.2451077</td>
-<td align="right">-3.5634025</td>
-<td align="right">-0.0225975</td>
+<td align="right">-0.500</td>
+<td align="right">-0.5490292</td>
+<td align="right">0.0980584</td>
+<td align="right">-0.3451484</td>
+<td align="right">-0.3097032</td>
 </tr>
 <tr class="odd">
 <td align="left">kappa_0</td>
-<td align="right">0.122</td>
-<td align="right">0.0375012</td>
-<td align="right">0.0844988</td>
-<td align="right">0.1273813</td>
-<td align="right">-0.0053813</td>
+<td align="right">0.100</td>
+<td align="right">0.4532500</td>
+<td align="right">3.5325000</td>
+<td align="right">0.3926138</td>
+<td align="right">2.9261377</td>
 </tr>
 <tr class="even">
 <td align="left">beta_00</td>
-<td align="right">2.250</td>
-<td align="right">2.2757322</td>
-<td align="right">-0.0257322</td>
-<td align="right">2.1225611</td>
-<td align="right">0.1274389</td>
+<td align="right">0.850</td>
+<td align="right">1.2140981</td>
+<td align="right">0.4283507</td>
+<td align="right">0.6689811</td>
+<td align="right">-0.2129634</td>
 </tr>
 <tr class="odd">
 <td align="left">gamma_00</td>
-<td align="right">0.063</td>
-<td align="right">0.0198196</td>
-<td align="right">0.0431804</td>
-<td align="right">0.0676685</td>
-<td align="right">-0.0046685</td>
+<td align="right">0.200</td>
+<td align="right">0.1395798</td>
+<td align="right">-0.3021010</td>
+<td align="right">0.2315390</td>
+<td align="right">0.1576949</td>
 </tr>
 <tr class="even">
 <td align="left">gamma_10</td>
-<td align="right">0.094</td>
-<td align="right">0.0511943</td>
-<td align="right">0.0428057</td>
-<td align="right">0.0942463</td>
-<td align="right">-0.0002463</td>
+<td align="right">0.200</td>
+<td align="right">0.1272521</td>
+<td align="right">-0.3637397</td>
+<td align="right">0.2815591</td>
+<td align="right">0.4077955</td>
+</tr>
+<tr class="odd">
+<td align="left">theta_11</td>
+<td align="right">0.200</td>
+<td align="right">1.2347940</td>
+<td align="right">5.1739700</td>
+<td align="right">0.2216670</td>
+<td align="right">0.1083351</td>
+</tr>
+<tr class="even">
+<td align="left">theta_22</td>
+<td align="right">0.200</td>
+<td align="right">1.0070835</td>
+<td align="right">4.0354175</td>
+<td align="right">0.2296140</td>
+<td align="right">0.1480698</td>
+</tr>
+<tr class="odd">
+<td align="left">theta_33</td>
+<td align="right">0.200</td>
+<td align="right">1.0504398</td>
+<td align="right">4.2521990</td>
+<td align="right">0.2072222</td>
+<td align="right">0.0361108</td>
+</tr>
+<tr class="even">
+<td align="left">theta_44</td>
+<td align="right">0.200</td>
+<td align="right">0.8839528</td>
+<td align="right">3.4197641</td>
+<td align="right">0.1752072</td>
+<td align="right">-0.1239641</td>
 </tr>
 </tbody>
 </table>
@@ -443,10 +475,10 @@ VARIABLE:
 
 ANALYSIS:
   TYPE = MIXTURE;
-  STARTS = 20 4;
-  STSCALE = 5;
-  STITERATIONS = 10;
-  PROCESS = 1;
+  STARTS = 500 100;
+  STSCALE = 2;
+  STITERATIONS = 200;
+  PROCESS = 24;
   MODEL = NOCOV;
 
 MODEL:
@@ -649,11 +681,11 @@ OUTPUT:
   ENTROPY;
 
 SAVEDATA:
-  ESTIMATES = lta_hqkdKzsBrLDoUq0A6l3I_estimates.dat;
-  RESULTS = lta_hqkdKzsBrLDoUq0A6l3I_results.dat;
-  TECH3 = lta_hqkdKzsBrLDoUq0A6l3I_tech3.dat;
-  TECH4 = lta_hqkdKzsBrLDoUq0A6l3I_tech4.dat;
-  FILE = lta_hqkdKzsBrLDoUq0A6l3I_cprobs.dat;
+  ESTIMATES = lta_fykP8lRa20dlCznANnWX_estimates.dat;
+  RESULTS = lta_fykP8lRa20dlCznANnWX_results.dat;
+  TECH3 = lta_fykP8lRa20dlCznANnWX_tech3.dat;
+  TECH4 = lta_fykP8lRa20dlCznANnWX_tech4.dat;
+  FILE = lta_fykP8lRa20dlCznANnWX_cprobs.dat;
   SAVE = CPROBABILITIES;</code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

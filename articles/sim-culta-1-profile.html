@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">manCULTA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,7 +88,7 @@ two-profile CULTA model.</p>
 <span></span>
 <span><span class="co"># dimensions</span></span>
 <span><span class="va">n</span> <span class="co"># number of individuals</span></span>
-<span><span class="co">#&gt; [1] 10000</span></span>
+<span><span class="co">#&gt; [1] 200</span></span>
 <span><span class="va">m</span> <span class="co"># measurement occasions</span></span>
 <span><span class="co">#&gt; [1] 6</span></span>
 <span><span class="va">p</span> <span class="co"># number of items</span></span>
@@ -98,36 +98,36 @@ two-profile CULTA model.</p>
 <span></span>
 <span><span class="co"># covariate parameters</span></span>
 <span><span class="va">mu_x</span> </span>
-<span><span class="co">#&gt; [1] 11.4009</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
 <span><span class="va">sigma_x</span></span>
-<span><span class="co">#&gt; [1] 24.67566</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
 <span></span>
 <span><span class="co"># profile membership and transition parameters</span></span>
 <span><span class="va">nu_0</span></span>
-<span><span class="co">#&gt; [1] -3.563</span></span>
+<span><span class="co">#&gt; [1] -0.405</span></span>
 <span><span class="va">kappa_0</span></span>
-<span><span class="co">#&gt; [1] 0.122</span></span>
+<span><span class="co">#&gt; [1] 0.1</span></span>
 <span><span class="va">alpha_0</span></span>
-<span><span class="co">#&gt; [1] -3.586</span></span>
+<span><span class="co">#&gt; [1] -0.5</span></span>
 <span><span class="va">beta_00</span></span>
-<span><span class="co">#&gt; [1] 2.25</span></span>
+<span><span class="co">#&gt; [1] 0.85</span></span>
 <span><span class="va">gamma_00</span></span>
-<span><span class="co">#&gt; [1] 0.063</span></span>
+<span><span class="co">#&gt; [1] 0.2</span></span>
 <span><span class="va">gamma_10</span></span>
-<span><span class="co">#&gt; [1] 0.094</span></span>
+<span><span class="co">#&gt; [1] 0.2</span></span>
 <span></span>
 <span><span class="co"># trait parameters</span></span>
 <span><span class="va">psi_t</span></span>
 <span><span class="co">#&gt;      [,1]</span></span>
-<span><span class="co">#&gt; [1,]  0.1</span></span>
+<span><span class="co">#&gt; [1,]  0.3</span></span>
 <span><span class="va">mu_t</span></span>
 <span><span class="co">#&gt; [1] 0</span></span>
 <span><span class="va">psi_p</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
-<span><span class="co">#&gt; [1,]  0.1  0.0  0.0  0.0</span></span>
-<span><span class="co">#&gt; [2,]  0.0  0.1  0.0  0.0</span></span>
-<span><span class="co">#&gt; [3,]  0.0  0.0  0.5  0.0</span></span>
-<span><span class="co">#&gt; [4,]  0.0  0.0  0.0  0.5</span></span>
+<span><span class="co">#&gt; [1,]  0.3  0.0  0.0  0.0</span></span>
+<span><span class="co">#&gt; [2,]  0.0  0.3  0.0  0.0</span></span>
+<span><span class="co">#&gt; [3,]  0.0  0.0  0.3  0.0</span></span>
+<span><span class="co">#&gt; [4,]  0.0  0.0  0.0  0.3</span></span>
 <span><span class="va">mu_p</span></span>
 <span><span class="co">#&gt; [1] 0 0 0 0</span></span>
 <span><span class="va">common_trait_loading</span></span>
@@ -151,13 +151,13 @@ two-profile CULTA model.</p>
 <span><span class="va">psi_s0</span></span>
 <span><span class="co">#&gt; [1] 1</span></span>
 <span><span class="va">psi_s</span></span>
-<span><span class="co">#&gt; [1] 0.25</span></span>
+<span><span class="co">#&gt; [1] 0.5</span></span>
 <span><span class="va">theta</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
-<span><span class="co">#&gt; [1,] 0.15 0.00 0.00 0.00</span></span>
-<span><span class="co">#&gt; [2,] 0.00 0.15 0.00 0.00</span></span>
-<span><span class="co">#&gt; [3,] 0.00 0.00 0.15 0.00</span></span>
-<span><span class="co">#&gt; [4,] 0.00 0.00 0.00 0.15</span></span>
+<span><span class="co">#&gt; [1,]  0.2  0.0  0.0  0.0</span></span>
+<span><span class="co">#&gt; [2,]  0.0  0.2  0.0  0.0</span></span>
+<span><span class="co">#&gt; [3,]  0.0  0.0  0.2  0.0</span></span>
+<span><span class="co">#&gt; [4,]  0.0  0.0  0.0  0.2</span></span>
 <span></span>
 <span><span class="co"># profile-specific means</span></span>
 <span><span class="va">mu_profile</span></span>
@@ -201,29 +201,90 @@ function requires that <strong>Mplus</strong> is already installed on
 the system.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">one_profile</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/FitCULTA1Profile.html">FitCULTA1Profile</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">one_profile</span><span class="op">)</span></span>
+<span><span class="co">#&gt;              est     se       z      p   2.5%  97.5%</span></span>
+<span><span class="co">#&gt; mu_1      0.8760 0.0756 11.5939 0.0000 0.7279 1.0241</span></span>
+<span><span class="co">#&gt; mu_2      0.6893 0.0680 10.1375 0.0000 0.5561 0.8226</span></span>
+<span><span class="co">#&gt; mu_3      0.6653 0.0693  9.5992 0.0000 0.5295 0.8011</span></span>
+<span><span class="co">#&gt; mu_4      0.5206 0.0616  8.4480 0.0000 0.3999 0.6414</span></span>
+<span><span class="co">#&gt; lambda_t2 0.9405 0.1094  8.5960 0.0000 0.7260 1.1549</span></span>
+<span><span class="co">#&gt; lambda_s2 0.7756 0.0146 53.0696 0.0000 0.7470 0.8043</span></span>
+<span><span class="co">#&gt; lambda_t3 0.9325 0.1525  6.1158 0.0000 0.6337 1.2314</span></span>
+<span><span class="co">#&gt; lambda_s3 0.8070 0.0145 55.5545 0.0000 0.7785 0.8355</span></span>
+<span><span class="co">#&gt; lambda_t4 0.7139 0.1305  5.4709 0.0000 0.4582 0.9697</span></span>
+<span><span class="co">#&gt; lambda_s4 0.6782 0.0137 49.4419 0.0000 0.6513 0.7051</span></span>
+<span><span class="co">#&gt; theta_11  0.2968 0.0198 14.9955 0.0000 0.2580 0.3356</span></span>
+<span><span class="co">#&gt; theta_22  0.2219 0.0125 17.6984 0.0000 0.1973 0.2465</span></span>
+<span><span class="co">#&gt; theta_33  0.1966 0.0126 15.6618 0.0000 0.1720 0.2212</span></span>
+<span><span class="co">#&gt; theta_44  0.2273 0.0112 20.3052 0.0000 0.2054 0.2493</span></span>
+<span><span class="co">#&gt; phi       0.2302 0.0430  5.3475 0.0000 0.1458 0.3145</span></span>
+<span><span class="co">#&gt; psi_t     0.3828 0.1265  3.0269 0.0025 0.1349 0.6306</span></span>
+<span><span class="co">#&gt; psi_p_11  0.2208 0.0479  4.6083 0.0000 0.1269 0.3147</span></span>
+<span><span class="co">#&gt; psi_p_22  0.2495 0.0383  6.5065 0.0000 0.1743 0.3246</span></span>
+<span><span class="co">#&gt; psi_p_33  0.2732 0.0501  5.4483 0.0000 0.1749 0.3714</span></span>
+<span><span class="co">#&gt; psi_p_44  0.3006 0.0451  6.6618 0.0000 0.2122 0.3891</span></span>
+<span><span class="co">#&gt; psi_s0    2.9677 0.2988  9.9310 0.0000 2.3820 3.5534</span></span>
+<span><span class="co">#&gt; psi_s     1.8330 0.0883 20.7648 0.0000 1.6600 2.0060</span></span></code></pre></div>
 <p>The <code>FitCULTA2Profiles</code> function fits the correct
 two-profile model using <code>Mplus</code>. <strong>Note:</strong> This
 function requires that <strong>Mplus</strong> is already installed on
 the system. To speed up model fitting, consider using the
 <code>ncores</code> argument to leverage multiple cores.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">two_profiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/FitCULTA2Profiles.html">FitCULTA2Profiles</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">two_profiles</span><span class="op">)</span></span>
+<span><span class="co">#&gt;               est     se       z      p    2.5%   97.5%</span></span>
+<span><span class="co">#&gt; mu_10      2.1695 0.0815 26.6118 0.0000  2.0097  2.3293</span></span>
+<span><span class="co">#&gt; mu_20      1.5565 0.0779 19.9824 0.0000  1.4039  1.7092</span></span>
+<span><span class="co">#&gt; mu_30      1.5795 0.0750 21.0706 0.0000  1.4326  1.7264</span></span>
+<span><span class="co">#&gt; mu_40      1.1605 0.0698 16.6377 0.0000  1.0238  1.2972</span></span>
+<span><span class="co">#&gt; lambda_t2  0.9352 0.0958  9.7663 0.0000  0.7475  1.1229</span></span>
+<span><span class="co">#&gt; lambda_s2  0.9350 0.0408 22.9064 0.0000  0.8550  1.0150</span></span>
+<span><span class="co">#&gt; lambda_t3  0.9094 0.1310  6.9413 0.0000  0.6526  1.1662</span></span>
+<span><span class="co">#&gt; lambda_s3  0.9566 0.0459 20.8264 0.0000  0.8666  1.0466</span></span>
+<span><span class="co">#&gt; lambda_t4  0.6841 0.1047  6.5324 0.0000  0.4788  0.8893</span></span>
+<span><span class="co">#&gt; lambda_s4  1.0039 0.0452 22.1997 0.0000  0.9152  1.0925</span></span>
+<span><span class="co">#&gt; theta_11   0.2217 0.0173 12.8371 0.0000  0.1878  0.2555</span></span>
+<span><span class="co">#&gt; theta_22   0.2296 0.0122 18.8169 0.0000  0.2057  0.2535</span></span>
+<span><span class="co">#&gt; theta_33   0.2072 0.0124 16.7196 0.0000  0.1829  0.2315</span></span>
+<span><span class="co">#&gt; theta_44   0.1752 0.0178  9.8294 0.0000  0.1403  0.2101</span></span>
+<span><span class="co">#&gt; phi_0     -0.0100 0.0669 -0.1489 0.8817 -0.1411  0.1212</span></span>
+<span><span class="co">#&gt; psi_t      0.4327 0.1040  4.1612 0.0000  0.2289  0.6365</span></span>
+<span><span class="co">#&gt; psi_p_11   0.2222 0.0485  4.5845 0.0000  0.1272  0.3172</span></span>
+<span><span class="co">#&gt; psi_p_22   0.2469 0.0382  6.4665 0.0000  0.1721  0.3218</span></span>
+<span><span class="co">#&gt; psi_p_33   0.2741 0.0500  5.4859 0.0000  0.1762  0.3720</span></span>
+<span><span class="co">#&gt; psi_p_44   0.3041 0.0450  6.7518 0.0000  0.2158  0.3924</span></span>
+<span><span class="co">#&gt; psi_s0     1.1566 0.2344  4.9337 0.0000  0.6971  1.6160</span></span>
+<span><span class="co">#&gt; psi_s      0.4781 0.0639  7.4873 0.0000  0.3530  0.6033</span></span>
+<span><span class="co">#&gt; mu_11     -0.2859 0.0898 -3.1853 0.0014 -0.4619 -0.1100</span></span>
+<span><span class="co">#&gt; mu_21     -0.0881 0.0757 -1.1634 0.2447 -0.2365  0.0603</span></span>
+<span><span class="co">#&gt; mu_31     -0.1545 0.0771 -2.0043 0.0450 -0.3056 -0.0034</span></span>
+<span><span class="co">#&gt; mu_41     -0.0511 0.0758 -0.6742 0.5002 -0.1996  0.0974</span></span>
+<span><span class="co">#&gt; phi_1      0.3327 0.0676  4.9230 0.0000  0.2002  0.4651</span></span>
+<span><span class="co">#&gt; nu_0      -0.2154 0.1909 -1.1283 0.2592 -0.5896  0.1588</span></span>
+<span><span class="co">#&gt; alpha_0   -0.3451 0.1259 -2.7405 0.0061 -0.5920 -0.0983</span></span>
+<span><span class="co">#&gt; kappa_0    0.3926 0.2298  1.7083 0.0876 -0.0578  0.8431</span></span>
+<span><span class="co">#&gt; beta_00    0.6690 0.1680  3.9811 0.0001  0.3396  0.9983</span></span>
+<span><span class="co">#&gt; gamma_00   0.2315 0.1087  2.1308 0.0331  0.0186  0.4445</span></span>
+<span><span class="co">#&gt; gamma_10   0.2816 0.1137  2.4768 0.0133  0.0588  0.5044</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="model-comparison">Model Comparison<a class="anchor" aria-label="anchor" href="#model-comparison"></a>
 </h2>
 <p>The <code>anova</code> function can be used to compare the two fitted
 models.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">one_profile</span>, <span class="va">two_profiles</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $fit</span></span>
 <span><span class="co">#&gt;                    logLik df correction      AIC      BIC     aBIC   entropy</span></span>
-<span><span class="co">#&gt; 1-profile CULTA -246042.9 22   1.083395 492129.8 492288.5 492218.5 0.0000000</span></span>
-<span><span class="co">#&gt; 2-profile CULTA -237508.2 33   1.000768 475082.4 475320.3 475215.5 0.9367669</span></span>
+<span><span class="co">#&gt; 1-profile CULTA -5906.207 22  0.9762563 11856.41 11928.98 11859.28 0.0000000</span></span>
+<span><span class="co">#&gt; 2-profile CULTA -5850.928 33  1.0236706 11767.86 11876.70 11772.15 0.7169988</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $test</span></span>
-<span><span class="co">#&gt; chi_diff  df_diff  p_value </span></span>
-<span><span class="co">#&gt; 20429.88    11.00     0.00</span></span></code></pre></div>
+<span><span class="co">#&gt;     chi_diff      df_diff      p_value </span></span>
+<span><span class="co">#&gt; 9.884388e+01 1.100000e+01 3.024432e-16</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="mplus-script-used">Mplus Script Used<a class="anchor" aria-label="anchor" href="#mplus-script-used"></a>
@@ -295,7 +356,7 @@ VARIABLE:
 ANALYSIS:
   TYPE = GENERAL;
   ESTIMATOR = MLR;
-  STARTS = 10;
+  STARTS = 1000;
   MODEL = NOCOV;
 
 MODEL:
@@ -530,10 +591,10 @@ OUTPUT:
   TECH4;
 
 SAVEDATA:
-  ESTIMATES = cutsar_TBpjfDc7G4UC5Z7eY3PN_estimates.dat;
-  RESULTS = cutsar_TBpjfDc7G4UC5Z7eY3PN_results.dat;
-  TECH3 = cutsar_TBpjfDc7G4UC5Z7eY3PN_tech3.dat;
-  TECH4 = cutsar_TBpjfDc7G4UC5Z7eY3PN_tech4.dat;</code></pre>
+  ESTIMATES = cutsar_whrNjgvsUbGDkMFGuTSq_estimates.dat;
+  RESULTS = cutsar_whrNjgvsUbGDkMFGuTSq_results.dat;
+  TECH3 = cutsar_whrNjgvsUbGDkMFGuTSq_tech3.dat;
+  TECH4 = cutsar_whrNjgvsUbGDkMFGuTSq_tech4.dat;</code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
