@@ -53,11 +53,6 @@ SimFitRILTA2Profiles <- function(taskid,
   gamma_10 <- param$gamma_10
 
   # trait parameters
-  psi_t <- matrix(
-    data = param$psi_t,
-    nrow = 1,
-    ncol = 1
-  )
   common_trait_loading <- c(
     1,
     param$lambda_t2,

@@ -40,10 +40,6 @@ SimFitLTA2Profiles <- function(taskid,
     integrity = integrity
   )
   param <- params[taskid, ]
-  # dimensions
-  p <- 4 # number of items
-  q <- 1 # common trait dimension
-
   # profile membership and transition parameters
   nu_0 <- param$nu_0
   kappa_0 <- param$kappa_0
