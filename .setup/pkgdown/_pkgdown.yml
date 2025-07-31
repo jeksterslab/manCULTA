@@ -65,8 +65,8 @@ articles:
   contents:
   - fig-ic
   - fig-entropy
-  - fig-lta
   - fig-culta
+  - fig-lta
 - title: Containers
   contents:
   - containers

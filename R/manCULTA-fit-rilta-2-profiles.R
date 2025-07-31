@@ -1,0 +1,331 @@
+#' Fit the Two-Profile RILTA Model
+#'
+#' Fits the two-profile RILTA model using `Mplus`.
+#'
+#' @author Ivan Jacob Agaloos Pesigan
+#'
+#' @inheritParams FitCULTA2Profiles
+#'
+#' @return Returns an object of class `fitculta`.
+#'   which is a list with the following elements:
+#'   - `call`: Function call.
+#'   - `fun`: Function used ("FitRILTA2Profiles").
+#'   - `args`: Function arguments.
+#'   - `output`: `Mplus` output files.
+#'   - `elapsed`: Elapsed time.
+#'
+#' @examples
+#' \dontrun{
+#' # complete list of R function arguments -------------------------------------
+#'
+#' # random seed for reproducibility
+#' set.seed(42)
+#'
+#' # dimensions
+#' n <- 1000 # number of individuals
+#' m <- 6 # measurement occasions
+#' p <- 4 # number of items
+#' q <- 1 # common trait dimension
+#'
+#' # covariate parameters
+#' mu_x <- 11.4009
+#' sigma_x <- 24.67566
+#'
+#' # profile membership and transition parameters
+#' nu_0 <- -3.563
+#' kappa_0 <- 0.122
+#' alpha_0 <- -3.586
+#' beta_00 <- 2.250
+#' gamma_00 <- 0.063
+#' gamma_10 <- 0.094
+#'
+#' # trait parameters
+#' psi_t <- 0.10 * diag(1)
+#' mu_t <- 0
+#' psi_p <- diag(p)
+#' psi_p_1 <- 0.10
+#' psi_p_2 <- 0.10
+#' psi_p_3 <- 0.50
+#' psi_p_4 <- 0.50
+#' diag(psi_p) <- c(
+#'   psi_p_1,
+#'   psi_p_2,
+#'   psi_p_3,
+#'   psi_p_4
+#' )
+#' mu_p <- rep(x = 0, times = p)
+#' common_trait_loading <- matrix(
+#'   data = 1,
+#'   nrow = p,
+#'   ncol = q
+#' )
+#'
+#' # state parameters
+#' common_state_loading <- matrix(
+#'   data = 1,
+#'   nrow = p,
+#'   ncol = 1
+#' )
+#' phi_0 <- 0.000
+#' phi_1 <- 0.311
+#' psi_s0 <- 1.00
+#' psi_s <- 0.25
+#' theta <- 0.15 * diag(p)
+#'
+#' # profile-specific means
+#' mu_profile <- cbind(
+#'   c(2.253, 1.493, 1.574, 1.117),
+#'   c(-0.278, -0.165, -0.199, -0.148)
+#' )
+#'
+#' # data generation -----------------------------------------------------------
+#' data <- GenCULTA2Profiles(
+#'   n = n,
+#'   m = m,
+#'   mu_x = mu_x,
+#'   sigma_x = sigma_x,
+#'   nu_0 = nu_0,
+#'   kappa_0 = kappa_0,
+#'   alpha_0 = alpha_0,
+#'   beta_00 = beta_00,
+#'   gamma_00 = gamma_00,
+#'   gamma_10 = gamma_10,
+#'   mu_t = mu_t,
+#'   psi_t = psi_t,
+#'   mu_p = mu_p,
+#'   psi_p = psi_p,
+#'   common_trait_loading = common_trait_loading,
+#'   common_state_loading = common_state_loading,
+#'   phi_0 = phi_0,
+#'   phi_1 = phi_1,
+#'   psi_s0 = psi_s0,
+#'   psi_s = psi_s,
+#'   theta = theta,
+#'   mu_profile = mu_profile
+#' )
+#'
+#' # model fitting -------------------------------------------------------------
+#' # NOTE: Model fitting takes time
+#' FitRILTA2Profiles(data = data)
+#' }
+#'
+#' @family Model Fitting Functions
+#' @keywords manCULTA fit state trait mixture culta
+#' @export
+FitRILTA2Profiles <- function(data,
+                              wd = ".",
+                              ncores = 1L,
+                              mplus_bin = NULL,
+                              starts = c(20, 4),
+                              stiterations = 10,
+                              stscale = 5,
+                              starting_values = NULL) {
+  start <- Sys.time()
+  stopifnot(
+    inherits(
+      x = data,
+      what = "simculta"
+    )
+  )
+  model <- "rilta"
+  # arguments
+  args <- list(
+    data = data,
+    wd = wd,
+    ncores = ncores,
+    mplus_bin = mplus_bin,
+    starts = starts,
+    stiterations = stiterations,
+    stscale = stscale,
+    starting_values = starting_values,
+    p = data$args$p, # p items
+    q = (4 * data$args$p) + 6, # q parameters
+    params = .MPlusRILTA2ProfileParams(data$args$p) # parameter names
+  )
+  # directory
+  old_wd <- getwd()
+  on.exit(
+    setwd(old_wd)
+  )
+  new_wd <- .CreateFolder(
+    x = normalizePath(
+      path = wd,
+      mustWork = FALSE
+    ),
+    prefix = model
+  )
+  on.exit(
+    unlink(
+      x = new_wd,
+      recursive = TRUE
+    ),
+    add = TRUE
+  )
+  setwd(new_wd)
+  # filenames
+  prefix <- .RandomFile(prefix = model)
+  fn_data <- paste0(
+    model,
+    "_",
+    "data.dat"
+  )
+  fn_inp <- paste0(
+    prefix,
+    ".inp"
+  )
+  fn_out <- paste0(
+    prefix,
+    ".out"
+  )
+  fn_estimates <- paste0(
+    prefix,
+    "_",
+    "estimates.dat"
+  )
+  fn_results <- paste0(
+    prefix,
+    "_",
+    "results.dat"
+  )
+  fn_tech3 <- paste0(
+    prefix,
+    "_",
+    "tech3.dat"
+  )
+  fn_tech4 <- paste0(
+    prefix,
+    "_",
+    "tech4.dat"
+  )
+  fn_cprobs <- paste0(
+    prefix,
+    "_",
+    "cprobs.dat"
+  )
+  fn_gh5 <- paste0(
+    prefix,
+    ".gh5"
+  )
+  # data
+  WriteData(
+    x = data,
+    file = fn_data
+  )
+  # input
+  if (is.null(starting_values)) {
+    writeLines(
+      text = .MplusRILTA2Profiles(
+        p = data$args$p,
+        m = data$args$m,
+        fn_data = fn_data,
+        fn_estimates = fn_estimates,
+        fn_results = fn_results,
+        fn_tech3 = fn_tech3,
+        fn_tech4 = fn_tech4,
+        fn_cprobs = fn_cprobs,
+        ncores = as.integer(ncores),
+        starts = starts,
+        stiterations = stiterations,
+        stscale = stscale
+      ),
+      con = fn_inp
+    )
+  } else {
+    writeLines(
+      text = .MplusStartsRILTA2Profiles(
+        p = data$args$p,
+        m = data$args$m,
+        fn_data = fn_data,
+        fn_estimates = fn_estimates,
+        fn_results = fn_results,
+        fn_tech3 = fn_tech3,
+        fn_tech4 = fn_tech4,
+        fn_cprobs = fn_cprobs,
+        ncores = as.integer(ncores),
+        starts = starts,
+        stiterations = stiterations,
+        stscale = stscale,
+        nu_0 = starting_values$nu_0,
+        kappa_0 = starting_values$kappa_0,
+        alpha_0 = starting_values$alpha_0,
+        beta_00 = starting_values$beta_00,
+        gamma_00 = starting_values$gamma_00,
+        gamma_10 = starting_values$gamma_10,
+        common_trait_loading = starting_values$common_trait_loading,
+        theta = starting_values$theta,
+        mu_profile = starting_values$mu_profile
+      ),
+      con = fn_inp
+    )
+  }
+  # output
+  if (is.null(mplus_bin)) {
+    mplus_bin <- .WhichMplus()
+  }
+  if (.Platform$OS.type == "windows") {
+    nullfile <- "NUL"
+  } else {
+    nullfile <- "/dev/null"
+  }
+  if (interactive()) {
+    message(
+      "Fitting the model...\n"
+    )
+  }
+  system2(
+    mplus_bin,
+    args = c(
+      fn_inp,
+      fn_out
+    ),
+    stdout = nullfile,
+    stderr = nullfile
+  )
+  output <- list(
+    data = .ReadLines(
+      con = fn_data
+    ),
+    input = .ReadLines(
+      con = fn_inp
+    ),
+    output = .ReadLines(
+      con = fn_out
+    ),
+    estimates = .ReadLines(
+      con = fn_estimates
+    ),
+    results = .ReadLines(
+      con = fn_results
+    ),
+    tech3 = .ReadLines(
+      con = fn_tech3
+    ),
+    tech4 = .ReadLines(
+      con = fn_tech4
+    ),
+    cprobs = .ReadLines(
+      con = fn_cprobs
+    ),
+    gh5 = readBin(
+      con = fn_gh5,
+      what = "raw",
+      n = file.info(fn_gh5)$size
+    )
+  )
+  call <- match.call()
+  fun <- "FitRILTA2Profiles"
+  end <- Sys.time()
+  elapsed <- end - start
+  out <- list(
+    call = call,
+    fun = fun,
+    args = args,
+    output = output,
+    elapsed = elapsed
+  )
+  class(out) <- c(
+    "fitculta",
+    class(out)
+  )
+  out
+}

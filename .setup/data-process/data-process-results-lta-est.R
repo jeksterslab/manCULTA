@@ -72,9 +72,10 @@ data_process_results_lta_est <- function(overwrite = FALSE,
         args = results_lta_est
       )
     )
+    # replace relayive bias with absolute bias for parameter == 0
     results_lta_est$rel_bias <- ifelse(
       test = results_lta_est$rel_bias < -999,
-      yes = NA,
+      yes = results_lta_est$bias,
       no = results_lta_est$rel_bias
     )
     results_lta_est$parnames <- factor(

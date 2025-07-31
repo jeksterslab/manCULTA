@@ -83,9 +83,10 @@ data_process_results_culta_est <- function(overwrite = FALSE,
         args = results_culta_est
       )
     )
+    # replace relayive bias with absolute bias for parameter == 0
     results_culta_est$rel_bias <- ifelse(
       test = results_culta_est$rel_bias < -999,
-      yes = NA,
+      yes = results_culta_est$bias,
       no = results_culta_est$rel_bias
     )
     results_culta_est$parnames <- factor(

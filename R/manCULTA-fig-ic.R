@@ -16,7 +16,7 @@
 #' @keywords manCULTA figure
 #' @export
 FigIC <- function(results_ic) {
-  N <- Value <- Model <- NULL
+  N <- Value <- Model <- IC <- NULL
   ggplot2::ggplot(
     data = results_ic[
       which(
@@ -39,7 +39,7 @@ FigIC <- function(results_ic) {
       na.rm = TRUE
     ) +
     ggplot2::facet_grid(
-      rows = results_ic$IC
+      rows = ggplot2::vars(IC)
     ) +
     ggplot2::xlab(
       "N"

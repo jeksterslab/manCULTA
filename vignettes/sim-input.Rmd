@@ -233,28 +233,28 @@ Each function corresponds to a specific version of the CULTA model:
 ``` r
 InputCULTA1Profile(data = data)
 #> Check data and Mplus input files in
-#> /scratch/ibp5092/manCULTA/vignettes/cutsar_WKayjJr5WUxgJyKTtzXU
+#> /home/ibp5092/manCULTA/vignettes/cutsar_WKayjJr5WUxgJyKTtzXU
 ```
 
 
 ``` r
 InputCULTA2Profiles(data = data)
 #> Check data and Mplus input files in
-#> /scratch/ibp5092/manCULTA/vignettes/culta_ov5hJdvrSBedH3XIxwW0
+#> /home/ibp5092/manCULTA/vignettes/culta_ov5hJdvrSBedH3XIxwW0
 ```
 
 
 ``` r
 InputLTA2Profiles(data = data)
 #> Check data and Mplus input files in
-#> /scratch/ibp5092/manCULTA/vignettes/lta_SPiCltiQICpKB3TeB1br
+#> /home/ibp5092/manCULTA/vignettes/lta_SPiCltiQICpKB3TeB1br
 ```
 
 
 ``` r
 InputRILTA2Profiles(data = data)
 #> Check data and Mplus input files in
-#> /scratch/ibp5092/manCULTA/vignettes/rilta_Fp17CqRi4u9Q45VhC2La
+#> /home/ibp5092/manCULTA/vignettes/rilta_Fp17CqRi4u9Q45VhC2La
 ```
 
 ### With Starting Values
@@ -266,7 +266,7 @@ InputCULTA1Profile(
   starting_values = starting_values
 )
 #> Check data and Mplus input files in
-#> /scratch/ibp5092/manCULTA/vignettes/cutsar_nUf3UQ9KpW1WXEHDFfvL
+#> /home/ibp5092/manCULTA/vignettes/cutsar_nUf3UQ9KpW1WXEHDFfvL
 ```
 
 
@@ -276,7 +276,7 @@ InputCULTA2Profiles(
   starting_values = starting_values
 )
 #> Check data and Mplus input files in
-#> /scratch/ibp5092/manCULTA/vignettes/culta_Q89nH7bEFAj4B1KjWWeI
+#> /home/ibp5092/manCULTA/vignettes/culta_Q89nH7bEFAj4B1KjWWeI
 ```
 
 
@@ -286,7 +286,7 @@ InputLTA2Profiles(
   starting_values = starting_values
 )
 #> Check data and Mplus input files in
-#> /scratch/ibp5092/manCULTA/vignettes/lta_Jtkqiq9mE97W8ZaqGBbE
+#> /home/ibp5092/manCULTA/vignettes/lta_Jtkqiq9mE97W8ZaqGBbE
 ```
 
 
@@ -296,7 +296,7 @@ InputRILTA2Profiles(
   starting_values = starting_values
 )
 #> Check data and Mplus input files in
-#> /scratch/ibp5092/manCULTA/vignettes/rilta_Oycr0UB7oC4typ1xG8LQ
+#> /home/ibp5092/manCULTA/vignettes/rilta_Oycr0UB7oC4typ1xG8LQ
 ```
 
 ## Run in Mplus
