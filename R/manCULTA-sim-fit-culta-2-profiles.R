@@ -41,14 +41,8 @@ SimFitCULTA2Profiles <- function(taskid,
   )
   param <- params[taskid, ]
   # dimensions
-  n <- param$n # number of individuals
-  m <- param$m # measurement occasions
   p <- 4 # number of items
   q <- 1 # common trait dimension
-
-  # covariate parameters
-  mu_x <- param$mu_x
-  sigma_x <- param$sigma_x
 
   # profile membership and transition parameters
   nu_0 <- param$nu_0
@@ -64,17 +58,12 @@ SimFitCULTA2Profiles <- function(taskid,
     nrow = 1,
     ncol = 1
   )
-  mu_t <- 0
   psi_p <- diag(p)
   diag(psi_p) <- c(
     param$psi_p_11,
     param$psi_p_22,
     param$psi_p_33,
     param$psi_p_44
-  )
-  mu_p <- rep(
-    x = 0,
-    times = p
   )
   common_trait_loading <- c(
     1,
