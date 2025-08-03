@@ -21,7 +21,7 @@ The simulation scripts are in the following folder.
 
 > **NOTE**: Build or request for `maculta.sif` and place it in `"/scratch/$USER/$PROJECT/.sif"`.
 
-[comment]: <> (The maculta.sif used is in https://osf.io/83m6z/)
+[comment]: <> (The maculta.sif used is in https://osf.io/a9g2h/)
 
 Run the following for `maculta.sif` to be executable and accessible to anyone.
 
