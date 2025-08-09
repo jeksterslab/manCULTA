@@ -1,7 +1,7 @@
 manCULTA
 ================
 Ivan Jacob Agaloos Pesigan
-2025-08-03
+2025-08-09
 
 <!-- README.md is generated from .setup/readme/README.Rmd. Please edit that file -->
 
@@ -20,9 +20,14 @@ Intoxication. <https://doi.org/10.0000/0000000000>.
 ## Acknowledgments
 
 This research was made possible by the Prevention and Methodology
-Training Program (PAMT) funded by a T32 training grant (T32 DA017629
+Training Program (PAMT) funded by a T32 training grant (T32 DA017629,
 MPIs: J. Maggs & S. Lanza) from the National Institute on Drug Abuse
-(NIDA).
+(NIDA); the National Center for Advancing Translational Sciences grant
+UL1TR002014-06; and pilot mentoring and professional development awards
+through P50DA039838 awarded to Michael A. Russell (National Institute on
+Drug Abuse, PI: L. Collins), as well as support from the Social Science
+Research Institute at Penn State and departmental funds awarded to
+Michael A. Russell.
 
 Computations for this research were performed on the Pennsylvania State
 University’s Institute for Computational and Data Sciences’ Roar
@@ -30,7 +35,7 @@ supercomputer using SLURM for job scheduling (Yoo et al., 2003), GNU
 Parallel to run the simulations in parallel (Tange, 2021), and Apptainer
 to ensure a reproducible software stack (Kurtzer et al., 2017, 2021).
 See `.sim/README.md` and the scripts in the `.sim` folder in the
-[GitHub](https://github.com/jeksterslab/manCTMed) repository for more
+[GitHub](https://github.com/jeksterslab/manCULTA) repository for more
 details on how the simulations were performed.
 
 ## Installation

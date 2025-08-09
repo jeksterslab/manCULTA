@@ -29,34 +29,26 @@ library(manCULTA)
 
 ## Bias
 
-Bias is computed as the difference between the population parameter and the mean of the parameter estimates obtained from the simulation.
-
 ```{r, bias}
 data(results_lta_est, package = "manCULTA")
 FigBiasLTAEst(results_lta_est = results_lta_est)
 ```
 
-## RMSE
-
-Root mean square error (RMSE) is the square root of the average squared difference between the simulation estimates and the population parameter.
+## Root Mean Square Error (RMSE)
 
 ```{r, rmse}
 data(results_lta_est, package = "manCULTA")
 FigRMSELTAEst(results_lta_est = results_lta_est)
 ```
 
-## Coverage
-
-Coverage probability is the proportion of simulation replications in which the confidence interval contains the population parameter.
+## Coverage Probability
 
 ```{r, coverage}
 data(results_lta_est, package = "manCULTA")
 FigCoverageLTAEst(results_lta_est = results_lta_est)
 ```
 
-## Power
-
-Statistical power is the proportion of simulation replications in which the null hypothesis was correctly rejected.
+## Statistical Power
 
 ```{r, power}
 data(results_lta_est, package = "manCULTA")
