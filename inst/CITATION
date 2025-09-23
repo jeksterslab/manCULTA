@@ -1,7 +1,7 @@
 year <- 2025
-author_text <- "Pesigan, I. J. A., Russell, I. J. A. & Chow, S.-M."
+author_text <- "Pesigan, I. J. A., Russell, M. A., & Chow, S.-M."
 pkg <- meta$Package
-title <- "manCULTA"
+title <- "Common and Unique Latent Transition Analysis (CULTA) as a Way to Examine the Trait-State Dynamics of Alcohol Intoxication"
 version <- meta$Version
 author <- c(
   person(
