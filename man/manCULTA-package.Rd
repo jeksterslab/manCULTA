@@ -6,7 +6,7 @@
 \alias{manCULTA-package}
 \title{manCULTA: Common and Unique Latent Transition Analysis (CULTA) as a Way to Examine the Trait-State Dynamics of Alcohol Intoxication}
 \description{
-Research compendium for the manuscript Pesigan, I. J. A., Russell, M. A., Chow, S.-M. (Under Review). Common and Unique Latent Transition Analysis (CULTA) as a Way to Examine the Trait-State Dynamics of Alcohol Intoxication. \doi{10.0000/0000000000}.
+Research compendium for the manuscript Pesigan, I. J. A., Russell, M. A., Chow, S.-M. (2025). Common and Unique Latent Transition Analysis (CULTA) as a Way to Examine the Trait-State Dynamics of Alcohol Intoxication. \doi{10.0000/0000000000}.
 }
 \seealso{
 Useful links:
@@ -21,6 +21,12 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Ivan Jacob Agaloos Pesigan \email{r.jeksterslab@gmail.com} (\href{https://orcid.org/0000-0003-4818-8420}{ORCID}) [copyright holder]
+
+Other contributors:
+\itemize{
+  \item Michael A. Russell \email{mar60@psu.edu} (\href{https://orcid.org/0000-0002-3956-604X}{ORCID}) [contributor]
+  \item Sy-Miin Chow \email{quc16@psu.edu} (\href{https://orcid.org/0000-0003-1938-027X}{ORCID}) [contributor]
+}
 
 }
 \keyword{internal}

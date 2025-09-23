@@ -7,10 +7,20 @@ Authors@R: c(
            family = "Pesigan",
            role = c("aut", "cre", "cph"),
            email = "r.jeksterslab@gmail.com",
-           comment = c(ORCID = "0000-0003-4818-8420"))
-    )
+           comment = c(ORCID = "0000-0003-4818-8420")),
+    person(given = "Michael A.",
+           family = "Russell",
+           role = "ctb",
+           email = "mar60@psu.edu",
+           comment = c(ORCID = "0000-0002-3956-604X")),
+    person(given = "Sy-Miin",,
+           family = "Chow",
+           role = "ctb",
+           email = "quc16@psu.edu",
+           comment = c(ORCID = "0000-0003-1938-027X"))
+    )    
 Description: Research compendium for the manuscript
-    Pesigan, I. J. A., Russell, M. A., Chow, S.-M. (Under Review).
+    Pesigan, I. J. A., Russell, M. A., Chow, S.-M. (2025).
     Common and Unique Latent Transition Analysis (CULTA) as a Way to Examine the Trait-State Dynamics of Alcohol Intoxication.
     <doi:10.0000/0000000000>.
 URL: https://github.com/jeksterslab/manCULTA,
@@ -25,9 +35,12 @@ Depends: R (>= 4.0.0)
 LinkingTo: Rcpp, RcppArmadillo
 Imports: Rcpp, ggplot2
 Suggests: knitr, rmarkdown, testthat, lavaan
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3.9000
 NeedsCompilation: yes
-Packaged: 2025-08-09 22:54:45 UTC; root
+Packaged: 2025-09-23 01:11:11 UTC; root
 Author: Ivan Jacob Agaloos Pesigan [aut, cre, cph] (ORCID:
-    <https://orcid.org/0000-0003-4818-8420>)
+    <https://orcid.org/0000-0003-4818-8420>),
+  Michael A. Russell [ctb] (ORCID:
+    <https://orcid.org/0000-0002-3956-604X>),
+  Sy-Miin Chow [ctb] (ORCID: <https://orcid.org/0000-0003-1938-027X>)
 Maintainer: Ivan Jacob Agaloos Pesigan <r.jeksterslab@gmail.com>
