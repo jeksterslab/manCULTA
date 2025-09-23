@@ -1,0 +1,676 @@
+\documentclass[man, 10pt, donotrepeattitle]{apa7}
+
+\usepackage[american]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{blkarray}
+\usepackage{csquotes}
+\usepackage{endnotes}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{changes}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+\setlength {\marginparwidth }{2cm} 
+\usepackage{todonotes}
+
+\usepackage{subcaption}
+\usepackage[labelformat = parens, labelsep = quad, skip = 3pt]{caption}
+
+\usepackage{caption}
+\captionsetup{labelfont = bf, textfont = {it,small}, labelsep = newline, justification = raggedright, singlelinecheck = false}
+
+% For supplement figures
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+
+\usepackage{rotating}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BIBLATEX APA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%% begin.rcode
+% #| label = "root",
+% #| include = FALSE
+% root <- rprojroot::is_rstudio_project
+%% end.rcode
+
+%% begin.rcode
+% #| label = "knitr",
+% #| include = FALSE,
+% #| file = root$find_file(
+% #|   ".setup",
+% #|   "latex",
+% #|   "r-scripts",
+% #|   "knitr.R"
+% #| )
+%% end.rcode
+
+%% begin.rcode
+% #| label = "biblatex",
+% #| echo = FALSE,
+% #| message = FALSE,
+% #| warning = FALSE,
+% #| results = "asis"
+% if (require("rProject")) {
+%   Bib(
+%     path = dirname(
+%       root$find_file(
+%         "project.Rproj"
+%       )
+%     )
+%   )
+%   cat(
+%     .PreambleBiblatex(
+%       path = root$find_file(
+%         ".setup",
+%         "latex",
+%         "bib"
+%       )
+%     )
+%   )
+% } else {
+%   cat(
+%     .PreambleBiblatexCombined(
+%       path = root$find_file(
+%         ".setup",
+%         "latex",
+%         "bib"
+%       ),
+%       output_path = root$find_file(
+%         ".setup",
+%         "latex"
+%       )
+%     )
+%   )
+% }
+%% end.rcode
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% kbordermatrix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%% begin.rcode
+% #| label = "kbordermatrix",
+% #| echo = FALSE,
+% #| message = FALSE,
+% #| warning = FALSE,
+% #| results = "asis"
+% cat(
+%   paste0(
+%     "\n",
+%     "\\usepackage{",
+%     root$find_file(
+%       ".setup",
+%       "latex",
+%       "sty",
+%       "kbordermatrix"
+%     ),
+%     "}",
+%     "\n"
+%   )
+% )
+% cat("\n\\renewcommand{\\kbldelim}{(}% Left delimiter")
+% cat("\n\\renewcommand{\\kbrdelim}{)}% Right delimiter")
+%% end.rcode
+
+\title{Common and Unique Latent Transition Analysis (CULTA) as a Way to Examine the Trait-State Dynamics of Alcohol Intoxication (Supplementary Materials)}
+
+\shorttitle{Common and Unique Latent Transition Analysis}
+
+\authorsnames[1, {1, 2}, 3]{Ivan Jacob Agaloos Pesigan, Michael A. Russell, Sy-Miin Chow}
+\authorsaffiliations{{Edna Bennett Pierce Prevention Research Center, The Pennsylvania State University}, {Department of Biobehavioral Health, The Pennsylvania State University}, {Department of Human Development and Family Studies, The Pennsylvania State University}}
+
+\leftheader{Pesigan, Russell, \& Chow}
+
+\authornote{\addORCIDlink{Ivan Jacob Agaloos Pesigan}{0000-0003-4818-8420}; \addORCIDlink{Michael A. Russell}{0000-0002-3956-604X}; \addORCIDlink{Sy-Miin Chow}{0000-0003-1938-027X}.
+
+The data reported in this manuscript were previously used in \Textcite{Russell-Richards-Turrisi-etal-2025} and \Textcite{Richards-Mallett-Turrisi-etal-2025}.
+
+This research was made possible by the Prevention and Methodology Training Program (PAMT) funded by a T32 training grant (T32 DA017629, MPIs: J. Maggs \& S. Lanza) from the National Institute on Drug Abuse (NIDA); the National Center for Advancing Translational Sciences grant UL1TR002014-06; and pilot mentoring and professional development awards through P50DA039838 awarded to Michael A. Russell (National Institute on Drug Abuse, PI: L. Collins), as well as support from the Social Science Research Institute at Penn State and departmental funds awarded to Michael A. Russell.
+
+Computations for this research were performed on the Pennsylvania State University's Institute for Computational and Data Sciences' Roar supercomputer using SLURM for job scheduling \parencite{Yoo-Jette-Grondona-2003}, GNU Parallel to run the simulations in parallel \parencite{Tange-2021}, and Apptainer to ensure a reproducible software stack \parencite{Kurtzer-Sochat-Bauer-2017, Kurtzer-cclerget-Bauer-etal-2021}.
+		
+Correspondence concerning this article should be addressed to Ivan Jacob Agaloos Pesigan, Edna Bennett Pierce Prevention Research Center, College of Health and Human Development, The Pennsylvania State University, 320 Biobehavioral Health Building, University Park, PA 16802 or by email (ijapesigan@psu.edu).}
+
+\begin{document}
+
+\maketitle
+
+% --- Lettered sections, numbered subsections & subsubsections in apa7 --------
+% 1) Turn numbering back on for 3 levels
+\setcounter{secnumdepth}{3} % 1=sections only, 2=+subsections, 3=+subsubsections
+
+% 2) Numbering style
+\renewcommand{\thesection}{\Alph{section}}                      % A, B, C...
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}  % A.1, A.2...
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}} % A.1.1
+
+% 3) Restore number printing before headings if apa7 suppresses them
+\makeatletter
+\providecommand{\@seccntformat}[1]{\csname the#1\endcsname\quad}
+\renewcommand{\@seccntformat}[1]{\csname the#1\endcsname\quad}
+\makeatother
+
+% 4) TOC alignment so letters/numbers display nicely
+\makeatletter
+\renewcommand{\numberline}[1]{#1\hspace{0.6em}}
+\makeatother
+
+% 5) Fallback: redefine headings with APA-ish spacing if apa7 still hides numbers
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{\z@}%
+  {-3.5ex \@plus -1ex \@minus -.2ex}%
+  {2.3ex \@plus .2ex}%
+  {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+  {-3.25ex \@plus -1ex \@minus -.2ex}%
+  {1.5ex \@plus .2ex}%
+  {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{\z@}%
+  {-3.25ex \@plus -1ex \@minus -.2ex}%
+  {1.5ex \@plus .2ex}%
+  {\normalfont\normalsize\bfseries\itshape}} % italic subsubsection titles
+\makeatother
+% -----------------------------------------------------------------------------
+
+\tableofcontents
+
+\listoftables
+
+\listoffigures
+
+\newpage
+
+% \section{Supplementary Tables}
+
+\begin{table}
+	\begin{threeparttable}
+		\footnotesize
+		\caption{Substantive Interpretation of the CULTA Model Parameters}
+		\label{tab:manCULTA-parameters}
+		\begin{tabular}{@{}ll@{}}
+			\toprule
+			\multicolumn{2}{c}{Common Trait} \\
+			\midrule
+			$\psi_{T}$                    & Variance in the common trait; reflects stable between-person differences in overall intoxication liability across TAC features. \\
+			$\lambda_{T_{\mathrm{peak}}}$ & Loading of peak TAC on trait; indicates how strongly peak values represent general intoxication tendency.                       \\
+			$\lambda_{T_{\mathrm{rise}}}$ & Rise rate loading on trait; captures how absorption speed contributes to trait intoxication.                                    \\
+			$\lambda_{T_{\mathrm{fall}}}$ & Fall rate loading on trait; reflects how elimination rate relates to stable intoxication tendency.                              \\
+			$\lambda_{T_{\mathrm{dura}}}$ & Duration loading on trait; represents how intoxication length contributes to the general trait.                                 \\
+			\midrule
+			\multicolumn{2}{c}{Unique Trait} \\
+			\midrule
+			$\psi_{\mathrm{peak}}$        & Variance in trait-specific peak TAC; captures stable individual deviations beyond the common trait.                             \\
+			$\psi_{\mathrm{rise}}$        & Trait-specific rise rate variance; reflects persistent between-person differences in absorption speed.                          \\
+			$\psi_{\mathrm{fall}}$        & Trait-specific fall rate variance; captures stable individual differences in elimination rate.                                  \\
+			$\psi_{\mathrm{dura}}$        & Trait-specific duration variance; reflects stable personal differences in intoxication length.                                  \\
+			\midrule
+			\multicolumn{2}{c}{Common State} \\
+			\midrule
+			$\psi_{S_{t_{0}}}$            & Initial-day variance of the common state; reflects variability in intoxication levels at observation start.                     \\
+			$\psi_{S}$                    & Residual state variance over days; captures within-person daily fluctuations not explained by trait or AR effects.              \\
+			$\lambda_{S_{\mathrm{peak}}}$ & Peak TAC loading on state; indicates extent to which peak values reflect daily intoxication.                                    \\
+			$\lambda_{S_{\mathrm{rise}}}$ & Rise rate loading on state; shows how absorption speed contributes to the day-level state.                                      \\
+			$\lambda_{S_{\mathrm{fall}}}$ & Fall rate loading on state; reflects how decline in intoxication contributes to the daily state.                                \\
+			$\lambda_{S_{\mathrm{dura}}}$ & Duration loading on state; represents the impact of intoxication length on state level.                                         \\
+			\midrule
+			\multicolumn{2}{c}{Unique State} \\
+			\midrule
+			$\theta_{\mathrm{peak}}$      & Day-specific variance in peak TAC; not explained by trait or common state.                                                      \\
+			$\theta_{\mathrm{rise}}$      & Daily variance in rise rate; residual fluctuations beyond latent factors.                                                       \\
+			$\theta_{\mathrm{fall}}$      & Unique daily variance in fall rate; unexplained by common state or trait.                                                       \\
+			$\theta_{\mathrm{dura}}$      & Day-level variance in duration; unique deviations not shared with latent components.                                            \\
+			\midrule
+			\multicolumn{2}{c}{Initial Profile Membership} \\
+			\midrule
+			$\nu_{0}$                     & Intercept for initial log-odds of chronic HED profile (vs. inertia-driven drinking) when AUDIT = 0.                             \\
+			$\kappa_{0}$                  & AUDIT effect on initial profile membership; higher AUDIT increases odds of chronic HED.                                         \\
+			\midrule
+			\multicolumn{2}{c}{Profile Transitions} \\
+			\midrule
+			$\alpha_{0}$                  & Baseline log-odds of being in the chronic HED profile across days.                                                              \\
+			$\beta_{00}$                  & Increased odds of staying in chronic HED if previously in that profile; reflects persistence.                                   \\
+			$\gamma_{00}$                 & AUDIT effect on staying in chronic HED; higher AUDIT increases persistence.                                                     \\
+			$\gamma_{10}$                 & AUDIT effect on switching from state to chronic HED; higher AUDIT increases transition odds.                                    \\
+			\midrule
+			\multicolumn{2}{c}{Profile-Specific TAC Feature Means} \\
+			\midrule
+			$\mu_{\mathrm{peak}_{0}}$     & Mean peak TAC in chronic HED profile; reflects consistently high peak exposure.                                                 \\
+			$\mu_{\mathrm{rise}_{0}}$     & Mean rise rate in chronic HED; indicates faster alcohol absorption.                                                             \\
+			$\mu_{\mathrm{fall}_{0}}$     & Mean fall rate in chronic HED; reflects slower intoxication decline.                                                            \\
+			$\mu_{\mathrm{dura}_{0}}$     & Mean duration in chronic HED; indicates prolonged exposure.                                                                     \\
+			$\mu_{\mathrm{peak}_{1}}$     & Mean peak TAC in inertia-driven drinking profile; moderate, more variable peaks.                                                \\
+			$\mu_{\mathrm{rise}_{1}}$     & Mean rise rate in inertia-driven drinking; generally slower absorption.                                                         \\
+			$\mu_{\mathrm{fall}_{1}}$     & Mean fall rate in inertia-driven drinking; may reflect quicker return to baseline.                                              \\
+			$\mu_{\mathrm{dura}_{1}}$     & Mean duration in inertia-driven drinking; shorter intoxication episodes.                                                        \\
+			\midrule
+			\multicolumn{2}{c}{Profile-Specific Autoregressive Coefficients} \\
+			\midrule
+			$\phi_{0}$                    & AR coefficient in chronic HED; near-zero, indicating minimal inertia and return to high levels regardless of prior state.       \\
+			$\phi_{1}$                    & AR coefficient in inertia-driven drinking; positive, reflecting state inertia and lingering intoxication from the previous day. \\
+			\bottomrule
+		\end{tabular}
+		\begin{tablenotes}[para,flushleft]
+			{\tiny
+				\textit{Note.}
+				The common trait and unique traits for peak and rise were omitted in the final model. $\phi_{0}$ was constrained to zero in the final model.
+			}
+		\end{tablenotes}
+	\end{threeparttable}
+\end{table}
+
+\begin{sidewaystable}
+	\begin{threeparttable}
+		\caption{Substantive Interpretation of the CULTA Model Profiles and Parameters}
+		\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+			\toprule
+			Term                    & Meaning                                                                                    & Model Representation                                                              & Substantive Interpretation                                                                                                                \\
+			\midrule
+			Trait (Common Trait)    & Stable, between-person tendency in latent intoxication                                     & Modeled via Trait\_intoxication                                                   & Not directly varying by profile; omitted in final model due to non-significance                                                           \\
+			Profile-Based Means     & Systematic, persistent differences in TAC features across profiles                         & Modeled via $\mu_{k, c}$ parameters                                               & Reflect emergent, profile-specific intoxication patterns (e.g., Chronic HED vs. Inertia-Driven Drinking)                                  \\
+			Day-Level State         & Within-person, daily fluctuations in intoxication                                          & Modeled via $\mathrm{State}_{\mathrm{intoxication}}$ and AR dynamics ($\phi_{c}$) & Captures short-term variability in intoxication levels                                                                                    \\
+			Chronic HED             & Profile with systematically elevated TAC features within the day, little day-level inertia & High $\mu_{k, c}$, $\phi_{0} \approx 0$                                           & Trait-like profile reflecting stable, elevated intoxication expression when individuals occupy this profile; lacks significant AR effect  \\
+			Inertia-Driven Drinking & Profile with moderate intoxication, significant day-level inertia                          & Moderate $\mu_{k, c}$, $\phi_{1} > 0$                                             & State-like profile characterized by reactive, episodic intoxication that fluctuates based on prior-day state but returns to profile means \\
+			\bottomrule
+		\end{tabularx}
+		\begin{tablenotes}[para,flushleft]
+			{\scriptsize
+				\textit{Note.} $\mu_{k, c}$ reflects profile-specific means for TAC features; $\phi_{0}$ and $\phi_{1}$ denote profile-specific AR parameters. $\mathrm{Trait}_{\mathrm{intoxication}}$ was excluded in the final model due to non-significant variance.}
+		\end{tablenotes}
+		\label{tab:manCULTA-profile-interpretation}
+	\end{threeparttable}
+\end{sidewaystable}
+
+% \section{Supplementary Figures}
+
+\begin{figure}
+	\caption{The Common and Unique Trait-State Model (CUTS)}
+	\begin{center}
+		\includegraphics[scale = .6]{.setup/latex/figures/png/cuts.png}
+	\end{center}
+	\scriptsize
+	\emph{Note:} The CUTS model with four TAC features as observed indicators, one common trait $\mathrm{Trait}_{\mathrm{intoxication}}$, and six ($t_{0}, t_{\dots}, t_{5}$; only three are explicitly shown because of space constraints) occasion-specific $\mathrm{State}_{\mathrm{intoxication}}$ factors that capture shared information across the TAC features on each day. The latent variables $\mathrm{Unique}_{\mathrm{peak}}$ through $\mathrm{Unique}_{\mathrm{dura}}$,
+	represent unique, feature-specific traits that persist throughout all occasions. $\varepsilon_{\mathrm{peak}_{t_{0}}}$ through $\varepsilon_{\mathrm{dura}_{t_{5}}}$ represent process noises or other sources of feature- and occasion-specific deviations that are unaccounted for by other modeling elements. The grand means $\mu_{\mathrm{peak}}$ through $\mu_{\mathrm{dura}}$ were omitted to simplify the model.
+	\label{fig:manCULTA-cuts}
+\end{figure}
+
+\begin{figure}
+	\caption{The Final Common and Unique Latent Transition Analysis Model (CULTA)}
+	\begin{center}
+		\includegraphics[scale = .6]{.setup/latex/figures/png/culta-final.png}
+	\end{center}
+	\scriptsize
+	\emph{Note:} The latent variables $\varepsilon_{\mathrm{peak}_{t0}}$ through $\varepsilon_{\mathrm{dura}_{t5}}$ were omitted for ease of presentation.
+	\label{fig:manCULTA-culta-final}
+\end{figure}
+
+\begin{figure}
+	\caption{Two-Profile Solution}
+	\begin{subfigure}{.5\textwidth}
+		\caption{Latent Profile Indicator Means}
+		\centering
+		\includegraphics[scale = .8]{.setup/latex/figures/png/profiles-2.png}
+		\label{fig:manCULTA-profiles-2}
+	\end{subfigure}%
+	~ 
+	\begin{subfigure}{.5\textwidth}
+		\caption{Profile Proportions}
+		\centering
+		\includegraphics[scale = .8]{.setup/latex/figures/png/counts-2.png}
+		\label{fig:manCULTA-counts-2}
+	\end{subfigure}
+													
+	\medskip
+													
+	\begin{subfigure}{\textwidth}
+		\caption{Proportions for the High Profile by AUDIT Risk Levels}
+		\centering
+		\includegraphics[scale = .6]{.setup/latex/figures/png/counts-2-low-high-dep-1.png}
+		\label{fig:manCULTA-counts-2-low-high-dep-1}
+	\end{subfigure}
+											
+	\medskip
+													
+	\begin{subfigure}{\textwidth}
+		\caption{Proportions for the Low Profile by AUDIT Risk Levels}
+		\centering
+		\includegraphics[scale = .6]{.setup/latex/figures/png/counts-2-low-high-dep-2.png}
+		\label{fig:manCULTA-counts-2-low-high-dep-2}
+	\end{subfigure}
+	\label{fig:manCULTA-profiles}
+\end{figure}
+
+\begin{figure}
+	\caption{Final Profile Proportions for the Latent Profile Patterns}
+	\begin{center}
+		\includegraphics[scale = .5]{.setup/latex/figures/png/latent-class-patterns-proportion-sorted.png}
+	\end{center}
+	\scriptsize
+	\emph{Note:} 0 = Chronic HED. 1 = Inertia-Driven Drinking. Latent profile patterns with proportions of zero were omitted for ease of presentation.
+	\label{fig:manCULTA-latent-class-patterns-proportion-sorted}
+\end{figure}
+
+\section{Monte Carlo Simulation to Evaluate the CULTA Model}
+
+The Monte Carlo simulation evaluated the recovery of parameters from the Common and Unique Latent Transition Analysis (CULTA) model under five sample sizes: $N = 100$, $200$, $300$, $400$, and $500$. The CULTA model was compared to two alternative models: standard Latent Transition Analysis (LTA) and Random-Intercept Latent Transition Analysis (RILTA). Model performance was assessed using several evaluation metrics. Figure~\ref{fig:manCULTA-mc-ic} shows information criteria (AIC, BIC, and aBIC), while Figure~\ref{fig:manCULTA-mc-entropy} presents entropy values as indicators of classification quality. Parameter recovery was evaluated in terms of relative bias (Figure~\ref{fig:manCULTA-mc-bias}), root mean square error (RMSE; Figure~\ref{fig:manCULTA-mc-rmse}), coverage probability of 95\% confidence intervals (Figure~\ref{fig:manCULTA-mc-coverage}), and statistical power (Figure~\ref{fig:manCULTA-mc-power}). In addition, for parameters common across all models, we compared CULTA, LTA, and RILTA in terms of relative bias (Figure~\ref{fig:manCULTA-mc-lta-bias}), RMSE (Figure~\ref{fig:manCULTA-mc-lta-rmse}), coverage (Figure~\ref{fig:manCULTA-mc-lta-coverage}), and power (Figure~\ref{fig:manCULTA-mc-lta-power}).
+
+\subsection{Data-Generating Model}
+\label{app:manCULTA-data}
+
+We generated data using a fully specified CULTA model that included all latent trait and state components. Each simulated dataset featured six days of TAC measurements per individual, with four features per day: peak, rise rate, fall rate, and duration. Each feature was modeled using the CULTA measurement structure (Equation~\ref{eq:manCULTA-measurement}), with all indicators assigned equal loadings of 1.0 on both the latent trait and state factors. The common trait variance was set to $\psi_T = 0.30$, with all feature-specific trait uniquenesses set to $\psi_{k} = 0.30$. The initial state variance was $\psi_{S_{t_0}} = 1.00$, and the residual state variance from Days 2–6 was $\psi_{S} = 0.50$. Indicator-level state residuals were set to $\theta_{k} = 0.20$. Daily latent states followed a first-order autoregressive process with profile-specific inertia.
+
+\begin{equation}
+	\begin{aligned}
+		Y_{k, i, t} & = \mu_{k, c} + \lambda_{T_{k}} \times \mathrm{Trait}_{\mathrm{intoxication}_{i}} + \mathrm{Unique}_{k, i} +                                                                \\
+		            & \lambda_{S_{k}} \times \mathrm{State}_{\mathrm{intoxication}_{i, t}} + \varepsilon_{k, i, t} , \quad \varepsilon_{k, i, t} \sim \mathcal{N} \left( 0, \theta_{k} \right) . 
+	\end{aligned}
+	\label{eq:manCULTA-measurement}
+\end{equation}
+
+Two latent profiles governed the dynamics: 1) chronic HED ($c = 0$): Higher indicator means (peak = 2.253, rise = 1.493, fall = 1.574, duration = 1.117), with no inertia ($\phi_{0} = 0.00$); and 2) inertia-driven drinking ($c = 1$): Lower means (peak = –0.278, rise = –0.165, fall = –0.199, duration = –0.148), with moderate inertia ($\phi_{1} = 0.311$). Initial profile membership and transitions were modeled as logistic functions of a standardized AUDIT covariate ($\mu_{X} = 0$, $\sigma_{X} = 1$), using Equations~\ref{eq:manCULTA-initial} and~\ref{eq:manCULTA-transition} with parameters: $\nu_{0} = -0.405$, $\kappa_{0} = 0.10$, $\alpha_{0} = -0.50$, $\beta_{00} = 0.85$, $\gamma_{00} = 0.20$, and $\gamma_{10} = 0.20$.
+
+\begin{equation}
+	\kbordermatrix{
+		& c_{0} = 0                                       & c_{0} = 1 \\
+		& \nu_{0} + \kappa_{0} \times \mathrm{AUDIT} & 0          \\
+	}
+	\label{eq:manCULTA-initial}
+\end{equation}
+
+\begin{equation}
+	\kbordermatrix{
+		& c_{t + 1} = 0                                               & c_{t + 1} = 1 \\
+		c_{t} = 0 & \alpha_{0} + \beta_{00} + \gamma_{00} \times \mathrm{AUDIT} & 0             \\
+		c_{t} = 1 & \alpha_{0} + \gamma_{10} \times \mathrm{AUDIT} & 0             \\
+	}
+	\label{eq:manCULTA-transition}
+\end{equation}
+
+All data generation routines were implemented in the open-source \texttt{R} package \texttt{manCULTA}, developed specifically for this manuscript and available at \url{https://github.com/jeksterslab/manCULTA}. The package includes full documentation and example code to support reproducibility and adaptation in related simulation studies.
+
+\subsection{Simulation Results}
+\label{app:manCULTA-results}
+
+This section summarizes the results of a Monte Carlo simulation designed to evaluate the performance of the CULTA model under varying sample sizes. We examined model fit, classification accuracy, parameter recovery, and inference quality across a wide range of parameters. Comparisons were also made with structurally misspecified models---LTA and RILTA---to highlight the advantages of CULTA in capturing trait-state dynamics and profile transitions. Findings are presented in the order of model evaluation: model fit, classification, estimation, and inference.
+
+\subsubsection{Model Fit}
+
+Figure~\ref{fig:manCULTA-mc-ic} presents the average Akaike Information Criterion (AIC), Bayesian Information Criterion (BIC), and adjusted BIC (aBIC) values across models (CULTA, LTA, RILTA) and sample sizes ($N = 100$ to $500$). Lower values indicate better model fit, reflecting an optimal balance between goodness of fit and model parsimony.
+
+\begin{figure}[!htbp]
+	\caption{Information Criteria}
+	\begin{center}
+		\includegraphics[scale = .65]{.setup/latex/figures/png/fig-vignettes-scatter-plots-ic-unnamed-chunk-3-1.png}
+	\end{center}
+	\scriptsize
+	\emph{Note:} CULTA = Common and Unique Latent Transition Analysis. LTA = Latent Transition Analysis. RILTA = Random-Intercept Latent Transition Analysis. AIC = Aikaike Information Criteria. BIC = Bayesian Information Criteria. aBIC = sample size adjusted BIC.
+	\label{fig:manCULTA-mc-ic}
+\end{figure}
+
+CULTA consistently achieved the lowest values across all three information criteria, indicating superior fit relative to the misspecified LTA and RILTA models. This advantage was present at all sample sizes but became more pronounced as sample size increased. At smaller sample sizes ($N = 100$ or $200$), differences among the models were relatively modest, with the three models showing closer fit. However, as sample size increased to $N = 300$ and beyond, CULTA's information criteria values increasingly diverged from those of LTA and RILTA--indicating that CULTA's structural advantages became more detectable and impactful with greater statistical power.
+
+This pattern reinforces that model misspecification---such as ignoring trait-state decomposition or profile-specific dynamics---may go undetected in smaller samples but becomes increasingly consequential in larger samples. These results support CULTA as a better-fitting and more faithful representation of the data-generating process, especially under sample sizes commonly achievable in TAC-based longitudinal studies.
+
+\subsubsection{Classification Accuracy}
+
+Figure~\ref{fig:manCULTA-mc-entropy} displays average entropy values for CULTA, LTA, and RILTA across sample sizes. Entropy reflects the precision of latent profile classification, with values closer to 1.0 indicating greater certainty in assignment. An entropy value above 0.80 is commonly interpreted as reflecting high classification accuracy \parencite{Celeux-Soromenho-1996}.
+
+\begin{figure}[!htbp]
+	\caption{Entropy}
+	\begin{center}
+		\includegraphics[scale = .65]{.setup/latex/figures/png/fig-vignettes-scatter-plots-entropy-unnamed-chunk-3-1.png}
+	\end{center}
+	\scriptsize
+	\emph{Note:} CULTA = Common and Unique Latent Transition Analysis. LTA = Latent Transition Analysis. RILTA = Random-Intercept Latent Transition Analysis.
+	\label{fig:manCULTA-mc-entropy}
+\end{figure}
+
+Across all sample sizes, CULTA yielded the lowest entropy values, followed by RILTA, with LTA producing the highest. This pattern may appear counterintuitive, given CULTA's superior model fit and parameter recovery (see below). However, the lower entropy observed for CULTA likely reflects a trade-off between model realism and classification certainty. Because CULTA faithfully incorporates trait-state decomposition and profile-specific dynamics, it captures uncertainty in profile membership that simpler models do not account for--especially when profiles overlap or transition probabilities are moderate.
+
+Entropy decreased slightly as sample size increased for all models. For CULTA, values declined from approximately 0.78 at $N = 100$ to 0.73 at $N = 500$. This trend suggests that larger samples increase the model's ability to detect and represent ambiguity in class separation. In contrast, LTA and RILTA maintained higher and more stable entropy values. This may reflect inflated classification certainty due to misspecification, as both models omit structural elements of the data-generating process.
+
+These findings highlight the importance of interpreting entropy in light of model complexity and fidelity to the data. High entropy does not always indicate a better model, particularly when it results from oversimplified assumptions. CULTA's lower entropy values reflect a more cautious, and potentially more accurate, representation of classification uncertainty in intensive longitudinal data. For applied researchers, this suggests that models offering realistic dynamics may yield less definitive but more trustworthy classifications.
+
+\subsubsection{Parameter Recovery}
+
+Figures~\ref{fig:manCULTA-mc-bias} and~\ref{fig:manCULTA-mc-rmse} display the relative bias and RMSE, respectively, for 33 parameters estimated under the CULTA model across sample sizes. These parameters span autoregressive dynamics, latent variances, factor loadings, indicator residuals, covariate effects, and profile-specific means. We interpret relative bias values within $\pm 0.10$ as acceptable, consistent with conventional simulation standards \parencite{Flora-Curran-2004, Hoogland-Boomsma-1998}. For RMSE, values below 0.10 are considered ideal, while values between 0.10 and 0.20 are acceptable but indicate greater uncertainty.
+
+\begin{table}[!htbp]
+	\caption{CULTA Parameters}
+	\centering
+	\begin{tabular}{@{}lll@{}}
+		\toprule
+		\textbf{No.} & \textbf{Symbol}               & \textbf{Description}                                                                         \\
+		\midrule
+		1            & $\phi_{0}$                    & Autoregressive coefficient for profile 0.                                                    \\
+		2            & $\phi_{1}$                    & Autoregressive coefficient for profile 1.                                                    \\
+		3            & $\psi_{T}$                    & Variance in the common trait; reflects stable between-person differences.                    \\
+		4            & $\lambda_{T_{\mathrm{rise}}}$ & Factor loading for the common trait and item 2.                                              \\
+		5            & $\lambda_{T_{\mathrm{fall}}}$ & Factor loading for the common trait and item 3.                                              \\
+		6            & $\lambda_{T_\mathrm{dura}}$   & Factor loading for the common trait and item 4.                                              \\
+		7            & $\psi_{\mathrm{peak}}$        & Trait-specific item 1 variance.                                                              \\
+		8            & $\psi_{\mathrm{rise}}$        & Trait-specific item 2 variance.                                                              \\
+		9            & $\psi_{\mathrm{fall}}$        & Trait-specific item 3 variance.                                                              \\
+		10           & $\psi_{\mathrm{dura}}$        & Trait-specific item 4 variance.                                                              \\
+		11           & $\psi_{S_{t0}}$               & Initial-day variance of the common state.                                                    \\
+		12           & $\psi_{S}$                    & Residual state variance over days.                                                           \\
+		13           & $\lambda_{S_{\mathrm{rise}}}$ & Factor loading for the common state and item 2.                                              \\
+		14           & $\lambda_{S_{\mathrm{fall}}}$ & Factor loading for the common state and item 3.                                              \\
+		15           & $\lambda_{S_{\mathrm{dura}}}$ & Factor loading for the common state and item 4.                                              \\
+		16           & $\theta_{\mathrm{peak}}$      & Unique state variance for item 1.                                                            \\
+		17           & $\theta_{\mathrm{rise}}$      & Unique state variance for item 2.                                                            \\
+		18           & $\theta_{\mathrm{fall}}$      & Unique state variance for item 3.                                                            \\
+		19           & $\theta_{\mathrm{dura}}$      & Unique state variance for item 4.                                                            \\
+		20           & $\nu_{0}$                     & Intercept for initial log-odds of profile 0 (vs. profile 1) when $X = 0$.                    \\
+		21           & $\kappa_{0}$                  & Covariate effect on initial profile membership; higher $X$ increases odds of profile 0.      \\
+		22           & $\alpha_{0}$                  & Baseline log-odds of being in profile 0 across days.                                         \\
+		23           & $\beta_{00}$                  & Increased odds of staying in profile 0 if previously in that profile; reflects persistence.  \\
+		24           & $\gamma_{00}$                 & Covariate effect on staying in profile 0; higher $X$ increases persistence.                  \\
+		25           & $\gamma_{10}$                 & Covariate effect on switching from state to profile 0; higher $X$ increases transition odds. \\
+		26           & $\mu_{\mathrm{peak}_{0}}$     & Profile specific mean for profile 0 and item 1.                                              \\
+		27           & $\mu_{\mathrm{rise}_{0}}$     & Profile specific mean for profile 0 and item 2.                                              \\
+		28           & $\mu_{\mathrm{fall}_{0}}$     & Profile specific mean for profile 0 and item 3.                                              \\
+		29           & $\mu_{\mathrm{dura}_{0}}$     & Profile specific mean for profile 0 and item 4.                                              \\
+		30           & $\mu_{\mathrm{peak}_{1}}$     & Profile specific mean for profile 1 and item 1.                                              \\
+		31           & $\mu_{\mathrm{rise}_{1}}$     & Profile specific mean for profile 1 and item 2.                                              \\
+		32           & $\mu_{\mathrm{fall}_{1}}$     & Profile specific mean for profile 1 and item 3.                                              \\
+		33           & $\mu_{\mathrm{dura}_{1}}$     & Profile specific mean for profile 1 and item 4.                                              \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:manCULTA-mc-culta-parameters}
+\end{table}
+
+\begin{figure}[!htbp]
+	\caption{Relative Bias}
+	\begin{center}
+		\includegraphics[scale = .65]{.setup/latex/figures/png/fig-vignettes-scatter-plots-culta-est-bias-1.png}
+	\end{center}
+	\scriptsize
+	\emph{Note:} CULTA = Common and Unique Latent Transition Analysis. For parameter 1 ($\phi_{0}$), the mean absolute bias was reported in place of relative bias due to a population value of zero. See Table~\ref{tab:manCULTA-mc-culta-parameters} for the parameters in the x-axis.
+	\label{fig:manCULTA-mc-bias}
+\end{figure}
+
+\begin{figure}[!htbp]
+	\caption{Root Mean Square Error}
+	\begin{center}
+		\includegraphics[scale = .65]{.setup/latex/figures/png/fig-vignettes-scatter-plots-culta-est-rmse-1.png}
+	\end{center}
+	\scriptsize
+	\emph{Note:} CULTA = Common and Unique Latent Transition Analysis. See Table~\ref{tab:manCULTA-mc-culta-parameters} for the parameters in the x-axis.
+	\label{fig:manCULTA-mc-rmse}
+\end{figure}
+
+\paragraph{Autoregressive and variance parameters (Items 1–3, 7–12).} The autoregressive coefficients ($\phi_{0}$, $\phi_{1}$), common trait variance ($\psi_{T}$), trait-specific item variances ($\psi_{k}$), and state variances ($\psi_{S_{t0}}$, $\psi_{S}$) were recovered with minimal bias. RMSE values were moderate at $N = 100$ but improved steadily, reaching acceptable or ideal levels by $N = 200$ or $300$.
+
+\paragraph{Factor loadings (Items 4–6, 13–15).} Loadings for the latent trait and state components were estimated with near-zero bias and RMSE well below 0.10 at all sample sizes, including $N = 100$. This indicates excellent recovery of measurement model parameters even under small-sample conditions.
+
+\paragraph{State residual variances (Items 16–19).} Item-level residuals ($\theta_{k}$) showed low bias and acceptable RMSE, though RMSE values were closest to the 0.20 boundary at $N = 100$. By $N = 200$, these estimates consistently met acceptability thresholds and improved further with additional sample size.
+
+\paragraph{Covariate and transition parameters (Items 20–25).} The log-odds intercepts ($\nu_{0}$, $\alpha_{0}$, $\beta_{00}$) and covariate effects ($\kappa_{0}$, $\gamma_{00}$, $\gamma_{10}$) were recovered with bias typically within $\pm 0.10$ by $N = 200$, and RMSE approaching or below 0.10 by $N = 300$. Some parameters (e.g., $\gamma_{10}$) exhibited slight positive bias at smaller $N$, but this diminished as sample size increased.
+
+\paragraph{Profile-specific means (Items 26–33).} The means for both latent profiles were consistently well recovered. Even at $N = 100$, relative bias remained well within $\pm 0.05$, and RMSE was low. Recovery improved further at larger sample sizes, especially for extreme values in profile 0.
+
+\paragraph{Sample Size Sufficiency.} Overall, CULTA demonstrated strong parameter recovery across structural, measurement, and dynamic components of the model. At $N = 200$, most parameters were estimated with acceptable bias and RMSE, supporting the adequacy of this sample size for robust estimation. These findings justify the empirical sample size used in our real-world analysis ($N = 222$) and confirm that CULTA remains estimable and accurate even under modest sample conditions.
+
+\begin{table}[!htbp]
+	\caption{Parameters Common to CULTA, LTA, and RILTA}
+	\centering
+	\begin{tabular}{@{}lll@{}}
+		\toprule
+		\textbf{No.} & \textbf{Symbol}           & \textbf{Description}                                                                         \\
+		\midrule
+		1            & $\theta_{\mathrm{peak}}$  & Unique state variance for item 1.                                                            \\
+		2            & $\theta_{\mathrm{rise}}$  & Unique state variance for item 2.                                                            \\
+		3            & $\theta_{\mathrm{fall}}$  & Unique state variance for item 3.                                                            \\
+		4            & $\theta_{\mathrm{dura}}$  & Unique state variance for item 4.                                                            \\
+		5            & $\nu_{0}$                 & Intercept for initial log-odds of profile 0 (vs. profile 1) when $X = 0$.                    \\
+		6            & $\kappa_{0}$              & Covariate effect on initial profile membership; higher $X$ increases odds of profile 0.      \\
+		7            & $\alpha_{0}$              & Baseline log-odds of being in profile 0 across days.                                         \\
+		8            & $\beta_{00}$              & Increased odds of staying in profile 0 if previously in that profile; reflects persistence.  \\
+		9            & $\gamma_{00}$             & Covariate effect on staying in profile 0; higher $X$ increases persistence.                  \\
+		10           & $\gamma_{10}$             & Covariate effect on switching from state to profile 0; higher $X$ increases transition odds. \\
+		11           & $\mu_{\mathrm{peak}_{0}}$ & Profile specific mean for profile 0 and item 1.                                              \\
+		12           & $\mu_{\mathrm{rise}_{0}}$ & Profile specific mean for profile 0 and item 2.                                              \\
+		13           & $\mu_{\mathrm{fall}_{0}}$ & Profile specific mean for profile 0 and item 3.                                              \\
+		14           & $\mu_{\mathrm{dura}_{0}}$ & Profile specific mean for profile 0 and item 4.                                              \\
+		15           & $\mu_{\mathrm{peak}_{1}}$ & Profile specific mean for profile 1 and item 1.                                              \\
+		16           & $\mu_{\mathrm{rise}_{1}}$ & Profile specific mean for profile 1 and item 2.                                              \\
+		17           & $\mu_{\mathrm{fall}_{1}}$ & Profile specific mean for profile 1 and item 3.                                              \\
+		18           & $\mu_{\mathrm{dura}_{1}}$ & Profile specific mean for profile 1 and item 4.                                              \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:manCULTA-mc-lta-parameters}
+\end{table}
+
+In contrast, Figures~\ref{fig:manCULTA-mc-lta-bias} and~\ref{fig:manCULTA-mc-lta-rmse}, show that LTA and RILTA exhibited higher bias and RMSE on parameters shared across models---particularly for residual variances and covariate effects. This performance degradation is consistent with the structural misspecification inherent in LTA and RILTA, which do not account for trait-state dynamics or profile-specific autoregressive structure. The CULTA model offers notable improvements in parameter recovery by modeling these features explicitly.
+
+\begin{figure}[!htbp]
+	\caption{Relative Bias (Parameters Common to CULTA, LTA, and RILTA)}
+	\begin{center}
+		\includegraphics[scale = .65]{.setup/latex/figures/png/fig-vignettes-scatter-plots-lta-est-bias-1.png}
+	\end{center}
+	\scriptsize
+	\emph{Note:} CULTA = Common and Unique Latent Transition Analysis. LTA = Latent Transition Analysis. RILTA = Random-Intercept Latent Transition Analysis. See Table~\ref{tab:manCULTA-mc-lta-parameters} for the parameters in the x-axis.
+	\label{fig:manCULTA-mc-lta-bias}
+\end{figure}
+
+\begin{figure}[!htbp]
+	\caption{Root Mean Square Error (Parameters Common to CULTA, LTA, and RILTA)}
+	\begin{center}
+		\includegraphics[scale = .65]{.setup/latex/figures/png/fig-vignettes-scatter-plots-lta-est-rmse-1.png}
+	\end{center}
+	\scriptsize
+	\emph{Note:} CULTA = Common and Unique Latent Transition Analysis. LTA = Latent Transition Analysis. RILTA = Random-Intercept Latent Transition Analysis. See Table~\ref{tab:manCULTA-mc-lta-parameters} for the parameters in the x-axis.
+	\label{fig:manCULTA-mc-lta-rmse}
+\end{figure}
+
+\subsubsection{Inference Quality}
+
+Figures~\ref{fig:manCULTA-mc-coverage} and~\ref{fig:manCULTA-mc-power} display the 95\% confidence interval (CI) coverage probabilities and statistical power for the CULTA model across sample sizes. Together, these metrics assess the inferential accuracy of the model, beyond point estimates.
+
+\begin{figure}[!htbp]
+	\caption{Coverage Probability}
+	\begin{center}
+		\includegraphics[scale = .65]{.setup/latex/figures/png/fig-vignettes-scatter-plots-culta-est-coverage-1.png}
+	\end{center}
+	\scriptsize
+	\emph{Note:} CULTA = Common and Unique Latent Transition Analysis. See Table~\ref{tab:manCULTA-mc-culta-parameters} for the parameters in the x-axis.
+	\label{fig:manCULTA-mc-coverage}
+\end{figure}
+
+\begin{figure}[!htbp]
+	\caption{Statistical Power}
+	\begin{center}
+		\includegraphics[scale = .65]{.setup/latex/figures/png/fig-vignettes-scatter-plots-culta-est-power-1.png}
+	\end{center}
+	\scriptsize
+	\emph{Note:} CULTA = Common and Unique Latent Transition Analysis. See Table~\ref{tab:manCULTA-mc-culta-parameters} for the parameters in the x-axis.
+	\label{fig:manCULTA-mc-power}
+\end{figure}
+
+\paragraph{Coverage Probability.} We evaluated whether the 95\% confidence interval for each parameter included the true population value across replications. Following the liberal Bradley (1978) criterion, coverage values between 0.925 and 0.975 are considered acceptable in finite-sample simulations.
+
+CULTA achieved adequate coverage for the vast majority of parameters by $N = 200$, with most values falling squarely within the Bradley range. At $N = 100$, slight undercoverage was observed for some regression parameters (e.g., $\gamma_{10}$, $\kappa_0$), but this diminished with increasing sample size. By $N = 300$ and beyond, nearly all parameters met or exceeded acceptable coverage standards.
+
+\paragraph{Statistical Power.} Power was defined as the proportion of replications in which the 95\% CI for a nonzero population parameter excluded zero (i.e., a statistically significant result at $\alpha = 0.05$). Following \textcite{Cohen-1988}, power values of 0.80 or higher were interpreted as acceptable.
+
+Most parameters achieved acceptable power levels by $N = 200$, including covariate effects, profile-specific means, and autoregressive parameters. At smaller sample sizes, power was lower for parameters with modest effect sizes (e.g., $\gamma_{10}$), but increased steadily with $N$. By $N = 300$, power for most parameters exceeded 0.80, with large effects (e.g., profile means) approaching 1.0.
+
+\begin{figure}[!htbp]
+	\caption{Coverage Probability (Parameters Common to CULTA, LTA, and RILTA)}
+	\begin{center}
+		\includegraphics[scale = .65]{.setup/latex/figures/png/fig-vignettes-scatter-plots-lta-est-coverage-1.png}
+	\end{center}
+	\scriptsize
+	\emph{Note:} CULTA = Common and Unique Latent Transition Analysis. LTA = Latent Transition Analysis. RILTA = Random-Intercept Latent Transition Analysis. See Table~\ref{tab:manCULTA-mc-lta-parameters} for the parameters in the x-axis.
+	\label{fig:manCULTA-mc-lta-coverage}
+\end{figure}
+
+\begin{figure}[!htbp]
+	\caption{Statistical Power (Parameters Common to CULTA, LTA, and RILTA)}
+	\begin{center}
+		\includegraphics[scale = .65]{.setup/latex/figures/png/fig-vignettes-scatter-plots-lta-est-power-1.png}
+	\end{center}
+	\scriptsize
+	\emph{Note:} CULTA = Common and Unique Latent Transition Analysis. LTA = Latent Transition Analysis. RILTA = Random-Intercept Latent Transition Analysis. See Table~\ref{tab:manCULTA-mc-lta-parameters} for the parameters in the x-axis.
+	\label{fig:manCULTA-mc-lta-power}
+\end{figure}
+
+\newpage
+
+\section{Mplus Input File for the Empirical Data Analysis (Final Model)}
+
+%% begin.rcode
+% #| echo = FALSE,
+% #| comment = NA,
+% #| size = "small"
+% cat(
+%   paste(
+%     readLines(
+%       root$find_file(
+%         ".setup",
+%         "data-process",
+%         "data-process-culta-2-profiles-final.inp"
+%       )
+%     ),
+%     collapse = "\n"
+%   )
+% )
+%% end.rcode
+
+\newpage
+
+\section{Links}
+
+\subsection{Research Compendium}
+
+The data and materials for this study are available on OSF (\url{https://osf.io/gtdmr}) and GitHub (\url{https://github.com/jeksterslab/manCULTA}, \url{https://jeksterslab.github.io/manCULTA/index.html}).
+
+\subsection{Data Simulation and Model Fitting}
+
+\url{https://jeksterslab.github.io/manCULTA/articles/sim-culta-2-profiles.html}
+
+\subsection{Comparison of Misspecified and Correctly Specified Models}
+
+\begin{itemize}
+	\item One-Profile CULTA vs. Two-Profile CULTA: \url{https://jeksterslab.github.io/manCULTA/articles/sim-culta-1-profile.html}
+	\item Two-Profile LTA vs. Two-Profile CULTA: \url{https://jeksterslab.github.io/manCULTA/articles/sim-lta-2-profiles.html}
+	\item Two-Profile RI-LTA vs. Two-Profile CULTA: \url{https://jeksterslab.github.io/manCULTA/articles/sim-rilta-2-profiles.html}
+\end{itemize}
+
+\subsection{Generating Mplus Input Files}
+
+\url{https://jeksterslab.github.io/manCULTA/articles/sim-input.html}
+
+\subsection{Containers for Reproducibility}
+
+\url{https://jeksterslab.github.io/manCULTA/articles/containers.html}
+
+\printbibliography
+
+\end{document}

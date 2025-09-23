@@ -1,0 +1,719 @@
+\documentclass[jou]{apa7}
+
+\raggedbottom
+\widowpenalty = 10000
+\clubpenalty = 10000
+% \usepackage{lineno}
+% \linenumbers
+\usepackage[american]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{blkarray}
+\usepackage{csquotes}
+\usepackage{endnotes}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{changes}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+\setlength {\marginparwidth }{2cm}
+\usepackage{todonotes}
+
+\usepackage{subcaption}
+\usepackage[labelformat = parens, labelsep = quad, skip = 3pt]{caption}
+
+\usepackage{rotating}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BIBLATEX APA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%% begin.rcode
+% #| label = "root",
+% #| include = FALSE
+% root <- rprojroot::is_rstudio_project
+%% end.rcode
+
+%% begin.rcode
+% #| label = "knitr",
+% #| include = FALSE,
+% #| file = root$find_file(
+% #|   ".setup",
+% #|   "latex",
+% #|   "r-scripts",
+% #|   "knitr.R"
+% #| )
+%% end.rcode
+
+%% begin.rcode
+% #| label = "biblatex",
+% #| echo = FALSE,
+% #| message = FALSE,
+% #| warning = FALSE,
+% #| results = "asis"
+% if (require("rProject")) {
+%   Bib(
+%     path = dirname(
+%       root$find_file(
+%         "project.Rproj"
+%       )
+%     )
+%   )
+%   cat(
+%     .PreambleBiblatex(
+%       path = root$find_file(
+%         ".setup",
+%         "latex",
+%         "bib"
+%       )
+%     )
+%   )
+% } else {
+%   cat(
+%     .PreambleBiblatexCombined(
+%       path = root$find_file(
+%         ".setup",
+%         "latex",
+%         "bib"
+%       ),
+%       output_path = root$find_file(
+%         ".setup",
+%         "latex"
+%       )
+%     )
+%   )
+% }
+%% end.rcode
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% kbordermatrix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%% begin.rcode
+% #| label = "kbordermatrix",
+% #| echo = FALSE,
+% #| message = FALSE,
+% #| warning = FALSE,
+% #| results = "asis"
+% cat(
+%   paste0(
+%     "\n",
+%     "\\usepackage{",
+%     root$find_file(
+%       ".setup",
+%       "latex",
+%       "sty",
+%       "kbordermatrix"
+%     ),
+%     "}",
+%     "\n"
+%   )
+% )
+% cat("\n\\renewcommand{\\kbldelim}{(}% Left delimiter")
+% cat("\n\\renewcommand{\\kbrdelim}{)}% Right delimiter")
+%% end.rcode
+
+\title{Common and Unique Latent Transition Analysis (CULTA) as a Way to Examine the Trait-State Dynamics of Alcohol Intoxication}
+
+\shorttitle{Common and Unique Latent Transition Analysis}
+
+\authorsnames[1, {1, 2}, 3]{Ivan Jacob Agaloos Pesigan, Michael A. Russell, Sy-Miin Chow}
+\authorsaffiliations{{Edna Bennett Pierce Prevention Research Center, The Pennsylvania State University}, {Department of Biobehavioral Health, The Pennsylvania State University}, {Department of Human Development and Family Studies, The Pennsylvania State University}}
+
+\leftheader{Pesigan, Russell, \& Chow}
+
+\abstract{\textbf{Objective:} This paper introduces the Common and Unique Latent Transition Analysis (CULTA), a novel approach to studying alcohol intoxication dynamics in young adults engaged in heavy episodic drinking (HED). CULTA merges the Common and Unique Trait-State (CUTS) model with Latent Transition Analysis (LTA) to separate stable, trait-like intoxication components from transient fluctuations while modeling transitions between distinct drinking profiles. \textbf{Method:} A sample of 222 young adults wore transdermal alcohol concentration (TAC) sensors for six days, capturing real-time alcohol levels. The CULTA model decomposed intoxication variability into common and unique influences across four TAC features---peak, rise rate, fall rate, and duration. Latent intoxication profiles were identified, and transition probabilities between profiles were estimated with a focus on the influence of alcohol use disorder (AUD) risk measured by the Alcohol Use Disorders Identification Test (AUDIT). \textbf{Results:} Two latent intoxication profiles emerged. The first, chronic HED, was characterized by persistently high intoxication without significant inertia, while the second, inertia-driven drinking, featured moderate episodic intoxication with a strong autoregressive effect, reflecting lingering intoxication that dissipates over time. Individuals with higher AUDIT scores were more likely to remain in or transition to the chronic HED profile. Although peak intoxication and rise rate showed limited individual variability, fall rate and duration varied substantially, marking them as potential targets for intervention. \textbf{Conclusion:} CULTA advances our understanding of alcohol intoxication by distinguishing stable from transient influences and modeling transitions between drinking states. These findings suggest that interventions should address both persistent and situational aspects of intoxication---especially by reducing duration and fall rate---and encourage research across longer periods and populations.
+		
+	% \newpage
+		
+	\centering
+		
+	\textbf{Public Health Significance Statement}
+		
+	\raggedright
+		
+	\noindent This study highlights how tracking daily alcohol intoxication with wearable sensors, combined with dynamic modeling, can offer near-real-time insights into heavy episodic drinking among young adults. The findings emphasize the importance of early screening tools, like the Alcohol Use Disorders Identification Test (AUDIT), to identify individuals at risk of chronic heavy drinking and guide personalized interventions. By focusing on patterns of intoxication persistence and shifts between drinking profiles, this research provides actionable strategies for reducing harmful drinking behaviors and promoting healthier outcomes in this vulnerable population.
+
+\textit{Supplementary materials:} \url{https://raw.githubusercontent.com/jeksterslab/manCULTA/refs/heads/latex/manCULTA-supplement.pdf}.}
+
+\keywords{transdermal alcohol concentration, latent trait-state model, latent transition analysis, autoregression, ecological momentary assessment, alcohol use disorder risk, drinking, young adults}
+
+\authornote{\addORCIDlink{Ivan Jacob Agaloos Pesigan}{0000-0003-4818-8420}; \addORCIDlink{Michael A. Russell}{0000-0002-3956-604X}; \addORCIDlink{Sy-Miin Chow}{0000-0003-1938-027X}.
+	
+	The data reported in this manuscript were previously used in \Textcite{Russell-Richards-Turrisi-etal-2025} and \Textcite{Richards-Mallett-Turrisi-etal-2025}.
+	
+	This research was made possible by the Prevention and Methodology Training Program (PAMT) funded by a T32 training grant (T32 DA017629, MPIs: J. Maggs \& S. Lanza) from the National Institute on Drug Abuse (NIDA); the National Center for Advancing Translational Sciences grant UL1TR002014-06; and pilot mentoring and professional development awards through P50DA039838 awarded to Michael A. Russell (National Institute on Drug Abuse, PI: L. Collins), as well as support from the Social Science Research Institute at Penn State and departmental funds awarded to Michael A. Russell.
+		
+	Computations for this research were performed on the Pennsylvania State University's Institute for Computational and Data Sciences' Roar supercomputer using SLURM for job scheduling \parencite{Yoo-Jette-Grondona-2003}, GNU Parallel to run the simulations in parallel \parencite{Tange-2021}, and Apptainer to ensure a reproducible software stack \parencite{Kurtzer-Sochat-Bauer-2017, Kurtzer-cclerget-Bauer-etal-2021}.
+		
+Correspondence concerning this article should be addressed to Ivan Jacob Agaloos Pesigan, Edna Bennett Pierce Prevention Research Center, College of Health and Human Development, The Pennsylvania State University, 320 Biobehavioral Health Building, University Park, PA 16802 or by email (ijapesigan@psu.edu).
+
+This is an Author-Accepted Manuscript (AAM) accepted for publication in \textit{Psychology of Addictive Behaviors} on September 22, 2025.
+The Version of Record (VOR) of this manuscript has been published in \textit{Psychology of Addictive Behaviors} on DAY MONTH YEAR, available at \url{https://doi.org/10.0000/0000000000}.
+To cite the VOR, please use: Pesigan, I. J. A., Russell, M. A., \& Chow, S.-M. (2025). Common and unique latent transition analysis (CULTA) as a way to examine the trait-state dynamics of alcohol intoxication. \textit{Psychology of Addictive Behaviors}. \url{https://doi.org/10.0000/0000000000}.}
+
+\begin{document}
+
+\maketitle
+
+Alcohol consumption among young adults remains a critical public health concern. According to the 2022 National Survey on Drug Use and Health, 50.2\% of individuals aged 18 to 25 reported drinking in the past month, with 29.5\% engaging in heavy episodic drinking (HED)---defined as consuming five or more drinks for males or four or more drinks for females on a single occasion at least once in the past 30 days---and 7.6\% engaging in heavy alcohol use, defined as engaging in HED on five or more days within the past 30 days, following the previously stated thresholds for males and females \parencite{SAMHSA-2023}. Alcohol-related incidents contribute significantly to morbidity and mortality in this age group, with an estimated 1,519 deaths annually among college students aged 18 to 24, and an additional 2,586 deaths from alcohol-related injuries, such as motor vehicle accidents \parencite{Hingson-Zha-Smyth-2017}. In addition to health risks, alcohol misuse carries substantial economic costs, putting a strain on the healthcare and social systems \parencite{Sacks-Gonzales-Bouchery-etal-2015}.
+
+Young adulthood is marked by heightened contextual reactivity, variability in drinking behavior, and elevated risk for both acute and long-term alcohol-related consequences \parencite{Arnett-2005, Schulenberg-Maggs-OMalley-2003, Patrick-TerryMcElrath-2016}. During this developmental period, individuals may differ not only in how much they drink but also in how one episode of heavy drinking influences the next. This \textit{carryover effect}---where prior intoxication increases the likelihood or intensity of subsequent intoxication---is often referred to as \textit{inertia}. Examining intoxication dynamics in this developmental period may provide insight into early patterns of risk persistence or escalation, and help identify which individuals are more likely to exhibit inertia in heavy drinking versus those who fluctuate in response to situational influences. These distinctions have important implications for the timing and tailoring of interventions \parencite{Maggs-Schulenberg-2005}.
+
+Given these impacts, understanding and mitigating risky drinking behavior among young adults is essential. Historically, the best available option for the measurement of alcohol consumption has been self-reported drink counts, which are both cost-effective and predictive. However, concerns have been raised about the field's near-exclusive reliance on self-report measures during and after heavy drinking events because their accuracy may become diminished due to intoxication or concurrent consequences such as alcohol-induced blackouts \parencite{Greenfield-Ye-Bond-etal-2014, Northcote-Livingston-2011, Piasecki-2019, Richards-Glenn-Turrisi-etal-2024, Russell-Turrisi-Smyth-2022}. Advances in wearable technology, such as transdermal alcohol concentration (TAC) sensors, enable continuous and objective monitoring of intoxication levels, providing near-real-time insights into drinking patterns without reliance on self-reports \parencite{Swift-2000, Courtney-Russell-2021}. Wearable TAC sensors measure alcohol levels repeatedly through the skin and provide a curve of alcohol intoxication for each drinking event. From these curves, TAC \textit{features} are generated to summarize the intoxication dynamics, including \textit{peak} (the maximum intoxication level), \textit{rise rate} (the speed of alcohol absorption), \textit{fall rate} (the speed of alcohol elimination), and \textit{duration} (the length of time spent biologically exposed to alcohol) \parencite[see Figure~\ref{fig:manCULTA-tac};][]{Didier-King-Polley-etal-2023, Fridberg-Wang-Porges-2022, Russell-Turrisi-Smyth-2022, Russell-Smyth-Turrisi-Rodriguez-2023, Russell-Richards-Turrisi-etal-2025, Richards-Barnett-Cook-etal-2022, Richards-Glenn-Turrisi-etal-2024, Richards-Turrisi-Russell-2024}. These TAC features provide unique information about drinking behavior that contributes to the prediction of important alcohol-related consequences, including hangovers, blackouts, illnesses, and injuries among young adults \parencite{Richards-Glenn-Turrisi-etal-2024, Russell-Smyth-Turrisi-Rodriguez-2023, Russell-Turrisi-Smyth-2022, Simons-Wills-Emery-etal-2015}.
+
+The multidimensionality of TAC features creates many opportunities for the characterization and analysis of alcohol use days. A growing number of approaches are in use to characterize TAC events and analyze TAC feature associations with alcohol-related behaviors and outcomes. Each of these approaches has its own unique strengths and weaknesses. One approach has been to reduce the more ``elementary'' TAC features (e.g., peak, rates, duration) into a single comprehensive summary, such as the \textit{area under the curve} (AUC) of a TAC event. AUC offers a single number describing the overall cumulative ``burden'' of biological alcohol exposure associated with the drinking event(s) that day \parencite{Russell-Turrisi-Smyth-2022,Leffingwell-Cooney-Murphy-etal-2012, Didier-King-Polley-etal-2023}, but the known variation in the shapes of TAC events---even among those with the similar AUCs---creates difficulty in interpreting to what ``kind'' of event a high AUC refers \parencite{Russell-Turrisi-Smyth-2022, Russell-Richards-Turrisi-etal-2025}. For example, the same AUC could refer to a long but low-intensity drinking event \textit{or }a short but very high-intensity drinking event. The attendant risks of these two types of events would likely be very different, but AUC would not be able to distinguish between the two.
+
+Another approach has been to use multiple ``elementary'' TAC features (e.g., peak, rise rate, fall rate, duration) in a multiple regression, in which their individual/unique contributions \parencite[e.g.,][]{Richards-Glenn-Turrisi-etal-2024} and/or their statistical interactions are tested \parencite[e.g.,][]{Simons-Wills-Emery-etal-2015}. Testing the unique predictive value of each TAC feature is important, and we acknowledge that in multiple regression models, the overall shared variance among predictors is still retained in the total variance explained (i.e., $R^2$). However, such models do not explicitly represent or isolate this shared variance. As TAC features are often highly correlated \parencite[see, e.g.,][]{Russell-Turrisi-Smyth-2022}, modeling them independently obscures the dynamics, predictive power, and strengths as well as limitations of linking prevention/intervention efforts to common versus feature-specific components. In contrast, latent variable models can formally decompose TAC features into common and unique sources of variance, allowing clearer interpretation of their joint and separate contributions to alcohol-related outcomes. Moreover, although interaction terms can be informative \parencite{Simons-Wills-Emery-etal-2015}, they become increasingly cumbersome, underpowered, and difficult to interpret as the number of predictors grows. The latent trait–state modeling approach used here addresses these challenges by offering a principled way to disentangle overlapping and feature-specific components while capturing dynamic patterns over time. We propose a dynamic factor analytic framework \parencite{Nesselroade-McArdle-Aggen-etal-2002} in which TAC features serve as observable indicators of a latent intoxication construct. This approach is grounded in the idea that features such as peak, rise rate, fall rate, and duration jointly reflect the underlying physiological process of alcohol intoxication, rather than capturing entirely distinct aspects of behavior. Prior research has shown that these TAC-derived features are interrelated and correspond closely with both subjective and behavioral indices of alcohol exposure \parencite[e.g.,][]{Russell-Turrisi-Smyth-2022}. By modeling intoxication as a latent factor, we can formally partition shared variance (reflecting the common intoxication signal) from unique variance (feature-specific information) and examine how these components vary within and between individuals over time.
+
+Other approaches to handle the multidimensionality of TAC features include clustering methods, including $k$-means clustering \parencite{Gunn-Steingrimsson-Merrill-etal-2021} and multilevel latent profile analysis (MLPA; \cite{Russell-Richards-Turrisi-etal-2025}). These approaches characterize days according to their specific multidimensional profile of TAC feature levels, creating a latent \textit{day type} variable that varies at the day level. The frequencies of these latent day types can vary between individuals and can be tested as predictors and/or outcomes of important alcohol-related behaviors at both between- and within-person levels. For example, \cite{Russell-Richards-Turrisi-etal-2025} used MLPA to identify four drinking day types: 1) high-peak, fast-rate days (8.5\% of days); 2) moderate-peak, fast-rate days (12.8\% of days); 3) low-peak, slow-rate days (20.4\% of days); and 4) little-to-no-drinking days (58.2\% of days). The prevalence of each day type differed significantly for each person (random intercept variances were significantly greater than 0) and day types showed significant between- and within-person associations with risky drinking behaviors, alcohol-related consequences, and alcohol use disorder (AUD) risk \parencite{Russell-Richards-Turrisi-etal-2025, Richards-Mallett-Turrisi-etal-2025}. Although latent clustering approaches allow multidimensional characterization of daily TAC features and testing of between- and within-person associations, they do not parse the common versus unique contributions of each TAC feature to risk associations. Models that can parse the common and unique contributions of TAC features simultaneously could be highly informative in prevention efforts by helping us answer questions such as ``should we focus solely on reducing overall intoxication?'' or ``should we focus on reducing only specific attributes (e.g., speed, duration, intensity) of a drinking episode?''
+
+\begin{figure}
+	\caption{Transdermal Alcohol Concentration (TAC) Features}
+	\centering
+	\includegraphics[scale = 1]{.setup/latex/figures/png/tac.png}
+	\label{fig:manCULTA-tac}
+\end{figure}
+
+Although existing methods (e.g., AUC, multiple regression, and clustering) provide valuable insights into alcohol intoxication patterns, they each fail to simultaneously capture both shared and unique influences of TAC features while accounting for transitions in drinking behavior over time. A framework that can incorporate both latent trait-state structures and temporal transitions would allow for a more nuanced understanding of intoxication patterns. To address this gap, we propose the Common and Unique Latent Transition Analysis (CULTA) model, a novel statistical modeling framework that allows us to examine both the common \textit{and} unique contributions of each TAC feature to alcohol-related outcomes. The CULTA model combines the strengths of the Common and Unique Variance Trait-State \parencite[CUTS;][]{Hamaker-Schuurman-Zijlmans-2016} model with Latent Transition Analysis \parencite[LTA;][]{Collins-Wugalter-1992, Chow-Witkiewitz-Grasman-etal-2015}. The CULTA model is unique in that it allows us to 1) separate and model both the common and unique variance in TAC features, testing the associations of similar and unique components with alcohol-related outcomes; 2) test the \textit{inertia} in alcohol intoxication, or the degree to which a person's drinking today influences their drinking on subsequent days; and 3) the ability to categorize high- versus low-intoxication days from both common and unique aspects of each TAC feature, and examine the day-specific probability of transitioning from high- to low-intoxication days and vice versa. Inertia and transition between high- and low-intoxication day types have not been tested in TAC data, despite evidence of autoregressive effects in alcohol use  \parencite{DeMartini-Gueorguieva-Taylor-etal-2022, Ray-Du-Grodin-etal-2020}. While standard multilevel models can decompose within- and between-person variability, CULTA can be viewed as a special case of a multilevel structural equation model that extends this framework in key ways. Specifically, CULTA models the common and unique variance across TAC features using latent variables, incorporates autoregressive dynamics at the state level, and allows both intercept and AR parameters to vary across latent profiles. These extensions enable CULTA to simultaneously capture heterogeneity in level and inertia of intoxication across unobserved subgroups, which traditional multilevel models do not typically accommodate in a unified structure. By capturing enduring and transient intoxication patterns while accounting for the carryover effects of intoxication in everyday life, the CULTA model facilitates a nuanced understanding of drinking behaviors in natural environments \parencite{Piasecki-2019}, providing insights to inform targeted interventions for those at risk of chronic heavy drinking.
+
+This study uses the same dataset as \Textcite{Russell-Richards-Turrisi-etal-2025} and \Textcite{Richards-Mallett-Turrisi-etal-2025}, which previously applied multilevel latent profile analysis (MLPA) to characterize daily intoxication profiles and their associations with drinking behaviors and consequences. In contrast, the present study applies the CULTA model to TAC data collected over six days from young adults engaging in HED. Our primary aim was to characterize both stable and situational components of intoxication and examine short-term dynamic transitions between latent intoxication profiles. We tested the following hypotheses: \textbf{1) Common vs. Unique Variance:} We hypothesized that TAC features would exhibit both common (shared) and unique (feature-specific) variance at both the between- and within-person levels. \textbf{2) Latent Profiles:} We hypothesized the emergence of at least two distinct latent profiles of intoxication: one reflecting persistently high intoxication, and another reflecting moderate, fluctuating intoxication. \textbf{3) Intoxication Inertia and Transition Dynamics:} We hypothesized that individuals in the moderate, fluctuating intoxication profile would show significant autoregressive carryover in intoxication levels (i.e., inertia), while those in the persistently high intoxication profile would not. Additionally, we expected baseline Alcohol Use Disorders Identification Test (AUDIT) scores to predict both initial profile membership and the likelihood of remaining in or transitioning between profiles.
+
+In this study, we characterize alcohol intoxication at the level of daily TAC features, which reflect drinking events within a 24-hour ``social'' day. Our analytic approach integrates both day-level (within-person) and person-level (between-person) sources of variability using the CULTA model. This framework allows us to distinguish stable, trait-like tendencies from situational, state-level fluctuations in intoxication across drinking days. Clarifying this distinction is essential for understanding the implications of our findings, which address both persistent individual differences and dynamic transitions in drinking behavior over time.
+
+The next section will present the CULTA model as a framework to identify stable, trait-like components of drinking behavior alongside more situational, state-dependent fluctuations. It will explore the model's ability to categorize individuals based on enduring intoxication profiles, capturing both persistent and variable aspects of drinking behavior, leading to the specific research questions we address in the current paper.
+
+\subsection{Common and Unique Latent Transition Analysis (CULTA)}
+
+To effectively capture the complex, time-dependent dynamics of alcohol intoxication, the CULTA model extends the CUTS model's focus on common and unique variability \parencite{Hamaker-Schuurman-Zijlmans-2016} to incorporate LTA as a means of identifying high- and low-risk intoxication days and examining the shifts in these intoxication patterns over time. CULTA achieves this by distinguishing stable, trait-like components from transient, state-like variations, accounting for the lingering but dissipating effects of intoxication. In this context, these effects correspond to the autoregressive component of the CULTA model, which captures the extent to which a person's prior-day state intoxication level predicts their current-day level, with influences that diminish over time toward their average.
+
+\subsubsection{Within- and Between-Person Variations in Intoxication}
+
+In the current application of the CUTS framework, four TAC features (peak, rise rate, fall rate, and duration) are treated as exchangeable indicators of alcohol intoxication. They are conceptualized like items on a scale. In the CUTS framework, four key sources of variability are delineated using the four TAC features (see Figure S1\footnote{Tables and figures from the Supplementary Material are labeled with an ``S'' prefix (e.g., Table S1, Figure S1).}. Extensive additional results, tables, figures, and methodological details are available in the Supplementary Materials.). The first is the \textit{common trait} ($\mathrm{Trait}_{\mathrm{intoxication}}$), representing the person-mean level of latent intoxication (as indicated by the four TAC features) across all study days. This represents the person's overall liability to alcohol intoxication, representing how intoxicated they tend to become on average. The second source of variability comes from the \textit{unique traits} (e.g., $\mathrm{Unique}_{\mathrm{peak}}$ through $\mathrm{Unique}_{\mathrm{dura}}$) one for each TAC feature. These represent the differences in the person-mean of each TAC feature and the person-mean for their latent intoxication. $\mathrm{Unique}_{\mathrm{peak}}$ represents the extent to which the person's peak tends to be higher or lower than their overall latent intoxication score. If their $\mathrm{Unique}_{\mathrm{peak}}$ tends to be higher than their $\mathrm{Trait}_{\mathrm{intoxication}}$, this suggests that this person's peak levels tend to be higher than those of the other features. The third source of variability comes from \textit{common states} (e.g., $\mathrm{State}_{\mathrm{intoxication}}$), which represent the day-specific level of latent intoxication, adjusting for the person's trait latent intoxication. If a person's $\mathrm{State}_{\mathrm{intoxication}}$ is higher than their $\mathrm{Trait}_{\mathrm{intoxication}}$, then this indicates that they achieved a greater intoxication level that day than what is typical for them. The fourth source of variability comes from the \textit{unique states} ($\varepsilon_{\mathrm{peak}_{t}}$ through $\varepsilon_{\mathrm{dura}_{t}}$), representing the day-specific difference between each TAC feature and the $\mathrm{State}_{\mathrm{intoxication}}$ score that day. If $\varepsilon_{\mathrm{peak}_{t}} - \mathrm{State}_{\mathrm{intoxication}}$ is greater than 0, this suggests that the day-specific peak score is higher than the day-specific average of the other features. By decomposing the variance in TAC features in this way, we can both estimate and model the common and unique aspects of TAC features at both between- and within-person levels. Putting together the different sources of variability, the CUTS model is given by
+\begin{equation}
+	\begin{aligned}
+		Y_{k, i, t} & = \mu_{k} + \lambda_{T_{k}} \times \mathrm{Trait}_{\mathrm{intoxication}_{i}} + \mathrm{Unique}_{k, i} +                                                                   \\
+		            & \lambda_{S_{k}} \times \mathrm{State}_{\mathrm{intoxication}_{i, t}} + \varepsilon_{k, i, t} , \quad \varepsilon_{k, i, t} \sim \mathcal{N} \left( 0, \theta_{k} \right) . 
+	\end{aligned}
+	\label{eq:manCULTA-cuts-measurement}
+\end{equation}
+In this equation, the observed variable $Y_{k, i, t}$ for TAC feature $k$ (peak TAC, rise rate, fall rate, duration) of individual $i$ at time $t$ is influenced by the stable \textit{common trait} ($\mathrm{Trait}_{\mathrm{intoxication}_{i}}$) scaled by the factor loading $\lambda_{T_{k}}$; the \textit{common state} ($\mathrm{State}_{\mathrm{intoxication}_{i, t}}$) scaled by $\lambda_{S_{k}}$; the residual term $\varepsilon_{k, i, t}$, which represents unique states, following a normal distribution with mean of zero and variance $\theta_{k}$; and the term $\mu_{k}$ is added to represent the grand mean for a given TAC feature $k$.
+
+The CULTA model, as an extension of the CUTS model, has a similar measurement structure given by Equation~\ref{eq:manCULTA-cuts-measurement}, except the grand mean term $\mu_{k}$ is not fixed in the CULTA model and is replaced by profile- (or ``class-'') specific means ($\mu_{k, c}$), where $c$ represents a specific categorical latent profile (e.g., dummy coded 0 and 1 in a two-profile solution). In the CULTA measurement model (Equation~\ref{eq:manCULTA-measurement}), profile-specific means ($\mu_{k, c}$) are introduced as intercept shifts at the level of the observed TAC features. While these parameters do not directly moderate the latent trait or latent state variables, they are not arbitrary constants. Rather, they reflect systematic structure in the residual variances---i.e., the parts of the TAC features not explained by the shared trait and state components. Once the common components of each TAC feature are removed (both between- and within-person), the profile structure captures persistent patterns in the remaining feature-specific uniquenesses. These patterns are not merely statistical artifacts but convey meaningful and stable differences in intoxication expression. From this perspective, $\mu_{k,c}$ parameters can be interpreted as emergent profiles that describe how unique aspects of intoxication differ across latent profiles. When profile-specific means are similar across TAC features, they reflect an overall shift in the expression of intoxication; when they diverge, they reveal differential contributions of features such as peak, rise, fall, or duration to each latent profile. Consequently, transitions between latent profiles may reflect not only changes in overall intoxication levels but also shifts in the configuration of intoxication expression. These transitions could represent meaningful differences in behavioral patterns that are not fully captured by trait- or state-level components alone. The measurement model for the CULTA model is given by
+\begin{equation}
+	\begin{aligned}
+		Y_{k, i, t} & = \mu_{k, c} + \lambda_{T_{k}} \times \mathrm{Trait}_{\mathrm{intoxication}_{i}} + \mathrm{Unique}_{k, i} +                                                                \\
+		            & \lambda_{S_{k}} \times \mathrm{State}_{\mathrm{intoxication}_{i, t}} + \varepsilon_{k, i, t} , \quad \varepsilon_{k, i, t} \sim \mathcal{N} \left( 0, \theta_{k} \right) . 
+	\end{aligned}
+	\label{eq:manCULTA-measurement}
+\end{equation}
+
+Furthermore, the LTA portion of the CULTA model is captured by the profile-specific means $\mu_{k, c}$, which estimate one or more separate categorical ``states'' defined by the state levels of the common intoxication construct and the unique aspects of each TAC feature. Building on the CUTS foundation and integrating LTA, CULTA (see Figure~\ref{fig:manCULTA-culta}) incorporates latent categorical variables ($\mathrm{Cat}_{\mathrm{intoxication}}$) that represent distinct drinking profiles, such as high- and low-intoxication profiles, capturing systematic patterns in TAC data over time. These profiles encompass occasion-specific latent profiles, each reflecting a unique configuration of drinking behavior that can change across days. Through LTA, CULTA models transition between these profiles across consecutive days, accounting for shifts in drinking behavior driven by individual predispositions or situational factors. Profile-specific parameters ($\mu_{\mathrm{peak}_{c}}$ through $\mu_{\mathrm{dura}_{c}}$) represent baseline levels for each TAC feature within each latent profile, allowing for nuanced distinctions between profiles in terms of intoxication dynamics. The substantive meaning of the latent profiles (e.g., high- vs. low-intoxication) depends on the configuration of the values of $\mu_{\mathrm{peak}_{c}}$ through $\mu_{\mathrm{dura}_{c}}$. The autoregressive effect ($\phi_{c}$) within each profile captures the inertia, or carryover effect, of prior intoxication on subsequent behavior. As depicted in Figure~\ref{fig:manCULTA-culta}, the gray rectangle highlights model components where parameters vary by latent profile, with arrows from the categorical latent variables to this rectangle indicating profile-based variation. The subscripts $c$ denotes parameters that vary by profile, such as the autoregressive effects ($\phi_{c}$) and feature means ($\mu_{\mathrm{peak}_{c}}$ through $\mu_{\mathrm{dura}_{c}}$), while arrows between categorical latent profiles across time points represent transitions between latent profiles over time, providing insight into the likelihood of individuals moving between different drinking profiles. Transitions between drinking profiles are important to assess because they may give clues to a person's risk for AUD. Those who tend to remain in high-risk drinking days, unlikely to transition out, may be at unique risk for AUD. By integrating autoregressive paths and profile-based mean adjustments, CULTA extends the CUTS model to offer a refined approach to understanding alcohol use, differentiating stable drinking traits from transient, profile-specific fluctuations. This combination is novel in research using TAC. This provides actionable insights for interventions aimed at managing chronic heavy drinking behavior by addressing both enduring and situational aspects of intoxication.
+
+\begin{figure*}[htbp]
+	\caption{The Common and Unique Latent Transition Analysis Model (CULTA)}
+	\begin{center}
+		\includegraphics[scale = .6]{.setup/latex/figures/png/culta.png}
+	\end{center}
+	\scriptsize
+	\emph{Note:} In addition to the elements in the CUTS model in Figure S1, the CULTA model includes latent variables $\mathrm{Cat}_{\mathrm{intoxication}_{t_{0}}}$ to $\mathrm{Cat}_{\mathrm{intoxication}_{t_{5}}}$ representing six occasion-specific categorical latent profiles. The gray rectangle highlights model components where parameters vary by latent profile. Arrows from the categorical latent variables to the gray rectangle indicates this profile-based variation. The subscript $c$ indicate parameters that vary by profile. $\phi_{c}$ represents autoregressive effects within each profile, and $\mu_{\mathrm{peak}_{c}}$ through $\mu_{\mathrm{dura}_{c}}$ captures indicator means for each profile. Arrows between categorical latent profiles across time points represent transitions between latent profiles over time. The latent variables $\varepsilon_{\mathrm{peak}_{t0}}$ through $\varepsilon_{\mathrm{dura}_{t5}}$ were omitted for ease of presentation.
+	\label{fig:manCULTA-culta}
+\end{figure*}
+
+In the following sections, we delve into the foundational concepts of alcohol intoxication inertia and transitions in intoxication profiles---core aspects that shape the CULTA model's framework. While the CULTA model captures enduring and situational influences on intoxication dynamics, these features add essential layers of insight. Intoxication inertia refers to the carryover effects from prior intoxication levels, indicating a potential habitual cycle in drinking behavior. Transitions in intoxication profiles, on the other hand, highlight shifts in drinking patterns that may respond to individual and environmental factors. We will explore these components' modeling and interpret their substantive implications for understanding risk behaviors associated with alcohol consumption.
+
+\subsection{Alcohol Intoxication Inertia}
+
+We use the term \textbf{\textit{alcohol intoxication inertia}} to describe the carryover in alcohol intoxication levels from one day to the next . Alcohol intoxication inertia would imply that the intoxication level a person achieved yesterday is statistically associated with the level of intoxication a person achieves today.  High inertia implies high stability in drinking behavior, and may represent an imperviousness to context and situation with regard to drinking. Persistent intoxication may characterize those at risk for AUDs \parencite[e.g.,][]{Prince-Read-Colder-2019}. 
+
+Autoregressive (AR) models provide a mathematical representation of intoxication inertia. These models capture how previous intoxication levels influence future drinking behavior. This is reflected in Figure~\ref{fig:manCULTA-culta}, particularly the paths from $\mathrm{State}_{\mathrm{intoxication}}$ for time $t$ to $\mathrm{State}_{\mathrm{intoxication}}$ on the next time point. Or more precisely
+\begin{equation}
+	\begin{aligned}
+		\mathrm{State}_{\mathrm{intoxication}_{i, t}} & = \phi_{c}  \times \mathrm{State}_{\mathrm{intoxication}_{i, t - 1}} + \zeta_{i, t}, \\
+		\zeta_{i, t}                                  & \sim \mathcal{N} \left( 0, \psi_{S} \right)                                          
+	\end{aligned}
+	\label{eq:manCULTA-ar-dynamics}
+\end{equation}
+where $\phi_{c}$ is the AR(1) coefficient, which measures the influence of intoxication at a previous time point on the current time point, for profile $c$, and $\zeta_{i, t}$ represents the normally distributed process noise.
+
+The sign of $\phi$ has important implications for the stability of alcohol intoxication. A positive $\phi$ indicates that if yesterday's intoxication is high, today's intoxication is also likely to be high, in a manner proportionate to the magnitude of $\phi$.  A positive $\phi$ also implies that if the previous intoxication level was low, the current value is likely to be low. The magnitude of a positive $\phi$ suggests the degree of persistence. If $\phi$ is close to 1, then  strong persistence is observed, meaning that high intoxication persists longer than if $\phi$ is closer to 0.  A negative $\phi$ indicates that the current value of the series is negatively related to the previous value. If the previous value was high, the current value is likely to be low, and vice versa. To illustrate these patterns graphically, we generated data from Equation~\ref{eq:manCULTA-ar-dynamics} without process noise, as shown in Panel~\ref{fig:manCULTA-dynamics-ar} of Figure~\ref{fig:manCULTA-dynamics}. For positive $\phi$ values, specifically $0.95$ and $0.75$, notice that high intoxication on the previous time results in high intoxication on the next day, although the magnitude of intoxication diminishes over time. Note that the decline is slower for $0.95$, indicating a higher inertia from previous states. For both cases, high intoxication from previous day will result in high intoxication on the next day but this association is stronger for $0.95$ compared to $0.75$. For negative $\phi$ values, such as $-0.95$ and $-0.75$, observe the oscillations. Higher absolute values also suggest greater inertia from previous states, but in this case, it results in the intoxication level to swing to the opposite sign until it eventually reaches the stable mean (zero in this case). The reversion to the mean takes longer for $-0.95$ compared to $-0.75$. For both cases, high intoxication from the previous day will result on low intoxication on the next day. The magnitude of the swing to the opposite sign, however, is greater for $-0.95$ compared to $-0.75$.
+
+\begin{figure*}[htbp]
+	\caption{Simulated data to highlight qualitative differences between systems showing (a) AR dynamics and (b) latent transition in AR and intercept (mean) values}
+	\begin{subfigure}{\textwidth}
+		\caption{}
+		\begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[scale = .95]{.setup/latex/figures/png/ar+95.png}
+		\end{subfigure}%
+		~ 
+		\begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[scale = .95]{.setup/latex/figures/png/ar+75.png}
+		\end{subfigure}
+		\begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[scale = .95]{.setup/latex/figures/png/ar-95.png}
+		\end{subfigure}%
+		~ 
+		\begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[scale = .95]{.setup/latex/figures/png/ar-75.png}
+		\end{subfigure}
+		\label{fig:manCULTA-dynamics-ar}
+	\end{subfigure}
+																
+	\medskip
+																    
+	\begin{subfigure}{\textwidth}
+		\caption{}
+		\begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[scale = .95]{.setup/latex/figures/png/rs-low-high.png}
+		\end{subfigure}%
+		~ 
+		\begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[scale = .95]{.setup/latex/figures/png/rs-high-low.png}
+		\end{subfigure}
+		\label{fig:manCULTA-dynamics-rs}
+	\end{subfigure}
+	\label{fig:manCULTA-dynamics}
+\end{figure*}
+
+This inertia highlights the challenges of interrupting heavy drinking patterns, particularly in environments that encourage alcohol use. Understanding the dynamics of intoxication inertia can inform interventions, as individuals caught in such cycles may require targeted strategies to shift behavior patterns. Moreover, incorporating TAC data allows researchers to observe these patterns in real time, providing deeper insights into the persistence of intoxication across episodes and helping design personalized intervention efforts.
+
+\subsection{Transitions in Intoxication Profiles}
+
+The CULTA model identifies latent groupings using mixture structural equation modeling with regime-switching \parencite[MSEM-RS;][]{Chow-Witkiewitz-Grasman-etal-2015}. Regime-switching is an alternative name for latent transition that is popular within state-space literature \parencite{Kim-Nelson-1999}. Integrating latent transitions into the CUTS framework allows a more nuanced understanding of how individuals may transition through phases of distinctly different drinking states over longer periods. In other words, such latent transitions allow membership in latent profiles or profiles to change over time as related to environmental, contextual, and other time- and person-specific differences. This modeling aspect allows researchers to capture nonlinear dynamics in behavior, such as sudden shifts in intoxication attitudes or behaviors that traditional linear models might miss. If a study finds that certain individuals are more likely to transition to more problematic intoxication profiles, tailored support strategies can be developed for those at higher risk.
+
+In the current study, we use CULTA to estimate latent categorical states of intoxication. This allows us to understand how likely individuals are to shift from states that are higher versus lower than their own average. This is novel in the literature using TAC features and allows estimation of how individuals may differ in their consistency/stability of high- and low-intoxication states.   
+
+The probability of these transitions is modeled using log-odds equations, which incorporate baseline risk factors such as AUDIT scores. We define the initial profile membership (Equation~\ref{eq:manCULTA-initial}) and transition dynamics (Equation~\ref{eq:manCULTA-transition}) using the following log-odds matrices:
+\begin{equation}
+	\kbordermatrix{
+		& c_{0} = 0                                       & c_{0} = 1 \\
+		& \nu_{0} + \kappa_{0} \times \mathrm{AUDIT} & 0          \\
+	}
+	\label{eq:manCULTA-initial}
+\end{equation}
+\begin{equation}
+	\kbordermatrix{
+		& c_{t + 1} = 0                                               & c_{t + 1} = 1 \\
+		c_{t} = 0 & \alpha_{0} + \beta_{00} + \gamma_{00} \times \mathrm{AUDIT} & 0             \\
+		c_{t} = 1 & \alpha_{0} + \gamma_{10} \times \mathrm{AUDIT} & 0             \\
+	}
+	\label{eq:manCULTA-transition}
+\end{equation}
+\noindent Here, $c_0$ refers to the intoxication profile on the initial day, $c_t$ refers to the individual's intoxication profile on the current day, and $c_{t + 1}$ refers to their profile on the following day. The intercept $\nu_{0}$ represents the baseline log-odds of being in the first profile ($c = 0$) relative to the second profile ($c = 1$) when AUDIT = 0. The parameter $\kappa_{0}$ captures the effect of AUDIT on this initial profile membership--higher AUDIT scores increase the odds of starting in the first profile, suggesting that individuals with more severe AUD risk are more likely to begin in a higher-risk state. Within the transition matrix, $\alpha_{0}$ reflects the baseline log-odds of transitioning to or remaining in profile $c = 0$, common to both rows. The parameter $\beta_{00}$ adds to this baseline when the individual was previously in profile $c = 0$, capturing the persistence in that state. The effects of AUDIT on transitions are represented by $\gamma_{00}$ and $\gamma_{10}$: $\gamma_{00}$ increases the odds of remaining in profile $c = 0$ when already in it, while $\gamma_{10}$ increases the odds of transitioning from profile $c = 1$ to profile $c = 0$. Together, these parameters model how AUDIT influences both the starting point and the subsequent dynamics of profile membership.
+
+The corresponding probability tables of the log-odds tables are given in Tables~\ref{tab:manCULTA-c0-probability} and~\ref{tab:manCULTA-transition-probability}. These equations allow for a probabilistic interpretation of profile membership and transitions, integrating individual risk factors into both initial and longitudinal profile classification. For example, higher AUDIT scores increase the likelihood of starting in and persisting within a high-intoxication profile--consistent with theoretical expectations that alcohol use severity predicts both baseline risk and short-term behavioral stability. This formulation allows us to quantify individual differences in intoxication dynamics, assess how stable or reactive these patterns are over time, and test hypotheses about risk escalation or recovery. It represents a novel contribution to the TAC literature by bridging trait-like risk factors with state-like behavior patterns in a dynamic framework.
+
+\begin{table*}[htbp]
+	\begin{threeparttable}
+		\caption{Probability of Starting Out in a Specific Profile for a Two-Profile Solution}
+		\begin{tabularx}{\textwidth}{@{}YY@{}}
+			\toprule
+			Chronic HED                                                                                                                               & Inertia-Driven Drinking                                                       \\
+			\midrule
+			$\frac{\exp \left(\nu_{0} + \kappa_{0} \times \mathrm{AUDIT} \right)}{\exp \left(\nu_{0} + \kappa_{0} \times \mathrm{AUDIT} \right) + 1}$ & $\frac{1}{\exp \left(\nu_{0} + \kappa_{0} \times \mathrm{AUDIT} \right) + 1}$ \\
+			\bottomrule
+		\end{tabularx}
+		\label{tab:manCULTA-c0-probability}
+	\end{threeparttable}
+\end{table*}
+
+\begin{table*}[htbp]
+	\begin{threeparttable}
+		\caption{Probability of Transitioning from One Profile to Another for a Two-Profile Solution}
+		\footnotesize
+		\begin{tabularx}{\textwidth}{@{}YYY@{}}
+			\toprule
+			                                               & Chronic HED $\left( t \right)$                                                                                                                                                & Inertia-Driven Drinking $\left( t \right)$                                                      \\
+			\midrule
+			Chronic HED $\left( t - 1 \right)$             & $\frac{\exp \left( \alpha_{0} + \beta_{00} + \gamma_{00} \times \mathrm{AUDIT} \right)}{\exp \left( \alpha_{0} + \beta_{00} + \gamma_{00} \times \mathrm{AUDIT} \right) + 1}$ & $\frac{1}{\exp \left( \alpha_{0} + \beta_{00} + \gamma_{00} \times \mathrm{AUDIT} \right) + 1}$ \\
+			\midrule
+			Inertia-Driven Drinking $\left( t - 1 \right)$ & $\frac{\exp \left( \alpha_{0} + \gamma_{10} \times \mathrm{AUDIT} \right)}{\exp \left( \alpha_{0} + \gamma_{10} \times \mathrm{AUDIT} \right) + 1}$                           & $\frac{1}{\exp \left( \alpha_{0} + \gamma_{10} \times \mathrm{AUDIT} \right) + 1}$              \\
+			\bottomrule
+		\end{tabularx}
+		\label{tab:manCULTA-transition-probability}
+	\end{threeparttable}
+\end{table*}
+
+To consolidate the key components of the CULTA model introduced in the previous sections, Table S1 summarizes all model parameters and their substantive interpretations. It provides a compact reference that distills the content from the preceding sections on the model structure, intoxication inertia, and profile transitions.
+
+\subsection{Research Questions}
+
+Building on the conceptual foundations and dynamic modeling capabilities of the CULTA framework, this study bridges critical gaps in understanding the nuanced interplay between stable and transient factors in alcohol intoxication patterns. The incorporation of both trait-like and state-like dynamics enables a comprehensive analysis of the common and unique contributions of intoxication features. These contributions have not only methodological significance but also profound implications for identifying and intervening in problematic drinking behaviors.
+
+\subsubsection{Sources of Variability in TAC Features}
+
+\textbf{Research Question 1: To what extent is the variability in TAC features explained by common versus unique components at both the between-person and within-person levels?} This question focuses on understanding whether intoxication patterns are primarily driven by overarching common factors or by feature-specific dynamics. By disentangling these sources, the CULTA model provides insights into whether interventions should target overall intoxication patterns or specific features such as peak, rise rate, fall rate, or duration.
+
+\subsubsection{Emergence of Latent Intoxication Profiles}
+
+\textbf{Research Question 2: What categorical latent intoxication profiles emerge from the CULTA model, and how are they characterized?} By identifying categorical profiles that encompass trait and state influences, we can compare and validate findings against prior research. This extends the field's understanding of high- and low-intoxication behaviors and their implications for risk behaviors.
+
+\subsubsection{Persistence and Transitions in Intoxication Profiles}
+
+\textbf{Research Question 3: What is the probability of remaining in or transitioning between different intoxication profiles, such as high versus low intoxication, from one drinking day to the next?} \textbf{Does an individual's baseline AUD influence their initial profile membership or their likelihood of short-term transitioning between profiles over a six-day period?} These questions address the dynamics of intoxication inertia and the influence of stable traits and situational factors on profile transitions. They also highlight the potential role of baseline alcohol use risk in shaping these transitions.
+
+The answers to these questions have significant implications for public health and behavioral science. They can illuminate the mechanisms underlying persistent heavy drinking and its association with AUD; enhance the predictive accuracy of screening tools by incorporating nuanced measures of intoxication dynamics; and inform the design of tailored interventions that address both stable traits and transient situational factors influencing drinking behavior. Ultimately, this research aims to refine theoretical frameworks and translate findings into actionable strategies for mitigating the adverse impacts of HED in vulnerable populations.
+
+\section{Method}
+
+\subsection{Participants}
+
+The study involved 222 young adults with an average age of 22.3 years. The sample was 64\% female, 79\% non-Hispanic White, 84\% undergraduates, 6.4\% graduate students, and 9.5\% nonstudents. Participants were recruited from the vicinity of a northeastern U.S. university using flyers and online postings. No evidence of demographic bias was observed between those who completed the study and those who did not ($p\mathrm{s} > .10$). The analyses of the current report and the study design were not preregistered. Given the lack of relevant previous effect sizes on which to base power calculations, we did not conduct \textit{a priori} power analyses for these data. Participants completed a screening survey prior to enrollment. For eligibility, participants needed to: (1) be between the ages of 21-29, (2) have engaged in HED at least weekly on average during either the past calendar year or typically during the academic year, and (3) be sufficiently proficient in written English to complete study procedures. HED was defined as consuming 4+/5+ drinks in a row for females/males \parencite{Wechsler-Dowdall-Davenport-etal-1995}.  Before enrollment, 531 individuals completed an initial screening, 419 of whom were eligible. Invitations were sent on a ``first-come, first serve'' basis according to the order in which screening surveys were received. Time and resource limitations prevented invitations to all eligible participants, leading us to invite 343 individuals to participate. Of the 343 invited, 222 completed the study. No evidence of bias was observed comparing those completing versus not completing by gender, race/ethnicity, student status, or past-two-week binge drinking ($p$s>.10).
+
+\subsection{Procedure}
+
+The study consisted of five 24-hour periods spanning six consecutive days. All participants began on a Wednesday and finished on a Monday, capturing the social weekend of Thursday, Friday, and Saturday. Data collection took place across 25 weeks from November 2017 to November 2018 and across 8 weeks from November 2019 to March 2020. The study included baseline and endpoint assessments, three-times daily ecological momentary assessment (EMA), participant-initiated drinking-episodic EMA, and transdermal sensors. The current study uses only data from the TAC sensors and baseline reports. All procedures were approved by the university institutional review board.  Data and analytic code are not publicly available but will be made available (in accordance with IRB standards) upon request from the first author.
+
+\textbf{TAC sensor protocol.} Participants wore the SCRAM-CAM anklet during wake and sleep hours for the duration of the study. The SCRAM-CAM sensor used in this study has been validated in multiple controlled laboratory studies \parencite[e.g.,][]{Roache-KarnsWright-Goros-etal-2019} and is widely used in both clinical and naturalistic research settings. The core TAC signal is reliably recorded, and the derived features used in the present analysis---peak, rise rate, fall rate, and duration---have demonstrated strong correlations with self-reported alcohol consumption and predictive validity for alcohol-related consequences, even after adjusting for drink counts \parencite{Fridberg-Wang-Porges-2022, Russell-Turrisi-Smyth-2022}. After data collection, SCRAM-CAM data are uploaded to the company's online server (SCRAMNet), which houses TAC data, records TAC ``positives'', and tracks compliance with device wear through skin temperature and sensor quality (infrared voltage) readings. Compliance rates were high. Only 2.0\% of TAC data showed evidence of device removal or interference; these data points were clustered within a minority of individuals ($n = 24$). No evidence suggested that compliance was associated with study demographics (gender, age, race/ethnicity, student status) or AUDIT scores ($p\mathrm{s} > .05$).  We began with 52,726 TAC observations collected from 218 individuals; data from 4 participants were lost due to device failure. Drinking episodes were then identified and coded using validated research guidelines informed by controlled administration studies \parencite{Roache-KarnsWright-Goros-etal-2019}.  Following episode identification and exclusions, we retained 608 TAC drinking events containing 16,385 data points among 195 participants (87.8\% of sample). 
+
+To prepare the data for analysis, we applied penalized $b$-spline smoothing in \texttt{PROC TRANSREG} \parencite{Eilers-Marx-1996, Russell-Turrisi-Smyth-2022}. This method effectively smooths noise in complex TAC trajectories while minimizing oversmoothing through derivative-based penalization of spline coefficients. Each TAC drinking episode was modeled separately. We opted for penalized $b$-splines over simpler filters (e.g., moving averages), which can oversmooth data and obscure meaningful variation \parencite{Chatfield-2003}. Although oversmoothing may be less of a concern with high-density sensors (e.g., those collecting data every 20 seconds), SCRAM-CAM captures TAC at 30-minute intervals. Given our goal of extracting features such as peak, rise rate, and fall rate, we sought a method that retained informative signal while mitigating the influence of white noise. Penalized $b$-splines provided a suitable balance for our sensor resolution and analytic goals.
+
+Because drinking behavior does not conform to the midnight-to-midnight boundaries of a calendar day and retrospective morning reports of yesterday's/last night's drinking likely included hours after midnight. Day boundaries for TAC data were therefore redefined with 10 AM marking the start of a new ``social'' day. 10 AM was chosen because it was the modal prompt time for the morning report which asked participants to reflect on their drinking the day/night before. If the morning report was provided before 10 AM but TAC or episodic EMA data were present between 5-10 AM, the social day boundary was reset to the time of the morning report (104 TAC and 7 episodic EMA observations were shifted). TAC features and EMA drink counts were defined by the social day in analysis.
+
+\subsection{Measures}
+
+\subsubsection{TAC Features} Four TAC features were extracted from each day with TAC-positive (TAC > 0) data: 1) \textit{peak TAC}, the maximum TAC value that day; 2) \textit{rise rate}, the average of all ascending point-to-point TAC rates, interpreted as the day's average rate of TAC increase per hour;  3) \textit{fall rate}, the average rate of all descending point-to-point TAC rates, interpreted as the day's average rate of TAC decrease per hour; and 4) \textit{duration}, the number of hours a person spent under the alcohol concentration curve that day. Days without alcohol detection were coded as zero for these features unless there was evidence of non-compliance. Outliers above the $99^\mathrm{th}$ percentile were removed, leaving 1,274 valid days of data across 218 individuals for analysis.
+
+\subsubsection{AUDIT}
+
+The Alcohol Use Disorders Identification Test \parencite[AUDIT;][]{Babor-HigginsBiddle-Saunders-etal-2001} was employed to evaluate various aspects of participants' alcohol use disorder (AUD) risk. This comprehensive screening tool is designed to identify individuals with hazardous and harmful drinking patterns. It has been validated extensively across clinical and non-clinical samples, including young adults \parencite[e.g.,][]{Reinert-Allen-2007}. The AUDIT assesses three main domains: alcohol consumption, drinking behaviors, and alcohol-related problems. Each item on the AUDIT is scored on a scale from 0 to 4, with higher scores indicating more severe alcohol use problems. The total score, which ranges from 0 to 40, provides an overall assessment of the participant's alcohol use and helps to identify those who may need further evaluation or intervention. An AUDIT score of 8 or more suggests risk for AUD; AUDIT scores of 15 or more suggest likely AUD \parencite{Babor-HigginsBiddle-Saunders-etal-2001}. In our sample, internal consistency was acceptable (Cronbach's $\alpha = .80$). The mean AUDIT score was $\mathrm{M} = 11.40$ $\left( \mathrm{SD} = 4.97 \right)$, suggesting that, on average, participants were at risk for AUD.
+
+\subsection{Data Analysis}
+
+For Research Question 1, we evaluated the statistical significance of trait and state variances, as illustrated in Figure~\ref{fig:manCULTA-culta}. The variance of the general intoxication trait ($\mathrm{Trait}_{\mathrm{intoxication}}$) is denoted by $\psi_{T}$. To ensure comparability across time points, the factor loadings for peak in the general intoxication trait were constrained to 1. The factor loadings for the other features---rise, fall, and duration---were set to be invariant across time and are represented by $\lambda_{T_{\mathrm{rise}}}$, $\lambda_{T_{\mathrm{fall}}}$, and $\lambda_{T_{\mathrm{dura}}}$, respectively.
+Feature-specific trait variances ($\psi_{\mathrm{peak}}$, $\psi_{\mathrm{rise}}$, $\psi_{\mathrm{fall}}$, and $\psi_{\mathrm{dura}}$) correspond to the unique traits of peak, rise, fall, and duration. The factor loadings for these feature-specific traits were constrained to 1.
+State intoxication variance at the initial time point ($\mathrm{State}_{\mathrm{intoxication}_{t_{0}}}$) is denoted by $\psi_{S_{t_{0}}}$. For subsequent time points, residual state intoxication variances were constrained to equality and represented by $\psi_{S}$. Similar to the trait factors, the factor loadings for peak in the state factors were constrained to 1, while the factor loadings for rise, fall, and duration were constrained to be time-invariant and are denoted by $\lambda_{S_{\mathrm{rise}}}$, $\lambda_{S_{\mathrm{fall}}}$, and $\lambda_{S_{\mathrm{dura}}}$, respectively. The variances of the unique state components ($\varepsilon_{peak_{t}}$ through $\varepsilon_{dura_{t}}$) are represented by $\theta_{\mathrm{peak}}$ through $\theta_{\mathrm{dura}}$ and were constrained to remain constant over time.
+Our analysis revealed that $\psi_{T}$, $\psi_{\mathrm{peak}}$, and $\psi_{\mathrm{rise}}$ were not statistically significant. Consequently, to simplify interpretation, we omitted $\mathrm{Trait}_{\mathrm{intoxication}}$, $\mathrm{Unique}_{\mathrm{peak}}$, and $\mathrm{Unique}_{\mathrm{rise}}$ from the final model (see Figure S2).
+
+For Research Question 2, we evaluated models with one, two, and three latent profiles and compared the results to previous findings. The profile specific parameters $\mu_{\mathrm{peak}_{c}}$ through $\mu_{\mathrm{dura}_{c}}$ and $\phi_{c}$ were allowed to vary per profile but were constrained to be invariant across time points. Ultimately, we selected a two-profile solution for intoxication, which is illustrated in Panel S3a of Figure S3. To further simplify the final model, we fixed the non-significant AR coefficient for the high intoxication profile to zero, while freely estimating the AR coefficient for the low intoxication profile.
+
+For Research Question 3, we estimated the probabilities of transitioning between the two intoxication profiles across drinking days. Additionally, we examined the impact of AUD on profile membership at the initial time point and its influence on the likelihood of transitioning between profiles at subsequent time points.
+
+To evaluate the performance of the CULTA model under varying sample sizes and to assess its ability to recover true parameters, we conducted a Monte Carlo simulation study.
+
+\subsection{Transparency and Openness}
+
+We report all data exclusions, manipulations, and measures in the study, in accordance with JARS \parencite{Kazak-2018}. The study design and analyses were not preregistered. Due to IRB restrictions and participant confidentiality, the raw TAC data are not publicly available. However, all model code and example data are available on OSF (\url{https://osf.io/gtdmr}) and GitHub (\url{https://github.com/jeksterslab/manCULTA}, \url{https://jeksterslab.github.io/manCULTA/index.html}) to enable replication and adaptation of our analytic approach. Analyses were conducted in \texttt{Mplus} version 8.11 \parencite{Muthen-Muthen-2017} and \texttt{R} version 4.5.1 \parencite{RCoreTeam-2025}. This study complies with the ``disclosure'' standards of the Transparency and Openness Promotion Guidelines.
+
+\section{Results}
+
+The CULTA model was estimated using \texttt{Mplus} 8.11 \parencite{Muthen-Muthen-2017}, using robust maximum likelihood (MLR) estimator, with models specifying one, two, and three latent profiles tested. Notably, the one-profile model corresponds to the CUTS model with the autoregressive (AR) component added. Comparisons between the one- and two-profile solutions, based on information criteria (AIC, BIC, and aBIC), indicated that the two-profile solution provided a better fit to the data. Detailed results of the model comparisons are presented in Table~\ref{tab:manCULTA-ic}.
+
+\begin{table*}[htbp]
+	\begin{threeparttable}
+		\caption{Information Criteria for the One- and Two-Profile Solutions}
+		\begin{tabularx}{\textwidth}{@{}YYYYYYY@{}}
+			\toprule
+			Model       & Parameters & LL         & AIC        & BIC        & aBIC       & Entropy \\
+			\midrule
+			One-profile & 22         & -5,163.635 & 10,371.269 & 10,445.728 & 10,376.012 &         \\
+			Two-profile & 26         & -4,886.931 & 9,842.342  & 9,926.955  & 9,847.732  & 0.949   \\
+			\bottomrule
+		\end{tabularx}
+		\begin{tablenotes}[para,flushleft]
+			{\scriptsize
+				\textit{Note.} LL = Log Likelihood.
+				AIC = Aikaike Information Criteria.
+				BIC = Bayesian Information Criteria.
+				aBIC = sample size adjusted BIC.
+			}
+		\end{tablenotes}
+		\label{tab:manCULTA-ic}
+	\end{threeparttable}
+\end{table*}
+
+Expanding the model to accommodate three or more profiles presented challenges with convergence, despite extensive efforts to explore different specifications. Specifically, although the estimation procedure ran successfully, we were unable to replicate the best log-likelihood (LL) value across a large number of random starts. To address this, we conducted extensive explorations with and without additional constraints on the latent profile structures to aid identification, using up to 5,000 random starts with 1,000 final stage optimizations. Despite these efforts, convergence remained elusive, indicating potential instability in solutions with more than two profiles.
+
+Closer examination of the three-profile models with differing LL values revealed that the resulting profiles were not meaningfully distinct. Some profiles had very low sample sizes, and the characteristics of the profiles overlapped considerably, further undermining their interpretability. These inconsistencies suggested that models with more than two profiles do not represent stable or robust solutions for this data.
+
+\subsection{Research Question 1: To what extent is the variability in TAC features explained by common versus unique components at both the between-person and within-person levels?}
+
+Variance parameters capturing the extent of between-individual differences in common ($\mathrm{Trait}_{\mathrm{intoxication}}$) and unique traits ($\mathrm{Unique}_{\mathrm{peak}}$, $\mathrm{Unique}_{\mathrm{rise}}$, $\mathrm{Unique}_{\mathrm{fall}}$, and $\mathrm{Unique}_{\mathrm{dura}}$) were evaluated. The factor loadings and variance of the between-individual common trait factor ($\mathrm{Trait}_{\mathrm{intoxication}}$) were not statistically significant. Likelihood ratio tests comparing models with the variance component freely estimated versus fixed to zero indicated no significant change in model fit, supporting the absence of meaningful between-individual variance in the common trait factor. This suggested that peak, rise, fall, and duration each captured unique, as opposed to shared sources of variability across time and individuals.
+
+Substantial variability was found in individuals' occasion-specific (i.e., state) variances in the TAC features. The AR parameter $\phi_{c}$ was also significant for one of the two profiles. However, with the exception of the unique trait variance associated with fall ($\psi_{\mathrm{fall}}$) and duration ($\psi_{\mathrm{dura}}$), the variances of the two remaining unique trait factors---$\psi_{\mathrm{peak}}$, and $\psi_{\mathrm{rise}}$, corresponding to TAC peak, and rise---were not statistically significant. Likelihood ratio tests comparing models with the variance component freely estimated versus fixed to zero indicated no significant change in model fit for $\mathrm{Unique}_{\mathrm{peak}}$ and $\mathrm{Unique}_{\mathrm{rise}}$, suggesting the absence of meaningful between-individual variability in these components. In contrast, the variance components for $\mathrm{Unique}_{\mathrm{fall}}$ and $\mathrm{Unique}_{\mathrm{dura}}$ significantly improved model fit, indicating stable between-individual differences specific to these features. This suggested substantial between-person differences in fall rate and drinking duration that persisted throughout the six-day study span, but no enduring between-person differences in other unique TAC features. 
+
+Results from addressing Research Question 1 have several implications. First, the results suggests that managing and reducing the length of intoxication episodes as well as the sobering process (fall rate) may be more impactful than focusing on peak intensity or rise rates. Prolonged intoxication episodes and sobering process carry heightened risks, such as accidents or negative health outcomes, underscoring the importance of targeting duration in interventions. Additionally, duration may be a stronger predictor of cumulative intoxication burden, making it essential for designing strategies aimed at reducing harm. Although fall rate and duration exhibited the greatest between-person variability across the study window, we do not interpret this as evidence of modifiability \textit{per se}. Rather, their persistence suggests that they may reflect broader individual differences in drinking style or episode structure. In particular, fall rate likely reflects downstream effects of earlier drinking behaviors (e.g., rapid consumption or delayed cessation), and may therefore be indirectly influenced through interventions targeting these upstream factors.
+
+The minimal variability in both common and indicator-specific traits points to the importance of state-based changes in intoxication. Rather than being driven by consistent individual differences, intoxication levels appeared to fluctuate based on situational factors. This finding highlighted the need to better measure proximal risk and protective factors that may contribute to some of these state intoxication dynamics.
+
+\subsection{Research Question 2: What categorical latent intoxication profiles emerge from the CULTA model, and how are they characterized?}
+
+As hypothesized, we identified two distinct latent intoxication profiles, which are presented in Figure S3. Each profile is characterized by the mean values of key TAC  features---peak, rise, fall, and duration---which provide a comprehensive view of individuals' intoxication patterns.
+
+\subsubsection{Chronic HED vs. Inertia-Driven Drinking}
+
+The high profile, which we labeled as chronic HED ($c = 0$), was associated with systematically elevated mean values across the TAC features, indicating more intense and prolonged intoxication episodes relative to the sample average.  While manifesting the chronic HED profile, individuals exhibit a persistent configuration of elevated intoxication features that were more severe than the ``typical'' configuration in this sample. This profile is \textit{trait-like} in the sense that the mean structure of intoxication features remains consistently elevated within each day, independent of prior-day state. This reflects a stable intoxication expression characteristic of this profile, as evidenced by the non-significant AR parameter ($\phi_{0}$), indicating little carryover from previous-day intoxication.
+
+In contrast, the low profile, which we labeled as inertia-driven drinking ($c = 1$), corresponds to lower mean values for the same TAC features, suggesting milder or shorter intoxication episodes relative to the high profile. Individuals in this profile exhibited lower peak intoxication levels and more moderate drinking patterns, with shorter episodes and quicker changes in alcohol concentration. This profile represented the ``typical'' drinking behavior within the sample, which, as noted earlier, was composed of individuals who engaged in HED. Therefore, typical in this context refers to less intense but temporally clustered episodic drinking behavior characterizing the majority of the participants in this sample. Thus, a heavy drinking day was more likely to be followed by another heavy drinking day, whereas a day of abstinence was more likely to lead to another day of low or no alcohol consumption. We labeled this profile as the \textit{inertia-driven drinking} profile to emphasize its temporally clustered nature, in contrast to the persistent elevation observed in the chronic HED profile. This profile is \textit{state-like} because intoxication levels fluctuate depending on the previous day's state as governed by the statistically significant autoregressive carryover ($\phi_{1} = 0.311, p < 0.001$). These fluctuations eventually dissipate, with intoxication levels tending to return to the profile's lower mean configuration over time.
+
+To summarize the core distinctions between trait- and state-like dynamics within the CULTA framework---and to contrast with Research Question 1's focus on the decomposition of variance---Table S2 provides an overview of each model component, its operationalization, and its substantive interpretation.
+
+When examining the profile probabilities, a small proportion of individuals (11\%) were classified under the chronic HED, indicating more problematic drinking behavior. In contrast, the majority (89\%) belonged to the inertia-driven drinking, reflecting more moderate drinking patterns, despite the sample's overall focus on HED. These results align with our hypothesis, as the high profile represents a subset of individuals with sustained, elevated intoxication levels, while the low profile captures the more common, episodic drinking behavior within the sample.
+
+Both profiles present challenges. For the inertia-driven drinking, the significant AR parameter reflected alcohol intoxication inertia that lingered beyond one drinking episode, but eventually dissipated over the six days. Even though the mean intoxication level was low, the lingering effects from previous drinking episodes gave rise to low to moderate levels of transient HED. In contrast, the chronic HED profile's rapid convergence to elevated intoxication levels, despite the non-significant AR parameter, indicates a consistent pattern of heavy drinking. This consistent return to high levels of intoxication is problematic, as it suggests a tendency toward sustained heavy consumption that may have serious health and behavioral consequences. Given the six-day study window, the apparent stability of the chronic HED profile should be interpreted as short-term regularity in intoxication dynamics, rather than definitive evidence of enduring drinking traits. Longer assessment periods are needed to determine whether these patterns persist across weeks or months.
+
+While the AR parameters differed between the two profiles, both drinking patterns raise concerns. The inertia-driven drinking profile reflects persistent, lingering intoxication, which may promote ongoing drinking over time. Meanwhile, the chronic HED profile shows a pattern of consistently high intoxication, with individuals repeatedly returning to a problematic drinking baseline. These findings highlight the need for targeted interventions to address both low-level alcohol inertia and the risks associated with chronic high-level drinking. These findings contribute to a nuanced characterization of intoxication dynamics and may offer insight into patterns of persistence and variability in heavy drinking behavior.
+
+The final profile proportions for the latent profile patterns are presented in Figure S4. The majority of individuals (62.84\%) remained in a stable inertia-driven drinking latent profile across time, indicating that most individuals exhibited primarily state-dependent episodic heavy drinking behaviors. Several other latent profile patterns emerged with smaller proportions. Some individuals were classified as having a chronic HED profile, either from the outset or through transitions over time. However, these patterns were relatively uncommon, with each representing less than 5\% of the total sample. Despite their low prevalence, these individuals are of particular concern due to their sustained and heavy drinking tendencies, which place them at a heightened risk for persistent problematic alcohol consumption.
+
+The second-largest profile proportion (5.05\%) involved individuals who exhibited a moderate stability pattern, maintaining intermediate drinking behaviors without strong transitions into or out of chronic HED or inertia-driven drinking classifications. Other transition patterns were observed but were relatively rare, each representing less than 4\% of the sample. These findings suggest that while movement between drinking profiles occurred, it was not a dominant trend in the data.
+
+Overall, these results highlight that while inertia-driven drinking was the most prevalent drinking pattern, and while transitions into chronic HED were short-lived, likely representing isolated heavy drinking episodes, a small subset of individuals demonstrated consistent chronic HED (e.g., 000001 and 000011, while rare, occurred in 0.9\% and 0.5\% of the sample, respectively), which suggests a more stable and enduring form of heavy drinking behavior. Understanding the factors contributing to these transitions---and identifying those most at risk---may be critical for targeted interventions aimed at mitigating long-term alcohol-related harms. By capturing short-term dynamics in intoxication among young adults engaged in heavy episodic drinking, this study provides a foundation for more personalized models of risk and may inform future research on early intervention targets in this developmentally sensitive population.
+
+\subsection{Research Question 3: What is the probability of remaining in or transitioning between different intoxication profiles, such as high versus low intoxication, from one drinking day to the next? \textbf{Does an individual's baseline AUD influence their initial profile membership or their likelihood of short-term transitioning between profiles over a six-day period?}}
+
+The results indicate that individuals do shift between high and low intoxication profiles across the six-day observation window, with transition probabilities influenced by both their previous day's profile and their AUDIT scores. These transitions, although limited in scope due to the short study period, provide insights into the short-term dynamics of intoxication. The transition between these latent profiles is modeled through the following log-odds equations:
+\begin{equation*}
+	\kbordermatrix{
+		& c_{t + 1} = 0                                               & c_{t + 1} = 1 \\
+		c_{t} = 0 & \alpha_{0} + \beta_{00} + \gamma_{00} \times \mathrm{AUDIT} & 0             \\
+		c_{t} = 1 & \alpha_{0} + \gamma_{10} \times \mathrm{AUDIT} & 0             \\
+	}
+\end{equation*}
+\begin{equation}
+	\kbordermatrix{
+		& c_{t + 1} = 0                                               & c_{t + 1} = 1 \\
+		c_{t} = 0 & -3.586 + 2.250 + 0.063 \times \mathrm{AUDIT} & 0             \\
+		c_{t} = 1 & -3.586 + 0.094 \times \mathrm{AUDIT} & 0             \\
+	}
+	\label{eq:manCULTA-transition-values}
+\end{equation}
+
+The $\alpha$ and $\beta$ parameters, which capture the base transition dynamics, are significant at $p < 0.001$. The $\gamma$ parameters, reflecting the influence of AUDIT scores on transitions, are significant at $p< 0.05$. These results indicate that both profile persistence and transitions between profiles are meaningful and significantly related to baseline AUDIT.
+
+When the AUDIT score is zero, indicating minimal alcohol use risk, the transition probabilities reveal distinct patterns. Individuals in chronic HED profile have a 20.8\% chance of staying in the same on the following day, while the probability of transitioning from chronic HED to inertia-driven drinking is 79.2\%. This suggests that individuals with high intoxication on one day are more likely to moderate their behavior and move into the low intoxication profile the next day.
+
+In contrast, individuals in the inertia-driven drinking profile exhibit a strong tendency to remain in that profile, with a 97.3\% chance of staying in the low profile from one day to the next. The probability of transitioning from inertia-driven drinking to chronic HED is only 2.7\%, indicating that individuals who exhibit low intoxication levels are unlikely to escalate to higher levels of intoxication on the following day. These transition probabilities reflect a general tendency toward stability in the low profile, with limited upward shifts to the high profile.
+
+This pattern suggests that participants tend to reduce their intoxication levels over time, with moderation being the more likely outcome for those initially in the high profile. The results also highlight the stability of the low profile, where individuals are unlikely to escalate their drinking behavior to problematic levels. These baseline probabilities provide insights into the natural fluctuations in intoxication within this sample, emphasizing the dynamics of moderation and stability across drinking episodes.
+
+Table~\ref{tab:manCULTA-transition-probabilities} presents the effect of AUDIT on the transition probabilities. The table reveals a clear pattern in how increasing AUDIT scores influence the probabilities of staying in or transitioning between chronic HED and inertia-driven drinking profiles. As AUDIT scores rise, individuals in the chronic HED profile become increasingly likely to remain in that profile, while the probability of transitioning from chronic HED to inertia-driven drinking decreases. This trend reflects a growing persistence of heavy drinking behavior as alcohol use severity increases. For example, when the AUDIT score reaches the dependence threshold (AUDIT = 15), the likelihood of remaining in the chronic HED profile rises to 40.3\%, compared to just 20.8\% when the AUDIT score is zero. At the same time, the probability of transitioning from chronic HED to inertia-driven drinking drops steadily, indicating that higher AUDIT scores reduce the tendency to moderate intoxication levels over time.
+
+\begin{table*}[htbp]
+	\begin{threeparttable}
+		\caption{Probability of Transitioning from One Profile to Another for a Two-Profile Solution as a Function of AUDIT}
+		\begin{tabularx}{\textwidth}{@{}YYY@{}}
+			\toprule
+			                                               & Chronic HED $\left( t \right)$ & Inertia-Driven Drinking $\left( t \right)$ \\
+			\midrule
+			\multicolumn{3}{c}{No AUD} \\
+			\midrule
+			Chronic HED $\left( t - 1 \right)$             & 0.208                          & 0.792                                      \\
+			Inertia-Driven Drinking $\left( t - 1 \right)$ & 0.027                          & 0.973                                      \\
+			\midrule
+			\multicolumn{3}{c}{High risk} \\
+			\midrule
+			Chronic HED $\left( t - 1 \right)$             & 0.303                          & 0.697                                      \\
+			Inertia-Driven Drinking $\left( t - 1 \right)$ & 0.056                          & 0.944                                      \\
+			\midrule
+			\multicolumn{3}{c}{Dependence} \\
+			\midrule
+			Chronic HED $\left( t - 1 \right)$             & 0.403                          & 0.597                                      \\
+			Inertia-Driven Drinking $\left( t - 1 \right)$ & 0.102                          & 0.898                                      \\
+			\midrule
+			\multicolumn{3}{c}{Max score} \\
+			\midrule            
+			Chronic HED $\left( t - 1 \right)$             & 0.650                          & 0.350                                      \\
+			Inertia-Driven Drinking $\left( t - 1 \right)$ & 0.338                          & 0.662                                      \\
+			\bottomrule
+		\end{tabularx}
+		\begin{tablenotes}[para,flushleft]
+			{\scriptsize
+				\textit{Note.}
+				No AUD corresponds to an AUDIT score of 0.
+				High risk corresponds to an AUDIT score of 8.
+				Dependence corresponds to an AUDIT score of 15.
+				Max score corresponds to the maximum AUDIT score in the sample which is 31. All probabilities reported in this table are significantly different from zero using a 95\% confidence interval.}
+		\end{tablenotes}
+		\label{tab:manCULTA-transition-probabilities}
+	\end{threeparttable}
+\end{table*}
+
+Similarly, for individuals in inertia-driven drinking, the probability of remaining in the same profile remains relatively high across all AUDIT levels but shows a gradual decline as AUDIT scores increase. While individuals with low AUDIT scores have a strong tendency to stay in the inertia-driven drinking profile (97.3\% at AUDIT = 0), this probability decreases to 89.8\% at AUDIT = 15 and further declines at higher scores. Concurrently, the likelihood of transitioning from inertia-driven drinking to chronic HED increases with rising AUDIT scores, reflecting an elevated risk of engaging in more problematic drinking. For example, at AUDIT = 31, individuals in inertia-driven drinking have a 33.8\% chance of shifting to chronic HED, compared to only 2.7\% at AUDIT = 0.
+
+As AUDIT scores increase, the probability of remaining in chronic HED rises, while the probability of transitioning from chronic HED to inertia-driven drinking decreases, reflecting greater persistence of heavy drinking among individuals with more severe alcohol use. At the same time, individuals in inertia-driven drinking show a decreasing likelihood of remaining there and a growing tendency to shift to chronic HED, indicating that those with higher AUDIT scores are more prone to escalating their drinking behavior over time. These patterns highlight the importance of addressing alcohol use risk early to prevent individuals from becoming entrenched in sustained high-intoxication states.
+
+To determine the probability of an individual belonging to either the chronic HED or inertia-driven drinking at the initial time point, we used a log-odds table with the estimated parameters.
+\begin{equation*}
+	\kbordermatrix{
+		& c_{0} = 0                                       & c_{0} = 1 \\
+		& \nu_{0} + \kappa_{0} \times \mathrm{AUDIT} & 0          \\
+	}
+\end{equation*}
+\begin{equation}
+	\kbordermatrix{
+		& c_{0} = 0                                       & c_{0} = 1 \\
+		& -3.563 + 0.122 \times \mathrm{AUDIT} & 0          \\
+	}
+	\label{eq:manCULTA-initial-values}
+\end{equation}
+The parameters $\nu_{0} = -3.563$ and $\kappa_{0} = 0.122$ (associated with the AUDIT score) are statistically significant at $p < 0.001$. When the AUDIT score is zero, the probabilities of membership in each profile are 0.028 for chronic HED and 0.972 for inertia-driven drinking. These probabilities suggest that, at baseline, individuals with minimal alcohol use risk (AUDIT = 0) are highly likely to belong to inertia-driven drinking (97\%) and only have a 3\% chance of being in chronic HED. As the AUDIT score increases, the probability for membership in chronic HED also increase, indicating that individuals with higher alcohol use risk are more likely to belong to chronic HED at the initial time point. Probabilities of profile membership for the initial time point for some values of AUDIT are given in Table~\ref{tab:manCULTA-initial-probabilities}.
+
+\begin{table*}[htbp]
+	\begin{threeparttable}
+		\caption{Probability of Starting Out in a Specific Profile for a Two-Profile Solution as a Function of AUD}
+		\begin{tabularx}{\textwidth}{@{}YYY@{}}
+			\toprule
+			AUD        & Chronic HED & Inertia-Driven Drinking \\
+			\midrule
+			No AUD     & 0.028       & 0.972                   \\
+			High risk  & 0.070       & 0.930                   \\
+			Dependence & 0.150       & 0.850                   \\
+			Max score  & 0.555       & 0.445                   \\
+			\bottomrule
+		\end{tabularx}
+		\begin{tablenotes}[para,flushleft]
+			{\scriptsize
+				\textit{Note.}
+				No AUD corresponds to an AUDIT score of 0.
+				High risk corresponds to an AUDIT score of 8.
+				Dependence corresponds to an AUDIT score of 15.
+				Max score corresponds to the maximum AUDIT score in the sample which is 31. All probabilities reported in this table are significantly different from zero using a 95\% confidence interval.
+			}
+		\end{tablenotes}
+		\label{tab:manCULTA-initial-probabilities}
+	\end{threeparttable}
+\end{table*}
+
+\section{Monte Carlo Simulation to Evaluate the CULTA Model}
+
+\subsection{Overview and Motivation}
+
+To evaluate the reliability and utility of the CULTA model under conditions that approximate real-world research settings, we conducted a Monte Carlo simulation study. The simulation was designed to assess how well CULTA recovers known parameters, classifies individuals into latent profiles, and produces valid inferences when applied to TAC data exhibiting complex trait-state dynamics. Crucially, the data were generated from the fully specified CULTA model, including both latent trait and state components, profile-specific autoregressive effects, and covariate-driven profile transitions. This allows us to directly test CULTA's ability to recover true data-generating mechanisms and to compare it with simpler models that omit key structural features.
+
+We evaluated CULTA's performance relative to two widely used alternatives: Latent Transition Analysis (LTA) and Random-Intercept LTA (RILTA). Unlike CULTA, these models do not explicitly model latent trait-state decomposition or profile-specific dynamics. In this context, LTA and RILTA represent deliberate model misspecifications---they ignore elements that are essential for capturing the data-generating process. By comparing CULTA with these misspecified models, the simulation highlights the conditions under which omitting trait-state structures and profile-specific inertia leads to biased estimates, poor classification, or invalid inference.
+
+The parameter values used for data generation were designed to mirror key characteristics of the present empirical study, with the exception that all CULTA components, including those that did not show statistically significant variances in the empirical study, were specified to have moderate variances (and relatedly, effect sizes), to investigate the sample size configurations needed to detect these components under modest between-person trait variability, feature-specific uniqueness, moderate within-person fluctuation, and covariate-based profile transitions. These characteristics mirror the challenges faced in ambulatory assessment studies where behavioral variability, sample size constraints, and classification uncertainty are common.
+
+\subsection{Simulation Design and Evaluation Criteria}
+
+To evaluate the performance of the CULTA model under varying sample size conditions, we conducted a Monte Carlo simulation with 1,000 replications per condition for five sample sizes: $N = 100$, $200$, $300$, $400$, and $500$. Each simulated dataset included six days of TAC data per participant, with four features per day: peak, rise rate, fall rate, and duration. Profile membership and transitions were governed by the log-odds structure described previously. These sample sizes reflect realistic scenarios for applied intensive longitudinal designs in ambulatory assessment, balancing statistical power with common recruitment and compliance constraints. For a more detailed description of the data-generating model, see Supplementary Material A.1.
+
+All models were estimated using robust maximum likelihood (MLR) in \texttt{Mplus} version 8.11 \parencite{Muthen-Muthen-2017}. To minimize local maxima and ensure proper convergence, each run used 500 random initial start values and 100 final stage optimizations. Simulation results were summarized across replications for each sample size condition and model (CULTA, LTA, and RILTA) to evaluate several performance domains, namely. model fit, classification accuracy, parameter recovery, and inference quality.
+
+\subsubsection{Model Fit}
+
+Fit was evaluated using three information criteria: Akaike Information Criterion (AIC), Bayesian Information Criterion (BIC), and adjusted BIC (aBIC). These measures reward parsimony while penalizing overfitting, with lower values indicating better model fit. These indices are commonly used to guide model selection in mixture modeling and latent variable contexts \parencite{Nylund-Asparouhov-Muthen-2007, Yang-2006}.
+
+\subsubsection{Classification Accuracy}
+
+To assess the quality of profile classification, we computed entropy, which reflects the precision of assigning individuals to latent profiles. Entropy ranges from 0 to 1, with values above 0.80 typically considered indicative of high classification certainty \parencite{Celeux-Soromenho-1996}. Higher entropy suggests that the model yields clearer separation between profiles and fewer classification errors.
+
+\subsubsection{Parameter Recovery}
+
+We evaluated accuracy of point estimation using both average relative bias and root mean square error (RMSE). Relative bias indicates systematic over- or underestimation across replications, while RMSE combines both variance and bias to capture overall estimation error. Following common guidelines, relative bias within $\pm 10\%$ is typically regarded as acceptable in simulation studies \parencite{Flora-Curran-2004, Hoogland-Boomsma-1998}. Lower RMSE indicates more precise estimation, although no absolute cutoff is universally accepted; comparisons are best made across models and parameters within the same design.
+
+\subsubsection{Inference Quality}
+
+Two criteria were used to assess the quality of statistical inference: 1) Coverage Probability: The proportion of replications in which the true population parameter fell within the 95\% confidence interval. We used the \textcite{Bradley-1978} liberal criterion, which considers coverage between 0.925 and 0.975 to be acceptable in finite samples. 2) Statistical Power. The proportion of replications in which the $p$-value for a nonzero population parameter was less than the significance level ($\alpha = 0.05$), indicating a statistically significant result. This quantifies the probability of correctly rejecting the null hypothesis when it is false. Following \textcite{Cohen-1988}, we interpret power of 0.80 or greater as acceptable.
+
+\subsection{Monte Carlo Simulation Study Results}
+
+We organized our simulation results by focusing on four key aspects of model performance: 1) model fit, 2) classification accuracy, 3) parameter recovery, and 4) inference quality. Results are summarized in Supplementary Material A.2, with comparisons to LTA and RILTA to highlight CULTA's advantages under conditions that reflect common challenges in intensive longitudinal data analysis.
+
+Taken together, these results demonstrate that CULTA provides accurate and reliable inference under realistic conditions. Results indicated that CULTA achieved acceptable parameter recovery and inference quality for sample sizes of $N = 200$ and above. Relative bias was generally within $\pm 0.10$, and RMSE values were consistently ideal ($< 0.10$) or acceptable (0.10–0.20) for most parameters at these sample sizes. Confidence interval coverage was close to the nominal 95\% level, and power to detect key parameters exceeded 80\% by $N = 200$ and improved further with larger samples. As expected, parameters with small population values near zero (e.g., low log-odds or autoregressive effects) exhibited lower power, reflecting the inherent difficulty of detecting subtle effects. Model fit indices were generally acceptable across conditions, with improvements observed as sample size increased. For smaller samples ($N < 200$), we observed greater variability in parameter estimates and reduced coverage rates for certain state and transition parameters. Researchers working with smaller samples should be cautious when interpreting complex dynamics and consider simplifying the model or using informative priors to stabilize estimation. Nonetheless, most parameters achieved acceptable coverage and power at $N = 200$ or higher, confirming that the empirical sample size used in the present study ($N = 222$) is sufficient for valid statistical inference. This level of inferential performance is particularly noteworthy given the complexity of the CULTA model and the presence of latent structure, profile transitions, and covariate interactions.
+
+\section{Discussion}
+
+This study utilized the CULTA model to explore the day-to-day dynamics of alcohol intoxication among young adults who engage in HED. The model enabled us to distinguish between trait-like and state-like variations in intoxication, allowing for precise analysis of both habitual and situational drinking behavior. We identified two distinct profiles of state intoxication features indicating 1) sustained heavy drinking and 2) more episodic, moderate patterns, respectively. Results highlight the persistence of intoxication over time (alcohol intoxication inertia) and dynamic transitions between intoxication profiles, emphasizing the influence of baseline alcohol risk as measured by the AUDIT.
+
+\subsection*{Monte Carlo Simulation Study}
+
+An important strength of this study is the inclusion of a Monte Carlo simulation designed to assess the parameter recovery and convergence properties of the CULTA model across realistic sample sizes. Although the simulation was not the primary focus of the present report, it provides additional evidence for the robustness and feasibility of applying CULTA to short-term intensive longitudinal data. The data-generating model reflected the full CULTA framework, including profile-specific dynamics, autoregressive carryover, and covariate-influenced transitions. Results demonstrated that CULTA reliably recovered population parameters, particularly for autoregressive coefficients, transition parameters, and profile-specific means. Relative bias values for most parameters remained within $\pm 10\%$, and RMSE values decreased with increasing sample size, stabilizing at acceptable levels by $N = 200$ and reaching ideal levels by $N = 300$. Statistical power to detect nonzero effects exceeded .80 for the majority of parameters at moderate-to-large sample sizes. These findings underscore CULTA's suitability for modeling profile-based temporal dynamics in ecological alcohol use data and suggest that the sample size used in the empirical study ($N = 222$) is sufficient for stable and accurate estimation under this modeling framework.
+
+\subsection{CULTA vs. MLPA}
+
+Similar to \Textcite{Russell-Richards-Turrisi-etal-2025} we analyzed TAC data to examine drinking behaviors among young adults, but they employ different statistical approaches to address their research questions. \Textcite{Russell-Richards-Turrisi-etal-2025} applied Multilevel Latent Profile Analysis (MLPA) to identify day-level profiles of TAC features, including peak, rise rate, fall rate, and duration. MLPA captures variations at both within-person and between-person levels, classifying drinking days into distinct profiles and testing their associations with drinking behaviors and AUD risk. In contrast, we introduced the Common and Unique Latent Transition Analysis (CULTA), which integrates the Common and Unique Trait-State (CUTS) model with Latent Transition Analysis (LTA). CULTA separates stable, trait-like components of intoxication from transient, state-level fluctuations and models transitions between latent drinking profiles over time.
+
+The research questions addressed by these methods differ in scope. \Textcite{Russell-Richards-Turrisi-etal-2025} focuses on identifying TAC-based drinking day profiles, testing how these profiles relate to drinking behaviors and contexts, and assessing whether individuals with higher AUDIT scores exhibit different profile memberships. In contrast, we aimed to decompose alcohol intoxication variability into stable and fluctuating influences, model transitions between drinking states over time, and assess the role of AUD risk in influencing profile transitions.
+
+The key methodological distinction lies in the temporal aspect of the analyses. MLPA assumes static drinking profiles, classifying days based on observed TAC patterns without accounting for transitions over time. CULTA, on the other hand, explicitly models these transitions, allowing for a more dynamic understanding of how individuals move between drinking states. Moreover, CULTA separates common and unique sources of variability, providing a finer-grained decomposition of intoxication patterns. It captures intoxication inertia, the carryover effect from one drinking episode to the next, which is absent in MLPA.
+
+CULTA adds valuable insights by identifying patterns of sustained versus situational heavy drinking, which can inform intervention strategies. By distinguishing between stable traits and state-dependent fluctuations, CULTA enhances the prediction of persistent heavy drinking behaviors and provides a more personalized risk assessment. This is particularly useful in targeting intervention efforts toward reducing intoxication duration and fall rate, which show substantial person-specific variability.
+
+While MLPA effectively classifies drinking behaviors into latent profiles, CULTA extends this analysis by incorporating temporal dynamics and distinguishing between stable and fluctuating intoxication components. The application of CULTA could refine risk prediction models and intervention strategies by offering a more comprehensive understanding of drinking behavior transitions over time.
+
+\subsection{Common and Unique Sources of Variability}
+
+Our analysis using the CULTA model addresses an elusive goal---to model both state and trait levels of device-measured alcohol intoxication features while acknowledging both their common and unique aspects. TAC features (peak, rise rate, fall rate, duration) share common causes by definition, being driven by alcohol consumption, absorption, and elimination dynamics. However, they may differ in their behavioral antecedents and their ability to shape the consequences of alcohol consumption. Crafting prevention and intervention recommendations that work in the real world requires an ability to separate the common and unique causes and sequelae of TAC features (and their behavioral antecedents) so that common (e.g., reduce intoxication levels overall) and unique prevention messages (e.g., reduce the rate of alcohol consumption) can be emphasized accordingly. The CULTA model gets us closer to such goals.  
+
+Using the CULTA model, we failed to capture a common trait intoxication latent variable that captures the between-individual variability in the common stable trait intoxication captured by all TAC features across the six days. Furthermore, looking at unique TAC feature traits show that while peak TAC and rise rate had minimal unique individual variability, the fall rate and duration of intoxication episodes exhibited significant unique trait variability across participants. Individuals varied more in how in the alcohol elimination rate and how long they stayed intoxicated than in how high their intoxication levels reached, suggesting that fall rate and duration are unique drivers of behavioral differences and cumulative alcohol-related risks relative to other TAC features. This finding suggests that specifically targeting the \textit{fall rate} and \textit{duration} of alcohol consumption (and its associated intoxication) may have unique prevention impacts over and above reducing overall consumption levels. 
+
+Although peak and rise rate did not show significant unique trait variance, this does not imply they were unimportant for latent profile formation. Because profile-specific intercepts ($\mu_{k,c}$) allow mean-level differences across latent profiles, TAC features can contribute to differentiating profile membership even when individual variability in their trait components is minimal. This highlights how latent profiles can reflect distinct intoxication profiles based on all four TAC features, not just those with high between-person variability.
+
+\subsection{Alcohol Intoxication Inertia and Habitual Drinking}
+
+Our CULTA model approach allowed us to enhance our understanding of the inertia of alcohol intoxication as measured through passive sensing. The concept of alcohol intoxication inertia reflects the persistence of intoxication patterns across consecutive drinking episodes through the autoregressive (AR) parameter. The AR parameter was significant for the inertia-driven drinking profile, suggesting that lower intoxication levels tended to show carry over from one day to the next. This inertia points to habitual drinking behaviors, where intoxication on one day increases the likelihood of continued drinking in subsequent days. These findings underscore the importance of interventions that address both the immediate and cumulative effects of alcohol consumption. Behavioral strategies such as cognitive-behavioral therapy (CBT) can be particularly effective in breaking this cycle by promoting awareness and self-regulation in drinking behaviors.
+
+For individuals in the chronic HED profile, the lack of a significant AR parameter in combination with high average intoxication levels suggests rapid convergence toward high levels of intoxication, independent of prior episodes. This indicates that these individuals maintain a consistently high baseline of drinking, and that decreases in intoxication are likely to be only transient. Such a profile  is likely driven by entrenched behavioral patterns. The persistence of high-intoxication behavior highlights the need for more intensive interventions, such as motivational interviewing, and mindfulness-based stress reduction techniques to interrupt automatic alcohol-seeking behaviors, promote alignment of alcohol use behaviors with personally held goals, and promote safer alcohol consumption.
+
+\subsection{Transitions Between Intoxication Profiles and the Role of AUD}
+
+Our CULTA approach also allowed us to identify types of days characterized by high and low levels of specific TAC features relative to what is normal for each person. Our approach also allowed us to examine \textit{transitions} between these latent intoxication profiles across multiple drinking episodes. The results revealed that most individuals tended to remain in the inertia-driven drinking profile, but that those with higher versus lower AUD risk show greater odds of shifting into the chronic HED profile. Additionally, the probability of staying in the chronic HED profile rises steadily with higher AUD risk, while the likelihood of transitioning from chronic HED to inertia-driven drinking decreases. This dynamic reflects the reinforcing nature of severe alcohol use: individuals with elevated AUD risk are more likely to persist in problematic drinking patterns in their day-to-day lives. The significant variability in intoxication duration further complicates these transitions. Individuals with longer intoxication episodes may be more likely to experience shifts into the chronic HED profile, reinforcing problematic drinking patterns. Transitions between profiles over the six-day period may reflect short-term variability in intoxication patterns, but the limited timeframe precludes conclusions about longer-term stability.
+
+\subsection{Implications for Intervention and Prevention}
+
+The identification of two distinct profiles and their transitions has several practical implications for personalized interventions and public health strategies. For individuals at high risk, as indicated by elevated AUDIT scores, interventions should aim to reduce both peak intoxication levels and the duration of drinking episodes. Educational programs targeting young adults can help raise awareness about the risks associated with prolonged intoxication and promote safer drinking strategies, such as protective behavioral strategies (PBS). Additionally, wearable TAC sensors can provide real-time feedback, enabling individuals to monitor and adjust their drinking behavior proactively.
+
+The findings also emphasize the importance of early intervention. Since higher AUD are associated with a greater likelihood of remaining in or escalating to the chronic HED profile, screening tools like AUDIT should be widely implemented in settings such as college health centers. Early identification of high-risk individuals can facilitate timely interventions that prevent long-term alcohol-related problems and promote healthier drinking habits. Given the variability in intoxication duration, interventions should focus not only on reducing peak levels but also on limiting the length of drinking episodes to mitigate cumulative risks.
+
+\subsection{Limitations and Future Directions}
+
+While the CULTA model provides valuable insights into the common and unique aspects of intoxication dynamics, several limitations should be considered to contextualize our findings and guide future research.
+
+\subsubsection{Sample Characteristics and Generalizability}
+
+First, the sample consists entirely of young adults engaging in HED, which limits generalizability to broader populations, such as older adults or individuals with less frequent or different patterns of alcohol use. Although this population is relevant for studying risky drinking behavior, future studies should include more diverse samples in terms of age, race/ethnicity, and drinking contexts to assess whether the identified profiles and dynamics hold across demographic groups.
+
+\subsubsection{Measurement Constraints}
+
+Second, although TAC sensors provide objective and continuous alcohol monitoring, their validity may vary across populations. Most validation studies for the SCRAM CAM device have been conducted in samples that are predominantly non-Hispanic White \parencite{Roache-KarnsWright-Goros-etal-2019, Fridberg-Wang-Porges-2022, Russell-Turrisi-Smyth-2022}. This raises concerns about transdermal signal accuracy across individuals with different skin tones, hydration levels, body temperatures, or ages. Although we found no evidence of differential compliance or missingness by race/ethnicity in this study, future research is needed to evaluate measurement validity in more diverse populations.
+
+\subsubsection{Temporal Scope and Cyclical Effects}
+
+Third, the study's six-day observation window constrains the ability to examine long-term drinking dynamics or profile stability. While the short duration ensured high compliance and allowed for fine-grained monitoring, all conclusions regarding persistence or transitions must be interpreted as short-term patterns. Future work should employ longer assessment periods (e.g., weeks or months) to assess the robustness of the profiles over time and their susceptibility to external influences.
+
+Additionally, day-of-week variation is known to influence drinking behavior. Our study partially addressed this by standardizing the six-day window across participants, covering both weekdays and the typical ``social weekend.'' However, day-of-week effects were not explicitly modeled. Future studies should incorporate structures to better account for temporal confounds in drinking patterns.
+
+\subsubsection{Model Specification and Fit}
+
+Fourth, certain technical limitations of the CULTA model warrant further discussion. We encountered convergence issues when estimating models with more than two latent profiles, suggesting either limited data support or increased model complexity. While the two-profile solution (chronic HED vs. inertia-driven drinking) was theoretically interpretable and fit the data well (as supported by AIC, BIC, and entropy), it may not capture the full spectrum of heterogeneity in intoxication patterns. Larger and more varied samples may allow for more complex profile structures.
+
+A potential limitation of this study concerns the interpretation of model fit and latent profile structure. Although we reported detailed model fit indices---including log-likelihood, AIC, BIC, adjusted BIC, and entropy---that indicated good model performance, several trait-level variance components were not statistically significant. We interpret this as evidence of relative homogeneity rather than model misspecification, but we recognize that null variance estimates can raise concerns about overparameterization or limited sensitivity. Importantly, trait-level variance in fall rate and duration remained significant, suggesting meaningful between-person differences in those features.
+
+Additionally, while the selected two-profile solution aligned well with fit indices and interpretability, alternative explanations---such as autoregressive rebound patterns or simple mean-level distinctions between heavy and non-heavy---could also account for some observed results. We believe the CULTA model adds value beyond these alternatives by simultaneously modeling profile-based transitions and within-profile inertia. In particular, the absence of a significant AR effect in the chronic HED profile may reflect behavioral rigidity, a pattern in which individuals consistently return to high levels of intoxication regardless of prior-day state. This interpretation is consistent with the theoretical framing of persistence in heavy drinking. 
+
+\subsubsection{Ceiling Effects and the Interpretation of Autoregressive Dynamics}
+
+The apparent absence of a significant autoregressive (AR) effect in the chronic HED profile may reflect a ceiling effect rather than true behavioral independence. Individuals in this profile showed persistently high levels on all TAC features, leaving little room for meaningful day-to-day fluctuations. Because AR models capture systematic changes around the mean---not the mean level itself---minimal residual variance near the ceiling may resemble white noise, yielding near-zero AR estimates. This statistical pattern aligns substantively with rigid, inflexible drinking behavior: consistently high intoxication with little reactivity to prior-day states.
+
+Rather than indicating low persistence, the flat AR pattern likely reflects behavioral entrenchment. In contrast, the inertia-driven drinking profile showed moderate intoxication levels coupled with significant AR dynamics--suggesting episodic intoxication with carryover effects that gradually dissipate. These findings underscore that different AR patterns can reflect distinct clinical risks: one rooted in inflexible, high-risk drinking stabilized at the ceiling; the other in reactive, context-sensitive drinking cycles. Future work might explore longer observation windows or nonlinear time series models to clarify how bounded measurement scales interact with intoxication dynamics.
+
+Moving forward, these findings underscore the importance of considering ceiling effects not merely as statistical artifacts but as meaningful indicators of behavioral inflexibility. Future work should replicate these patterns over longer observation windows and explore alternative modeling approaches---such as censored or nonlinear time series models---that explicitly account for bounded measurement scales. Similar to how models with zero-inflation \parencite{Chow-Witkiewitz-Grasman-etal-2015} can be used to accommodate abstainers or prolonged periods of non-drinking days in  the larger population, additional classes may also be specified, as appropriate, to distinguish truly chronic HED cases from measurement limits imposed by the TAC. Such efforts will further clarify the interplay between intoxication dynamics, ceiling effects, and risk for sustained heavy drinking.
+
+\subsubsection{Distributional Assumptions}
+
+Another limitation concerns the distributional properties of the TAC features. Several of the derived indicators (e.g., peak, rise rate, duration) were positively skewed, which may violate the assumption of multivariate normality underlying the CULTA model's latent variable structure. Although we applied data smoothing procedures prior to feature extraction to reduce measurement noise and stabilize distributions, the features remained moderately non-normal. To address this, we used robust maximum likelihood estimation (MLR) in \texttt{Mplus}, which adjusts standard errors and fit statistics to account for non-normality in the observed variables. Nevertheless, violations of normality may still influence model fit or the precision of parameter estimates, and future applications may benefit from exploring alternative distributional assumptions or transformations for highly skewed indicators.
+
+Despite these limitations, the present study contributes to the growing literature on intensive longitudinal modeling of alcohol intoxication. The CULTA framework provides a promising approach to disentangling stable versus fluctuating patterns of intoxication, with implications for tailored intervention strategies. Future research should build on this foundation by extending observation windows, expanding samples, refining measurement techniques, and evaluating the model's psychometric properties under controlled conditions.
+
+\subsection{Conclusion}
+
+This study advances our understanding of the dynamic interplay between stable and transient factors in alcohol intoxication, while separating and modeling the common and unique aspects of alcohol intoxication.  Our results demonstrate that both low-level alcohol inertia and persistent heavy drinking require targeted strategies to promote healthier drinking behaviors among young adults. The significant unique variability in intoxication duration underscores the need to prioritize interventions that limit the length of drinking episodes, as prolonged intoxication may pose greater cumulative risks. The use of TAC sensors and AUD screening tools offers a practical pathway for early detection and intervention. Future research should aim to extend the study period and refine the model to capture more complex drinking patterns and better inform policy and intervention efforts.
+
+\section{Open Practices Statement}
+
+This study was not preregistered. Due to IRB restrictions and participant confidentiality, the raw TAC data are not publicly available. However, all model code, example data, and analysis materials are publicly available on the Open Science Framework (\href{https://osf.io/gtdmr/}{https://osf.io/gtdmr}) and GitHub (\href{https://github.com/jeksterslab/manCULTA}{https://github.com/jeksterslab/manCULTA}, \href{https://jeksterslab.github.io/manCULTA/index.html}{https://jeksterslab.github.io/manCULTA/index.html}) to enable replication and adaptation of our analytic approach. Additionally, to facilitate reproducibility, we provide containerized environments containing all necessary dependencies to run the scripts, excluding the closed-source proprietary software \texttt{Mplus} used in the study. Detailed instructions for setting up and using these containers are available at \href{https://jeksterslab.github.io/manCULTA/articles/containers.html}{https://jeksterslab.github.io/manCULTA/articles/containers.html}.
+
+\printbibliography
+
+\end{document}

@@ -17,8 +17,8 @@ identifiers:
 - type: url
   value: https://doi.org/10.0000/0000000000
 abstract: Research compendium for the manuscript Pesigan, I. J. A., Russell, M. A.,
-  Chow, S.-M. (Under Review). Common and Unique Latent Transition Analysis (CULTA)
-  as a Way to Examine the Trait-State Dynamics of Alcohol Intoxication. <https://doi.org/10.0000/0000000000>.
+  Chow, S.-M. (2025). Common and Unique Latent Transition Analysis (CULTA) as a Way
+  to Examine the Trait-State Dynamics of Alcohol Intoxication. <https://doi.org/10.0000/0000000000>.
 authors:
 - family-names: Pesigan
   given-names: Ivan Jacob Agaloos
