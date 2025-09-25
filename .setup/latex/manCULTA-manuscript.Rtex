@@ -127,15 +127,15 @@
 
 \abstract{\textbf{Objective:} This paper introduces the Common and Unique Latent Transition Analysis (CULTA), a novel approach to studying alcohol intoxication dynamics in young adults engaged in heavy episodic drinking (HED). CULTA merges the Common and Unique Trait-State (CUTS) model with Latent Transition Analysis (LTA) to separate stable, trait-like intoxication components from transient fluctuations while modeling transitions between distinct drinking profiles. \textbf{Method:} A sample of 222 young adults wore transdermal alcohol concentration (TAC) sensors for six days, capturing real-time alcohol levels. The CULTA model decomposed intoxication variability into common and unique influences across four TAC features---peak, rise rate, fall rate, and duration. Latent intoxication profiles were identified, and transition probabilities between profiles were estimated with a focus on the influence of alcohol use disorder (AUD) risk measured by the Alcohol Use Disorders Identification Test (AUDIT). \textbf{Results:} Two latent intoxication profiles emerged. The first, chronic HED, was characterized by persistently high intoxication without significant inertia, while the second, inertia-driven drinking, featured moderate episodic intoxication with a strong autoregressive effect, reflecting lingering intoxication that dissipates over time. Individuals with higher AUDIT scores were more likely to remain in or transition to the chronic HED profile. Although peak intoxication and rise rate showed limited individual variability, fall rate and duration varied substantially, marking them as potential targets for intervention. \textbf{Conclusion:} CULTA advances our understanding of alcohol intoxication by distinguishing stable from transient influences and modeling transitions between drinking states. These findings suggest that interventions should address both persistent and situational aspects of intoxication---especially by reducing duration and fall rate---and encourage research across longer periods and populations.
 		
-	% \newpage
-		
-	\centering
-		
-	\textbf{Public Health Significance Statement}
-		
-	\raggedright
-		
-	\noindent This study highlights how tracking daily alcohol intoxication with wearable sensors, combined with dynamic modeling, can offer near-real-time insights into heavy episodic drinking among young adults. The findings emphasize the importance of early screening tools, like the Alcohol Use Disorders Identification Test (AUDIT), to identify individuals at risk of chronic heavy drinking and guide personalized interventions. By focusing on patterns of intoxication persistence and shifts between drinking profiles, this research provides actionable strategies for reducing harmful drinking behaviors and promoting healthier outcomes in this vulnerable population.
+\vspace{1.5ex}
+
+{\centering \textbf{Public Health Significance Statement}\par}
+
+\noindent This study highlights how tracking daily alcohol intoxication with wearable sensors, combined with dynamic modeling, can offer near-real-time insights into heavy episodic drinking among young adults. The findings emphasize the importance of early screening tools, like the Alcohol Use Disorders Identification Test (AUDIT), to identify individuals at risk of chronic heavy drinking and guide personalized interventions. By focusing on patterns of intoxication persistence and shifts between drinking profiles, this research provides actionable strategies for reducing harmful drinking behaviors and promoting healthier outcomes in this vulnerable population.
+
+\vspace{1.5ex}
+
+\raggedright
 
 \textit{Supplementary materials:} \url{https://raw.githubusercontent.com/jeksterslab/manCULTA/refs/heads/latex/manCULTA-supplement.pdf}.}
 
