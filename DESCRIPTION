@@ -41,4 +41,4 @@ Suggests:
     rmarkdown,
     testthat,
     lavaan
-RoxygenNote: 7.3.3
+RoxygenNote: 7.3.3.9000
