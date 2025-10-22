@@ -37,7 +37,7 @@ bibentry(
   author = author,
   title = title,
   year = year,
-  doi = "10.0000/0000000000",
+  doi = "10.1037/adb0001106",
   journal = "Psychology of Addictive Behaviors",
   note = note,
   textVersion = paste0(
@@ -45,7 +45,7 @@ bibentry(
     "(", year, ")", ".", " ",
     title, ".", " ",
     "Psychology of Addictive Behaviors", ".", " ",
-    "https://doi.org/10.0000/0000000000", " "
+    "https://doi.org/10.1037/adb0001106", " "
   ),
   header = paste(
     "To cite",

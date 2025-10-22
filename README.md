@@ -1,13 +1,13 @@
 manCULTA
 ================
 Ivan Jacob Agaloos Pesigan
-2025-10-02
+2025-10-22
 
 <!-- README.md is generated from .setup/readme/README.Rmd. Please edit that file -->
 
 <!-- badges: start -->
 
-[![DOI](https://zenodo.org/badge/DOI/10.0000/0000000000.svg)](https://doi.org/10.0000/0000000000)
+[![DOI](https://zenodo.org/badge/DOI/10.1037/adb0001106.svg)](https://doi.org/10.1037/adb0001106)
 <!-- badges: end -->
 
 ## Description
@@ -15,8 +15,8 @@ Ivan Jacob Agaloos Pesigan
 Research compendium for the manuscript Pesigan, I. J. A., Russell, M.
 A., Chow, S.-M. (2025). Common and Unique Latent Transition Analysis
 (CULTA) as a Way to Examine the Trait-State Dynamics of Alcohol
-Intoxication. *Psychology of Addictive Behaviors*
-<https://doi.org/10.0000/0000000000>.
+Intoxication. *Psychology of Addictive Behaviors*.
+<https://doi.org/10.1037/adb0001106>.
 
 ## Acknowledgments
 
