@@ -6,7 +6,7 @@
 \alias{manCULTA-package}
 \title{manCULTA: Common and Unique Latent Transition Analysis (CULTA) as a Way to Examine the Trait-State Dynamics of Alcohol Intoxication}
 \description{
-Research compendium for the manuscript Pesigan, I. J. A., Russell, M. A., Chow, S.-M. (2025). Common and Unique Latent Transition Analysis (CULTA) as a Way to Examine the Trait-State Dynamics of Alcohol Intoxication. \doi{10.0000/0000000000}.
+Research compendium for the manuscript Pesigan, I. J. A., Russell, M. A., Chow, S.-M. (2025). Common and Unique Latent Transition Analysis (CULTA) as a Way to Examine the Trait-State Dynamics of Alcohol Intoxication. \doi{10.1037/adb0001106}.
 }
 \seealso{
 Useful links:
@@ -14,7 +14,7 @@ Useful links:
   \item \url{https://github.com/jeksterslab/manCULTA}
   \item \url{https://jeksterslab.github.io/manCULTA/}
   \item \url{https://osf.io/gtdmr/}
-  \item \doi{10.0000/0000000000}
+  \item \doi{10.1037/adb0001106}
   \item Report bugs at \url{https://github.com/jeksterslab/manCULTA/issues}
 }
 
