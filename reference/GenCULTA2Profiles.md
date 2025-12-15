@@ -1,0 +1,416 @@
+# Simulate Observed Data from a Two-Profile CULTA Model
+
+Generates data from a two-profile longitudinal CULTA model where profile
+membership, trait components, and state dynamics are influenced by an
+observed covariate. The function produces simulated responses
+incorporating covariate effects, individual differences, and
+time-varying fluctuations.
+
+## Usage
+
+``` r
+GenCULTA2Profiles(
+  n,
+  m,
+  mu_x,
+  sigma_x,
+  nu_0,
+  kappa_0,
+  alpha_0,
+  beta_00,
+  gamma_00,
+  gamma_10,
+  mu_t,
+  psi_t,
+  mu_p,
+  psi_p,
+  common_trait_loading,
+  common_state_loading,
+  phi_0,
+  phi_1,
+  psi_s0,
+  psi_s,
+  theta,
+  mu_profile
+)
+```
+
+## Arguments
+
+- n:
+
+  Positive integer. Number of individuals.
+
+- m:
+
+  Positive integer. Number of measurement occasions.
+
+- mu_x:
+
+  Numeric. Mean of the covariate \\\mu_X\\.
+
+- sigma_x:
+
+  Numeric. Variance of the covariate \\\sigma_X\\.
+
+- nu_0:
+
+  Numeric. Intercept \\\nu\_{0}\\ for the logistic model of initial
+  profile membership.
+
+- kappa_0:
+
+  Numeric. Covariate effect \\\kappa\_{0}\\ on initial profile
+  membership.
+
+- alpha_0:
+
+  Numeric. Intercept \\\alpha\_{0}\\ for the logistic model of profile
+  transitions across time.
+
+- beta_00:
+
+  Numeric. Effect \\\beta\_{00}\\ for self-persistence in profile 0
+  transitions.
+
+- gamma_00:
+
+  Numeric. Covariate effect \\\gamma\_{00}\\ on remaining in profile 0.
+
+- gamma_10:
+
+  Numeric. Covariate effect \\\gamma\_{10}\\ on transitioning from
+  profile 1 to profile 0.
+
+- mu_t:
+
+  Numeric or vector of length \\q\\. Mean \\\mu_T\\ of the common trait
+  factor. If `mu_t = NULL`, defaults to zero.
+
+- psi_t:
+
+  Numeric matrix of size \\q \times q\\. Positive definite covariance
+  matrix \\\psi_T\\ for the common trait factor.
+
+- mu_p:
+
+  Numeric vector of length \\p\\. Mean vector \\\boldsymbol{\mu}\_p\\
+  for unique trait components. If `mu_p = NULL`, defaults to zero.
+
+- psi_p:
+
+  Numeric matrix of size \\p \times p\\. Positive definite covariance
+  matrix \\\Psi_p\\ for unique trait components.
+
+- common_trait_loading:
+
+  Numeric matrix of size \\p \times q\\. Factor loading matrix
+  specifying the influence of the common trait on each observed item.
+
+- common_state_loading:
+
+  Numeric matrix of size \\p \times 1\\. Factor loading matrix
+  specifying the influence of the common state on each observed item.
+
+- phi_0:
+
+  Numeric. Autoregressive coefficient \\\phi_0\\ for the common state
+  process in profile 0.
+
+- phi_1:
+
+  Numeric. Autoregressive coefficient \\\phi_1\\ for the common state
+  process in profile 0.
+
+- psi_s0:
+
+  Numeric. Variance \\\psi\_{s0}\\ of the initial common state.
+
+- psi_s:
+
+  Numeric. Innovation variance \\\psi\_{s}\\ for the common state
+  process.
+
+- theta:
+
+  Numeric matrix of size \\p \times p\\. Positive definite covariance
+  matrix \\\boldsymbol{\Theta}\\ for unique state components.
+
+- mu_profile:
+
+  Numeric matrix of size \\p \times 2\\. Profile-specific means for each
+  observed item across two latent profiles.
+
+## Value
+
+Returns an object of class `simculta`. which is a list with the
+following elements:
+
+- `call`: Function call.
+
+- `fun`: Function used ("GenCULTA2Profiles").
+
+- `args`: Function arguments.
+
+- `id`: Vector of ID numbers.
+
+- `covariate`: Vector of covariate values.
+
+- `categorical`: Latent profiles.
+
+- `common_trait`: Common trait.
+
+- `unique_trait`: Unique trait.
+
+- `common_state`: Common state.
+
+- `trait`: Common trait + unique trait.
+
+- `state`: Common state + unique state.
+
+- `data`: Generated data which is a matrix of observed variables
+  generated from the CULTA model with two-profiles.
+
+## Details
+
+The `GenCULTA2Profiles()` function generates data for a two-profile
+CULTA model with a covariate. The CULTA model incorporates a covariate,
+latent categorical variables, trait components, state components, and
+profile-specific means to simulate longitudinal data with latent profile
+transitions.
+
+Let \\i \in \left\\ 1, \ldots, n \right\\\\ denote the index for
+individuals, let \\t \in \left\\ 0, \ldots, m - 1 \right\\\\ denote the
+index measurement occasions, let \\k \in \left\\ 1, \ldots, p \right\\\\
+denote the index items, and let \\c \in \left\\ 0, 1 \right\\\\ be the
+index of the two latent profiles (profile 0 and profile 1). Let \\q\\ be
+the trait dimension, \\q = 1\\ in this context.
+
+**Covariate**
+
+The covariate is generated from a normal distribution with mean
+\\\mu_X\\ and variance \\\sigma_X\\.
+
+**Latent Categorical Variables**
+
+Latent categorical variables represent profile membership for each
+individual at each measurement occasion. In a two-profile model, profile
+membership is influenced by a covariate and previous profile status,
+following a logistic formulation. We distinguish between:
+
+- Initial profile membership (baseline time point)
+
+- Profile transitions across subsequent time points
+
+We describe both components below.
+
+***Initial Profile Membership***
+
+For the first measurement occasion (\\t = 0\\), profile membership is
+determined by the following log-odds for belonging to profile 0 (with
+profile 1 as the reference category): \$\$ \left( \begin{array}{cc}
+\nu\_{0} + \kappa\_{0} \times \mathrm{Covariate} & 0 \\ \end{array}
+\right) . \$\$ The corresponding probability of belonging to each
+profile is given by: \$\$ \left( \begin{array}{cc} \frac{ \exp \left(
+\nu\_{0} + \kappa\_{0} \times \mathrm{Covariate} \right) }{ \exp \left(
+\nu\_{0} + \kappa\_{0} \times \mathrm{Covariate} \right) + 1 } &
+\frac{1}{ \exp \left( \nu\_{0} + \kappa\_{0} \times \mathrm{Covariate}
+\right) + 1 } \\ \end{array} \right) . \$\$ Profile membership at the
+first occasion is sampled based on these probabilities.
+
+***Profile Transitions***
+
+For subsequent occasions (\\t = 1, \ldots, m - 1\\), profile transitions
+depend on the profile at the previous occasion and the covariate. The
+log-odds for transitioning to profile 0 at time \\t\\ are given by: \$\$
+\left( \begin{array}{cc} \alpha\_{0} + \beta\_{00} + \gamma\_{00} \times
+\mathrm{Covariate} & 0 \\ \alpha\_{0} + \gamma\_{10} \times
+\mathrm{Covariate} & 0 \\ \end{array} \right) . \$\$ The probability of
+transitioning to each profile is computed as: \$\$ \left(
+\begin{array}{cc} \frac{ \exp \left( \alpha\_{0} + \beta\_{00} +
+\gamma\_{00} \times \mathrm{Covariate} \right) }{ \exp \left(
+\alpha\_{0} + \beta\_{00} + \gamma\_{00} \times \mathrm{Covariate}
+\right) + 1 } & \frac{1}{ \exp \left( \alpha\_{0} + \beta\_{00} +
+\gamma\_{00} \times \mathrm{Covariate} \right) + 1 } \\ \frac{ \exp
+\left( \alpha\_{0} + \gamma\_{10} \times \mathrm{Covariate} \right) }{
+\exp \left( \alpha\_{0} + \gamma\_{10} \times \mathrm{Covariate}
+\right) + 1 } & \frac{1}{ \exp \left( \alpha\_{0} + \gamma\_{10} \times
+\mathrm{Covariate} \right) + 1 } \\ \end{array} \right) . \$\$ Profile
+membership for each subsequent time point is sampled using these
+transition probabilities, based on the individual's covariate value and
+previous profile.
+
+**Trait Components**
+
+The trait variate captures between-person differences and is composed of
+a shared (common) component and item-specific (unique) components. The
+full decomposition is given by: \$\$ \mathrm{Trait}\_{i} =
+\mathrm{Common\\ Trait\\ Loading} \times \mathrm{Common\\ Trait}\_{i} +
+\mathrm{Unique\\ Trait}\_{i} . \$\$ We describe each component below.
+
+***Common Trait***
+
+The common trait \\\mathrm{Common\\ Trait}\_{i}\\ represents shared
+individual differences that influence all items uniformly. It is drawn
+from a normal distribution with mean \\\mu_T\\ and variance \\\psi_T\\:
+\$\$ \mathrm{Common\\ Trait}\_{i} \sim \mathcal{N} \left( \mu_T, \psi_T
+\right) \$\$
+
+The influence of the common trait on each item is determined by the \\p
+\times q\\ common trait loading,
+
+***Unique Traits***
+
+The unique trait component \\\mathrm{Unique\\ Trait}\_{k, i}\\ captures
+item-specific stable differences and is drawn from a multivariate normal
+distribution: \$\$ \mathrm{Unique\\ Trait}\_{i} \sim \mathcal{N} \left(
+\boldsymbol{\mu}\_p, \boldsymbol{\Psi}\_{p \times p} \right) \$\$
+
+***Combined Trait Variate***
+
+The trait variate for item \\k\\ and individual \\i\\ is obtained by
+combining the common and unique trait components: \$\$
+\mathrm{Trait}\_{k, i} = \mathrm{Common\\ Trait\\ Loading}\_{k} \times
+\mathrm{Common\\ Trait}\_{i} + \mathrm{Unique\\ Trait}\_{k, i} . \$\$
+The common trait component introduces shared variance across items,
+while the unique trait component allows for item-specific differences
+not explained by the common trait.
+
+**State Components**
+
+The state variate is composed of two parts: a common state shared across
+items, and unique states specific to each item. The full decomposition
+is given by: \$\$ \mathrm{State}\_{k, i, t} = \mathrm{Common\\ State\\
+Loading}\_{k} \times \mathrm{Common\\ State}\_{i, t} + \mathrm{Unique\\
+State}\_{k, i, t} . \$\$ We describe each component below.
+
+***Common State***
+
+The common state \\\mathrm{Common\\ State}\_{i, t}\\ evolves over time
+following a first-order autoregressive process: \$\$ \mathrm{Common\\
+State}\_{i, t} = \phi\_{c} \times \mathrm{Common\\ State}\_{i, t - 1} +
+\zeta\_{i, t} . \$\$ The initial common state is drawn from a normal
+distribution: \$\$ \mathrm{Common\\ State}\_{i, 0} \sim \mathcal{N}
+\left( 0, \psi\_{s\_{0}} \right) . \$\$ The innovation term \\\zeta\_{i,
+t}\\ is normally distributed: \$\$ \zeta\_{i, t} \sim \mathcal{N} \left(
+0, \psi\_{s} \right) . \$\$ The autoregressive parameter \\\phi\_{c}\\
+depends on latent profile membership \\c\\: \$\$ \phi\_{c} = \phi\_{0} +
+\left( \phi\_{1} - \phi\_{0} \right) c . \$\$ Here, \\\phi\_{0}\\ and
+\\\phi\_{1}\\ represent the autoregressive coefficients for profiles
+coded as 0 and 1, respectively.
+
+***Unique State***
+
+The unique state \\\mathrm{Unique\\ State}\_{k, i, t}\\ captures
+item-specific deviations and is drawn from a multivariate normal
+distribution: \$\$ \mathrm{Unique\\ State}\_{i, t} \sim \mathcal{N}
+\left( 0, \boldsymbol{\theta} \right) \$\$ where \\\boldsymbol{\theta}\\
+is the item-level covariance matrix for the unique state component.
+
+***Combined State Variate***
+
+The state variate for item \\k\\, individual \\i\\, and time \\t\\
+combines the common and unique state components: \$\$
+\mathrm{State}\_{k, i, t} = \mathrm{Common\\ State\\ Loading}\_{k}
+\times \mathrm{Common\\ State}\_{i, t} + \mathrm{Unique\\ State}\_{k, i,
+t} \$\$ The common state loading parameter \\\mathrm{Common\\ State\\
+Loading}\_{k}\\ controls the influence of the shared state on each item.
+
+**Observed Variables**
+
+The observed variable is given by \$\$ Y\_{k, i, t} = \mu\_{k, c} +
+\mathrm{Trait}\_{k, i} + \mathrm{State}\_{k, i, t} \$\$ where \\\mu\_{k,
+c}\\ is the profile specific mean, while \\\mathrm{Trait}\_{k, i}\\ and
+\\\mathrm{State}\_{k, i, t}\\ correspond to the trait and state
+components of the model.
+
+## See also
+
+Other Data Generation Functions:
+[`GenData()`](https://github.com/jeksterslab/manCULTA/reference/GenData.md)
+
+## Author
+
+Ivan Jacob Agaloos Pesigan
+
+## Examples
+
+``` r
+# complete list of R function arguments -------------------------------------
+
+# random seed for reproducibility
+set.seed(42)
+
+# dimensions
+n <- 10 # number of individuals
+m <- 6 # measurement occasions
+p <- 4 # number of items
+q <- 1 # common trait dimension
+
+# covariate parameters
+mu_x <- 11.4009
+sigma_x <- 24.67566
+
+# profile membership and transition parameters
+nu_0 <- -3.563
+kappa_0 <- 0.122
+alpha_0 <- -3.586
+beta_00 <- 2.250
+gamma_00 <- 0.063
+gamma_10 <- 0.094
+
+# trait parameters
+psi_t <- diag(1)
+mu_t <- 0
+psi_p <- diag(p)
+mu_p <- rep(x = 0, times = p)
+common_trait_loading <- matrix(
+  data = 1,
+  nrow = p,
+  ncol = q
+)
+
+# state parameters
+common_state_loading <- matrix(
+  data = 1,
+  nrow = p,
+  ncol = 1
+)
+phi_0 <- 0.000
+phi_1 <- 0.311
+psi_s0 <- 0.151
+psi_s <- 0.290
+theta <- diag(p)
+
+# profile-specific means
+mu_profile <- cbind(
+  c(2.253, 1.493, 1.574, 1.117),
+  c(-0.278, -0.165, -0.199, -0.148)
+)
+
+# data generation -----------------------------------------------------------
+data <- GenCULTA2Profiles(
+  n = n,
+  m = m,
+  mu_x = mu_x,
+  sigma_x = sigma_x,
+  nu_0 = nu_0,
+  kappa_0 = kappa_0,
+  alpha_0 = alpha_0,
+  beta_00 = beta_00,
+  gamma_00 = gamma_00,
+  gamma_10 = gamma_10,
+  mu_t = mu_t,
+  psi_t = psi_t,
+  mu_p = mu_p,
+  psi_p = psi_p,
+  common_trait_loading = common_trait_loading,
+  common_state_loading = common_state_loading,
+  phi_0 = phi_0,
+  phi_1 = phi_1,
+  psi_s0 = psi_s0,
+  psi_s = psi_s,
+  theta = theta,
+  mu_profile = mu_profile
+)
+```

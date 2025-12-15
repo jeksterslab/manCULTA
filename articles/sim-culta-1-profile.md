@@ -1,0 +1,547 @@
+# Comparing One- and Two-Profile Models
+
+``` r
+
+library(manCULTA)
+```
+
+We generate data using the CULTA model with two latent profiles, where
+profile membership depends on a covariate and profile transitions follow
+a multinomial structure. However, for model fitting, we impose a simpler
+structure by fitting a CUTS (1 Profile) model with autoregressive
+effects, ignoring the latent profiles during estimation. We then compare
+this misspecified model to the correctly specified two-profile CULTA
+model.
+
+## Data Generation
+
+``` r
+
+# complete list of R function arguments
+
+# random seed for reproducibility
+set.seed(42)
+
+# dimensions
+n # number of individuals
+#> [1] 200
+m # measurement occasions
+#> [1] 6
+p # number of items
+#> [1] 4
+q # common trait dimension
+#> [1] 1
+
+# covariate parameters
+mu_x 
+#> [1] 0
+sigma_x
+#> [1] 1
+
+# profile membership and transition parameters
+nu_0
+#> [1] -0.405
+kappa_0
+#> [1] 0.1
+alpha_0
+#> [1] -0.5
+beta_00
+#> [1] 0.85
+gamma_00
+#> [1] 0.2
+gamma_10
+#> [1] 0.2
+
+# trait parameters
+psi_t
+#>      [,1]
+#> [1,]  0.3
+mu_t
+#> [1] 0
+psi_p
+#>      [,1] [,2] [,3] [,4]
+#> [1,]  0.3  0.0  0.0  0.0
+#> [2,]  0.0  0.3  0.0  0.0
+#> [3,]  0.0  0.0  0.3  0.0
+#> [4,]  0.0  0.0  0.0  0.3
+mu_p
+#> [1] 0 0 0 0
+common_trait_loading
+#>      [,1]
+#> [1,]    1
+#> [2,]    1
+#> [3,]    1
+#> [4,]    1
+
+# state parameters
+common_state_loading
+#>      [,1]
+#> [1,]    1
+#> [2,]    1
+#> [3,]    1
+#> [4,]    1
+phi_0
+#> [1] 0
+phi_1
+#> [1] 0.311
+psi_s0
+#> [1] 1
+psi_s
+#> [1] 0.5
+theta
+#>      [,1] [,2] [,3] [,4]
+#> [1,]  0.2  0.0  0.0  0.0
+#> [2,]  0.0  0.2  0.0  0.0
+#> [3,]  0.0  0.0  0.2  0.0
+#> [4,]  0.0  0.0  0.0  0.2
+
+# profile-specific means
+mu_profile
+#>       [,1]   [,2]
+#> [1,] 2.253 -0.278
+#> [2,] 1.493 -0.165
+#> [3,] 1.574 -0.199
+#> [4,] 1.117 -0.148
+```
+
+``` r
+
+data <- GenCULTA2Profiles(
+  n = n,
+  m = m,
+  mu_x = mu_x,
+  sigma_x = sigma_x,
+  nu_0 = nu_0,
+  kappa_0 = kappa_0,
+  alpha_0 = alpha_0,
+  beta_00 = beta_00,
+  gamma_00 = gamma_00,
+  gamma_10 = gamma_10,
+  mu_t = mu_t,
+  psi_t = psi_t,
+  mu_p = mu_p,
+  psi_p = psi_p,
+  common_trait_loading = common_trait_loading,
+  common_state_loading = common_state_loading,
+  phi_0 = phi_0,
+  phi_1 = phi_1,
+  psi_s0 = psi_s0,
+  psi_s = psi_s,
+  theta = theta, 
+  mu_profile = mu_profile
+)
+```
+
+## Model Fitting
+
+The `FitCULTA1Profiles` function fits the misspecified one-profile model
+using `Mplus`. **Note:** This function requires that **Mplus** is
+already installed on the system.
+
+``` r
+
+one_profile <- FitCULTA1Profile(data = data)
+```
+
+``` r
+
+summary(one_profile)
+#>              est     se       z      p   2.5%  97.5%
+#> mu_1      0.8760 0.0756 11.5939 0.0000 0.7279 1.0241
+#> mu_2      0.6893 0.0680 10.1375 0.0000 0.5561 0.8226
+#> mu_3      0.6653 0.0693  9.5992 0.0000 0.5295 0.8011
+#> mu_4      0.5206 0.0616  8.4480 0.0000 0.3999 0.6414
+#> lambda_t2 0.9405 0.1094  8.5960 0.0000 0.7260 1.1549
+#> lambda_s2 0.7756 0.0146 53.0696 0.0000 0.7470 0.8043
+#> lambda_t3 0.9325 0.1525  6.1158 0.0000 0.6337 1.2314
+#> lambda_s3 0.8070 0.0145 55.5545 0.0000 0.7785 0.8355
+#> lambda_t4 0.7139 0.1305  5.4709 0.0000 0.4582 0.9697
+#> lambda_s4 0.6782 0.0137 49.4419 0.0000 0.6513 0.7051
+#> theta_11  0.2968 0.0198 14.9955 0.0000 0.2580 0.3356
+#> theta_22  0.2219 0.0125 17.6984 0.0000 0.1973 0.2465
+#> theta_33  0.1966 0.0126 15.6618 0.0000 0.1720 0.2212
+#> theta_44  0.2273 0.0112 20.3052 0.0000 0.2054 0.2493
+#> phi       0.2302 0.0430  5.3475 0.0000 0.1458 0.3145
+#> psi_t     0.3828 0.1265  3.0269 0.0025 0.1349 0.6306
+#> psi_p_11  0.2208 0.0479  4.6083 0.0000 0.1269 0.3147
+#> psi_p_22  0.2495 0.0383  6.5065 0.0000 0.1743 0.3246
+#> psi_p_33  0.2732 0.0501  5.4483 0.0000 0.1749 0.3714
+#> psi_p_44  0.3006 0.0451  6.6618 0.0000 0.2122 0.3891
+#> psi_s0    2.9677 0.2988  9.9310 0.0000 2.3820 3.5534
+#> psi_s     1.8330 0.0883 20.7648 0.0000 1.6600 2.0060
+```
+
+The `FitCULTA2Profiles` function fits the correct two-profile model
+using `Mplus`. **Note:** This function requires that **Mplus** is
+already installed on the system. To speed up model fitting, consider
+using the `ncores` argument to leverage multiple cores.
+
+``` r
+
+two_profiles <- FitCULTA2Profiles(data = data)
+```
+
+``` r
+
+summary(two_profiles)
+#>               est     se       z      p    2.5%   97.5%
+#> mu_10      2.1695 0.0815 26.6118 0.0000  2.0097  2.3293
+#> mu_20      1.5565 0.0779 19.9824 0.0000  1.4039  1.7092
+#> mu_30      1.5795 0.0750 21.0706 0.0000  1.4326  1.7264
+#> mu_40      1.1605 0.0698 16.6377 0.0000  1.0238  1.2972
+#> lambda_t2  0.9352 0.0958  9.7663 0.0000  0.7475  1.1229
+#> lambda_s2  0.9350 0.0408 22.9064 0.0000  0.8550  1.0150
+#> lambda_t3  0.9094 0.1310  6.9413 0.0000  0.6526  1.1662
+#> lambda_s3  0.9566 0.0459 20.8264 0.0000  0.8666  1.0466
+#> lambda_t4  0.6841 0.1047  6.5324 0.0000  0.4788  0.8893
+#> lambda_s4  1.0039 0.0452 22.1997 0.0000  0.9152  1.0925
+#> theta_11   0.2217 0.0173 12.8371 0.0000  0.1878  0.2555
+#> theta_22   0.2296 0.0122 18.8169 0.0000  0.2057  0.2535
+#> theta_33   0.2072 0.0124 16.7196 0.0000  0.1829  0.2315
+#> theta_44   0.1752 0.0178  9.8294 0.0000  0.1403  0.2101
+#> phi_0     -0.0100 0.0669 -0.1489 0.8817 -0.1411  0.1212
+#> psi_t      0.4327 0.1040  4.1612 0.0000  0.2289  0.6365
+#> psi_p_11   0.2222 0.0485  4.5845 0.0000  0.1272  0.3172
+#> psi_p_22   0.2469 0.0382  6.4665 0.0000  0.1721  0.3218
+#> psi_p_33   0.2741 0.0500  5.4859 0.0000  0.1762  0.3720
+#> psi_p_44   0.3041 0.0450  6.7518 0.0000  0.2158  0.3924
+#> psi_s0     1.1566 0.2344  4.9337 0.0000  0.6971  1.6160
+#> psi_s      0.4781 0.0639  7.4873 0.0000  0.3530  0.6033
+#> mu_11     -0.2859 0.0898 -3.1853 0.0014 -0.4619 -0.1100
+#> mu_21     -0.0881 0.0757 -1.1634 0.2447 -0.2365  0.0603
+#> mu_31     -0.1545 0.0771 -2.0043 0.0450 -0.3056 -0.0034
+#> mu_41     -0.0511 0.0758 -0.6742 0.5002 -0.1996  0.0974
+#> phi_1      0.3327 0.0676  4.9230 0.0000  0.2002  0.4651
+#> nu_0      -0.2154 0.1909 -1.1283 0.2592 -0.5896  0.1588
+#> alpha_0   -0.3451 0.1259 -2.7405 0.0061 -0.5920 -0.0983
+#> kappa_0    0.3926 0.2298  1.7083 0.0876 -0.0578  0.8431
+#> beta_00    0.6690 0.1680  3.9811 0.0001  0.3396  0.9983
+#> gamma_00   0.2315 0.1087  2.1308 0.0331  0.0186  0.4445
+#> gamma_10   0.2816 0.1137  2.4768 0.0133  0.0588  0.5044
+```
+
+## Model Comparison
+
+The `anova` function can be used to compare the two fitted models.
+
+``` r
+
+anova(one_profile, two_profiles)
+#> $fit
+#>                    logLik df correction      AIC      BIC     aBIC   entropy
+#> 1-profile CULTA -5906.207 22  0.9762563 11856.41 11928.98 11859.28 0.0000000
+#> 2-profile CULTA -5850.928 33  1.0236706 11767.86 11876.70 11772.15 0.7169988
+#> 
+#> $test
+#>     chi_diff      df_diff      p_value 
+#> 9.884388e+01 1.100000e+01 3.024432e-16
+```
+
+## Mplus Script Used
+
+The one-profile model was estimated using the following `Mplus` script.
+
+    TITLE:
+      CUTS with AR;
+
+    DATA:
+      FILE = cutsar_data.dat;
+
+    VARIABLE:
+      NAMES =
+        id
+        x
+        y1t0
+        y2t0
+        y3t0
+        y4t0
+        y1t1
+        y2t1
+        y3t1
+        y4t1
+        y1t2
+        y2t2
+        y3t2
+        y4t2
+        y1t3
+        y2t3
+        y3t3
+        y4t3
+        y1t4
+        y2t4
+        y3t4
+        y4t4
+        y1t5
+        y2t5
+        y3t5
+        y4t5
+      ;
+      USEVARIABLES =
+        y1t0
+        y2t0
+        y3t0
+        y4t0
+        y1t1
+        y2t1
+        y3t1
+        y4t1
+        y1t2
+        y2t2
+        y3t2
+        y4t2
+        y1t3
+        y2t3
+        y3t3
+        y4t3
+        y1t4
+        y2t4
+        y3t4
+        y4t4
+        y1t5
+        y2t5
+        y3t5
+        y4t5
+      ;
+
+    ANALYSIS:
+      TYPE = GENERAL;
+      ESTIMATOR = MLR;
+      STARTS = 1000;
+      MODEL = NOCOV;
+
+    MODEL:
+      ! common trait ------------------------------------------------------
+
+      !! factor loadings
+      !!! t = 0
+      t BY y1t0@1;
+      t BY y2t0 (lambdat2);
+      t BY y3t0 (lambdat3);
+      t BY y4t0 (lambdat4);
+      !!! t = 1
+      t BY y1t1@1;
+      t BY y2t1 (lambdat2);
+      t BY y3t1 (lambdat3);
+      t BY y4t1 (lambdat4);
+      !!! t = 2
+      t BY y1t2@1;
+      t BY y2t2 (lambdat2);
+      t BY y3t2 (lambdat3);
+      t BY y4t2 (lambdat4);
+      !!! t = 3
+      t BY y1t3@1;
+      t BY y2t3 (lambdat2);
+      t BY y3t3 (lambdat3);
+      t BY y4t3 (lambdat4);
+      !!! t = 4
+      t BY y1t4@1;
+      t BY y2t4 (lambdat2);
+      t BY y3t4 (lambdat3);
+      t BY y4t4 (lambdat4);
+      !!! t = 5
+      t BY y1t5@1;
+      t BY y2t5 (lambdat2);
+      t BY y3t5 (lambdat3);
+      t BY y4t5 (lambdat4);
+
+      !! latent mean
+      [ t@0 ];
+
+      !! latent variance
+      t (psit);
+
+      ! unique traits -----------------------------------------------------
+
+      !! factor loadings
+      !!! k = 1
+      u1 BY y1t0@1;
+      u1 BY y1t1@1;
+      u1 BY y1t2@1;
+      u1 BY y1t3@1;
+      u1 BY y1t4@1;
+      u1 BY y1t5@1;
+      !!! k = 2
+      u2 BY y2t0@1;
+      u2 BY y2t1@1;
+      u2 BY y2t2@1;
+      u2 BY y2t3@1;
+      u2 BY y2t4@1;
+      u2 BY y2t5@1;
+      !!! k = 3
+      u3 BY y3t0@1;
+      u3 BY y3t1@1;
+      u3 BY y3t2@1;
+      u3 BY y3t3@1;
+      u3 BY y3t4@1;
+      u3 BY y3t5@1;
+      !!! k = 4
+      u4 BY y4t0@1;
+      u4 BY y4t1@1;
+      u4 BY y4t2@1;
+      u4 BY y4t3@1;
+      u4 BY y4t4@1;
+      u4 BY y4t5@1;
+
+      !! latent means
+      [ u1@0 ];
+      [ u2@0 ];
+      [ u3@0 ];
+      [ u4@0 ];
+
+      !! latent variances
+      u1 (psip1);
+      u2 (psip2);
+      u3 (psip3);
+      u4 (psip4);
+
+      ! common states -----------------------------------------------------
+
+      !! factor loadings
+      !!! t = 0
+      s0 BY y1t0@1;
+      s0 BY y2t0 (lambdas2);
+      s0 BY y3t0 (lambdas3);
+      s0 BY y4t0 (lambdas4);
+      !!! t = 1
+      s1 BY y1t1@1;
+      s1 BY y2t1 (lambdas2);
+      s1 BY y3t1 (lambdas3);
+      s1 BY y4t1 (lambdas4);
+      !!! t = 2
+      s2 BY y1t2@1;
+      s2 BY y2t2 (lambdas2);
+      s2 BY y3t2 (lambdas3);
+      s2 BY y4t2 (lambdas4);
+      !!! t = 3
+      s3 BY y1t3@1;
+      s3 BY y2t3 (lambdas2);
+      s3 BY y3t3 (lambdas3);
+      s3 BY y4t3 (lambdas4);
+      !!! t = 4
+      s4 BY y1t4@1;
+      s4 BY y2t4 (lambdas2);
+      s4 BY y3t4 (lambdas3);
+      s4 BY y4t4 (lambdas4);
+      !!! t = 5
+      s5 BY y1t5@1;
+      s5 BY y2t5 (lambdas2);
+      s5 BY y3t5 (lambdas3);
+      s5 BY y4t5 (lambdas4);
+
+      !! latent means
+      [ s0@0 ];
+      [ s1@0 ];
+      [ s2@0 ];
+      [ s3@0 ];
+      [ s4@0 ];
+      [ s5@0 ];
+
+      !! latent variance of s0
+      s0 (psis0);
+
+      !! variance of the process noise
+      s1 (psis);
+      s2 (psis);
+      s3 (psis);
+      s4 (psis);
+      s5 (psis);
+
+      ! unique states -----------------------------------------------------
+
+      !! variances
+      !!! t = 0
+      y1t0 (theta11);
+      y2t0 (theta22);
+      y3t0 (theta33);
+      y4t0 (theta44);
+      !!! t = 1
+      y1t1 (theta11);
+      y2t1 (theta22);
+      y3t1 (theta33);
+      y4t1 (theta44);
+      !!! t = 2
+      y1t2 (theta11);
+      y2t2 (theta22);
+      y3t2 (theta33);
+      y4t2 (theta44);
+      !!! t = 3
+      y1t3 (theta11);
+      y2t3 (theta22);
+      y3t3 (theta33);
+      y4t3 (theta44);
+      !!! t = 4
+      y1t4 (theta11);
+      y2t4 (theta22);
+      y3t4 (theta33);
+      y4t4 (theta44);
+      !!! t = 5
+      y1t5 (theta11);
+      y2t5 (theta22);
+      y3t5 (theta33);
+      y4t5 (theta44);
+
+      ! grand means -------------------------------------------------------
+
+      !! t = 0
+      [ y1t0 ] (mu1);
+      [ y2t0 ] (mu2);
+      [ y3t0 ] (mu3);
+      [ y4t0 ] (mu4);
+      !! t = 1
+      [ y1t1 ] (mu1);
+      [ y2t1 ] (mu2);
+      [ y3t1 ] (mu3);
+      [ y4t1 ] (mu4);
+      !! t = 2
+      [ y1t2 ] (mu1);
+      [ y2t2 ] (mu2);
+      [ y3t2 ] (mu3);
+      [ y4t2 ] (mu4);
+      !! t = 3
+      [ y1t3 ] (mu1);
+      [ y2t3 ] (mu2);
+      [ y3t3 ] (mu3);
+      [ y4t3 ] (mu4);
+      !! t = 4
+      [ y1t4 ] (mu1);
+      [ y2t4 ] (mu2);
+      [ y3t4 ] (mu3);
+      [ y4t4 ] (mu4);
+      !! t = 5
+      [ y1t5 ] (mu1);
+      [ y2t5 ] (mu2);
+      [ y3t5 ] (mu3);
+      [ y4t5 ] (mu4);
+
+      ! inertia -----------------------------------------------------------
+
+      s0 ON s1 (phi);
+      s1 ON s2 (phi);
+      s2 ON s3 (phi);
+      s3 ON s4 (phi);
+      s4 ON s5 (phi);
+
+    MODEL CONSTRAINT:
+      ! variance constraints
+      psit > 0;
+      psip1 > 0;
+      psip2 > 0;
+      psip3 > 0;
+      psip4 > 0;
+      psis0 > 0;
+      psis > 0;
+      theta11 > 0;
+      theta22 > 0;
+      theta33 > 0;
+      theta44 > 0;
+
+    OUTPUT:
+      TECH1
+      TECH3
+      TECH4;
+
+    SAVEDATA:
+      ESTIMATES = cutsar_whrNjgvsUbGDkMFGuTSq_estimates.dat;
+      RESULTS = cutsar_whrNjgvsUbGDkMFGuTSq_results.dat;
+      TECH3 = cutsar_whrNjgvsUbGDkMFGuTSq_tech3.dat;
+      TECH4 = cutsar_whrNjgvsUbGDkMFGuTSq_tech4.dat;

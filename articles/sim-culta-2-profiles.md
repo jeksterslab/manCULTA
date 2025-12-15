@@ -1,0 +1,1112 @@
+# Two-Profile Common and Unique Latent Transition Analysis
+
+``` r
+
+library(manCULTA)
+```
+
+This vignette describes the data generation process for a two-profile
+CULTA model with a covariate. The CULTA model incorporates covariates,
+latent categorical variables, trait components, state components, and
+profile-specific means to simulate longitudinal data with latent profile
+transitions. Data generation is demonstrated at the end of the vignette
+using the `GenCULTA2Profiles` function, which integrates all components
+into a single function call.
+
+Let $`i \in \left\{ 1, \ldots, n \right\}`$ denote the index for
+individuals, let $`t \in \left\{ 0, \ldots, m - 1 \right\}`$ denote the
+index measurement occasions, let $`k \in \left\{ 1, \ldots, p \right\}`$
+denote the index items, and let $`c \in \left\{ 0, 1 \right\}`$ be the
+index of the two latent profiles (profile 0 and profile 1). Let $`q`$ be
+the trait dimension, $`q = 1`$ in this context.
+
+``` r
+
+# dimensions
+n # number of individuals
+#> [1] 200
+m # measurement occasions
+#> [1] 6
+p # number of items
+#> [1] 4
+q # common trait dimension
+#> [1] 1
+```
+
+## Covariate
+
+The covariate is generated from a normal distribution with mean
+$`\mu_X`$ and $`\sigma_X`$ variance.
+
+``` r
+
+# covariate parameters
+mu_x 
+#> [1] 0
+sigma_x
+#> [1] 1
+```
+
+## Latent Categorical Variables
+
+Latent categorical variables represent profile membership for each
+individual at each measurement occasion. In a two-profile model, profile
+membership is influenced by covariates and previous profile status,
+following a logistic formulation. We distinguish between:
+
+- Initial profile membership (baseline time point)
+- Profile transitions across subsequent time points
+
+We describe both components below.
+
+### Initial Profile Membership
+
+For the first measurement occasion ($`t = 0`$), profile membership is
+determined by the following log-odds for belonging to profile 0 (with
+profile 1 as the reference category):
+``` math
+\begin{equation}
+    \left(
+        \begin{array}{cc}
+            \nu_{0} + \kappa_{0} \times \mathrm{Covariate} & 0 \\
+        \end{array}
+    \right) .
+\end{equation}
+```
+The corresponding probability of belonging to each profile is given by:
+``` math
+\begin{equation}
+     \left(
+       \begin{array}{cc}
+           \frac{
+             \exp
+             \left(
+               \nu_{0} + \kappa_{0} \times \mathrm{Covariate}
+             \right)
+           }{
+             \exp
+             \left(
+               \nu_{0} + \kappa_{0} \times \mathrm{Covariate}
+             \right) + 1
+           }
+           &
+           \frac{1}{
+             \exp
+             \left(
+               \nu_{0} + \kappa_{0} \times \mathrm{Covariate}
+             \right) + 1
+           } \\
+       \end{array}
+     \right) .
+\end{equation}
+```
+Profile membership at the first occasion is sampled based on these
+probabilities.
+
+### Profile Transitions
+
+For subsequent occasions ($`t = 1, \ldots, m - 1`$), profile transitions
+depend on the profile at the previous occasion and the covariate. The
+log-odds for transitioning to profile 0 at time $`t`$ are given by:
+``` math
+\begin{equation}
+    \left(
+        \begin{array}{cc}
+            \alpha_{0} + \beta_{00} + \gamma_{00} \times \mathrm{Covariate} & 0 \\
+          \alpha_{0} + \gamma_{01} \times \mathrm{Covariate} & 0 \\
+        \end{array}
+    \right) .
+\end{equation}
+```
+The probability of transitioning to each profile is computed as:
+``` math
+\begin{equation}
+  \left(
+    \begin{array}{cc}
+      \frac{
+        \exp
+        \left(
+          \alpha_{0} + \beta_{00} + \gamma_{00}
+          \times \mathrm{Covariate}
+        \right)
+      }{
+        \exp
+        \left(
+          \alpha_{0} + \beta_{00} + \gamma_{00}
+          \times \mathrm{Covariate}
+        \right) + 1
+      }
+      &
+      \frac{1}{
+        \exp
+        \left(
+          \alpha_{0} + \beta_{00} + \gamma_{00}
+          \times \mathrm{Covariate}
+        \right) + 1
+      } \\
+      \frac{
+        \exp
+        \left(
+          \alpha_{0} + \gamma_{01} \times \mathrm{Covariate}
+        \right)
+      }{
+        \exp
+        \left(
+          \alpha_{0} + \gamma_{01} \times \mathrm{Covariate}
+        \right) + 1
+      }
+      &
+      \frac{1}{
+        \exp
+        \left(
+          \alpha_{0} + \gamma_{01} \times \mathrm{Covariate}
+        \right) + 1
+      } \\
+    \end{array}
+  \right) .
+\end{equation}
+```
+Profile membership for each subsequent time point is sampled using these
+transition probabilities, based on the individual’s covariate value and
+previous profile.
+
+``` r
+
+# profile membership and transition parameters
+nu_0
+#> [1] -0.405
+kappa_0
+#> [1] 0.1
+alpha_0
+#> [1] -0.5
+beta_00
+#> [1] 0.85
+gamma_00
+#> [1] 0.2
+gamma_10
+#> [1] 0.2
+```
+
+## Trait Components
+
+The trait variate captures between-person differences and is composed of
+a shared (common) component and item-specific (unique) components. The
+full decomposition is given by:
+``` math
+\begin{equation}
+    \mathrm{Trait}_{i}
+    =
+    \mathrm{Common\ Trait\ Loading}
+    \times \mathrm{Common\ Trait}_{i}
+    +
+    \mathrm{Unique\ Trait}_{i} .
+\end{equation}
+```
+We describe each component below.
+
+### Common Trait
+
+The common trait $`\mathrm{Common\ Trait}_{i}`$ represents shared
+individual differences that influence all items uniformly. It is drawn
+from a normal distribution with mean $`\mu_T`$ and variance $`\psi_T`$:
+``` math
+\begin{equation}
+    \mathrm{Common\ Trait}_{i} \sim \mathcal{N} \left( \mu_T, \psi_T \right)
+\end{equation}
+```
+
+The influence of the common trait on each item is determined by the
+$`p \times q`$ common trait loading,
+
+### Unique Traits
+
+The unique trait component $`\mathrm{Unique\ Trait}_{k, i}`$ captures
+item-specific stable differences and is drawn from a multivariate normal
+distribution:
+``` math
+\begin{equation}
+    \mathrm{Unique\ Trait}_{i} \sim \mathcal{N} \left( \boldsymbol{\mu}_p, \boldsymbol{\Psi}_{p \times p} \right)
+\end{equation}
+```
+
+### Combined Trait Variate
+
+The trait variate for item $`k`$ and individual $`i`$ is obtained by
+combining the common and unique trait components:
+``` math
+\begin{equation}
+    \mathrm{Trait}_{k, i} = \mathrm{Common\ Trait\ Loading}_{k} \times \mathrm{Common\ Trait}_{i} + \mathrm{Unique\ Trait}_{k, i} .
+\end{equation}
+```
+The common trait component introduces shared variance across items,
+while the unique trait component allows for item-specific differences
+not explained by the common trait.
+
+``` r
+
+# trait parameters
+psi_t
+#>      [,1]
+#> [1,]  0.3
+mu_t
+#> [1] 0
+psi_p
+#>      [,1] [,2] [,3] [,4]
+#> [1,]  0.3  0.0  0.0  0.0
+#> [2,]  0.0  0.3  0.0  0.0
+#> [3,]  0.0  0.0  0.3  0.0
+#> [4,]  0.0  0.0  0.0  0.3
+mu_p
+#> [1] 0 0 0 0
+common_trait_loading
+#>      [,1]
+#> [1,]    1
+#> [2,]    1
+#> [3,]    1
+#> [4,]    1
+```
+
+## State Components
+
+The state variate is composed of two parts: a common state shared across
+items, and unique states specific to each item. The full decomposition
+is given by:
+``` math
+\begin{equation}
+  \mathrm{State}_{k, i, t} = \mathrm{Common\ State\ Loading}_{k} \times \mathrm{Common\ State}_{i, t} + \mathrm{Unique\ State}_{k, i, t} .
+\end{equation}
+```
+We describe each component below.
+
+### Common State
+
+The common state $`\mathrm{Common\ State}_{i, t}`$ evolves over time
+following a first-order autoregressive process:
+``` math
+\begin{equation}
+  \mathrm{Common\ State}_{i, t} = \phi_{c} \times \mathrm{Common\ State}_{i, t - 1} + \zeta_{i, t} .
+\end{equation}
+```
+The initial common state is drawn from a normal distribution:
+``` math
+\begin{equation}
+  \mathrm{Common\ State}_{i, 0} \sim \mathcal{N} \left( 0, \psi_{s_{0}} \right) .
+\end{equation}
+```
+The innovation term $`\zeta_{i, t}`$ is normally distributed:
+``` math
+\begin{equation}
+  \zeta_{i, t} \sim \mathcal{N} \left( 0, \psi_{s} \right) .
+\end{equation}
+```
+The autoregressive parameter $`\phi_{c}`$ depends on latent profile
+membership $`c`$:
+``` math
+\begin{equation}
+   \phi_{c} = \phi_{0} + \left( \phi_{1} - \phi_{0} \right) c .
+\end{equation}
+```
+Here, $`\phi_{0}`$ and $`\phi_{1}`$ represent the autoregressive
+coefficients for profiles coded as 0 and 1, respectively.
+
+### Unique State
+
+The unique state $`\mathrm{Unique\ State}_{k, i, t}`$ captures
+item-specific deviations and is drawn from a multivariate normal
+distribution:
+``` math
+\begin{equation}
+  \mathrm{Unique\ State}_{i, t} \sim \mathcal{N} \left( 0, \boldsymbol{\theta} \right)
+\end{equation}
+```
+where $`\boldsymbol{\theta}`$ is the item-level covariance matrix for
+the unique state component.
+
+### Combined State Variate
+
+The state variate for item $`k`$, individual $`i`$, and time $`t`$
+combines the common and unique state components:
+``` math
+\begin{equation}
+  \mathrm{State}_{k, i, t} = \mathrm{Common\ State\ Loading}_{k} \times \mathrm{Common\ State}_{i, t} + \mathrm{Unique\ State}_{k, i, t}
+\end{equation}
+```
+The common state loading parameter
+$`\mathrm{Common\ State\ Loading}_{k}`$ controls the influence of the
+shared state on each item.
+
+``` r
+
+# state parameters
+common_state_loading
+#>      [,1]
+#> [1,]    1
+#> [2,]    1
+#> [3,]    1
+#> [4,]    1
+phi_0
+#> [1] 0
+phi_1
+#> [1] 0.311
+psi_s0
+#> [1] 1
+psi_s
+#> [1] 0.5
+theta
+#>      [,1] [,2] [,3] [,4]
+#> [1,]  0.2  0.0  0.0  0.0
+#> [2,]  0.0  0.2  0.0  0.0
+#> [3,]  0.0  0.0  0.2  0.0
+#> [4,]  0.0  0.0  0.0  0.2
+```
+
+## Trait-State Plus Profile Specific Means
+
+The observed variable is given by
+``` math
+\begin{equation}
+  Y_{k, i, t} = \mu_{k, c} + \mathrm{Trait}_{k, i} + \mathrm{State}_{k, i, t}
+\end{equation}
+```
+where $`\mu_{k, c}`$ is the profile specific mean, while
+$`\mathrm{Trait}_{k, i}`$ and $`\mathrm{State}_{k, i, t}`$ correspond to
+the trait and state components of the model.
+
+``` r
+
+# profile-specific means
+mu_profile
+#>       [,1]   [,2]
+#> [1,] 2.253 -0.278
+#> [2,] 1.493 -0.165
+#> [3,] 1.574 -0.199
+#> [4,] 1.117 -0.148
+```
+
+## Data Generation
+
+The `GenCULTA2Profiles` function puts together all the components
+described above to generate data using a single function call.
+
+``` r
+
+# complete list of R function arguments
+
+# random seed for reproducibility
+set.seed(42)
+
+# dimensions
+n # number of individuals
+#> [1] 200
+m # measurement occasions
+#> [1] 6
+p # number of items
+#> [1] 4
+q # common trait dimension
+#> [1] 1
+
+# covariate parameters
+mu_x 
+#> [1] 0
+sigma_x
+#> [1] 1
+
+# profile membership and transition parameters
+nu_0
+#> [1] -0.405
+kappa_0
+#> [1] 0.1
+alpha_0
+#> [1] -0.5
+beta_00
+#> [1] 0.85
+gamma_00
+#> [1] 0.2
+gamma_10
+#> [1] 0.2
+
+# trait parameters
+psi_t
+#>      [,1]
+#> [1,]  0.3
+mu_t
+#> [1] 0
+psi_p
+#>      [,1] [,2] [,3] [,4]
+#> [1,]  0.3  0.0  0.0  0.0
+#> [2,]  0.0  0.3  0.0  0.0
+#> [3,]  0.0  0.0  0.3  0.0
+#> [4,]  0.0  0.0  0.0  0.3
+mu_p
+#> [1] 0 0 0 0
+common_trait_loading
+#>      [,1]
+#> [1,]    1
+#> [2,]    1
+#> [3,]    1
+#> [4,]    1
+
+# state parameters
+common_state_loading
+#>      [,1]
+#> [1,]    1
+#> [2,]    1
+#> [3,]    1
+#> [4,]    1
+phi_0
+#> [1] 0
+phi_1
+#> [1] 0.311
+psi_s0
+#> [1] 1
+psi_s
+#> [1] 0.5
+theta
+#>      [,1] [,2] [,3] [,4]
+#> [1,]  0.2  0.0  0.0  0.0
+#> [2,]  0.0  0.2  0.0  0.0
+#> [3,]  0.0  0.0  0.2  0.0
+#> [4,]  0.0  0.0  0.0  0.2
+
+# profile-specific means
+mu_profile
+#>       [,1]   [,2]
+#> [1,] 2.253 -0.278
+#> [2,] 1.493 -0.165
+#> [3,] 1.574 -0.199
+#> [4,] 1.117 -0.148
+```
+
+``` r
+
+data <- GenCULTA2Profiles(
+  n = n,
+  m = m,
+  mu_x = mu_x,
+  sigma_x = sigma_x,
+  nu_0 = nu_0,
+  kappa_0 = kappa_0,
+  alpha_0 = alpha_0,
+  beta_00 = beta_00,
+  gamma_00 = gamma_00,
+  gamma_10 = gamma_10,
+  mu_t = mu_t,
+  psi_t = psi_t,
+  mu_p = mu_p,
+  psi_p = psi_p,
+  common_trait_loading = common_trait_loading,
+  common_state_loading = common_state_loading,
+  phi_0 = phi_0,
+  phi_1 = phi_1,
+  psi_s0 = psi_s0,
+  psi_s = psi_s,
+  theta = theta, 
+  mu_profile = mu_profile
+)
+```
+
+## Model Fitting
+
+The `FitCULTA2Profiles` function fits the model using `Mplus`. **Note:**
+This function requires that **Mplus** is already installed on the
+system. To speed up model fitting, consider using the `ncores` argument
+to leverage multiple cores.
+
+``` r
+
+fit <- FitCULTA2Profiles(data = data)
+```
+
+``` r
+
+summary(fit)
+#>               est     se       z      p    2.5%   97.5%
+#> mu_10      2.1695 0.0815 26.6118 0.0000  2.0097  2.3293
+#> mu_20      1.5565 0.0779 19.9824 0.0000  1.4039  1.7092
+#> mu_30      1.5795 0.0750 21.0706 0.0000  1.4326  1.7264
+#> mu_40      1.1605 0.0698 16.6377 0.0000  1.0238  1.2972
+#> lambda_t2  0.9352 0.0958  9.7663 0.0000  0.7475  1.1229
+#> lambda_s2  0.9350 0.0408 22.9064 0.0000  0.8550  1.0150
+#> lambda_t3  0.9094 0.1310  6.9413 0.0000  0.6526  1.1662
+#> lambda_s3  0.9566 0.0459 20.8264 0.0000  0.8666  1.0466
+#> lambda_t4  0.6841 0.1047  6.5324 0.0000  0.4788  0.8893
+#> lambda_s4  1.0039 0.0452 22.1997 0.0000  0.9152  1.0925
+#> theta_11   0.2217 0.0173 12.8371 0.0000  0.1878  0.2555
+#> theta_22   0.2296 0.0122 18.8169 0.0000  0.2057  0.2535
+#> theta_33   0.2072 0.0124 16.7196 0.0000  0.1829  0.2315
+#> theta_44   0.1752 0.0178  9.8294 0.0000  0.1403  0.2101
+#> phi_0     -0.0100 0.0669 -0.1489 0.8817 -0.1411  0.1212
+#> psi_t      0.4327 0.1040  4.1612 0.0000  0.2289  0.6365
+#> psi_p_11   0.2222 0.0485  4.5845 0.0000  0.1272  0.3172
+#> psi_p_22   0.2469 0.0382  6.4665 0.0000  0.1721  0.3218
+#> psi_p_33   0.2741 0.0500  5.4859 0.0000  0.1762  0.3720
+#> psi_p_44   0.3041 0.0450  6.7518 0.0000  0.2158  0.3924
+#> psi_s0     1.1566 0.2344  4.9337 0.0000  0.6971  1.6160
+#> psi_s      0.4781 0.0639  7.4873 0.0000  0.3530  0.6033
+#> mu_11     -0.2859 0.0898 -3.1853 0.0014 -0.4619 -0.1100
+#> mu_21     -0.0881 0.0757 -1.1634 0.2447 -0.2365  0.0603
+#> mu_31     -0.1545 0.0771 -2.0043 0.0450 -0.3056 -0.0034
+#> mu_41     -0.0511 0.0758 -0.6742 0.5002 -0.1996  0.0974
+#> phi_1      0.3327 0.0676  4.9230 0.0000  0.2002  0.4651
+#> nu_0      -0.2154 0.1909 -1.1283 0.2592 -0.5896  0.1588
+#> alpha_0   -0.3451 0.1259 -2.7405 0.0061 -0.5920 -0.0983
+#> kappa_0    0.3926 0.2298  1.7083 0.0876 -0.0578  0.8431
+#> beta_00    0.6690 0.1680  3.9811 0.0001  0.3396  0.9983
+#> gamma_00   0.2315 0.1087  2.1308 0.0331  0.0186  0.4445
+#> gamma_10   0.2816 0.1137  2.4768 0.0133  0.0588  0.5044
+```
+
+## Parameter Recovery
+
+Parameter recovery was assessed by calculating the relative bias of the
+estimated parameters.
+
+|           | Parameter |   Estimate | Relative Bias |
+|:----------|----------:|-----------:|--------------:|
+| mu_10     |     2.253 |  2.1694682 |    -0.0370758 |
+| mu_20     |     1.493 |  1.5565449 |     0.0425619 |
+| mu_30     |     1.574 |  1.5795206 |     0.0035074 |
+| mu_40     |     1.117 |  1.1605009 |     0.0389444 |
+| lambda_t2 |     1.000 |  0.9352381 |    -0.0647619 |
+| lambda_s2 |     1.000 |  0.9349552 |    -0.0650448 |
+| lambda_t3 |     1.000 |  0.9094139 |    -0.0905861 |
+| lambda_s3 |     1.000 |  0.9565730 |    -0.0434270 |
+| lambda_t4 |     1.000 |  0.6840685 |    -0.3159315 |
+| lambda_s4 |     1.000 |  1.0038704 |     0.0038704 |
+| theta_11  |     0.200 |  0.2216670 |     0.1083351 |
+| theta_22  |     0.200 |  0.2296140 |     0.1480698 |
+| theta_33  |     0.200 |  0.2072222 |     0.0361108 |
+| theta_44  |     0.200 |  0.1752072 |    -0.1239641 |
+| phi_0     |     0.000 | -0.0099583 |          -Inf |
+| psi_t     |     0.300 |  0.4327078 |     0.4423593 |
+| psi_p_11  |     0.300 |  0.2221968 |    -0.2593441 |
+| psi_p_22  |     0.300 |  0.2469447 |    -0.1768509 |
+| psi_p_33  |     0.300 |  0.2741133 |    -0.0862891 |
+| psi_p_44  |     0.300 |  0.3040932 |     0.0136440 |
+| psi_s0    |     1.000 |  1.1565711 |     0.1565711 |
+| psi_s     |     0.500 |  0.4781312 |    -0.0437376 |
+| mu_11     |    -0.278 | -0.2859422 |     0.0285691 |
+| mu_21     |    -0.165 | -0.0880921 |    -0.4661086 |
+| mu_31     |    -0.199 | -0.1544862 |    -0.2236876 |
+| mu_41     |    -0.148 | -0.0510851 |    -0.6548303 |
+| phi_1     |     0.311 |  0.3326714 |     0.0696828 |
+| nu_0      |    -0.405 | -0.2154072 |    -0.4681304 |
+| alpha_0   |    -0.500 | -0.3451484 |    -0.3097032 |
+| kappa_0   |     0.100 |  0.3926138 |     2.9261377 |
+| beta_00   |     0.850 |  0.6689811 |    -0.2129634 |
+| gamma_00  |     0.200 |  0.2315390 |     0.1576949 |
+| gamma_10  |     0.200 |  0.2815591 |     0.4077955 |
+
+Parameter Recovery {.table}
+
+## Methods
+
+The `FitCULTA2Profiles` function has a number of methods including the
+following:
+
+- `print`
+- `summary`
+- `converged`
+- `confint`
+- `coef`
+- `vcov`
+- `logLik`
+- `AIC`
+- `BIC`
+- `entropy`
+- `anova`
+
+## Mplus Script Used
+
+    TITLE:
+      2-Profile CULTA with Covariate;
+
+    DATA:
+      FILE = culta_data.dat;
+
+    VARIABLE:
+      NAMES =
+        id
+        x
+        y1t0
+        y2t0
+        y3t0
+        y4t0
+        y1t1
+        y2t1
+        y3t1
+        y4t1
+        y1t2
+        y2t2
+        y3t2
+        y4t2
+        y1t3
+        y2t3
+        y3t3
+        y4t3
+        y1t4
+        y2t4
+        y3t4
+        y4t4
+        y1t5
+        y2t5
+        y3t5
+        y4t5
+      ;
+      USEVARIABLES =
+        x
+        y1t0
+        y2t0
+        y3t0
+        y4t0
+        y1t1
+        y2t1
+        y3t1
+        y4t1
+        y1t2
+        y2t2
+        y3t2
+        y4t2
+        y1t3
+        y2t3
+        y3t3
+        y4t3
+        y1t4
+        y2t4
+        y3t4
+        y4t4
+        y1t5
+        y2t5
+        y3t5
+        y4t5
+      ;
+      IDVARIABLE = id;
+      CLASSES =
+        c0(2)
+        c1(2)
+        c2(2)
+        c3(2)
+        c4(2)
+        c5(2)
+      ;
+
+    ANALYSIS:
+      TYPE = MIXTURE;
+      STARTS = 500 100;
+      STSCALE = 2;
+      STITERATIONS = 200;
+      PROCESS = 24;
+      MODEL = NOCOV;
+
+    MODEL:
+      %OVERALL%
+        ! common trait ------------------------------------------------------
+
+        !! factor loadings
+        !!! t = 0
+        t BY y1t0@1;
+        t BY y2t0 (lambdat2);
+        t BY y3t0 (lambdat3);
+        t BY y4t0 (lambdat4);
+        !!! t = 1
+        t BY y1t1@1;
+        t BY y2t1 (lambdat2);
+        t BY y3t1 (lambdat3);
+        t BY y4t1 (lambdat4);
+        !!! t = 2
+        t BY y1t2@1;
+        t BY y2t2 (lambdat2);
+        t BY y3t2 (lambdat3);
+        t BY y4t2 (lambdat4);
+        !!! t = 3
+        t BY y1t3@1;
+        t BY y2t3 (lambdat2);
+        t BY y3t3 (lambdat3);
+        t BY y4t3 (lambdat4);
+        !!! t = 4
+        t BY y1t4@1;
+        t BY y2t4 (lambdat2);
+        t BY y3t4 (lambdat3);
+        t BY y4t4 (lambdat4);
+        !!! t = 5
+        t BY y1t5@1;
+        t BY y2t5 (lambdat2);
+        t BY y3t5 (lambdat3);
+        t BY y4t5 (lambdat4);
+
+        !! latent mean
+        [ t@0 ];
+
+        !! latent variance
+        t (psit);
+
+        ! unique traits -----------------------------------------------------
+
+        !! factor loadings
+        !!! k = 1
+        u1 BY y1t0@1;
+        u1 BY y1t1@1;
+        u1 BY y1t2@1;
+        u1 BY y1t3@1;
+        u1 BY y1t4@1;
+        u1 BY y1t5@1;
+        !!! k = 2
+        u2 BY y2t0@1;
+        u2 BY y2t1@1;
+        u2 BY y2t2@1;
+        u2 BY y2t3@1;
+        u2 BY y2t4@1;
+        u2 BY y2t5@1;
+        !!! k = 3
+        u3 BY y3t0@1;
+        u3 BY y3t1@1;
+        u3 BY y3t2@1;
+        u3 BY y3t3@1;
+        u3 BY y3t4@1;
+        u3 BY y3t5@1;
+        !!! k = 4
+        u4 BY y4t0@1;
+        u4 BY y4t1@1;
+        u4 BY y4t2@1;
+        u4 BY y4t3@1;
+        u4 BY y4t4@1;
+        u4 BY y4t5@1;
+
+        !! latent means
+        [ u1@0 ];
+        [ u2@0 ];
+        [ u3@0 ];
+        [ u4@0 ];
+
+        !! latent variances
+        u1 (psip1);
+        u2 (psip2);
+        u3 (psip3);
+        u4 (psip4);
+
+        ! common states -----------------------------------------------------
+
+        !! factor loadings
+        !!! t = 0
+        s0 BY y1t0@1;
+        s0 BY y2t0 (lambdas2);
+        s0 BY y3t0 (lambdas3);
+        s0 BY y4t0 (lambdas4);
+        !!! t = 1
+        s1 BY y1t1@1;
+        s1 BY y2t1 (lambdas2);
+        s1 BY y3t1 (lambdas3);
+        s1 BY y4t1 (lambdas4);
+        !!! t = 2
+        s2 BY y1t2@1;
+        s2 BY y2t2 (lambdas2);
+        s2 BY y3t2 (lambdas3);
+        s2 BY y4t2 (lambdas4);
+        !!! t = 3
+        s3 BY y1t3@1;
+        s3 BY y2t3 (lambdas2);
+        s3 BY y3t3 (lambdas3);
+        s3 BY y4t3 (lambdas4);
+        !!! t = 4
+        s4 BY y1t4@1;
+        s4 BY y2t4 (lambdas2);
+        s4 BY y3t4 (lambdas3);
+        s4 BY y4t4 (lambdas4);
+        !!! t = 5
+        s5 BY y1t5@1;
+        s5 BY y2t5 (lambdas2);
+        s5 BY y3t5 (lambdas3);
+        s5 BY y4t5 (lambdas4);
+
+        !! latent means
+        [ s0@0 ];
+        [ s1@0 ];
+        [ s2@0 ];
+        [ s3@0 ];
+        [ s4@0 ];
+        [ s5@0 ];
+
+        !! latent variance of s0
+        s0 (psis0);
+
+        !! variance of the process noise
+        s1 (psis);
+        s2 (psis);
+        s3 (psis);
+        s4 (psis);
+        s5 (psis);
+
+        ! unique states -----------------------------------------------------
+
+        !! variances
+        !!! t = 0
+        y1t0 (theta11);
+        y2t0 (theta22);
+        y3t0 (theta33);
+        y4t0 (theta44);
+        !!! t = 1
+        y1t1 (theta11);
+        y2t1 (theta22);
+        y3t1 (theta33);
+        y4t1 (theta44);
+        !!! t = 2
+        y1t2 (theta11);
+        y2t2 (theta22);
+        y3t2 (theta33);
+        y4t2 (theta44);
+        !!! t = 3
+        y1t3 (theta11);
+        y2t3 (theta22);
+        y3t3 (theta33);
+        y4t3 (theta44);
+        !!! t = 4
+        y1t4 (theta11);
+        y2t4 (theta22);
+        y3t4 (theta33);
+        y4t4 (theta44);
+        !!! t = 5
+        y1t5 (theta11);
+        y2t5 (theta22);
+        y3t5 (theta33);
+        y4t5 (theta44);
+
+        ! constrained intercepts --------------------------------------------
+
+        !! t = 0
+        [ y1t0@0 ];
+        [ y2t0@0 ];
+        [ y3t0@0 ];
+        [ y4t0@0 ];
+        !! t = 1
+        [ y1t1@0 ];
+        [ y2t1@0 ];
+        [ y3t1@0 ];
+        [ y4t1@0 ];
+        !! t = 2
+        [ y1t2@0 ];
+        [ y2t2@0 ];
+        [ y3t2@0 ];
+        [ y4t2@0 ];
+        !! t = 3
+        [ y1t3@0 ];
+        [ y2t3@0 ];
+        [ y3t3@0 ];
+        [ y4t3@0 ];
+        !! t = 4
+        [ y1t4@0 ];
+        [ y2t4@0 ];
+        [ y3t4@0 ];
+        [ y4t4@0 ];
+        !! t = 5
+        [ y1t5@0 ];
+        [ y2t5@0 ];
+        [ y3t5@0 ];
+        [ y4t5@0 ];
+
+        ! lta ---------------------------------------------------------------
+
+        !! initial profile membership
+        [ c0#1 ] (nu0);
+        c0#1 ON x (kappa0);
+
+        !! profile transitions
+        [ c1#1 ] (alpha0);
+        [ c2#1 ] (alpha0);
+        [ c3#1 ] (alpha0);
+        [ c4#1 ] (alpha0);
+        [ c5#1 ] (alpha0);
+        c1#1 ON c0#1 (beta00);
+        c2#1 ON c1#1 (beta00);
+        c3#1 ON c2#1 (beta00);
+        c4#1 ON c3#1 (beta00);
+        c5#1 ON c4#1 (beta00);
+
+    MODEL c0:
+      %c0#1%
+        ! profile specific means
+        [ y1t0 ] (mu10);
+        [ y2t0 ] (mu20);
+        [ y3t0 ] (mu30);
+        [ y4t0 ] (mu40);
+
+        ! covariate
+        c1 ON x (gamma00);
+
+      %c0#2%
+        ! profile specific means
+        [ y1t0 ] (mu11);
+        [ y2t0 ] (mu21);
+        [ y3t0 ] (mu31);
+        [ y4t0 ] (mu41);
+
+        ! covariate
+        c1 ON x (gamma10);
+
+    MODEL c1:
+      %c1#1%
+        ! profile specific means
+        [ y1t1 ] (mu10);
+        [ y2t1 ] (mu20);
+        [ y3t1 ] (mu30);
+        [ y4t1 ] (mu40);
+
+        ! covariate
+        c2 ON x (gamma00);
+
+        ! inertia
+        s1 ON s0 (phi0);
+
+      %c1#2%
+        ! profile specific means
+        [ y1t1 ] (mu11);
+        [ y2t1 ] (mu21);
+        [ y3t1 ] (mu31);
+        [ y4t1 ] (mu41);
+
+        ! covariate
+        c2 ON x (gamma10);
+
+        ! inertia
+        s1 ON s0 (phi1);
+
+    MODEL c2:
+      %c2#1%
+        ! profile specific means
+        [ y1t2 ] (mu10);
+        [ y2t2 ] (mu20);
+        [ y3t2 ] (mu30);
+        [ y4t2 ] (mu40);
+
+        ! covariate
+        c3 ON x (gamma00);
+
+        ! inertia
+        s2 ON s1 (phi0);
+
+      %c2#2%
+        ! profile specific means
+        [ y1t2 ] (mu11);
+        [ y2t2 ] (mu21);
+        [ y3t2 ] (mu31);
+        [ y4t2 ] (mu41);
+
+        ! covariate
+        c3 ON x (gamma10);
+
+        ! inertia
+        s2 ON s1 (phi1);
+
+    MODEL c3:
+      %c3#1%
+        ! profile specific means
+        [ y1t3 ] (mu10);
+        [ y2t3 ] (mu20);
+        [ y3t3 ] (mu30);
+        [ y4t3 ] (mu40);
+
+        ! covariate
+        c4 ON x (gamma00);
+
+        ! inertia
+        s3 ON s2 (phi0);
+
+      %c3#2%
+        ! profile specific means
+        [ y1t3 ] (mu11);
+        [ y2t3 ] (mu21);
+        [ y3t3 ] (mu31);
+        [ y4t3 ] (mu41);
+
+        ! covariate
+        c4 ON x (gamma10);
+
+        ! inertia
+        s3 ON s2 (phi1);
+
+    MODEL c4:
+      %c4#1%
+        ! profile specific means
+        [ y1t4 ] (mu10);
+        [ y2t4 ] (mu20);
+        [ y3t4 ] (mu30);
+        [ y4t4 ] (mu40);
+
+        ! covariate
+        c5 ON x (gamma00);
+
+        ! inertia
+        s4 ON s3 (phi0);
+
+      %c4#2%
+        ! profile specific means
+        [ y1t4 ] (mu11);
+        [ y2t4 ] (mu21);
+        [ y3t4 ] (mu31);
+        [ y4t4 ] (mu41);
+
+        ! covariate
+        c5 ON x (gamma10);
+
+        ! inertia
+        s4 ON s3 (phi1);
+
+    MODEL c5:
+      %c5#1%
+        ! profile specific means
+        [ y1t5 ] (mu10);
+        [ y2t5 ] (mu20);
+        [ y3t5 ] (mu30);
+        [ y4t5 ] (mu40);
+
+        ! inertia
+        s5 ON s4 (phi0);
+
+      %c5#2%
+        ! profile specific means
+        [ y1t5 ] (mu11);
+        [ y2t5 ] (mu21);
+        [ y3t5 ] (mu31);
+        [ y4t5 ] (mu41);
+
+        ! inertia
+        s5 ON s4 (phi1);
+
+
+    MODEL CONSTRAINT:
+      ! means for the first profile are higher than the second
+      mu10 > mu11;
+      mu20 > mu21;
+      mu30 > mu31;
+      mu40 > mu41;
+
+      ! make sure variances are greater than zero
+      psit > 0;
+      psip1 > 0;
+      psip2 > 0;
+      psip3 > 0;
+      psip4 > 0;
+      psis0 > 0;
+      psis > 0;
+      theta11 > 0;
+      theta22 > 0;
+      theta33 > 0;
+      theta44 > 0;
+
+    OUTPUT:
+      TECH1
+      TECH3
+      TECH4
+      TECH7
+      TECH8
+      TECH12
+      TECH13
+      TECH15
+      ENTROPY;
+
+    SAVEDATA:
+      ESTIMATES = culta_W7WVUNrII0x9ieu95cVv_estimates.dat;
+      RESULTS = culta_W7WVUNrII0x9ieu95cVv_results.dat;
+      TECH3 = culta_W7WVUNrII0x9ieu95cVv_tech3.dat;
+      TECH4 = culta_W7WVUNrII0x9ieu95cVv_tech4.dat;
+      FILE = culta_W7WVUNrII0x9ieu95cVv_cprobs.dat;
+      SAVE = CPROBABILITIES;
