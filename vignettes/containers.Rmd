@@ -20,7 +20,7 @@ To build the Apptainer/Singularity image file (`manculta.sif`),
 run the following.
 
 ```bash
-apptainer pull manculta.sif docker://ijapesigan/manculta
+apptainer pull manculta.sif docker://ijapesigan/manculta:2025-07-30-05204520
 ```
 
 ## RStudio IDE Docker Container
@@ -32,7 +32,7 @@ To facilitate exploration of the package, we created a Docker container based on
 To launch `Rstudio Server`, run the following.
 
 ```bash
-docker run --rm -ti -e PASSWORD=yourpassword -p 127.0.0.1:8787:8787 ijapesigan/manculta
+docker run --rm -ti -e PASSWORD=yourpassword -p 127.0.0.1:8787:8787 ijapesigan/manculta:2025-07-30-05204520
 ```
 
 Open `http://localhost:8787` on your web browser to launch `Rstudio Server`.
