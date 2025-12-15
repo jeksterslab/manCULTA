@@ -39,12 +39,17 @@ bibentry(
   year = year,
   doi = "10.1037/adb0001106",
   journal = "Psychology of Addictive Behaviors",
+  number = 8,
+  pages = "743-762",
+  publisher = "American Psychological Association (APA)",
+  volume = 39,
   note = note,
   textVersion = paste0(
     author_text, " ",
     "(", year, ")", ".", " ",
     title, ".", " ",
-    "Psychology of Addictive Behaviors", ".", " ",
+    "Psychology of Addictive Behaviors", ",",
+    "39(8)", ",", "743-762", ".", " ",
     "https://doi.org/10.1037/adb0001106", " "
   ),
   header = paste(
