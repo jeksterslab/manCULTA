@@ -144,6 +144,7 @@ as.data.frame.simculta <- function(x,
 }
 
 
+
 #' Write Data to File
 #'
 #' Generic function to write data to file.
