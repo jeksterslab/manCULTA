@@ -49,109 +49,109 @@ FigPowerCULTAEst(results_culta_est = results_culta_est)
 
 The parameters are indexed as follows:
 
-1.  $`\phi_{0}`$ parameter.  
+1.  $`\phi_{0}`$ parameter.\
     Autoregressive coefficient for profile 0.
 
-2.  $`\phi_{1}`$ parameter.  
+2.  $`\phi_{1}`$ parameter.\
     Autoregressive coefficient for profile 1.
 
-3.  $`\psi_{T}`$ parameter.  
+3.  $`\psi_{T}`$ parameter.\
     Variance in the common trait; reflects stable between-person
     differences.
 
-4.  $`\lambda_{t2}`$ parameter.  
+4.  $`\lambda_{t2}`$ parameter.\
     Factor loading for the common trait and item 2.
 
-5.  $`\lambda_{t3}`$ parameter.  
+5.  $`\lambda_{t3}`$ parameter.\
     Factor loading for the common trait and item 3.
 
-6.  $`\lambda_{t4}`$ parameter.  
+6.  $`\lambda_{t4}`$ parameter.\
     Factor loading for the common trait and item 4.
 
-7.  $`\psi_{p11}`$ parameter.  
+7.  $`\psi_{p11}`$ parameter.\
     Trait-specific item 1 variance.
 
-8.  $`\psi_{p22}`$ parameter.  
+8.  $`\psi_{p22}`$ parameter.\
     Trait-specific item 2 variance.
 
-9.  $`\psi_{p33}`$ parameter.  
+9.  $`\psi_{p33}`$ parameter.\
     Trait-specific item 3 variance.
 
-10. $`\psi_{p44}`$ parameter.  
+10. $`\psi_{p44}`$ parameter.\
     Trait-specific item 4 variance.
 
-11. $`\psi_{s0}`$ parameter.  
+11. $`\psi_{s0}`$ parameter.\
     Initial-day variance of the common state; reflects variability in
     intoxication levels at observation start.
 
-12. $`\psi_{s}`$ parameter.  
+12. $`\psi_{s}`$ parameter.\
     Residual state variance over days; captures within-person daily
     fluctuations not explained by trait or AR effects.
 
-13. $`\lambda_{s2}`$ parameter.  
+13. $`\lambda_{s2}`$ parameter.\
     Factor loading for the common state and item 2.
 
-14. $`\lambda_{s3}`$ parameter.  
+14. $`\lambda_{s3}`$ parameter.\
     Factor loading for the common state and item 3.
 
-15. $`\lambda_{s4}`$ parameter.  
+15. $`\lambda_{s4}`$ parameter.\
     Factor loading for the common state and item 4.
 
-16. $`\theta_{11}`$ parameter.  
+16. $`\theta_{11}`$ parameter.\
     Unique state variance for item 1.
 
-17. $`\theta_{22}`$ parameter.  
+17. $`\theta_{22}`$ parameter.\
     Unique state variance for item 2.
 
-18. $`\theta_{33}`$ parameter.  
+18. $`\theta_{33}`$ parameter.\
     Unique state variance for item 3.
 
-19. $`\theta_{44}`$ parameter.  
+19. $`\theta_{44}`$ parameter.\
     Unique state variance for item 4.
 
-20. $`\nu_{0}`$ parameter.  
+20. $`\nu_{0}`$ parameter.\
     Intercept for initial log-odds of profile 0 (vs. profile 1) when
     $`X = 0`$.
 
-21. $`\kappa_{0}`$ parameter.  
+21. $`\kappa_{0}`$ parameter.\
     Covariate effect on initial profile membership; higher $`X`$
     increases odds of profile 0.
 
-22. $`\alpha_{0}`$ parameter.  
+22. $`\alpha_{0}`$ parameter.\
     Baseline log-odds of being in profile 0 across days.
 
-23. $`\beta_{00}`$ parameter.  
+23. $`\beta_{00}`$ parameter.\
     Increased odds of staying in profile 0 if previously in that
     profile; reflects persistence.
 
-24. $`\gamma_{00}`$ parameter.  
+24. $`\gamma_{00}`$ parameter.\
     Covariate effect on staying in profile 0; higher $`X`$ increases
     persistence.
 
-25. $`\gamma_{10}`$ parameter.  
+25. $`\gamma_{10}`$ parameter.\
     Covariate effect on switching from state to profile 0; higher $`X`$
     increases transition odds.
 
-26. $`\mu_{10}`$ parameter.  
+26. $`\mu_{10}`$ parameter.\
     Profile specific mean for profile 0 and item 1.
 
-27. $`\mu_{20}`$ parameter.  
+27. $`\mu_{20}`$ parameter.\
     Profile specific mean for profile 0 and item 2.
 
-28. $`\mu_{30}`$ parameter.  
+28. $`\mu_{30}`$ parameter.\
     Profile specific mean for profile 0 and item 3.
 
-29. $`\mu_{40}`$ parameter.  
+29. $`\mu_{40}`$ parameter.\
     Profile specific mean for profile 0 and item 4.
 
-30. $`\mu_{11}`$ parameter.  
+30. $`\mu_{11}`$ parameter.\
     Profile specific mean for profile 1 and item 1.
 
-31. $`\mu_{21}`$ parameter.  
+31. $`\mu_{21}`$ parameter.\
     Profile specific mean for profile 1 and item 2.
 
-32. $`\mu_{31}`$ parameter.  
+32. $`\mu_{31}`$ parameter.\
     Profile specific mean for profile 1 and item 3.
 
-33. $`\mu_{41}`$ parameter.  
+33. $`\mu_{41}`$ parameter.\
     Profile specific mean for profile 1 and item 4.
