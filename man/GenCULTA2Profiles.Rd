@@ -490,8 +490,8 @@ data <- GenCULTA2Profiles(
 
 }
 \seealso{
-Other Data Generation Functions: 
-\code{\link{GenData}()}
+Other Data Generation Functions:
+\code{\link[=GenData]{GenData()}}
 }
 \author{
 Ivan Jacob Agaloos Pesigan

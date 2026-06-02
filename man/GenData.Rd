@@ -22,8 +22,8 @@ as.matrix(sim)
 }
 }
 \seealso{
-Other Data Generation Functions: 
-\code{\link{GenCULTA2Profiles}()}
+Other Data Generation Functions:
+\code{\link[=GenCULTA2Profiles]{GenCULTA2Profiles()}}
 }
 \concept{Data Generation Functions}
 \keyword{gendata}
