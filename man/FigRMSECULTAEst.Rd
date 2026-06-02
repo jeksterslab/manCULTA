@@ -166,16 +166,16 @@ FigRMSECULTAEst(results_culta_est)
 
 }
 \seealso{
-Other Figure Functions: 
-\code{\link{FigBiasCULTAEst}()},
-\code{\link{FigBiasLTAEst}()},
-\code{\link{FigCoverageCULTAEst}()},
-\code{\link{FigCoverageLTAEst}()},
-\code{\link{FigEntropy}()},
-\code{\link{FigIC}()},
-\code{\link{FigPowerCULTAEst}()},
-\code{\link{FigPowerLTAEst}()},
-\code{\link{FigRMSELTAEst}()}
+Other Figure Functions:
+\code{\link[=FigBiasCULTAEst]{FigBiasCULTAEst()}},
+\code{\link[=FigBiasLTAEst]{FigBiasLTAEst()}},
+\code{\link[=FigCoverageCULTAEst]{FigCoverageCULTAEst()}},
+\code{\link[=FigCoverageLTAEst]{FigCoverageLTAEst()}},
+\code{\link[=FigEntropy]{FigEntropy()}},
+\code{\link[=FigIC]{FigIC()}},
+\code{\link[=FigPowerCULTAEst]{FigPowerCULTAEst()}},
+\code{\link[=FigPowerLTAEst]{FigPowerLTAEst()}},
+\code{\link[=FigRMSELTAEst]{FigRMSELTAEst()}}
 }
 \author{
 Ivan Jacob Agaloos Pesigan

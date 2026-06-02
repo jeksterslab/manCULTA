@@ -154,14 +154,14 @@ FitLTA2Profiles(data = data)
 
 }
 \seealso{
-Other Model Fitting Functions: 
-\code{\link{FitCULTA1Profile}()},
-\code{\link{FitCULTA2Profiles}()},
-\code{\link{FitRILTA2Profiles}()},
-\code{\link{InputCULTA1Profile}()},
-\code{\link{InputCULTA2Profiles}()},
-\code{\link{InputLTA2Profiles}()},
-\code{\link{InputRILTA2Profiles}()}
+Other Model Fitting Functions:
+\code{\link[=FitCULTA1Profile]{FitCULTA1Profile()}},
+\code{\link[=FitCULTA2Profiles]{FitCULTA2Profiles()}},
+\code{\link[=FitRILTA2Profiles]{FitRILTA2Profiles()}},
+\code{\link[=InputCULTA1Profile]{InputCULTA1Profile()}},
+\code{\link[=InputCULTA2Profiles]{InputCULTA2Profiles()}},
+\code{\link[=InputLTA2Profiles]{InputLTA2Profiles()}},
+\code{\link[=InputRILTA2Profiles]{InputRILTA2Profiles()}}
 }
 \author{
 Ivan Jacob Agaloos Pesigan

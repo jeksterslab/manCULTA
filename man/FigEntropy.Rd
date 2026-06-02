@@ -20,16 +20,16 @@ FigEntropy(results_entropy)
 
 }
 \seealso{
-Other Figure Functions: 
-\code{\link{FigBiasCULTAEst}()},
-\code{\link{FigBiasLTAEst}()},
-\code{\link{FigCoverageCULTAEst}()},
-\code{\link{FigCoverageLTAEst}()},
-\code{\link{FigIC}()},
-\code{\link{FigPowerCULTAEst}()},
-\code{\link{FigPowerLTAEst}()},
-\code{\link{FigRMSECULTAEst}()},
-\code{\link{FigRMSELTAEst}()}
+Other Figure Functions:
+\code{\link[=FigBiasCULTAEst]{FigBiasCULTAEst()}},
+\code{\link[=FigBiasLTAEst]{FigBiasLTAEst()}},
+\code{\link[=FigCoverageCULTAEst]{FigCoverageCULTAEst()}},
+\code{\link[=FigCoverageLTAEst]{FigCoverageLTAEst()}},
+\code{\link[=FigIC]{FigIC()}},
+\code{\link[=FigPowerCULTAEst]{FigPowerCULTAEst()}},
+\code{\link[=FigPowerLTAEst]{FigPowerLTAEst()}},
+\code{\link[=FigRMSECULTAEst]{FigRMSECULTAEst()}},
+\code{\link[=FigRMSELTAEst]{FigRMSELTAEst()}}
 }
 \author{
 Ivan Jacob Agaloos Pesigan
